@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "sophora-repo-import.fullname" . }}
+  labels: {{- include "sophora-repo-import.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: import-job
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" # TODO: Build image with latest wget and aws-cli
+          env:
+            - name: REPO_ZIP_URL
+              value: {{ .Values.repoDownload.zipUrl | quote }}
+            - name: HTTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.repoDownload.usernameKey | quote }}
+                  name: {{ .Values.repoDownload.secretName | quote }}
+            - name: HTTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.repoDownload.passwordKey }}
+                  name: {{ .Values.repoDownload.secretName | quote }}
+            - name: AWS_S3_BUCKET
+              value: {{ .Values.s3.bucketName | quote }}
+            - name: AWS_S3_URL
+              value: {{ .Values.s3.s3Url | quote }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.s3.secretAccessKeyKey | quote }}
+                  name: {{ .Values.s3.secretName | quote }}
+                  optional: false
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.s3.accessKeyIdKey | quote }}
+                  name: {{ .Values.s3.secretName | quote }}
+                  optional: false
+            - name: S3_BUCKET_FOLDER
+              value: {{ .Values.s3.targetDirectory }}
+          command: ["/bin/sh"]
+          args: ["-c", "apk add --no-cache wget aws-cli; mkdir dl; cd dl; wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" $REPO_ZIP_URL; unzip -q *.zip; rm *.zip; aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url=\"${AWS_S3_URL}\""]

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sophora-server.fullname" . }}
+  labels: {{- include "sophora-server.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
+  selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
+  sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}
+  ports:
+    - port: 1196
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: 1197
+      targetPort: jms
+      protocol: TCP
+      name: jms

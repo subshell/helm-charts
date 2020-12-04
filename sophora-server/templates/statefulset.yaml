@@ -1,0 +1,260 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-server.fullname" . }}
+  labels:
+    {{- include "sophora-server.labels" . | nindent 4 }}
+spec:
+  {{ if eq .Values.sophora.server.isClusterServer true -}}
+  replicas: 1
+  {{- else -}}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  serviceName: {{ include "sophora-server.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "sophora-server.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sophora-server.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{ if eq .Values.sophora.server.isClusterServer true -}}
+      initContainers:
+        - name: sophora-prestop-initializer
+          image: "{{ .Values.preStop.image.repository }}:{{ .Values.preStop.image.tag }}"
+          command: ["cp", "/sophora-prestop", "/tools/sophora-prestop"]
+          volumeMounts:
+            - name: tools
+              mountPath: "/tools"
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: logback-xml-config
+              mountPath: /sophora/config/logback.xml
+              subPath: logback.xml
+            - name: sophora-properties-config
+              mountPath: /sophora/config/sophora.properties
+              subPath: sophora.properties
+            - name: sophora-server-storage
+              mountPath: /sophora/config
+              subPath: config
+            - name: sophora-server-storage
+              mountPath: /sophora/data
+              subPath: data
+            - name: sophora-server-storage
+              mountPath: /sophora/solr
+              subPath: solr
+
+            # Repository Folder Structure
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/repository
+              subPath: repository.repository
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/changeregistry
+              subPath: repository.changeregistry
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/syncRequest
+              subPath: repository.syncRequest
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/version
+              subPath: repository.version
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/default/db
+              subPath: repository.workspaces.default.db
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/default/index
+              subPath: repository.workspaces.default.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/live/index
+              subPath: repository.workspaces.live.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/live/db
+              subPath: repository.workspaces.live.db
+
+            # Repository Archive Structure
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/repository
+              subPath: repository_archive.repository
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/version
+              subPath: repository_archive.version
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/workspaces/default/index
+              subPath: repository_archive.workspaces.default.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/workspaces/default/db
+              subPath: repository_archive.workspaces.default.db
+
+            # Main Repo
+            - name: sophora-server-repository
+              subPath: repository.xml
+              mountPath: /sophora/repository/repository.xml
+            - name: sophora-server-repository
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository/workspaces/default/workspace.xml
+            - name: sophora-server-repository
+              subPath: workspace.live.xml
+              mountPath: /sophora/repository/workspaces/live/workspace.xml
+
+            # Archive Repo
+            - name: sophora-server-archive
+              subPath: repository.xml
+              mountPath: /sophora/repository_archive/repository.xml
+            - name: sophora-server-archive
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
+
+            {{ if eq .Values.sophora.server.isClusterServer true -}}
+            # Shutdown-Hook
+            - name: tools
+              mountPath: "/tools"
+            {{- end }}
+          env:
+            {{ if .Values.sophora.server.persistence.mysql.repository -}}
+            - name: REPOSITORY_MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: {{ required "MySQL hostname key must be provided in the form hostname:port" .Values.sophora.server.persistence.mysql.repository.hostnameKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
+                  optional: false
+            - name: REPOSITORY_MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.mysql.repository.usernameKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
+                  optional: false
+            - name: REPOSITORY_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.mysql.repository.passwordKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
+                  optional: false
+            {{- end }}
+            {{ if .Values.sophora.server.persistence.mysql.archive -}}
+            - name: ARCHIVE_MYSQL_HOST
+              valueFrom:
+                secretKeyRef:
+                  key: {{ required "MySQL hostname must be provided in the form hostname:port" .Values.sophora.server.persistence.mysql.archive.hostnameKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
+                  optional: false
+            - name: ARCHIVE_MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.mysql.archive.usernameKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
+                  optional: false
+            - name: ARCHIVE_MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.mysql.archive.passwordKey }}
+                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
+                  optional: false
+            {{- end }}
+            - name: JAVA_OPTS
+              value: "-DREPOSITORY_MYSQL_HOST=$(REPOSITORY_MYSQL_HOST)
+                      -DREPOSITORY_MYSQL_USER=$(REPOSITORY_MYSQL_USER)
+                      -DREPOSITORY_MYSQL_PASSWORD=$(REPOSITORY_MYSQL_PASSWORD)
+                      -DARCHIVE_MYSQL_HOST=$(ARCHIVE_MYSQL_HOST)
+                      -DARCHIVE_MYSQL_USER=$(ARCHIVE_MYSQL_USER)
+                      -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)" # -XX:+UseShenandoahGC
+            - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.binaryStore.s3.secret.accessKeyIdKey }}
+                  name: {{ .Values.sophora.server.binaryStore.s3.secret.name }}
+                  optional: false
+            - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.binaryStore.s3.secret.secretAccessKeyKey }}
+                  name: {{ .Values.sophora.server.binaryStore.s3.secret.name }}
+                  optional: false
+            {{ if eq .Values.sophora.server.isClusterServer true -}}
+            - name: SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.authentication.secret.usernameKey }}
+                  name: {{ .Values.sophora.server.authentication.secret.name }}
+                  optional: false
+            - name: SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.authentication.secret.passwordKey }}
+                  name: {{ .Values.sophora.server.authentication.secret.name }}
+                  optional: false
+            {{- end }}
+          ports:
+            - containerPort: 1196
+              name: http
+            - containerPort: 1197
+              name: jms
+          startupProbe:
+            httpGet:
+              path: /status/started
+              port: 1196
+            initialDelaySeconds: 100
+            failureThreshold: 15000
+            periodSeconds: 30
+          livenessProbe:
+            httpGet:
+              path: /status/liveness
+              port: 1196
+            initialDelaySeconds: 60
+            periodSeconds: 60
+          readinessProbe:
+            httpGet:
+              path: /status/ready
+              port: 1196
+            failureThreshold: 15
+            initialDelaySeconds: 30
+            periodSeconds: 15
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: sophora-properties-config
+          configMap:
+            name: {{ include "sophora-server.propertiesName" . }}
+        - name: logback-xml-config
+          configMap:
+            name: {{ include "sophora-server.logbackConfigName" . }}
+        {{ if eq .Values.sophora.server.isClusterServer true -}}
+        - name: tools
+          emptyDir: {}
+        {{- end }}
+        - name: sophora-server-storage
+          persistentVolumeClaim:
+            claimName: sophora-server-storage
+        - name: sophora-server-repository
+          configMap:
+            name: {{ include "sophora-server.repositoryConfigName" . }}
+        - name: sophora-server-archive
+          configMap:
+            name: {{ include "sophora-server.archiveConfigName" . }}
+  volumeClaimTemplates:
+    - metadata:
+        name: sophora-server-storage
+        labels: {{- include "sophora-server.labels" . | nindent 10 }}
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{ if .Values.sophora.server.storage.dataSource -}}
+        dataSource: {{ toYaml .Values.sophora.server.storage.dataSource | nindent 10 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.sophora.server.storage.resources | nindent 10 }}
+        storageClassName: {{ .Values.sophora.server.storage.storageClass }}

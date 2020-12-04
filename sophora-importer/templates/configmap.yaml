@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-importer.fullname" . }}
+  labels:
+  {{- include "sophora-importer.labels" . | nindent 4 }}
+data:
+  application.yml: |- {{ toYaml (required "A configuration is required" .Values.sophora.importer.configuration) | nindent 4 }}
+  loader.properties: |-
+    # Loads resources (.class files etc.) from nested jar files in directories.
+    # Should contain comma-separated list of directories, archives, or directories within archives
+    # (e.g. lib,${HOME}/app/lib, earlier entries take precedence).
+    loader.path=/additionalLibs

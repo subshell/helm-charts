@@ -1,0 +1,150 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-importer.fullname" . }}
+  labels:
+  {{- include "sophora-importer.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  serviceName: {{ include "sophora-importer.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "sophora-importer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{if .Values.podAnnotations}}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{end}}
+      labels:
+        {{- include "sophora-importer.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: bucket-mount
+        image: efrecon/s3fs:1.86
+        env:
+          - name: AWS_S3_BUCKET
+            value: {{ .Values.sophora.importer.s3Bucket.name }}
+          - name: AWS_S3_URL
+            value: {{ .Values.sophora.importer.s3Bucket.url }}
+          - name: S3FS_DEBUG
+            value: "0"
+          - name: AWS_S3_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.importer.s3Bucket.secret.secretAccessKeyKey }}
+                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                optional: false
+          - name: AWS_S3_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
+                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                optional: false
+        imagePullPolicy: IfNotPresent
+        lifecycle:
+          postStart:
+            exec:
+              # workaround because the importer can't create the folder by itself.
+              command:
+                - sh
+                - '-c'
+                - |
+                  echo Creating import folders for importer:
+                  mkdir -p /import/temp
+                  mkdir -p /opt/s3fs/bucket/temp
+                  {{- range .Values.sophora.importer.instances }}
+                  mkdir -p /import/{{.}}/success
+                  mkdir -p /import/{{.}}/failure
+                  mkdir -p /import/{{.}}/incoming
+                  mkdir -p /opt/s3fs/bucket/{{.}}/success
+                  mkdir -p /opt/s3fs/bucket/{{.}}/failure
+                  mkdir -p /opt/s3fs/bucket/{{.}}/incoming
+                  {{ end }}
+                  echo ...folders created as follows:
+                  find /import
+                  find /opt/s3fs/bucket
+        resources:
+          limits:
+            cpu: 300m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        volumeMounts:
+          - name: shared-imports
+            mountPath: /opt/s3fs/bucket
+            mountPropagation: Bidirectional
+          - name: local-import-folders
+            mountPath: /import
+        securityContext:
+          privileged: true
+      - name: importer
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: JAVA_OPTS
+            value: {{ .Values.sophora.importer.javaOptions }}
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: {{.Values.sophora.authentication.secret.usernameKey}}
+                name: {{.Values.sophora.authentication.secret.name}}
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: {{.Values.sophora.authentication.secret.passwordKey}}
+                name: {{.Values.sophora.authentication.secret.name}}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        ports:
+        - containerPort: 8082
+        - containerPort: 1496
+        volumeMounts:
+        - name: importer-config
+          mountPath: /sophora/application.yml
+          subPath: application.yml
+        - name: importer-config
+          mountPath: /sophora/loader.properties
+          subPath: loader.properties
+        - name: shared-imports
+          mountPath: /import/
+          mountPropagation: Bidirectional
+        - name: local-import-folders
+          mountPath: /import-local/
+        - name: libs
+          mountPath: /additionalLibs
+        securityContext:
+          privileged: true
+#        - name: ???
+#          mountPath: /xsl
+      initContainers:
+        {{- with .Values.sophora.importer.additionalLibsImage }}
+        {{- if .repository }}
+        - name: additional-libs-provider
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - "mv {{ .libsPath }}/* /__internal"
+          volumeMounts:
+            - name: libs
+              mountPath: "__internal"
+        {{end}}
+        {{- end}}
+      volumes:
+      - name: importer-config
+        configMap:
+          name: {{ include "sophora-importer.fullname" . }}
+      - name: shared-imports
+        emptyDir: {}
+      - name: local-import-folders
+        emptyDir: {}
+      - name: libs
+        emptyDir: {}

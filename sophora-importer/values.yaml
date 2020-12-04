@@ -1,0 +1,53 @@
+# Default values for sophora-importer.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.subshell.com/sophora/sophora-importer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "master"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+sophora:
+  serverUrl: ""
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+  importer:
+    javaOptions: "-XX:+UseShenandoahGC"
+    s3Bucket:
+      name: ""
+      url: "https://storage.googleapis.com"
+      secret:
+        name: ""
+        secretAccessKeyKey: "accessKey"
+        accessKeyIdKey: "accessKeyId"
+    additionalLibsImage:
+      repository: ""
+      tag: ""
+      libsPath: "/additionalLibs"
+
+    instances: []
+    configuration: {}
+
+
+podAnnotations: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # resources:
+  #   requests:
+  #     memory: "0.4G"
+  #     cpu: "0.01"
+  #   limits:
+  #     memory: "2G"
+  #     cpu: "0.5"

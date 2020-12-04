@@ -1,0 +1,220 @@
+{{ if .Values.sophora.server.persistence.mysql.repository -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-server.repositoryConfigName" . }}
+  labels:
+  {{- include "sophora-server.labels" . | nindent 4 }}
+data:
+  repository.xml: |-
+    <?xml version="1.0"?>
+    <!--
+       Licensed to the Apache Software Foundation (ASF) under one or more
+       contributor license agreements.  See the NOTICE file distributed with
+       this work for additional information regarding copyright ownership.
+       The ASF licenses this file to You under the Apache License, Version 2.0
+       (the "License"); you may not use this file except in compliance with
+       the License.  You may obtain a copy of the License at
+
+           http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+    -->
+    <!DOCTYPE Repository
+              PUBLIC "-//The Apache Software Foundation//DTD Jackrabbit 2.0//EN"
+              "http://jackrabbit.apache.org/dtd/repository-2.0.dtd">
+    <Repository>
+    	<!--
+    		virtual file system where the repository stores global state (e.g.
+    		registered namespaces, custom node types, etc.)
+    	-->
+    	<FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+    		<param name="path" value="${rep.home}/repository" />
+    	</FileSystem>
+
+    	<!--
+    		security configuration
+    	-->
+    	<Security appName="Jackrabbit">
+    		<AccessManager class="org.apache.jackrabbit.core.security.simple.SimpleAccessManager">
+    			<!-- <param name="config" value="${rep.home}/access.xml"/> -->
+    		</AccessManager>
+
+    		<LoginModule class="org.apache.jackrabbit.core.security.simple.SimpleLoginModule">
+    			<!--
+    			   anonymous user name ('anonymous' is the default value)
+    			-->
+    			<param name="anonymousId" value="anonymous"/>
+    			<!--
+    			   administrator user id (default value if param is missing is 'admin')
+    			-->
+    			<param name="adminId" value="admin"/>
+    		</LoginModule>
+    	</Security>
+
+    	<!--
+    		location of workspaces root directory and name of default workspace
+    	-->
+    	<Workspaces rootPath="${rep.home}/workspaces"
+    		defaultWorkspace="default" />
+    	<!--
+    		workspace configuration template: used to create the initial workspace
+    		if there's no workspace yet
+    	-->
+    	<Workspace name="${wsp.name}">
+    		<FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+    			<param name="path" value="${wsp.home}"/>
+    		</FileSystem>
+    		<!--
+    			persistence manager of the workspace: class: FQN of class
+    			implementing the PersistenceManager interface
+    		-->
+            <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+                    <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                    <param name="consistencyCheck" value="false"/>
+                    <param name="minBlobSize" value="16384"/>
+                    <param name="url" value="jdbc:mysql://${REPOSITORY_MYSQL_HOST}"/>
+                    <param name="user" value="${REPOSITORY_MYSQL_USER}"/>
+                    <param name="password" value="${REPOSITORY_MYSQL_PASSWORD}"/>
+                    <param name="schema" value="mysql"/>
+                    <param name="bundleCacheSize" value="1024"/>
+                    <param name="indexTablespace" value="mysql_IDX"/>
+                    <param name="schemaObjectPrefix" value="${wsp.name}"/>
+            </PersistenceManager>
+    		<!--
+    			Search index and the file system it uses. class: FQN of class
+    			implementing the QueryHandler interface
+    		-->
+    		<SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+    			<param name="path" value="${wsp.home}/index"/>
+    			<param name="respectDocumentOrder" value="false"/>
+    			<param name="minMergeDocs" value="10000"/>
+    			<param name="mergeFactor" value="5"/>
+    			<param name="cacheSize" value="10000"/>
+    			<param name="initializeHierarchyCache" value="false"/>
+    		</SearchIndex>
+    	</Workspace>
+
+    	<!--
+    		Configures the versioning
+    	-->
+    	<Versioning rootPath="${rep.home}/version">
+    		<FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+    			<param name="path" value="${rep.home}/version" />
+    		</FileSystem>
+    		<!--
+    			persistence manager of the workspace: class: FQN of class
+    			implementing the PersistenceManager interface
+    		-->
+            <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+                    <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                    <param name="consistencyCheck" value="false"/>
+                    <param name="minBlobSize" value="16384"/>
+                    <param name="url" value="jdbc:mysql://${REPOSITORY_MYSQL_HOST}/versions"/>
+                    <param name="user" value="${REPOSITORY_MYSQL_USER}"/>
+                    <param name="password" value="${REPOSITORY_MYSQL_PASSWORD}"/>
+                    <param name="databaseType" value="mysql"/>
+                    <param name="bundleCacheSize" value="1024"/>
+                    <param name="schemaObjectPrefix" value="ver_"/>
+            </PersistenceManager>
+    	</Versioning>
+    		<!--
+    			Search index and the file system it uses. class: FQN of class
+    			implementing the QueryHandler interface
+    		-->
+    	<SearchIndex
+    		class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+    		<param name="path" value="${rep.home}/repository/index" />
+    		<param name="respectDocumentOrder" value="false" />
+    		<param name="minMergeDocs" value="10000" />
+    		<param name="mergeFactor" value="5" />
+    		<param name="cacheSize" value="10000" />
+    		<param name="initializeHierarchyCache" value="false" />
+    	</SearchIndex>
+
+    </Repository>
+
+  workspace.default.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Workspace name="default">
+      <!--
+        virtual file system of the workspace: class: FQN of class
+        implementing the FileSystem interface
+      -->
+      <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+        <param name="path" value="${wsp.home}"/>
+      </FileSystem>
+      <!--
+          persistence manager of the workspace: class: FQN of class
+          implementing the PersistenceManager interface
+      -->
+      <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+      <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
+      <param name="consistencyCheck" value="false"/>
+      <param name="minBlobSize" value="16384"/>
+      <param name="url" value="jdbc:mysql://${REPOSITORY_MYSQL_HOST}/main"/>
+      <param name="user" value="${REPOSITORY_MYSQL_USER}"/>
+      <param name="password" value="${REPOSITORY_MYSQL_PASSWORD}"/>
+      <param name="databaseType" value="mysql"/>
+      <param name="bundleCacheSize" value="1024"/>
+
+      <param name="schemaObjectPrefix" value="${wsp.name}_"/>
+      </PersistenceManager>
+      <!--
+        Search index and the file system it uses. class: FQN of class
+        implementing the QueryHandler interface
+      -->
+      <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+        <param name="path" value="${wsp.home}/index"/>
+        <param name="respectDocumentOrder" value="false"/>
+        <param name="minMergeDocs" value="10000"/>
+        <param name="mergeFactor" value="5"/>
+        <param name="cacheSize" value="10000"/>
+        <param name="initializeHierarchyCache" value="false"/>
+      </SearchIndex>
+    </Workspace>
+
+  workspace.live.xml: |-
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Workspace name="live">
+      <!--
+      virtual file system of the workspace: class: FQN of class
+      implementing the FileSystem interface
+      -->
+      <FileSystem class="org.apache.jackrabbit.core.fs.local.LocalFileSystem">
+        <param name="path" value="${wsp.home}"/>
+      </FileSystem>
+      <!--
+        persistence manager of the workspace: class: FQN of class
+        implementing the PersistenceManager interface
+      -->
+      <PersistenceManager class="org.apache.jackrabbit.core.persistence.pool.MySqlPersistenceManager">
+        <param name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <param name="consistencyCheck" value="false"/>
+        <param name="minBlobSize" value="16384"/>
+        <param name="url" value="jdbc:mysql://${REPOSITORY_MYSQL_HOST}/live"/>
+        <param name="user" value="${REPOSITORY_MYSQL_USER}"/>
+        <param name="password" value="${REPOSITORY_MYSQL_PASSWORD}"/>
+        <param name="databaseType" value="mysql"/>
+        <param name="bundleCacheSize" value="1024"/>
+
+        <param name="schemaObjectPrefix" value="${wsp.name}_"/>
+      </PersistenceManager>
+      <!--
+      Search index and the file system it uses. class: FQN of class
+      implementing the QueryHandler interface
+      -->
+      <SearchIndex class="org.apache.jackrabbit.core.query.lucene.SearchIndex">
+        <param name="path" value="${wsp.home}/index"/>
+        <param name="respectDocumentOrder" value="false"/>
+        <param name="minMergeDocs" value="10000"/>
+        <param name="mergeFactor" value="5"/>
+        <param name="cacheSize" value="10000"/>
+        <param name="initializeHierarchyCache" value="false"/>
+      </SearchIndex>
+    </Workspace>
+{{- end }}
