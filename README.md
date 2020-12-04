@@ -33,7 +33,7 @@ To **deploy** a Helm Chart manually:
 
     helm push <path-to-the-chart> sophora
 
-To **deploy** a Helm Chart for the first time:
+To **install** a Helm Chart for the first time:
 
     helm install -f values.yaml <name-of-the-release> <name-of-the-chart>[:<version-of-the-chart>]
 
