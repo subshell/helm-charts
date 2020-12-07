@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-dashboard-old.fullname" . }}
+  labels:
+    {{- include "sophora-dashboard-old.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  serviceName: {{ include "sophora-dashboard-old.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "sophora-dashboard-old.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config-cm.yaml") . | sha256sum }}
+        {{if .Values.podAnnotations}}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{end}}
+      labels:
+        {{- include "sophora-dashboard-old.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: config-generator
+          image: "alpine:latest"
+          env:
+            - name: SERVER_SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.serverSecret.usernameKey}}
+                  name: {{.Values.sophora.authentication.serverSecret.name}}
+            - name: SERVER_SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.serverSecret.passwordKey}}
+                  name: {{.Values.sophora.authentication.serverSecret.name}}
+            - name: SERVER_SOLRUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.solrSecret.usernameKey}}
+                  name: {{.Values.sophora.authentication.solrSecret.name}}
+            - name: SERVER_SOLRPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.solrSecret.passwordKey}}
+                  name: {{.Values.sophora.authentication.solrSecret.name}}
+            - name: GLOBAL_JOLOKIAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecret.usernameKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecret.name}}
+            - name: GLOBAL_JOLOKIAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecret.passwordKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecret.name}}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              # enable envsubst
+              apk add --update libintl && apk add --virtual build_deps gettext
+              envsubst < /dashboard-config-template/dashboard-config.json > /dashboard-config/dashboard-config.json
+              cat /dashboard-config/dashboard-config.json
+              echo "Generated /dashboard-config/dashboard-config.json from ENV"
+          volumeMounts:
+            - name: sophora-dashboard-config-template
+              mountPath: /dashboard-config-template
+            - name: sophora-dashboard-config
+              mountPath: /dashboard-config
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8090
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: sophora-dashboard-config
+              mountPath: /app/dashboard/config/dashboard-config.json
+              subPath: dashboard-config.json
+#            - name: sophora-dashboard-logback
+#              mountPath: /app/dashboard/config/logback.xml
+#              subPath: logback.xml
+            - name: persistence
+              mountPath: /app/dashboard/persistence
+            - name: rrd
+              mountPath: /app/dashboard/rrd
+          env:
+            - name: JAVA_OPTS
+              value: {{ .Values.javaOptions }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+
+      volumes:
+        - name: sophora-dashboard-config-template
+          configMap:
+            name: {{ include "sophora-dashboard-old.fullname" . }}
+        - name: sophora-dashboard-logback
+          configMap:
+            name: {{ include "sophora-dashboard-old.fullname" . }}-logback
+        - name: sophora-dashboard-config
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: persistence
+        labels: {{- include "sophora-dashboard-old.labels" . | nindent 10 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.storageClassName }}
+        resources:
+          requests:
+            storage: 1Mi
+    - metadata:
+        name: rrd
+        labels: {{- include "sophora-dashboard-old.labels" . | nindent 10 }}
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: {{ .Values.storageClassName }}
+        resources:
+          requests:
+            storage: 200Mi

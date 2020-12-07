@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-dashboard-old.fullname" . }}
+  labels:
+    {{- include "sophora-dashboard-old.labels" . | nindent 4 }}
+data:
+  dashboard-config.json: |
+    {
+      httpPort: 8090,
+      hostname: "localhost",
+      defaultPollInterval: 10000,
+      statusPollInterval: 1000,
+      documentCountInterval: 3600000,
+      ibfEnabled: {{.Values.sophora.ibfEnabled}},
+      server: {
+          sophoraUsername: "${SERVER_SOPHORAUSERNAME}",
+          sophoraPassword: "${SERVER_SOPHORAPASSWORD}",
+          masterHostname: "{{.Values.sophora.serverHostname}}",
+          masterHttpPort: {{.Values.sophora.serverPort}},
+          contentApiPath: "/content-api",
+          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}",
+          jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
+          solrUsername: "${SERVER_SOLRUSERNAME}",
+          solrPassword: "${SERVER_SOLRPASSWORD}",
+          solrPath: "{{.Values.sophora.solrUrl}}",
+          tomcatJmx: {
+              port: 9012
+          }
+      },
+      importer: {
+          jolokiaPath: "{{.Values.sophora.jolokiaPath}}"
+          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}",
+      },
+      indexer: {
+          jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
+          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}"
+      }
+    }
