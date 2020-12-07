@@ -30,7 +30,7 @@ data:
           }
       },
       importer: {
-          jolokiaPath: "{{.Values.sophora.jolokiaPath}}"
+          jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
           jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
           jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}",
       },
