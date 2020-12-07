@@ -32,7 +32,7 @@ data:
       importer: {
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
           jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
-          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}",
+          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}"
       },
       indexer: {
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
