@@ -166,13 +166,16 @@ spec:
                   name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
                   optional: false
             {{- end }}
-            - name: JAVA_OPTS
+            - name: ADDITIONAL_JAVA_OPTIONS
+              value: {{ .Values.sophora.server.additionalJavaOptions }}
+            - name: JDK_JAVA_OPTIONS
               value: "-DREPOSITORY_MYSQL_HOST=$(REPOSITORY_MYSQL_HOST)
                       -DREPOSITORY_MYSQL_USER=$(REPOSITORY_MYSQL_USER)
                       -DREPOSITORY_MYSQL_PASSWORD=$(REPOSITORY_MYSQL_PASSWORD)
                       -DARCHIVE_MYSQL_HOST=$(ARCHIVE_MYSQL_HOST)
                       -DARCHIVE_MYSQL_USER=$(ARCHIVE_MYSQL_USER)
-                      -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)" # -XX:+UseShenandoahGC
+                      -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)
+                      $(ADDITIONAL_JAVA_OPTIONS)" # -XX:+UseShenandoahGC
             - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:

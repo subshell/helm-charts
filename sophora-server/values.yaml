@@ -53,6 +53,8 @@ sophora:
         usernameKey: username
         passwordKey: password
 
+    additionalJavaOptions: ""
+
     properties:
       # sophora.home=/sophora
       # sophora.replication.mode=
