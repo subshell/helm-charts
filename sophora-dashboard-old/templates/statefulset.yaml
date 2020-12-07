@@ -65,7 +65,6 @@ spec:
               # enable envsubst
               apk add --update libintl && apk add --virtual build_deps gettext
               envsubst < /dashboard-config-template/dashboard-config.json > /dashboard-config/dashboard-config.json
-              cat /dashboard-config/dashboard-config.json
               echo "Generated /dashboard-config/dashboard-config.json from ENV"
           volumeMounts:
             - name: sophora-dashboard-config-template
