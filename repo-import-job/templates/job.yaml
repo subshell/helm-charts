@@ -46,4 +46,14 @@ spec:
             - name: S3_BUCKET_FOLDER
               value: {{ .Values.s3.targetDirectory }}
           command: ["/bin/sh"]
-          args: ["-c", "apk add --no-cache wget aws-cli; mkdir dl; cd dl; wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" $REPO_ZIP_URL; unzip -q *.zip; rm *.zip; aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url=\"${AWS_S3_URL}\""]
+          args:
+            - "-c"
+            - |-
+             set -ex;
+             apk add --no-cache wget aws-cli;
+             mkdir dl;
+             cd dl;
+             wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" $REPO_ZIP_URL;
+             unzip -q *.zip;
+             rm *.zip;
+             aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url=\"${AWS_S3_URL}\"
