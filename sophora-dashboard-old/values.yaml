@@ -1,38 +1,62 @@
+# -- (int) number of replicas/pods in the statefulset
 replicaCount: 1
 
 image:
+  # -- (string) image repository
   repository: docker.subshell.com/sophora/sophora-dashboard
+  # -- (string) the k8s image pull policy
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
+  # -- (string) overrides the image tag
   tag: "latest"
+
+# -- (string[]) references to existing image pull secrets This will be directly
+# -- injected into the imagePullSecrets of the statefulset.
 imagePullSecrets: []
 
+# -- (string) expands the name of the Chart
 nameOverride: ""
+# -- (string) overrides the fully qualified name used to identify the components of the helm chart.
+# -- the value is limited to 63 chars
 fullnameOverride: ""
 
-javaOptions: "-Xmx512M -Xms256M"
+# -- (string) java options passed to the JVM.
+javaJDKOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0"
 
 service:
+  # -- (string) k8s service type
   type: LoadBalancer
+  # -- (int) k8s service port that will be exposed by the service
   port: 80
 
+# -- (string) k8s storage class name for generated dashboard files
 storageClassName: ""
 
 sophora:
+  # -- (string) Sophora server hostname
   serverHostname: ""
+  # -- (int) Sophora server port
   serverPort: 1196
+  # -- (string) absolute path to jolokia
   jolokiaPath: "/jolokia"
+  # -- (string) URL or path to solr
   solrUrl: "/solr"
+  # -- (bool) set to true if the ibf filter is enabled
   ibfEnabled: false
   authentication:
+    # -- (object) user credentials for the sophora server stored in a secret
     serverSecret:
       name: ""
       passwordKey: "password"
       usernameKey: "username"
+
+    # -- (object) user credentials for solr stored in a secret
     solrSecret:
       name: ""
       passwordKey: "password"
       usernameKey: "username"
+
+
+    # -- (object) user credentials for jolokia stored in a secret
     jolokiaSecret:
       name: ""
       passwordKey: "password"

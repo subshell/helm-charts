@@ -45,9 +45,22 @@ To **uninstall** a Helm Chart:
 
     helm uninstall <name-of-the-release>
 
+To grant k8s access to a docker repository:
+
+    k get secret dockersubshell --namespace=default -oyaml | sed s/"namespace: default"/"namespace: webclienthelmtest"/\ | k apply --namespace=webclienthelmtest -f -
+    kubectl -n webclienthelmtest patch serviceaccount default -p '{"imagePullSecrets": [{"name": "dockersubshell"}]}'
+
 *Note*: The <name-of-the-release> is commonly the project name and optionally an additional identifier.
 For example: *ndr-sophora-webclient*.
 
 ## misc
 
+### Tools
+
 To view your helm deployments we recommond to install [k9s](https://github.com/derailed/k9s).
+
+### Useful commands
+
+Creating a k8s secret inline:
+
+     create secret generic sophora-user-credentials --from-literal=username="admin" --from-literal=password="admin"
