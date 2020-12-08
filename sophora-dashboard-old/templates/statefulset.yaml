@@ -101,8 +101,8 @@ spec:
             - name: rrd
               mountPath: /app/dashboard/rrd
           env:
-            - name: JAVA_JDK_OPTS
-              value: {{ .Values.javaJDKOptions }}
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.jdkJavaOptions }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
