@@ -227,6 +227,17 @@ spec:
             failureThreshold: 15
             initialDelaySeconds: 30
             periodSeconds: 15
+          {{ if eq .Values.sophora.server.isClusterServer true -}}
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  [
+                      "/tools/sophora-prestop",
+                      "switch",
+                      "--serverUrl=http://localhost:1196"
+                  ]
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
