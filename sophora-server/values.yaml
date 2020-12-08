@@ -19,6 +19,8 @@ preStop:
     pullPolicy: IfNotPresent
     tag: "0.2.0"
 
+javaOptions: "-XX:MinRAMPercentage=25.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC"
+
 sophora:
   server:
     isClusterServer: true
