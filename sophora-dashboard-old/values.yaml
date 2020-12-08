@@ -20,7 +20,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- (string) java options passed to the JVM.
-javaOptions: "-Xmx512M -Xms256M"
+javaJDKOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0"
 
 service:
   # -- (string) k8s service type
