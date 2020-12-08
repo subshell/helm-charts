@@ -1,0 +1,33 @@
+# Helm Chart: Sophora Dashboard (old version)
+
+This chart deploys the old version of the Sophora Dashboard that uses an ingress for external access over HTTP(S).
+
+## Example values.yaml
+
+```yaml
+image:
+  tag: "4.0.0"
+
+storageClassName: "ssd"
+
+sophora:
+  serverHostname: "cluster-01-sophora-server"
+  authentication:
+    serverSecret:
+      name: "sophora-user-importer-credentials"
+    solrSecret:
+      name: "sophora-server-solr-credentials"
+    jolokiaSecret:
+      name: "sophora-server-jolokia-credentials"
+
+ingress:
+  enabled: false
+
+resources:
+  requests:
+    memory: "0.6G"
+    cpu: "0.1"
+  limits:
+    memory: "1.25G"
+
+```

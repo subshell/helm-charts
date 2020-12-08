@@ -93,9 +93,9 @@ spec:
             - name: sophora-dashboard-config
               mountPath: /app/dashboard/config/dashboard-config.json
               subPath: dashboard-config.json
-#            - name: sophora-dashboard-logback
-#              mountPath: /app/dashboard/config/logback.xml
-#              subPath: logback.xml
+            - name: sophora-dashboard-logback
+              mountPath: /app/dashboard/config/logback.xml
+              subPath: logback.xml
             - name: persistence
               mountPath: /app/dashboard/persistence
             - name: rrd
