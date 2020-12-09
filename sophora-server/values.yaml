@@ -19,7 +19,7 @@ preStop:
     pullPolicy: IfNotPresent
     tag: "0.2.0"
 
-javaOptions: "-XX:MinRAMPercentage=25.0 -XX:MaxRAMPercentage=90.0 XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages -XX:+UseNUMA"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages"
 
 sophora:
   server:

@@ -167,15 +167,16 @@ spec:
                   optional: false
             {{- end }}
             - name: JAVA_OPTIONS
-              value: {{ .Values.javaOptions }}
+              value: >-
+                -DREPOSITORY_MYSQL_HOST=$(REPOSITORY_MYSQL_HOST)
+                -DREPOSITORY_MYSQL_USER=$(REPOSITORY_MYSQL_USER)
+                -DREPOSITORY_MYSQL_PASSWORD=$(REPOSITORY_MYSQL_PASSWORD)
+                -DARCHIVE_MYSQL_HOST=$(ARCHIVE_MYSQL_HOST)
+                -DARCHIVE_MYSQL_USER=$(ARCHIVE_MYSQL_USER)
+                -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)
+                {{ .Values.javaOptions }}
             - name: JDK_JAVA_OPTIONS
-              value: "-DREPOSITORY_MYSQL_HOST=$(REPOSITORY_MYSQL_HOST)
-                      -DREPOSITORY_MYSQL_USER=$(REPOSITORY_MYSQL_USER)
-                      -DREPOSITORY_MYSQL_PASSWORD=$(REPOSITORY_MYSQL_PASSWORD)
-                      -DARCHIVE_MYSQL_HOST=$(ARCHIVE_MYSQL_HOST)
-                      -DARCHIVE_MYSQL_USER=$(ARCHIVE_MYSQL_USER)
-                      -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)
-                      $(JAVA_OPTIONS)"
+              value: "$(JAVA_OPTIONS)"
             - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
