@@ -4,8 +4,10 @@ metadata:
   name: {{ include "sophora-updatesite.fullname" . }}
   labels:
     {{- include "sophora-updatesite.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
