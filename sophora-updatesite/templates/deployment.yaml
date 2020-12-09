@@ -40,10 +40,11 @@ spec:
           args:
             - "-c"
             - |-
-              apk add --no-cache wget aws-cli;
+              apk add --no-cache wget;
               mkdir dl;
               cd dl;
-              wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" {{ include "sophora-updatesite.updatesiteUrl" . }};
+              # echo "wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" {{ include "sophora-updatesite.updatesiteUrl" . }}";
+              wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" {{ include "sophora-updatesite.updatesiteUrl" . }} --verbose;
               unzip -q *.zip; rm *.zip;
               mv ./* /updatesite;
           volumeMounts:
