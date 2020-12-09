@@ -43,8 +43,7 @@ spec:
               apk add --no-cache wget;
               mkdir dl;
               cd dl;
-              # echo "wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" {{ include "sophora-updatesite.updatesiteUrl" . }}";
-              wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" {{ include "sophora-updatesite.updatesiteUrl" . }} --verbose;
+              wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" {{ include "sophora-updatesite.updatesiteUrl" . }} --verbose;
               unzip -q *.zip; rm *.zip;
               mv ./* /updatesite;
           volumeMounts:

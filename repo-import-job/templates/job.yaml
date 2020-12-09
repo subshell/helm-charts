@@ -53,7 +53,7 @@ spec:
              apk add --no-cache wget aws-cli;
              mkdir dl;
              cd dl;
-             wget --user=\"${HTTP_USERNAME}\" --password=\"${HTTP_PASSWORD}\" $REPO_ZIP_URL;
+             wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
              unzip -q *.zip;
              rm *.zip;
-             aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url=\"${AWS_S3_URL}\"
+             aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url="${AWS_S3_URL}"
