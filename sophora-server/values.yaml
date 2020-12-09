@@ -11,7 +11,7 @@ image:
   repository: docker.subshell.com/sophora/sophora-server
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "4.x-SNAPSHOT"
+  tag: ""
 
 preStop:
   image:
@@ -94,6 +94,7 @@ service:
   sessionAffinity: None
   sessionAffinityConfig: {}
   loadBalancerIP:
+  clusterIP:
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

@@ -6,6 +6,7 @@ metadata:
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type | quote }}
+  clusterIP: {{.Values.service.clusterIP}}
   loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
   selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
   sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
