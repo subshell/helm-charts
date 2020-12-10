@@ -88,8 +88,8 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
-          - name: JAVA_OPTS
-            value: {{ .Values.sophora.importer.javaOptions }}
+          - name: JDK_JAVA_OPTIONS
+            value: {{ .Values.javaOptions }}
           - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
             valueFrom:
               secretKeyRef:

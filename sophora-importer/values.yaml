@@ -12,6 +12,8 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+javaOptions: "-XX:+UseShenandoahGC"
+
 sophora:
   serverUrl: ""
   authentication:
@@ -20,7 +22,6 @@ sophora:
       passwordKey: "password"
       usernameKey: "username"
   importer:
-    javaOptions: "-XX:+UseShenandoahGC"
     s3Bucket:
       name: ""
       url: "https://storage.googleapis.com"

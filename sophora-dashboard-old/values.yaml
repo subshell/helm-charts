@@ -20,7 +20,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 # -- (string) java options passed to the JVM.
-jdkJavaOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0 -XX:+UseShenandoahGC"
+javaOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0 -XX:+UseShenandoahGC"
 
 service:
   # -- (string) k8s service load balancer
