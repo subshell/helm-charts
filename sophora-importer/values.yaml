@@ -12,7 +12,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-javaOptions: "-XX:+UseShenandoahGC"
+javaOptions: "-XX:+UseShenandoahGC -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -Xlog:gc -XX:+AlwaysPreTouch"
 
 sophora:
   serverUrl: ""
