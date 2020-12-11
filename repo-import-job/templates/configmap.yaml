@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-repo-import.fullname" . }}
+  labels:
+  {{- include "sophora-repo-import.labels" . | nindent 4 }}
+data:
+  application.yml: |-
+    sophora:
+      client:
+        server-connection:
+          url: {{.Values.sophora.serverUrl}}
+          username: # in secret
+          password: # in secret
+          retries: 15
+          retry-interval: 10
+      toolInfo:
+        enabled: false
+
+    importer:
+      name: Admin-Importer
+
+      # Defaults for all instances.
+      folders:
+        watchCheckInterval: 1000
+        watchRecursive: true
+
+      webService:
+        enabled: false
+
+      filenamesAddTimestamp: true
+
+      cleanupFoldersCron: "0 0 9 ? * * *" # every day at 9AM
+      cleanupFoldersSuccessfulMaxAge: 1 # in days
+      cleanupFoldersFailureMaxAge: 7 # in days
+      keepTempfiles: false
+
+      # Configuration of the importer instances
+      instances:
+      - name: Admin Import
+        key: admin
+        transform: skipTransform
+        folders:
+          watch: /import/admin/incoming
+          temp: /import/admin/temp
+          success: /import/admin/success
+          failure: /import/admin/failure
+          xsl: /xsl
+        defaultStructureNode: /import
+  script.sh: |-
+    #!/bin/sh
+
+    count_files() {
+      count=$(find /import/admin/incoming | grep ".xml" | wc -l)
+      echo $count
+    }
+
+    currentFileCount=$(count_files)
+    while [ $currentFileCount -gt 0 ]
+    do
+      echo "Still waiting. Current file count is ${currentFileCount}"
+      sleep 1
+      currentFileCount=$(count_files)
+    done
+
+    echo "No files remaining. We wait another 30 seconds."
+    sleep 30
+    # Kill the importer:
+    sleep infinity

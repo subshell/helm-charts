@@ -7,13 +7,17 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      shareProcessNamespace: true
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      containers:
-        - name: import-job
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" # TODO: Build image with latest wget and aws-cli
+      initContainers:
+        - name: repo-downloader
+          image: "alpine:latest"
+          volumeMounts:
+            - mountPath: /import
+              name: import
           env:
             - name: REPO_ZIP_URL
               value: {{ .Values.repoDownload.zipUrl | quote }}
@@ -27,34 +31,62 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.repoDownload.passwordKey }}
                   name: {{ .Values.repoDownload.secretName | quote }}
-            - name: AWS_S3_BUCKET
-              value: {{ .Values.s3.bucketName | quote }}
-            - name: AWS_S3_URL
-              value: {{ .Values.s3.s3Url | quote }}
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.s3.secretAccessKeyKey | quote }}
-                  name: {{ .Values.s3.secretName | quote }}
-                  optional: false
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.s3.accessKeyIdKey | quote }}
-                  name: {{ .Values.s3.secretName | quote }}
-                  optional: false
-            - name: S3_BUCKET_FOLDER
-              value: {{ .Values.s3.targetDirectory }}
-          command: [ "/bin/sh" ]
+          command: ["/bin/sh"]
           args:
             - "-c"
             - |-
-              set -ex;
-              apk add --no-cache wget aws-cli;
-              mkdir dl;
-              cd dl;
-              wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
-              unzip -q *.zip;
-              rm *.zip;
-              aws s3 cp . s3://$AWS_S3_BUCKET/$S3_BUCKET_FOLDER --recursive --endpoint-url="${AWS_S3_URL}"
-              echo "Finished upload to bucket."
+             apk add --no-cache wget tree;
+             mkdir dl;
+             cd dl;
+             wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
+             unzip -q *.zip;
+             rm *.zip;
+             mkdir -p /import/admin/incoming
+             mkdir -p /import/temp
+             mkdir -p /import/admin/success
+             mkdir -p /import/admin/failure
+             mv * /import/admin/incoming
+             echo "Copied Admin export to local directory /import/admin/incoming"
+             tree /import/admin/incoming
+      containers:
+        - name: importer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_OPTS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.usernameKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.passwordKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+          resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: importer-config
+              mountPath: /sophora/application.yml
+              subPath: application.yml
+            - name: import
+              mountPath: /import
+        - name: process-watcher
+          image: "alpine:latest"
+          command: ["/script.sh"]
+          volumeMounts:
+            - mountPath: ./script.sh
+              name: importer-config
+              subPath: script.sh
+          securityContext:
+            capabilities:
+              add:
+                - SYS_PTRACE
+      volumes:
+        - name: import
+          emptyDir: {}
+        - name: importer-config
+          configMap:
+            name: {{ include "sophora-repo-import.fullname" . }}
