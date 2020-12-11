@@ -52,6 +52,14 @@ spec:
         - name: importer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              cd /sophora
+              echo "Starting importer."
+              java -cp classpath org.springframework.boot.loader.JarLauncher
+              echo "Importer stopped."
           env:
             - name: JAVA_OPTS
               value: {{ .Values.javaOptions }}
@@ -75,11 +83,15 @@ spec:
               mountPath: /import
         - name: process-watcher
           image: "alpine:latest"
-          command: ["/script.sh"]
+          command: ["/bin/sh"]
+          args:
+            - "/script/script.sh"
           volumeMounts:
-            - mountPath: ./script.sh
+            - mountPath: /script/script.sh
               name: importer-config
               subPath: script.sh
+            - mountPath: /import
+              name: import
           securityContext:
             capabilities:
               add:

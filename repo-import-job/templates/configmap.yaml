@@ -9,7 +9,7 @@ data:
     sophora:
       client:
         server-connection:
-          url: {{.Values.sophora.serverUrl}}
+          urls: {{.Values.sophora.serverUrl}}
           username: # in secret
           password: # in secret
           retries: 15
@@ -66,4 +66,5 @@ data:
     echo "No files remaining. We wait another 30 seconds."
     sleep 30
     # Kill the importer:
-    sleep infinity
+    importerPid=$(pgrep java)
+    kill $importerPid
