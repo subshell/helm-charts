@@ -54,7 +54,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh"]
           args:
-            - |- {{ .Files.Get "run-importer.sh" | nindent 14 -}}
+            - |- {{- .Files.Get "run-importer.sh" | nindent 14 }}
           env:
             - name: JAVA_OPTS
               value: {{ .Values.javaOptions }}
