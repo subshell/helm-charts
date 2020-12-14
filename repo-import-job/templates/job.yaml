@@ -55,11 +55,7 @@ spec:
           command: ["/bin/sh"]
           args:
             - "-c"
-            - |-
-              cd /sophora
-              echo "Starting importer."
-              java -cp classpath org.springframework.boot.loader.JarLauncher
-              echo "Importer stopped."
+            - |- {{ .Files.Get "run-importer.sh" | nindent 14 -}}
           env:
             - name: JAVA_OPTS
               value: {{ .Values.javaOptions }}
@@ -84,12 +80,8 @@ spec:
         - name: process-watcher
           image: "alpine:latest"
           command: ["/bin/sh"]
-          args:
-            - "/script/script.sh"
+          args: |- {{ .Files.Get "wait-for-empty-dir.sh" | nindent 12 }}
           volumeMounts:
-            - mountPath: /script/script.sh
-              name: importer-config
-              subPath: script.sh
             - mountPath: /import
               name: import
           securityContext:
