@@ -54,7 +54,6 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/bin/sh"]
           args:
-            - "-c"
             - |- {{ .Files.Get "run-importer.sh" | nindent 14 -}}
           env:
             - name: JAVA_OPTS
@@ -80,7 +79,8 @@ spec:
         - name: process-watcher
           image: "alpine:latest"
           command: ["/bin/sh"]
-          args: |- {{ .Files.Get "wait-for-empty-dir.sh" | nindent 12 }}
+          args:
+            - |- {{ .Files.Get "wait-for-empty-dir.sh" | nindent 14 }}
           volumeMounts:
             - mountPath: /import
               name: import

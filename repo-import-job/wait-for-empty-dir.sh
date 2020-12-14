@@ -1,5 +1,3 @@
-#!/bin/sh
-
 count_files() {
   count=$(find /import/admin/incoming | grep ".xml" | wc -l)
   echo $count

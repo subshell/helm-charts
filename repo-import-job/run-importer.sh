@@ -1,5 +1,3 @@
-#!/bin/sh
-
 count_files() {
   result=$(find $1 -type f | wc -l)
   echo "$result"
