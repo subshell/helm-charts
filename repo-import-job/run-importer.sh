@@ -16,6 +16,9 @@ printf "successful imports: %i\t import failures: %i\n" "$success" "$failure"
 if [ "$failure" -gt 0 ]; then
   # error
   echo "import was not successful"
+  echo "failures"
+  echo "===="
+  ls -R /import/admin/failure
   exit 1
 else
   echo "import was successful"
