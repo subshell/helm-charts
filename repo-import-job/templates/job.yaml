@@ -45,7 +45,7 @@ spec:
              mkdir -p /import/temp
              mkdir -p /import/admin/success
              mkdir -p /import/admin/failure
-             mv * /import/admin/incoming
+             {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
              echo "Copied Admin export to local directory /import/admin/incoming"
              tree /import/admin/incoming
       containers:
