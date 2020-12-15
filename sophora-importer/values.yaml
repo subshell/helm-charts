@@ -14,6 +14,9 @@ fullnameOverride: ""
 
 javaOptions: "-XX:+UseShenandoahGC -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -Xlog:gc -XX:+AlwaysPreTouch"
 
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
 sophora:
   serverUrl: ""
   authentication:

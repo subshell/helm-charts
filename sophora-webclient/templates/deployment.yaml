@@ -18,6 +18,7 @@ spec:
     metadata:
       labels: {{- include "webclient.selectorLabels" . | nindent 8 }}
     spec:
+      {{ if .Values.hostAliases }}hostAliases: {{ .Values.hostAliases | nindent 8 }} {{ end -}}
       containers:
         - name: webclient
           image: {{ (printf "%s:%s" .Values.webclient.image.name .Values.webclient.image.version) | quote }}

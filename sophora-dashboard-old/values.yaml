@@ -22,6 +22,9 @@ fullnameOverride: ""
 # -- (string) java options passed to the JVM.
 javaOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch"
 
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
 service:
   # -- (string) k8s service load balancer
   loadBalancerIP: ""

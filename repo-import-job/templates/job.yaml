@@ -12,6 +12,7 @@ spec:
       imagePullSecrets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{ if .Values.hostAliases }}hostAliases: {{ .Values.hostAliases | nindent 8 }} {{ end -}}
       initContainers:
         - name: repo-downloader
           image: "alpine:latest"

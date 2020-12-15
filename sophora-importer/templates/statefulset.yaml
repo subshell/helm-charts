@@ -24,6 +24,7 @@ spec:
       imagePullSecrets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{ if .Values.hostAliases }}hostAliases: {{ .Values.hostAliases | nindent 8 }} {{ end -}}
       containers:
       - name: bucket-mount
         image: efrecon/s3fs:1.86

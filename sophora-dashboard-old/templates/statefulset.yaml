@@ -71,6 +71,7 @@ spec:
               mountPath: /dashboard-config-template
             - name: sophora-dashboard-config
               mountPath: /dashboard-config
+      {{ if .Values.hostAliases }}hostAliases: {{ .Values.hostAliases | nindent 8 }} {{ end -}}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
