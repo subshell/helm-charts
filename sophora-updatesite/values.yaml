@@ -30,7 +30,8 @@ updatesiteDownload:
 podAnnotations: {}
 
 service:
-  loadBalancerIP: ""
+  clusterIP:
+  loadBalancerIP:
   annotations: {}
   type: ClusterIP
   port: 80
