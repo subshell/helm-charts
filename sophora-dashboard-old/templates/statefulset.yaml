@@ -24,6 +24,9 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         - name: config-generator
           image: "alpine:latest"
@@ -71,7 +74,6 @@ spec:
               mountPath: /dashboard-config-template
             - name: sophora-dashboard-config
               mountPath: /dashboard-config
-      {{ if .Values.hostAliases }}hostAliases: {{ .Values.hostAliases | nindent 8 }} {{ end -}}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

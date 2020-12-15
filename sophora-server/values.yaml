@@ -21,6 +21,9 @@ preStop:
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages"
 
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
 sophora:
   server:
     isClusterServer: true
