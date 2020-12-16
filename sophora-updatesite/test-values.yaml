@@ -1,0 +1,24 @@
+nameOverride: test-sophora-updatesite
+
+# Builds a updatesite url with the following scheme:
+# https://software.subshell.com/download-sophora/4/deskclient-4.1.0/sophora-deskclient-4.1.0-unified-sophora-updatesite.zip
+updatesiteDownload:
+  baseUrl: "https://software.subshell.com/download-sophora"
+  version: "4.0.0"
+  identifier: "unified-sophora-updatesite"
+  secretName: "sophora-repository-download-credentials"
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "100M"
+  requests:
+    cpu: "250m"
+    memory: "25M"

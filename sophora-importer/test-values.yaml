@@ -1,0 +1,87 @@
+image:
+  pullPolicy: Always
+  tag: "4.0.0"
+
+nameOverride: "test-importer"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+hostAliases:
+  - ip: 10.10.1.1
+    hostnames:
+      - sophora.test.code-nnw.cloud
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-importer-credentials"
+      passwordKey: "password"
+      usernameKey: "username"
+  importer:
+    s3Bucket:
+      name: "sophora-test-importer"
+      url: "https://storage.googleapis.com"
+      secret:
+        name: "sophora-importer-bucket-credentials"
+        secretAccessKeyKey: "secretAccessKey"
+        accessKeyIdKey: "accessKeyId"
+    instances:
+      - common
+    additionalLibsImage:
+      repository: "docker.subshell.com/misc/importer-additional-libs"
+      tag: "latest"
+      libsPath: "/additionalLibs"
+    configuration:
+      sophora:
+        client:
+          server-connection:
+            url: http://cluster-01-sophora-server:1196
+            username: # in secret
+            password: # in secret
+            retries: 15
+            retry-interval: 10
+
+      importer:
+        name: Main-Importer
+        # sophora.importer.xslTransformerFactory=net.sf.saxon.TransformerFactoryImpl
+
+        # Defaults for all instances.
+        folders:
+          watchCheckInterval: 1000
+          watchRecursive: true
+
+        webService:
+          enabled: false
+
+        filenamesAddTimestamp: true
+
+        cleanupFoldersCron: "0 0 9 ? * * *" # every day at 9AM
+        cleanupFoldersSuccessfulMaxAge: 1 # in days
+        cleanupFoldersFailureMaxAge: 7 # in days
+        keepTempfiles: false
+
+        # Configuration of the importer instances
+        instances:
+          - name: Common Imports
+            key: common
+            transform: skipTransform
+            folders:
+              watch: /import/common/incoming
+              temp: /import-local/common/temp
+              success: /import-local/common/success
+              failure: /import/common/failure
+              xsl: /xsl
+            defaultStructureNode: /import
+
+      server:
+        port: 8081
+        address: 0.0.0.0
+
+resources:
+  requests:
+    memory: "0.4G"
+    cpu: "0.01"
+  limits:
+    memory: "2G"
+    cpu: "1"
+

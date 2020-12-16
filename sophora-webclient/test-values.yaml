@@ -1,0 +1,15 @@
+fullnameOverride: "test-webclient"
+
+sophora:
+  authentication:
+    secret:
+      name: "sophora-credentials"
+
+webclient:
+  ingress:
+    host: "my-site.com"
+
+  configuration:
+    abc: test
+    a:
+      b: test2

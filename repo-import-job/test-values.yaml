@@ -1,0 +1,14 @@
+imagePullSecrets: []
+nameOverride: "test-repo-import"
+
+repoDownload:
+  secretName: sophora-repository-download-credentials
+  zipUrl: "https://software.subshell.com/artifactory/sophora-repos/unified-sophora/UnifiedFullRepoExport-27112020.zip"
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-admin-credentials"
+      usernameKey: "username"
+      passwordKey: "password"

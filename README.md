@@ -14,11 +14,13 @@ Each Helm chart should follow these rules:
 * **Example**: At the bare minimum the readme should contain an exemplary `values.yaml` file.
 * **values.yaml documentation**: The `values.yaml` file should be well documented.
 * **Useful defaults**: Whenever possible the default `values.yaml` should provide useful defaults. 
+* **test-values.yaml**: A test `values.yaml` file which will be used by Jenkins to check the Chart file.
 
 ## subshell Helm repository
 
 The Helm Charts are published to [https://docker.subshell.com/](https://docker.subshell.com/). Most of the Helm charts
-can be found under [the sophora helm repository](https://docker.subshell.com/harbor/projects/8/helm-charts).
+can be found under [the sophora helm repository](https://docker.subshell.com/harbor/projects/8/helm-charts). They are published
+by [this Jenkins Job](http://jenkins.subshell.com:9090/view/Weasel/view/All/job/helm-charts).
 
 To use the subshell sophora repo execute these commands (this is only required once):
 
@@ -57,7 +59,10 @@ For example: *ndr-sophora-webclient*.
 
 ### Tools
 
-To view your helm deployments we recommond to install [k9s](https://github.com/derailed/k9s).
+To view your helm deployments we recommend:
+
+* [k9s](https://github.com/derailed/k9s).
+* [Lens](https://k8slens.dev/)
 
 ### Useful commands
 

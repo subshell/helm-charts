@@ -1,0 +1,54 @@
+nameOverride: sophora-server
+
+replicaCount: 1
+
+image:
+  tag: "4.0.0"
+  pullPolicy: Always
+
+sophora:
+  server:
+    isClusterServer: true
+    storage:
+      storageClass: ssd
+      resources:
+        requests:
+          storage: 200Gi
+    persistence:
+      mysql:
+        repository:
+          secretName: repository-mysql-credentials
+          hostnameKey: hostname
+          usernameKey: username
+          passwordKey: password
+        archive:
+          secretName: archive-mysql-credentials
+          hostnameKey: hostname
+          usernameKey: username
+          passwordKey: password
+    binaryStore:
+      s3:
+        secret:
+          name: sophora-cloud-binary-store-credentials
+
+    authentication:
+      secret:
+        name: sophora-user-admin-credentials
+
+    properties: |-
+      sophora.home=/sophora
+
+service:
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/internal-load-balancer-subnet: "gke-sophora-services"
+  type: LoadBalancer
+  loadBalancerIP: 1.2.3.4
+
+resources:
+  requests:
+    memory: "6G"
+    cpu: "2"
+  limits:
+    memory: "12G"
+    cpu: "6"

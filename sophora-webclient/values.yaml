@@ -1,7 +1,7 @@
 nameOverride: ""
 fullnameOverride: ""
 
-# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file.
 hostAliases:
 
 sophora:
