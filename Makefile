@@ -18,4 +18,6 @@ push: build push_only
 	echo "push"
 
 push_only:
+ifneq ("$(wildcard $(chart_file))","")
 	helm push "$(chart_dir)" sophora
+endif
