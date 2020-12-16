@@ -6,6 +6,19 @@ image:
   tag: "4.0.0"
   pullPolicy: Always
 
+additionalSelectorLabels:
+  sophora.cloud/app: cluster-server
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: sophora.cloud/app
+              operator: In
+              values:
+                - cluster-server
+
 sophora:
   server:
     isClusterServer: true

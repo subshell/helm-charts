@@ -33,6 +33,7 @@ spec:
       {{- with .Values.hostAliases }}
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
+      affinity: {{- toYaml .Values.affinity | nindent 8 }}
       initContainers:
         - name: sophora-prestop-initializer
           image: "{{ .Values.preStop.image.repository }}:{{ .Values.preStop.image.tag }}"

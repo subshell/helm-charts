@@ -24,6 +24,12 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenan
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
 
+# - (object) additional selector labels that will be added to all resources
+additionalSelectorLabels:
+
+# - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
+affinity: {}
+
 sophora:
   server:
     isClusterServer: true

@@ -48,6 +48,9 @@ Selector labels
 {{- define "sophora-server.selectorLabels" -}}
 app.kubernetes.io/name: {{ include "sophora-server.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
+{{- if .Values.additionalSelectorLabels }}
+{{ toYaml .Values.additionalSelectorLabels }}
+{{- end }}
 {{- end }}
 
 {{/*
