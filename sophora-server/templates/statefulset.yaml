@@ -29,10 +29,10 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      {{ if eq .Values.sophora.server.isClusterServer true -}}
       {{- with .Values.hostAliases }}
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{ if eq .Values.sophora.server.isClusterServer true -}}
       affinity: {{- toYaml .Values.affinity | nindent 8 }}
       initContainers:
         - name: sophora-prestop-initializer
