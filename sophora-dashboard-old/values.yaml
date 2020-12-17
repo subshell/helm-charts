@@ -27,7 +27,9 @@ hostAliases:
 
 service:
   # -- (string) k8s service load balancer
-  loadBalancerIP: ""
+  loadBalancerIP:
+  # -- (string) k8s service cluster ip
+  clusterIP:
   # -- (object) k8s service annotations
   annotations: { }
   # -- (string) k8s service type
