@@ -14,8 +14,8 @@ data:
           password: # in secret
           retries: 15
           retry-interval: 10
-      toolInfo:
-        enabled: false
+        toolInfo:
+          enabled: false
 
     importer:
       name: Admin-Importer
