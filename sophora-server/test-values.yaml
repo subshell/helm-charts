@@ -48,6 +48,12 @@ sophora:
       secret:
         name: sophora-user-admin-credentials
 
+    env:
+      - name: SOPHORA_INITIALADMINUSERS_0_USERNAME
+        value: admin
+      - name: SOPHORA_INITIALADMINUSERS_0_PASSWORD
+        value: 69madweasels
+
     properties: |-
       sophora.home=/sophora
 

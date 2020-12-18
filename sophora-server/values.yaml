@@ -64,6 +64,13 @@ sophora:
         usernameKey: username
         passwordKey: password
 
+    # Additional environment variables can be defined here
+    env:
+    #  - name: SOPHORA_INITIALADMINUSERS_0_USERNAME
+    #    value: admin
+    #  - name: SOPHORA_INITIALADMINUSERS_0_PASSWORD
+    #    value: admin
+
     properties:
       # sophora.home=/sophora
       # sophora.replication.mode=

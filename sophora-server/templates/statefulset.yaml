@@ -205,6 +205,9 @@ spec:
                   name: {{ .Values.sophora.server.authentication.secret.name }}
                   optional: false
             {{- end }}
+            {{ if .Values.sophora.server.env -}}
+            {{- toYaml .Values.sophora.server.env | nindent 12 }}
+            {{- end }}
           ports:
             - containerPort: 1196
               name: http
