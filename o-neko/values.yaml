@@ -1,0 +1,41 @@
+
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0"
+
+hostAliases:
+
+resources: {}
+
+serviceAccountName: # required - make sure the service account has the required permissions
+
+oneko:
+  image:
+    name: subshellgmbh/o-neko
+    tag: latest-dev
+    imagePullPolicy: Always
+
+  mongodb:
+    secret:
+      name: #required
+      uriField: uri
+  credentialsCoderKeySecret:
+    name: #required
+    fieldName: key
+
+  config:
+
+service:
+  annotations: {}
+  type:
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  loadBalancerIP:
+  clusterIP:
+
+ingress:
+  host: ""
+  annotations: {}

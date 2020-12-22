@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {{- include "o-neko.labels" . | nindent 4 }}
+  name: {{ include "o-neko.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "o-neko.selectorLabels" . | nindent 6 }}
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels: {{- include "o-neko.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "o-neko.fullname" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: o-neko
+          image: {{ (printf "%s:%s" .Values.oneko.image.name .Values.oneko.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.oneko.image.imagePullPolicy }}
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "The MongoDB credential secret is required" .Values.oneko.mongodb.secret.name }}
+                  key: {{ .Values.oneko.mongodb.secret.uriField }}
+                  optional: false
+            - name: O-NEKO_SECURITY_CREDENTIALSCODERKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oneko.credentialsCoderKeySecret.name }}
+                  key: {{ .Values.oneko.credentialsCoderKeySecret.fieldName }}
+                  optional: false
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 60
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 5
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Always
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "o-neko.configName" . }}

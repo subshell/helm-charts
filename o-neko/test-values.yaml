@@ -1,0 +1,25 @@
+resources:
+  requests:
+    memory: "2G"
+    cpu: "0.5"
+  limits:
+    memory: "6G"
+    cpu: "1.5"
+
+serviceAccountName: o-neko-sa
+
+oneko:
+  mongodb:
+    secret:
+      name: mongodb-credentials
+  credentialsCoderKeySecret:
+    name: o-neko-credentials-coder-key
+
+  config:
+    spring:
+      data:
+        mongodb:
+          autoIndexCreation: true
+
+ingress:
+  host: "oneko.subshell.cloud"
