@@ -70,6 +70,12 @@ spec:
               mountPath: /sophora/repository/repository
               subPath: repository.repository
             - name: sophora-server-storage
+              mountPath: /sophora/repository/binaries
+              subPath: repository.binaries
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/binarystore
+              subPath: repository.binarystore
+            - name: sophora-server-storage
               mountPath: /sophora/repository/changeregistry
               subPath: repository.changeregistry
             - name: sophora-server-storage
