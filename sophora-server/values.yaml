@@ -39,6 +39,9 @@ sophora:
       resources: {}
         # requests:
         #   storage: 250Gi
+      dataDirResources:
+        requests:
+          storage: 2Gi
     persistence:
       mysql:
         repository:
