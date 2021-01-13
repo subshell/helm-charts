@@ -32,10 +32,15 @@ sophora:
         name: ""
         secretAccessKeyKey: "accessKey"
         accessKeyIdKey: "accessKeyId"
-    additionalLibsImage:
+    additionalDataImage:
+      saxonLicenceSecret:
+        name: ""
+        licenceFileKey: "saxon-license.lic"
       repository: ""
       tag: ""
-      libsPath: "/additionalLibs"
+      libsPath: "/data/libs"
+      xslPath: "/data/xsl"
+      miscPath: "/data/misc"
 
     instances: []
     configuration: {}

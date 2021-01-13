@@ -27,10 +27,15 @@ sophora:
         accessKeyIdKey: "accessKeyId"
     instances:
       - common
-    additionalLibsImage:
+    additionalDataImage:
+      saxonLicenceSecret:
+        name: "test-secret"
+        licenceFileKey: "saxon-license.lic"
       repository: "docker.subshell.com/misc/importer-additional-libs"
       tag: "latest"
-      libsPath: "/additionalLibs"
+      libsPath: "/libs"
+      xslPath: "/xsl"
+      miscPath: "/misc"
     configuration:
       sophora:
         client:

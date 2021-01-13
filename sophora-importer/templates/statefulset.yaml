@@ -59,13 +59,9 @@ spec:
                 - '-c'
                 - |
                   echo Creating import folders for importer:
-                  mkdir -p /import/temp
-                  mkdir -p /opt/s3fs/bucket/temp
                   {{- range .Values.sophora.importer.instances }}
                   mkdir -p /import/{{.}}/success
-                  mkdir -p /import/{{.}}/failure
-                  mkdir -p /import/{{.}}/incoming
-                  mkdir -p /opt/s3fs/bucket/{{.}}/success
+                  mkdir -p /import/{{.}}/temp
                   mkdir -p /opt/s3fs/bucket/{{.}}/failure
                   mkdir -p /opt/s3fs/bucket/{{.}}/incoming
                   {{ end }}
@@ -103,6 +99,8 @@ spec:
               secretKeyRef:
                 key: {{.Values.sophora.authentication.secret.passwordKey}}
                 name: {{.Values.sophora.authentication.secret.name}}
+          - name: LOADER_PATH
+            value: /data/libs
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
@@ -112,22 +110,18 @@ spec:
         - name: importer-config
           mountPath: /sophora/application.yml
           subPath: application.yml
-        - name: importer-config
-          mountPath: /sophora/loader.properties
-          subPath: loader.properties
         - name: shared-imports
           mountPath: /import/
           mountPropagation: Bidirectional
         - name: local-import-folders
           mountPath: /import-local/
-        - name: libs
-          mountPath: /additionalLibs
+        - name: data
+          mountPath: /data/
         securityContext:
           privileged: true
-#        - name: ???
-#          mountPath: /xsl
+
       initContainers:
-        {{- with .Values.sophora.importer.additionalLibsImage }}
+        {{- with .Values.sophora.importer.additionalDataImage }}
         {{- if .repository }}
         - name: additional-libs-provider
           image: "{{ .repository }}:{{ .tag }}"
@@ -135,10 +129,24 @@ spec:
           command: ["/bin/sh"]
           args:
             - "-c"
-            - "mv {{ .libsPath }}/* /__internal"
+            - |
+              mkdir -p /data-mounted/libs /data-mounted/xsl /data-mounted/misc
+              echo $(ls /data)
+              mv {{ .libsPath }}/* /data-mounted/libs
+              mv {{ .xslPath }}/*  /data-mounted/xsl
+              mv {{ .miscPath }}/*  /data-mounted/misc
+              {{- if .saxonLicenceSecret }}
+              cp /internal/{{.saxonLicenceSecret.licenceFileKey}} /data-mounted/libs/{{.saxonLicenceSecret.licenceFileKey}}
+              ls /data-mounted/
+              {{- end}}
           volumeMounts:
-            - name: libs
-              mountPath: "__internal"
+          - name: data
+            mountPath: /data-mounted/
+          {{- if .saxonLicenceSecret }}
+          - name: saxon-licence
+            mountPath: "/internal/"
+            readOnly: true
+          {{- end}}
         {{end}}
         {{- end}}
       volumes:
@@ -149,5 +157,12 @@ spec:
         emptyDir: {}
       - name: local-import-folders
         emptyDir: {}
-      - name: libs
+      - name: data
         emptyDir: {}
+      {{- if .Values.sophora.importer.additionalDataImage }}
+      {{- if .Values.sophora.importer.additionalDataImage.saxonLicenceSecret }}
+      - name: saxon-licence
+        secret:
+          secretName: {{.Values.sophora.importer.additionalDataImage.saxonLicenceSecret.name}}
+      {{- end}}
+      {{- end}}
