@@ -6,8 +6,6 @@ resources:
     memory: "6G"
     cpu: "1.5"
 
-serviceAccountName: o-neko-sa
-
 oneko:
   mongodb:
     secret:

@@ -10,8 +10,6 @@ hostAliases:
 
 resources: {}
 
-serviceAccountName: # required - make sure the service account has the required permissions
-
 oneko:
   image:
     name: subshellgmbh/o-neko
