@@ -18,9 +18,9 @@ spec:
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
-        {{- end }}
+      {{- end }}
       secretName: {{ .secretName }}
-    {{- end }}
+  {{- end }}
   {{- end }}
   backend:
     serviceName: {{$fullName}}

@@ -36,4 +36,5 @@ service:
 
 ingress:
   host: ""
+  tls:
   annotations: {}

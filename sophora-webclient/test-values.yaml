@@ -5,10 +5,10 @@ sophora:
     secret:
       name: "sophora-credentials"
 
-webclient:
-  ingress:
-    host: "my-site.com"
+ingress:
+  host: "my-site.com"
 
+webclient:
   configuration:
     abc: test
     a:
