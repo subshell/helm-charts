@@ -23,7 +23,7 @@ spec:
       {{- end }}
       containers:
         - name: webclient
-          image: {{ (printf "%s:%s" .Values.webclient.image.name .Values.webclient.image.version) | quote }}
+          image: {{ (printf "%s:%s" .Values.image.name .Values.image.version) | quote }}
           env:
           - name: SOPHORASERVER_USERNAME
             valueFrom:
@@ -36,7 +36,7 @@ spec:
                 key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                 name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
           - name: SOPHORA_CLIENT_HOSTNAME
-            value: {{ .Values.webclient.ingress.host | quote }}
+            value: {{ .Values.ingress.host | quote }}
           - name: SOPHORA_CLIENT_HTTPS_PORT
             value: "443"
           ports:

@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
-  {{- with .Values.webclient.ingress.annotations }}
+  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -19,7 +19,7 @@ spec:
   {{- end }}
   {{- end }}
   rules:
-    - host: {{ required "A hostname for the ingress must be provided in .Values.webclient.ingress.host" .Values.webclient.ingress.host }}
+    - host: {{ required "A hostname for the ingress must be provided in .Values.webclient.ingress.host" .Values.ingress.host }}
       http:
         paths:
           - path: /
