@@ -30,7 +30,7 @@ sophora:
 
 repoDownload:
   secretName:
-  zipUrl:
+  zipUrls:
   usernameKey: "username"
   passwordKey: "password"
 

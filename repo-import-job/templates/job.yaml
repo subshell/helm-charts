@@ -22,8 +22,8 @@ spec:
             - mountPath: /import
               name: import
           env:
-            - name: REPO_ZIP_URL
-              value: {{ .Values.repoDownload.zipUrl | quote }}
+            - name: REPO_ZIP_URLS
+              value: {{ include "sophora-repo-import.utils.joinListWithSpace" .Values.repoDownload.zipUrls | quote }}
             - name: HTTP_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -41,7 +41,9 @@ spec:
              apk add --no-cache wget tree;
              mkdir dl;
              cd dl;
-             wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
+             for REPO_ZIP_URL in $REPO_ZIP_URLS; do
+               wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
+             done
              unzip -q *.zip;
              rm *.zip;
              mkdir -p /import/admin/incoming
@@ -49,7 +51,7 @@ spec:
              mkdir -p /import/admin/success
              mkdir -p /import/admin/failure
              {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
-             echo "Copied Admin export to local directory /import/admin/incoming"
+             echo "Copied data to import into local directory /import/admin/incoming"
              tree /import/admin/incoming
       containers:
         - name: importer
