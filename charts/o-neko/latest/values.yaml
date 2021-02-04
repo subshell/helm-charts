@@ -13,7 +13,7 @@ resources: {}
 oneko:
   image:
     name: subshellgmbh/o-neko
-    tag: 1.1.0
+    tag: 1.1.1
     imagePullPolicy: IfNotPresent
 
   helm:
