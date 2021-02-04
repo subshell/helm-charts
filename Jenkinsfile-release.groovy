@@ -24,8 +24,10 @@ pipeline {
                 git remote set-url origin https://${BITBUCKET_USR}:${BITBUCKET_PSW}@bitbucket.org/subshell_gmbh/helm-charts.git 
                 git config --global user.name "Jenkins"
                 git config --global user.email "jenkins@subshell.com"
+                git remote -v
                 git status
                 git fetch
+                git checkout master
                 '''
             }
         }
