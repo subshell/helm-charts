@@ -1,5 +1,7 @@
-/.idea/
-/tmp/
-/test/
-/out/
+.idea/
+tmp/
+test/
+out/
+venv
 .vscode
+__pycache__

@@ -12,6 +12,11 @@ oneko:
       name: mongodb-credentials
   credentialsCoderKeySecret:
     name: o-neko-credentials-coder-key
+  helm:
+    gcs:
+      secret:
+        name: helm-gcs-sa
+        serviceAccountField: service-account.json
 
   config:
     spring:

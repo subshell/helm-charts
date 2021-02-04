@@ -25,15 +25,18 @@ javaOptions: "-XX:MinRAMPercentage=20.0 -XX:MaxRAMPercentage=80.0 -XX:+UseShenan
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
 
+
+
+
 service:
-  # -- (string) k8s service load balancer
-  loadBalancerIP:
+  # -- (string) k8s service type
+  type:
+  # -- (object) k8s service annotations
+  annotations:
   # -- (string) k8s service cluster ip
   clusterIP:
-  # -- (object) k8s service annotations
-  annotations: { }
-  # -- (string) k8s service type
-  type: LoadBalancer
+  # -- (string) k8s service load balancer
+  loadBalancerIP:
   # -- (int) k8s service port that will be exposed by the service
   port: 80
 

@@ -13,8 +13,14 @@ resources: {}
 oneko:
   image:
     name: subshellgmbh/o-neko
-    tag: latest-dev
-    imagePullPolicy: Always
+    tag: 1.1.0
+    imagePullPolicy: IfNotPresent
+
+  helm:
+    gcs:
+      secret:
+        name:
+        serviceAccountField:
 
   mongodb:
     secret:

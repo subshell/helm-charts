@@ -54,5 +54,5 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Configmap Name
 */}}
 {{- define "o-neko.configName" -}}
-{{- printf "%s-config" (include "o-neko.name" .) | trunc 63 -}}
+{{- printf "%s-config" (include "o-neko.name" .) | trunc 63 | trimSuffix "-" -}}
 {{- end }}
