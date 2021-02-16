@@ -1,0 +1,47 @@
+replicaCount: 1
+
+image:
+  repository: docker.subshell.com/sophora/sophora-indexing-service
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+solr:
+  basicAuth:
+    enabled: true
+    secret:
+      name: ""
+      usernameKey: "username"
+      passwordKey: "password"
+
+sophora:
+  authentication:
+    secret:
+      name: "sophora-secret"
+
+redis:
+  authentication:
+    secret:
+      name: "redis-secret"
+
+
+sisi:
+  configuration:
+    value1: 1
+    value2:
+      value3: 3
+  env:
+    - name: test
+      valueFrom:
+        secretKeyRef:
+          key: a
+          name: v
+
+podAnnotations: {}
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+  tls: []
+

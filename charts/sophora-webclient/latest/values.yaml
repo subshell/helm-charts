@@ -8,6 +8,8 @@ image:
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file.
 hostAliases:
 
+imagePullSecrets: []
+
 sophora:
   authentication:
     secret:
