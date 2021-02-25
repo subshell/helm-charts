@@ -30,6 +30,17 @@ additionalSelectorLabels:
 # - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
 affinity: {}
 
+ingress:
+  enabled: false
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
 sophora:
   server:
     isClusterServer: true
@@ -110,6 +121,8 @@ securityContext: {}
 service:
   annotations: {}
   type:
+  httpPort: 1196
+  jmsPort: 1197
   sessionAffinity: None
   sessionAffinityConfig: {}
   loadBalancerIP:

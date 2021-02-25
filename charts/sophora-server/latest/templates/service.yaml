@@ -16,11 +16,11 @@ spec:
   sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
   sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}
   ports:
-    - port: 1196
+    - port: {{ .Values.service.httpPort }}
       targetPort: http
       protocol: TCP
       name: http
-    - port: 1197
+    - port: {{ .Values.service.jmsPort }}
       targetPort: jms
       protocol: TCP
       name: jms

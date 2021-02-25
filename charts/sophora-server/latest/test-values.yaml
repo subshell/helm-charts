@@ -18,6 +18,8 @@ affinity:
               operator: In
               values:
                 - cluster-server
+ingress:
+  enabled: true
 
 sophora:
   server:
