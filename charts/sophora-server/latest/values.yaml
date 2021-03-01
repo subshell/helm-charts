@@ -19,7 +19,7 @@ preStop:
     pullPolicy: IfNotPresent
     tag: "0.2.0"
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseLargePages"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:

@@ -12,7 +12,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-javaOptions: "-XX:+UseShenandoahGC -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -Xlog:gc -XX:+AlwaysPreTouch"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:

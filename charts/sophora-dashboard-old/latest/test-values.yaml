@@ -2,7 +2,7 @@ service:
   type: ClusterIP
   port: 80
 
-javaOptions: "-Xlog:gc -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenandoahGC -Xlog:gc -XX:+AlwaysPreTouch -XX:+UseLargePages"
 
 hostAliases:
   - ip: 10.10.1.1
