@@ -131,7 +131,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: persistence
-        labels: {{- include "sophora-dashboard-old.labels" . | nindent 10 }}
+        labels: {{- include "sophora-dashboard-old.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}
@@ -140,7 +140,7 @@ spec:
             storage: 1Mi
     - metadata:
         name: rrd
-        labels: {{- include "sophora-dashboard-old.labels" . | nindent 10 }}
+        labels: {{- include "sophora-dashboard-old.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}

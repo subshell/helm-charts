@@ -277,7 +277,7 @@ spec:
   volumeClaimTemplates:
     - metadata:
         name: sophora-server-storage
-        labels: {{- include "sophora-server.labels" . | nindent 10 }}
+        labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: ["ReadWriteOnce"]
         {{ if .Values.sophora.server.storage.dataSource -}}
@@ -288,7 +288,7 @@ spec:
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}
     - metadata:
         name: sophora-server-data
-        labels: {{- include "sophora-server.labels" . | nindent 10 }}
+        labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: ["ReadWriteOnce"]
         resources:
