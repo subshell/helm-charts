@@ -40,8 +40,8 @@ def release_git_prepare(chart_versions_dir: str, chart_version: str, release_goa
 
 def release_git_perform(chart_dir: str, chart_version: str, release_goal: str, git_tag: str, git_branch='master'):
     current_version = read_chart_version(chart_dir, version_dir=chart_version)
-    release = 'patch' if release_goal == 'patch' else 'none'
-    next_dev_version = parse_semver(current_version, release=release, suffix='-dev')
+    # increment patch version, i.e. 2.0.0 -> 2.0.1-dev
+    next_dev_version = parse_semver(current_version, release='patch', suffix='-dev')
     write_chart_version(chart_dir, next_dev_version, version_dir=chart_version)
 
     subprocess.run(['git', 'add', '--all'])
