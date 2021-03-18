@@ -20,8 +20,10 @@ def build(chart_version_dir: str):
 def push(chart_version_dir: str):
     print('running push only...')
 
-    # special case: o-neko
-    repo = 'subshell-tools' if 'o-neko' in str(chart_version_dir) else 'sophora'
+    # special case: o-neko + subshell-technology-radar
+    tools_charts = ['o-neko', 'subshell-technology-radar']
+
+    repo = 'subshell-tools' if any(elem in str(chart_version_dir) for elem in tools_charts) else 'sophora'
 
     subprocess.run(['helm', 'push', chart_version_dir, repo])
 
