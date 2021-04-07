@@ -1,4 +1,4 @@
-# Default values for sophora-updatesite.
+# Default values for deskclient-downloads.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -8,20 +8,16 @@ image:
   repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "1.19.5"
+  tag: "1.19.9-alpine"
 
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-# a updatesite url follows this convention:
-# https://software.subshell.com/download-sophora/4/deskclient-4.1.0/sophora-deskclient-4.1.0-unified-sophora-updatesite.zip
-updatesiteDownload:
-  # direct url to the updatesite zip file. Setting this option all baseUrl, version and identifier will be ignored
-  zipUrlOverride: ""
+sophoraDownload:
   baseUrl: "https://software.subshell.com/download-sophora"
   version: ""
-  # build identifier. For example: unified-sophora-updatesite
+  # build identifier. For example: unified-deskclient-downloads
   identifier: ""
   secretName: ""
   usernameKey: "username"
@@ -35,6 +31,8 @@ service:
   clusterIP:
   loadBalancerIP:
   port: 80
+
+storageClassName: ""
 
 ingress:
   enabled: true

@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sophora-updatesite.fullname" . }}
+  name: {{ include "deskclient-downloads.fullname" . }}
   labels:
-    {{- include "sophora-updatesite.labels" . | nindent 4 }}
+    {{- include "deskclient-downloads.labels" . | nindent 4 }}
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
@@ -19,4 +19,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "sophora-updatesite.selectorLabels" . | nindent 4 }}
+    {{- include "deskclient-downloads.selectorLabels" . | nindent 4 }}
