@@ -23,6 +23,11 @@ ingress:
 
 sophora:
   server:
+    logback: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration scan="true" scanPeriod="60 seconds">
+        Test Logback
+      </configuration>
     isClusterServer: true
     storage:
       storageClass: ssd
