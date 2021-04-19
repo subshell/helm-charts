@@ -192,6 +192,24 @@ sophora:
       # sophora.binarystore.s3.bucketName=
       # sophora.ibf.enabled = true
 
+startupProbe:
+  failureThreshold: 35
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+readinessProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 15
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 60
+  timeoutSeconds: 10
+  periodSeconds: 60
+
 podAnnotations: {}
 
 podSecurityContext: {}

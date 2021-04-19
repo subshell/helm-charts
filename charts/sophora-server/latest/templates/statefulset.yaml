@@ -221,26 +221,36 @@ spec:
               name: http
             - containerPort: 1197
               name: jms
-          startupProbe:
-            httpGet:
-              path: /status/started
-              port: 1196
-            initialDelaySeconds: 100
-            failureThreshold: 15000
-            periodSeconds: 30
+          {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
               path: /status/liveness
               port: 1196
-            initialDelaySeconds: 60
-            periodSeconds: 60
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
               path: /status/ready
               port: 1196
-            failureThreshold: 15
-            initialDelaySeconds: 30
-            periodSeconds: 15
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /status/started
+              port: 1196
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
           {{ if eq .Values.sophora.server.isClusterServer true -}}
           lifecycle:
             preStop:

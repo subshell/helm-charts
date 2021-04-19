@@ -74,6 +74,24 @@ sophora:
       passwordKey: "password"
       usernameKey: "username"
 
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
 ingress:
   enabled: true
   annotations: {}

@@ -25,6 +25,24 @@ sophoraDownload:
 
 podAnnotations: {}
 
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 10
+
 service:
   type:
   annotations:
