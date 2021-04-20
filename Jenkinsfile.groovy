@@ -5,7 +5,7 @@ pipeline {
         docker {
             image 'docker.subshell.com/builder/helm-builder:0.2.0'
             label 'docker'
-            args '-u root:root'
+            args '-u root'
         }
     }
     environment {
