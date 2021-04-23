@@ -1,0 +1,82 @@
+# Default values for sophora-importer.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.subshell.com/sophora/sophora-exporter
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0"
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+# -- (bool) If set to true the data will not be imported.
+debugMode: false
+
+sophora:
+  serverUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
+configHelper:
+  image:
+    repository: docker.subshell.com/misc/alpine-toolkit
+    pullPolicy: IfNotPresent
+    tag: "0.0.1"
+
+upload:
+  # absolute file path in the s3 storage. The file will be uploaded to this location.
+  absoluteFilePath: "/export.zip"
+  image:
+    repository: docker.subshell.com/misc/aws-cli-tools
+    pullPolicy: IfNotPresent
+    tag: "0.0.1"
+
+s3:
+  name: ""
+  url: "https://storage.googleapis.com"
+  secret:
+    name: ""
+    secretAccessKeyKey: "secretAccessKey"
+    accessKeyIdKey: "accessKeyId"
+
+exporter:
+  config:
+    deltaExport: false
+    exportDocumentsWithTimestamp: true
+    propertiesNotToExportInSophoraXml: []
+    stringToReferenceProperties: {}
+    maxRecursionDepthPerFile: 0
+    includeLiveVersionInXml: true
+    xmlVersion:
+    adminExport: {}
+    adminElementExport: {}
+    documents: []
+
+job:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 6
+  parallelism: 1
+
+podAnnotations: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi

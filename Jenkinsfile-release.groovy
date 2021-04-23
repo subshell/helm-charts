@@ -13,11 +13,23 @@ pipeline {
         BITBUCKET=credentials('889af355-bde5-46e7-a30f-6a764694ee0d')
     }
     parameters {
-        choice(name: 'HelmChart', choices: ['o-neko', 'sophora-repo-import', 'sophora-indexing-service', 'sophora-dashboard-old', 'sophora-importer', 'sophora-server', 'deskclient-downloads', 'sophora-webclient', 'subshell-technology-radar'], description: 'What helm chart to release')
+        booleanParam(name: 'ScanConfig', defaultValue: false, description: 'Scans for new release configurations. This is needed if a new helm chart was recently added.')
+        choice(name: 'HelmChart', choices: ['o-neko', 'sophora-repo-import', 'sophora-indexing-service', 'sophora-dashboard-old', 'sophora-importer', 'sophora-server', 'deskclient-downloads', 'sophora-webclient', 'subshell-technology-radar', 'sophora-export-job'], description: 'What helm chart to release')
         choice(name: 'ReleaseType', choices: ['patch', 'minor', 'major'], description: 'SemVer Release type patch, minor or major')
         choice(name: 'ExistingMajorVersion', choices: ['latest', 'v0', 'v1', 'v2', 'v3', 'v4', 'v5'], description: 'Target an existing major version (matches the sub directory)')
     }
     stages {
+        stage('Scan configuration') {
+            when {
+                equals expected: true, actual: params.ScanConfig
+            }
+            steps {
+                sh '''#!/bin/sh
+                echo "Searching for new release configuration... All other steps will be skipped!"
+                exit 1
+                '''
+            }
+        }
         stage('Git config') {
             steps {
                 sh '''#!/bin/sh
