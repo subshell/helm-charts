@@ -2,10 +2,11 @@ imagePullSecrets: []
 nameOverride: "test-repo-import"
 
 repoDownload:
-  secretName: sophora-repository-download-credentials
-  zipUrls:
-    - "https://software.subshell.com/libs-snapshot-local/unified-sophora/administration/1.0.0-SNAPSHOT/administration-1.0.0-20210120.100851-3-initial-import.zip"
-    - "https://software.subshell.com/libs-snapshot-local/unified-sophora/administration/1.0.0-SNAPSHOT/administration-1.0.0-20210120.100851-3-test-content.zip"
+  zipViaHttp:
+    secretName: sophora-repository-download-credentials
+    zipUrls:
+      - "https://software.subshell.com/libs-snapshot-local/unified-sophora/administration/1.0.0-SNAPSHOT/administration-1.0.0-20210120.100851-3-initial-import.zip"
+      - "https://software.subshell.com/libs-snapshot-local/unified-sophora/administration/1.0.0-SNAPSHOT/administration-1.0.0-20210120.100851-3-test-content.zip"
 
 sophora:
   serverUrl: http://sophora-server:1196

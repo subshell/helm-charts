@@ -30,7 +30,8 @@ spec:
       {{- end }}
       initContainers:
         - name: config-generator
-          image: "alpine:latest"
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
           env:
             - name: SERVER_SOPHORAUSERNAME
               valueFrom:
@@ -66,8 +67,6 @@ spec:
           args:
             - "-c"
             - |
-              # enable envsubst
-              apk add --update libintl && apk add --virtual build_deps gettext
               envsubst < /dashboard-config-template/dashboard-config.json > /dashboard-config/dashboard-config.json
               echo "Generated /dashboard-config/dashboard-config.json from ENV"
           volumeMounts:

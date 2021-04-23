@@ -22,6 +22,10 @@ sophoraDownload:
   secretName: ""
   usernameKey: "username"
   passwordKey: "password"
+  image:
+    repository: "docker.subshell.com/misc/alpine-toolkit"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
 
 podAnnotations: {}
 

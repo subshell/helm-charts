@@ -16,29 +16,30 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        - name: repo-downloader
-          image: "alpine:latest"
+        {{- if .Values.repoDownload.zipViaHttp.zipUrls }}
+        - name: zip-via-http-downloader
+          image: "{{ .Values.repoDownload.zipViaHttp.image.repository }}:{{ .Values.repoDownload.zipViaHttp.image.tag }}"
+          imagePullPolicy: {{ .Values.repoDownload.zipViaHttp.image.pullPolicy }}
           volumeMounts:
             - mountPath: /import
               name: import
           env:
             - name: REPO_ZIP_URLS
-              value: {{ include "sophora-repo-import.utils.joinListWithSpace" .Values.repoDownload.zipUrls | quote }}
+              value: {{ include "sophora-repo-import.utils.joinListWithSpace" .Values.repoDownload.zipViaHttp.zipUrls | quote }}
             - name: HTTP_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.repoDownload.usernameKey | quote }}
-                  name: {{ .Values.repoDownload.secretName | quote }}
+                  key: {{ .Values.repoDownload.zipViaHttp.usernameKey | quote }}
+                  name: {{ .Values.repoDownload.zipViaHttp.secretName | quote }}
             - name: HTTP_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.repoDownload.passwordKey }}
-                  name: {{ .Values.repoDownload.secretName | quote }}
+                  key: {{ .Values.repoDownload.zipViaHttp.passwordKey }}
+                  name: {{ .Values.repoDownload.zipViaHttp.secretName | quote }}
           command: ["/bin/sh"]
           args:
             - "-c"
             - |-
-             apk add --no-cache wget tree;
              mkdir dl;
              cd dl;
              for REPO_ZIP_URL in $REPO_ZIP_URLS; do
@@ -54,6 +55,51 @@ spec:
              {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
              echo "Copied data to import into local directory /import/admin/incoming"
              tree /import/admin/incoming
+        {{- end }}
+        {{- if .Values.repoDownload.zipViaS3.zipPaths }}
+        - name: zip-via-s3-downloader
+          image: "{{ .Values.repoDownload.zipViaS3.image.repository }}:{{ .Values.repoDownload.zipViaS3.image.tag }}"
+          imagePullPolicy: {{ .Values.repoDownload.zipViaS3.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /import
+              name: import
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.repoDownload.zipViaS3.accessKeyIdKey }}
+                  name: {{ .Values.repoDownload.zipViaS3.secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.repoDownload.zipViaS3.secretAccessKeyKey }}
+                  name: {{ .Values.repoDownload.zipViaS3.secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .Values.repoDownload.zipViaS3.s3Endpoint }}
+            - name: S3_NAME
+              value: {{.Values.repoDownload.zipViaS3.bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-repo-import.utils.joinListWithSpace" .Values.repoDownload.zipViaS3.zipPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl;
+              cd dl;
+              for S3_FILE_PATH in $S3_FILE_PATHS; do
+               aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
+               echo "Downloaded $S3_FILE_PATH"
+              done
+              for file in `ls *.zip`; do unzip $file; done
+              rm *.zip;
+              mkdir -p /import/admin/incoming
+              mkdir -p /import/temp
+              mkdir -p /import/admin/success
+              mkdir -p /import/admin/failure
+              {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
+              echo "Copied data to import into local directory /import/admin/incoming"
+              tree /import/admin/incoming
+        {{- end }}
       containers:
         - name: importer
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

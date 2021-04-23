@@ -28,7 +28,8 @@ spec:
       {{- end }}
       initContainers:
         - name: "contentdownloader"
-          image: alpine:latest
+          image: "{{ .Values.sophoraDownload.image.repository }}:{{ .Values.sophoraDownload.image.tag }}"
+          imagePullPolicy: {{ .Values.sophoraDownload.image.pullPolicy }}
           env:
           - name: HTTP_USERNAME
             valueFrom:
@@ -54,8 +55,6 @@ spec:
                 echo "Version {{ .Values.sophoraDownload.version }} not present. Removing old updatesite and DeskClient versions and downloading new version."
                 rm -rf /updatesite
                 rm -rf /deskclients
-
-                apk add --no-cache wget;
 
                 echo "Downloading and copying updatesite content"
                 wget --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" {{ include "deskclient-downloads.updatesiteUrl" . }} --verbose;
