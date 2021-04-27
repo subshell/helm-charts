@@ -16,7 +16,7 @@ data:
       "daemonMode": false,
       "deltaExport": {{ .Values.exporter.config.deltaExport }},
       "exportDocumentsWithTimestamp": {{ .Values.exporter.config.exportDocumentsWithTimestamp }},
-      "propertiesNotToExportInSophoraXml": {{ .Values.exporter.config.propertiesNotToExportInSophoraXml | toPrettyJson | nindent 8 }},
+      {{ if .Values.exporter.config.propertiesNotToExportInSophoraXml }}"propertiesNotToExportInSophoraXml": {{ .Values.exporter.config.propertiesNotToExportInSophoraXml | toPrettyJson | nindent 8 }},{{ end -}}
       "stringToReferenceProperties": {{ .Values.exporter.config.stringToReferenceProperties | toPrettyJson | nindent 8 }},
       "maxRecursionDepthPerFile": {{ .Values.exporter.config.maxRecursionDepthPerFile }},
       "includeLiveVersionInXml": {{ .Values.exporter.config.includeLiveVersionInXml | quote }},

@@ -53,13 +53,13 @@ exporter:
   config:
     deltaExport: false
     exportDocumentsWithTimestamp: true
-    propertiesNotToExportInSophoraXml: []
+    #propertiesNotToExportInSophoraXml: []
     stringToReferenceProperties: {}
     maxRecursionDepthPerFile: 0
     includeLiveVersionInXml: true
-    xmlVersion:
-    adminExport: {}
-    adminElementExport: {}
+    #xmlVersion:
+    #adminExport: {}
+    #adminElementExport: {}
     documents: []
 
 job:
