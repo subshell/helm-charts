@@ -1,0 +1,109 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "sophora-export-job.fullname" . }}
+  labels: {{- include "sophora-export-job.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.podAnnotations }}
+    {{- toYaml . | nindent 8 }}
+    {{- end }}
+spec:
+  schedule: {{ .Values.cronExpression }}
+  jobTemplate:
+    spec:
+      parallelism: 1
+      activeDeadlineSeconds: {{ .Values.activeDeadlineSeconds }}
+      template:
+        spec:
+          restartPolicy: Never
+          shareProcessNamespace: true
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.hostAliases }}
+          hostAliases: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          initContainers:
+            - name: config-helper
+              image: "{{ .Values.configHelper.image.repository }}:{{ .Values.configHelper.image.tag }}"
+              imagePullPolicy: {{ .Values.configHelper.image.pullPolicy }}
+              env:
+                - name: SERVER_SOPHORAUSERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.sophora.authentication.secret.usernameKey}}
+                      name: {{.Values.sophora.authentication.secret.name}}
+                - name: SERVER_SOPHORAPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.sophora.authentication.secret.passwordKey}}
+                      name: {{.Values.sophora.authentication.secret.name}}
+              command: ["/bin/sh"]
+              args:
+                - "-c"
+                - |
+                  envsubst < /exporter-configmap/exporter-config-template.json > /output/exporter.json
+                  echo "Generated exporter-config.json from ENV"
+              volumeMounts:
+                - name: exporter-configmap
+                  mountPath: /exporter-configmap
+                - name: exporter-config
+                  mountPath: /output
+          containers:
+            - name: exporter
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: JAVA_OPTS
+                  value: {{ .Values.javaOptions }}
+              resources: {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+                - name: exporter-config
+                  mountPath: /exporter/config/exporter.json
+                  subPath: exporter.json
+                - name: data-export
+                  mountPath: /data-export
+            - name: upload
+              image: "{{ .Values.upload.image.repository }}:{{ .Values.upload.image.tag }}"
+              imagePullPolicy: {{ .Values.upload.image.pullPolicy }}
+              env:
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.s3.secret.accessKeyIdKey}}
+                      name: {{ .Values.s3.secret.name }}
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.s3.secret.secretAccessKeyKey}}
+                      name: {{ .Values.s3.secret.name }}
+                - name: S3_ENDPOINT
+                  value: {{ .Values.s3.url }}
+                - name: S3_NAME
+                  value: {{ .Values.s3.name }}
+                - name: S3_FILE_PATH_WITHOUT_EXTENSION
+                  value: {{ .Values.upload.filePathWithoutZipExtension }}
+              command: ["/bin/sh"]
+              args:
+                - "-c"
+                - |-
+                  sh /exporter-configmap/wait-for-exporter-to-finish.sh
+                  sh /exporter-configmap/upload-to-s3.sh
+              volumeMounts:
+              - name: data-export
+                mountPath: /data-export
+              - name: exporter-configmap
+                mountPath: /exporter-configmap
+              securityContext:
+                capabilities:
+                  add:
+                    - SYS_PTRACE
+          volumes:
+            - name: exporter-configmap
+              configMap:
+                name: {{ include "sophora-export-job.fullname" . }}
+            - name: exporter-config
+              emptyDir: {}
+            - name: data-export
+              emptyDir: {}
