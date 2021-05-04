@@ -34,7 +34,7 @@ configHelper:
     tag: "0.0.1"
 
 upload:
-  # absolute file path in the s3 storage. The file will be uploaded to this location.
+  # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise
   absoluteFilePath: "/export.zip"
   image:
     repository: docker.subshell.com/misc/aws-cli-tools
@@ -66,6 +66,10 @@ job:
   ttlSecondsAfterFinished: 3600
   backoffLimit: 6
   parallelism: 1
+  activeDeadlineSeconds: 7200
+  cron:
+    enabled: false
+    expression: "0 */6 * * *"
 
 podAnnotations: {}
 

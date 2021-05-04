@@ -1,3 +1,4 @@
+{{- if not .Values.job.cron.enabled}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -11,6 +12,7 @@ spec:
   ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
   backoffLimit: {{ .Values.job.backoffLimit }}
   parallelism: {{ .Values.job.parallelism }}
+  activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
   template:
     spec:
       restartPolicy: Never
@@ -80,8 +82,10 @@ spec:
               value: {{ .Values.s3.url }}
             - name: S3_NAME
               value: {{ .Values.s3.name }}
-            - name: S3_ABSOLUTE_FILE_PATH
-              value: {{ .Values.upload.absoluteFilePath }}
+            - name: S3_FILE_PATH_WITHOUT_EXTENSION
+              value: {{ include "sophora-export-job.utils.fileNameWithoutZipExtension" . | quote }}
+            - name: STORE_UPLOAD_PER_WEEKDAY
+              value: {{ .Values.job.cron.enabled | quote }}
           command: ["/bin/sh"]
           args:
             - "-c"
@@ -105,3 +109,4 @@ spec:
           emptyDir: {}
         - name: data-export
           emptyDir: {}
+{{- end -}}

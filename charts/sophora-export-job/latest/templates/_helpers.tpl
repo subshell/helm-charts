@@ -65,3 +65,11 @@ Create the name of the service account to use
 {{- $local := dict "first" true -}}
 {{- range $k, $v := . -}}{{- if not $local.first -}}{{- " " -}}{{- end -}}{{- $v -}}{{- $_ := set $local "first" false -}}{{- end -}}
 {{- end -}}
+
+{{- define "sophora-export-job.utils.fileNameWithoutZipExtension" -}}
+{{- if hasSuffix ".zip" .Values.upload.absoluteFilePath }}
+{{- printf "%s" (regexSplit ".zip" .Values.upload.absoluteFilePath -1 | first) }}
+{{- else }}
+{{- printf "%s" .Values.upload.absoluteFilePath }}
+{{- end }}
+{{- end }}
