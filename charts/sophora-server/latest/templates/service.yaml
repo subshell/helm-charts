@@ -15,6 +15,7 @@ spec:
   selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
   sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
   sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}
+  publishNotReadyAddresses: {{ .Values.service.publishNotReadyAddresses }}
   ports:
     - port: {{ .Values.service.httpPort }}
       targetPort: http
