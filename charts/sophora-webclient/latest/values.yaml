@@ -3,7 +3,8 @@ fullnameOverride: ""
 
 image:
   name: docker.subshell.com/sophora/sophora-webclient
-  version: master
+  version: 4
+  pullPolicy: IfNotPresent
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file.
 hostAliases:
