@@ -49,7 +49,7 @@ To **uninstall** a Helm Chart:
 
 To grant k8s access to a docker repository:
 
-    k get secret dockersubshell --namespace=default -oyaml | sed s/"namespace: default"/"namespace: webclienthelmtest"/\ | k apply --namespace=webclienthelmtest -f -
+    k get secret docker-subshell --namespace=default -oyaml | sed s/"namespace: default"/"namespace: webclienthelmtest"/\ | k apply --namespace=webclienthelmtest -f -
     kubectl -n webclienthelmtest patch serviceaccount default -p '{"imagePullSecrets": [{"name": "dockersubshell"}]}'
 
 _Note_: The <name-of-the-release> is commonly the project name and optionally an additional identifier.

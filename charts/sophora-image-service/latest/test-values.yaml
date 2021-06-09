@@ -1,0 +1,50 @@
+image:
+  accessService:
+    tag: "5.0.0"
+  updateServer:
+    tag: "5.0.0"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: docker-subshell
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-admin-credentials"
+
+  configuration:
+    accessService:
+      sophora:
+        client:
+          server-connection:
+            urls: [ http://cluster-01-sophora-server:1196 ]
+            username: # in secret
+            password: # in secret
+        image-service:
+          s3-image-store:
+            host: "https://storage.googleapis.com"
+    updateService:
+      sophora:
+        client:
+          server-connection:
+            urls: [ http://cluster-01-sophora-server:1196 ]
+            username: # in secret
+            password: # in secret
+        image-service:
+          s3-image-store:
+            host: "https://storage.googleapis.com"
+
+s3:
+  secret:
+    name: "sophora-image-service-bucket-credentials"
+    accessKeyIdKey: "accessKeyId"
+    secretAccessKeyKey: "secretAccessKey"
+  bucketName: "image-service"
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+  tls: []
