@@ -7,6 +7,9 @@ resources:
     cpu: "1.5"
 
 oneko:
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: "json-logs"
   mongodb:
     secret:
       name: mongodb-credentials
