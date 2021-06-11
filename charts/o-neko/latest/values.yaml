@@ -16,6 +16,10 @@ oneko:
     tag: latest
     imagePullPolicy: IfNotPresent
 
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: "json-logs"
+
   helm:
     gcs:
       secret:

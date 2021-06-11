@@ -48,7 +48,10 @@ spec:
             {{- if .Values.oneko.helm.gcs.secret.name }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: "/app/google-service-account.json"
-          {{- end }}
+            {{- end }}
+            {{- if .Values.oneko.env -}}
+            {{- toYaml .Values.oneko.env | nindent 12 }}
+            {{- end }}
           ports:
             - containerPort: 8080
           volumeMounts:
