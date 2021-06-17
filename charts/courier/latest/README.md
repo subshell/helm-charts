@@ -19,6 +19,8 @@ image:
   
 imagePullSecrets: []
 
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
 service:
   type: LoadBalancer
   port: 80
@@ -84,35 +86,4 @@ secret:
     mail:
       username: username
       password: password
-
-updateStrategy:
-  type: RollingUpdate
-
-command:
-  - "java"
-  - "-Dlogging.config=config/logback/logback.xml"
-  - "-Dspring.config.location=file:config/application/application.yml"
-  - "-Djava.security.egd=file:/dev/./urandom"
-  - "-Dsophora.sophoraUsername=${SOPHORA_USERNAME}"
-  - "-Dsophora.sophoraPassword=${SOPHORA_PASSWORD}"
-  - "-Dsophora.basicAuthUsername=${SOPHORA_BASICAUTH_USERNAME}"
-  - "-Dsophora.basicAuthPassword=${SOPHORA_BASICAUTH_PASSWORD}"
-  - "-Dmail.username=${MAIL_USERNAME}"
-  - "-Dmail.password=${MAIL_PASSWORD}"
-  - "-XX:MinRAMPercentage=50.0"
-  - "-XX:MaxRAMPercentage=90.0"
-  - "-XX:+AlwaysPreTouch"
-  - "-jar"
-  - "/sophora-courier.jar"
 ```
-
-If you want to change the default command, you must add the following system properties for the authentication:
-```
-- "-Dsophora.sophoraUsername=${SOPHORA_USERNAME}"
-- "-Dsophora.sophoraPassword=${SOPHORA_PASSWORD}"
-- "-Dsophora.basicAuthUsername=${SOPHORA_BASICAUTH_USERNAME}"
-- "-Dsophora.basicAuthPassword=${SOPHORA_BASICAUTH_PASSWORD}"
-- "-Dmail.username=${MAIL_USERNAME}"
-- "-Dmail.password=${MAIL_PASSWORD}"
-```
-The environment variables contain the configured secret values.

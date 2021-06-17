@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
   name: {{ include "courier.fullname" . }}
   {{- with .Values.podAnnotations }}
@@ -12,9 +12,6 @@ spec:
   selector:
     matchLabels:
       app: {{ include "courier.fullname" . }}
-  serviceName: {{ include "courier.fullname" . }}
-  updateStrategy:
-    type: {{ .Values.updateStrategy.type }}
   template:
     metadata:
       labels:
@@ -24,26 +21,29 @@ spec:
         - name: {{ .Chart.Name }}-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           env:
-            - name: DD_AGENT_HOST
-              valueFrom:
-                fieldRef:
-                  fieldPath: status.hostIP
-            - name: SOPHORA_USERNAME
+            - name: JDK_JAVA_OPTIONS
+              value: >-
+                -Dlogging.config=config/logback/logback.xml
+                {{ .Values.javaOptions }}
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+            - name: SOPHORA_SOPHORAUSERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.secret.key.courier.username }}
                   name: {{ .Values.secret.name }}
-            - name: SOPHORA_PASSWORD
+            - name: SOPHORA_SOPHORAPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.secret.key.courier.password }}
                   name: {{ .Values.secret.name }}
-            - name: SOPHORA_BASICAUTH_USERNAME
+            - name: SOPHORA_BASICAUTHUSERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.secret.key.basicauth.username }}
                   name: {{ .Values.secret.name }}
-            - name: SOPHORA_BASICAUTH_PASSWORD
+            - name: SOPHORA_BASICAUTHPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.secret.key.basicauth.password }}
@@ -58,8 +58,6 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.secret.key.mail.password }}
                   name: {{ .Values.secret.name }}
-          command:
-            {{- toYaml .Values.command | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -70,10 +68,7 @@ spec:
             - name: {{ include "courier.fullname" . }}-logback-config
               mountPath: /config/logback
             - name: {{ include "courier.fullname" . }}-application-yml
-              mountPath: /config/application
-            - name: datadog
-              mountPath: /datadog
-              readOnly: true
+              mountPath: /config
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
@@ -89,7 +84,3 @@ spec:
         - name: {{ include "courier.fullname" . }}-application-yml
           configMap:
             name: {{ include "courier.fullname" . }}-config
-        - name: datadog
-          persistentVolumeClaim:
-            claimName: datadog-pvc
-            readOnly: true
