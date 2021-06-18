@@ -22,6 +22,7 @@ debugMode: false
 
 sophora:
   serverUrl:
+  internalConnection: true
   authentication:
     secret:
       name:
