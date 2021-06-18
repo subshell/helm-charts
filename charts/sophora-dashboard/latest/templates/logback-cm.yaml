@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "sophora-dashboard-old.fullname" . }}-logback
+  name: {{ include "sophora-dashboard.fullname" . }}-logback
   labels:
-    {{- include "sophora-dashboard-old.labels" . | nindent 4 }}
+    {{- include "sophora-dashboard.labels" . | nindent 4 }}
 data:
   logback.xml: |
     <?xml version="1.0" encoding="UTF-8" ?>

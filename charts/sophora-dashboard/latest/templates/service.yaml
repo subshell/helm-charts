@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "sophora-dashboard-old.fullname" . }}
+  name: {{ include "sophora-dashboard.fullname" . }}
   labels:
-    {{- include "sophora-dashboard-old.labels" . | nindent 4 }}
+    {{- include "sophora-dashboard.labels" . | nindent 4 }}
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
@@ -19,4 +19,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "sophora-dashboard-old.selectorLabels" . | nindent 4 }}
+    {{- include "sophora-dashboard.selectorLabels" . | nindent 4 }}

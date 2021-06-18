@@ -1,6 +1,6 @@
-# Helm Chart: Sophora Dashboard (old version)
+# Helm Chart: Sophora Dashboard
 
-This chart deploys the old version of the Sophora Dashboard that uses an ingress for external access over HTTP(S).
+This chart deploys the Sophora Dashboard with an ingress for external access over HTTP(S).
 
 ## Example values.yaml
 
