@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "sophora-server.labels" . | nindent 4 }}
 spec:
-  {{ if eq .Values.sophora.server.isClusterServer true -}}
+  {{ if and (eq .Values.clusterReplication.enabled false) (eq .Values.sophora.server.isClusterServer true) -}}
   replicas: 1
   {{- else -}}
   replicas: {{ .Values.replicaCount }}
@@ -33,15 +33,43 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       affinity: {{- toYaml .Values.affinity | nindent 8 }}
-      {{ if eq .Values.sophora.server.isClusterServer true -}}
       initContainers:
+      {{ if eq .Values.sophora.server.isClusterServer true }}
         - name: sophora-prestop-initializer
           image: "{{ .Values.preStop.image.repository }}:{{ .Values.preStop.image.tag }}"
+          imagePullPolicy: {{ .Values.preStop.image.pullPolicy }}
           command: ["cp", "/sophora-prestop", "/tools/sophora-prestop"]
           volumeMounts:
             - name: tools
               mountPath: "/tools"
       {{- end }}
+        - name: cluster-server-config-initializer
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          command: ["/bin/sh", "/configs/config-setup.sh"]
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            {{ include "sophora-server.mysqlEnv" . | trim | nindent 12 }}
+            {{- if .Values.clusterReplication.enabled }}
+            - name: EXTERNAL_HOSTS
+              value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+              mountPath: /sophora-repository-template
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              mountPath: /sophora-repository
+            - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+              mountPath: /sophora-archive-template
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              mountPath: /sophora-archive
+            - name: {{ include "sophora-server.configs" . }}
+              mountPath: /configs
+            - name: {{ include "sophora-server.propertiesName" . }}
+              mountPath: /sophora-properties
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -52,7 +80,7 @@ spec:
             - name: logback-xml-config
               mountPath: /sophora/config/logback.xml
               subPath: logback.xml
-            - name: sophora-properties-config
+            - name: {{ include "sophora-server.propertiesName" . }}
               mountPath: /sophora/config/sophora.properties
               subPath: sophora.properties
             - name: sophora-server-storage
@@ -112,21 +140,21 @@ spec:
               subPath: repository_archive.workspaces.default.db
 
             # Main Repo
-            - name: sophora-server-repository
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
               subPath: repository.xml
               mountPath: /sophora/repository/repository.xml
-            - name: sophora-server-repository
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
               subPath: workspace.default.xml
               mountPath: /sophora/repository/workspaces/default/workspace.xml
-            - name: sophora-server-repository
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
               subPath: workspace.live.xml
               mountPath: /sophora/repository/workspaces/live/workspace.xml
 
             # Archive Repo
-            - name: sophora-server-archive
+            - name: {{ include "sophora-server.archiveConfigName" . }}
               subPath: repository.xml
               mountPath: /sophora/repository_archive/repository.xml
-            - name: sophora-server-archive
+            - name: {{ include "sophora-server.archiveConfigName" . }}
               subPath: workspace.default.xml
               mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
 
@@ -136,54 +164,8 @@ spec:
               mountPath: "/tools"
             {{- end }}
           env:
-            {{ if .Values.sophora.server.persistence.mysql.repository -}}
-            - name: REPOSITORY_MYSQL_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: {{ required "MySQL hostname key must be provided in the form hostname:port" .Values.sophora.server.persistence.mysql.repository.hostnameKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
-                  optional: false
-            - name: REPOSITORY_MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.mysql.repository.usernameKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
-                  optional: false
-            - name: REPOSITORY_MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.mysql.repository.passwordKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.repository.secretName }}
-                  optional: false
-            {{- end }}
-            {{ if .Values.sophora.server.persistence.mysql.archive -}}
-            - name: ARCHIVE_MYSQL_HOST
-              valueFrom:
-                secretKeyRef:
-                  key: {{ required "MySQL hostname must be provided in the form hostname:port" .Values.sophora.server.persistence.mysql.archive.hostnameKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
-                  optional: false
-            - name: ARCHIVE_MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.mysql.archive.usernameKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
-                  optional: false
-            - name: ARCHIVE_MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.mysql.archive.passwordKey }}
-                  name: {{ .Values.sophora.server.persistence.mysql.archive.secretName }}
-                  optional: false
-            {{- end }}
             - name: JDK_JAVA_OPTIONS
               value: >-
-                -DREPOSITORY_MYSQL_HOST=$(REPOSITORY_MYSQL_HOST)
-                -DREPOSITORY_MYSQL_USER=$(REPOSITORY_MYSQL_USER)
-                -DREPOSITORY_MYSQL_PASSWORD=$(REPOSITORY_MYSQL_PASSWORD)
-                -DARCHIVE_MYSQL_HOST=$(ARCHIVE_MYSQL_HOST)
-                -DARCHIVE_MYSQL_USER=$(ARCHIVE_MYSQL_USER)
-                -DARCHIVE_MYSQL_PASSWORD=$(ARCHIVE_MYSQL_PASSWORD)
                 {{ .Values.javaOptions }}
             {{ if .Values.sophora.server.binaryStore.s3.secret.name -}}
             - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
@@ -259,15 +241,29 @@ spec:
                   [
                       "/tools/sophora-prestop",
                       "switch",
-                      "--serverUrl=http://localhost:1196"
+                      "--serverUrl=http://localhost:1196",
+                      "--prioritizeHighestStatefulSetMember"
                   ]
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
-        - name: sophora-properties-config
+        - name: {{ include "sophora-server.configs" . }}
           configMap:
-            name: {{ include "sophora-server.propertiesName" . }}
+            name: {{ include "sophora-server.configs" . }}
+        - name: {{ include "sophora-server.propertiesName" . }}
+          emptyDir: {}
+        - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+          configMap:
+            name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+        - name: {{ include "sophora-server.repositoryConfigName" . }}
+          emptyDir: {}
+        - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+          configMap:
+            name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+        - name: {{ include "sophora-server.archiveConfigName" . }}
+          emptyDir: {}
+
         - name: logback-xml-config
           configMap:
             name: {{ include "sophora-server.logbackConfigName" . }}

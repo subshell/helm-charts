@@ -1,10 +1,13 @@
 nameOverride: sophora-server
 
-replicaCount: 1
+replicaCount: 3
 
 image:
   tag: "4.0.0"
   pullPolicy: Always
+
+imagePullSecrets:
+  - name: docker-subshell
 
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
@@ -18,8 +21,6 @@ affinity:
               operator: In
               values:
                 - cluster-server
-ingress:
-  enabled: true
 
 sophora:
   server:
@@ -35,17 +36,18 @@ sophora:
         requests:
           storage: 200Gi
     persistence:
+      repositoryType: mysql
+      archiveType: mysql
       mysql:
-        repository:
-          secretName: repository-mysql-credentials
-          hostnameKey: hostname
-          usernameKey: username
-          passwordKey: password
-        archive:
-          secretName: archive-mysql-credentials
-          hostnameKey: hostname
-          usernameKey: username
-          passwordKey: password
+        repositories:
+          - secretName: repository-secret01
+            hostnameKey: new-hostname
+          - secretName: repository-secret02
+          - secretName: repository-secret03
+        archives:
+          - secretName: archive-secret01
+          - secretName: archive-secret02
+          - secretName: archive-secret03
     binaryStore:
       s3:
         secret:
@@ -70,6 +72,38 @@ service:
     networking.gke.io/internal-load-balancer-subnet: "gke-sophora-services"
   type: LoadBalancer
   loadBalancerIP: 1.2.3.4
+
+ingress:
+  enabled: true
+  hosts:
+    - host: "sophora.dev.code-nnw.cloud"
+
+clusterReplication:
+  enabled: true
+  ingressesDefaults:
+    enabled: true
+    annotations:
+      c: d
+  ingresses:
+    - hosts:
+      - host: "sophora01.dev.code-nnw.cloud"
+      tls:
+        - secretName: chart-example01-tls
+          hosts:
+            - "sophora01.dev.code-nnw.cloud"
+    - annotations:
+        a: b
+      hosts:
+      - host: "sophora02.dev.code-nnw.cloud"
+      tls:
+        - secretName: chart-example01-tls
+          hosts:
+            - "sophora02.dev.code-nnw.cloud"
+    - enabled: false
+  servicesDefaults:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
 
 resources:
   requests:

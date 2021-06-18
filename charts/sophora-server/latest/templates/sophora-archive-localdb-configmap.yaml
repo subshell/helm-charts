@@ -1,8 +1,8 @@
-{{ if not .Values.sophora.server.persistence.mysql.archive -}}
+{{ if eq .Values.sophora.server.persistence.archiveType "localdb" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "sophora-server.archiveConfigName" . }}
+  name: {{ include "sophora-server.archiveConfigTemplateName" . }}
   labels:
   {{- include "sophora-server.labels" . | nindent 4 }}
 data:

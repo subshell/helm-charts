@@ -1,3 +1,4 @@
+{{- $enableSessionAffinity := (eq (.Values.service.enableSessionAffinity | quote) "") | ternary .Values.sophora.server.isClusterServer .Values.service.enableSessionAffinity -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,12 +10,14 @@ spec:
   {{ if .Values.service.clusterIP -}}
   clusterIP: {{.Values.service.clusterIP}}
   {{- end }}
-  {{ if .Values.service.loadBalancerIP }}
+  {{ if .Values.service.loadBalancerIP -}}
   loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
   {{- end }}
   selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  {{ if $enableSessionAffinity -}}
   sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
   sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}
+  {{- end }}
   publishNotReadyAddresses: {{ .Values.service.publishNotReadyAddresses }}
   ports:
     - port: {{ .Values.service.httpPort }}

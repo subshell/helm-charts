@@ -80,8 +80,3 @@ To view your helm deployments we recommend:
 - [k9s](https://github.com/derailed/k9s).
 - [Lens](https://k8slens.dev/)
 
-### Useful commands
-
-Creating a k8s secret inline:
-
-     create secret generic sophora-user-credentials --from-literal=username="admin" --from-literal=password="admin"

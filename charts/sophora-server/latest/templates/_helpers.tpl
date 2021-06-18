@@ -54,6 +54,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Server configs and scripts config map name
+*/}}
+{{- define "sophora-server.configs" -}}
+{{- printf "properties-template-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
+{{- end }}
+
+{{/*
 Properties Name
 */}}
 {{- define "sophora-server.propertiesName" -}}
@@ -61,10 +68,24 @@ Properties Name
 {{- end }}
 
 {{/*
+Repository Template Name
+*/}}
+{{- define "sophora-server.repositoryConfigTemplateName" -}}
+{{- printf "repository-template-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
+{{- end }}
+
+{{/*
 Repository-Config Name
 */}}
 {{- define "sophora-server.repositoryConfigName" -}}
 {{- printf "repository-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
+{{- end }}
+
+{{/*
+Archive Template Name
+*/}}
+{{- define "sophora-server.archiveConfigTemplateName" -}}
+{{- printf "archive-template-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
 {{- end }}
 
 {{/*

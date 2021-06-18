@@ -17,7 +17,13 @@ preStop:
   image:
     repository: docker.subshell.com/tools/sophora-prestop
     pullPolicy: IfNotPresent
-    tag: "0.2.0"
+    tag: "0.3.0"
+
+configGenerator:
+  image:
+    repository: "docker.subshell.com/misc/alpine-toolkit"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseLargePages"
 
@@ -29,17 +35,6 @@ additionalSelectorLabels:
 
 # - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
 affinity: {}
-
-ingress:
-  enabled: false
-  annotations: {}
-  # kubernetes.io/ingress.class: nginx
-  # kubernetes.io/tls-acme: "true"
-  hosts:
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 sophora:
   server:
@@ -142,17 +137,20 @@ sophora:
         requests:
           storage: 2Gi
     persistence:
+      repositoryType: localdb # or mysql
+      archiveType: localdb # or mysql
+      # if clusterReplication.enabled is set to false the list of reposities and archieves should only contain one entry
       mysql:
-        repository:
-       #   secretName:
-       #   hostnameKey: hostname
-       #   usernameKey: username
-       #   passwordKey: password
-        archive:
-       #   secretName:
-       #   hostnameKey: hostname
-       #   usernameKey: username
-       #   passwordKey: password
+        repositories:
+        #   secretName:
+        #   hostnameKey: hostname
+        #   usernameKey: username
+        #   passwordKey: password
+        archives:
+        #   secretName:
+        #   hostnameKey: hostname
+        #   usernameKey: username
+        #   passwordKey: password
     binaryStore:
       s3:
         secret:
@@ -224,16 +222,50 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+ingress:
+  enabled: false
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
 service:
   annotations: {}
   type:
   httpPort: 1196
   jmsPort: 1197
-  sessionAffinity: None
-  sessionAffinityConfig: {}
+  # -- (boolean) defaults to sophora.server.isClusterServer
+  enableSessionAffinity:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
   loadBalancerIP:
   clusterIP:
   publishNotReadyAddresses: false
+
+# -- if enabled and the server mode is set to sophora.server.isClusterServer, each replica spawns a new
+# ingress and service at deploy time. Scaling the server without a helm deployment will lead to errors.
+clusterReplication:
+  enabled: false
+  ingressesDefaults:
+    enabled: false
+    annotations: {}
+  ingresses: []
+  # -- all required services are generated based on these defaults. Custom ClusterIPs and LoadBalancerIPs are
+  # not supported.
+  servicesDefaults:
+    annotations: {}
+    type:
+    httpPort: 1196
+    jmsPort: 1197
+    sessionAffinity: None
+    sessionAffinityConfig: {}
+    publishNotReadyAddresses: false
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious

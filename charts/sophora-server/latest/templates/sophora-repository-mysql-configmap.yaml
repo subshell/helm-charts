@@ -1,8 +1,8 @@
-{{ if .Values.sophora.server.persistence.mysql.repository -}}
+{{ if eq .Values.sophora.server.persistence.repositoryType "mysql" -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "sophora-server.repositoryConfigName" . }}
+  name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
   labels:
   {{- include "sophora-server.labels" . | nindent 4 }}
 data:

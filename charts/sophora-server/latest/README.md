@@ -14,6 +14,36 @@ helm install --namespace sophora -f ./values.yaml my-sophora-server-release soph
 
 ### Cluster servers
 
+#### cluster replication
+
+To enable multiple cluster server in one statefulset set `clusterReplication.enabled` to `true`. To reach individual server instances 
+also set `clusterReplication.ingresses`, and `clusterReplication.services`. The order has to match
+the order of pods in the stateful set. Here is an example of a simple configuration with two replicas:
+
+```yaml
+clusterReplication:
+  enabled: true
+  ingressesDefaults: 
+    enabled: true
+  ingresses: 
+    - hosts:
+      - host: "my-server01.com"
+      tls:
+        - secretName: my-server01-tls
+          hosts:
+            - "my-server01.com"
+    - hosts:
+      - host: "my-server02.com"
+      tls:
+        - secretName: my-server01.com-tls
+          hosts:
+            - "my-server02.com"
+  servicesDefaults:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: "true"
+```
+
 #### podAntiAffinity
 To prevent multiple cluster servers to be scheduled on the same k8s node you can use the podAntiAffinity. Per default
 you can write the following in your values file:
