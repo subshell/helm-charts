@@ -54,12 +54,12 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Configmap Name
 */}}
 {{- define "webclient.configName" -}}
-{{- printf "%s-config" (include "webclient.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-config" (include "webclient.fullname" . | trunc 56 | trimSuffix "-" ) -}}
 {{- end }}
 
 {{/*
 Binary Configmap Name
 */}}
 {{- define "webclient.binaryConfigName" -}}
-{{- printf "%s-binary-config" (include "webclient.fullname" .) | trunc 63 | trimSuffix "-" -}}
+{{- printf "%s-binary-config" (include "webclient.fullname" . | trunc 49 | trimSuffix "-" ) -}}
 {{- end }}
