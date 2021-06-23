@@ -17,8 +17,13 @@ sophora:
       name: "sophora-user-importer-credentials"
     solrSecret:
       name: "sophora-server-solr-credentials"
-    jolokiaSecret:
-      name: "sophora-server-jolokia-credentials"
+    jolokiaSecrets:
+      server:
+        name: "server-jolokia-credentials"
+      importer:
+        name: "importer-jolokia-credentials"
+      indexer:
+        name: "indexer-jolokia-credentials"
 
 ingress:
   enabled: false

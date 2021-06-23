@@ -71,12 +71,20 @@ sophora:
       passwordKey: "password"
       usernameKey: "username"
 
-
     # -- (object) user credentials for jolokia stored in a secret
-    jolokiaSecret:
-      name: ""
-      passwordKey: "password"
-      usernameKey: "username"
+    jolokiaSecrets:
+      server:
+        name: ""
+        passwordKey: "password"
+        usernameKey: "username"
+      importer:
+        name: ""
+        passwordKey: "password"
+        usernameKey: "username"
+      indexer:
+        name: ""
+        passwordKey: "password"
+        usernameKey: "username"
 
 startupProbe:
   failureThreshold: 10

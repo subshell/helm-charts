@@ -19,8 +19,8 @@ data:
           masterHostname: "{{.Values.sophora.serverHostname}}",
           masterHttpPort: {{.Values.sophora.serverPort}},
           contentApiPath: "/content-api",
-          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
-          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}",
+          jolokiaUsername: "${SERVER_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${SERVER_JOLOKIAPASSWORD}",
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
           solrUsername: "${SERVER_SOLRUSERNAME}",
           solrPassword: "${SERVER_SOLRPASSWORD}",
@@ -31,12 +31,12 @@ data:
       },
       importer: {
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
-          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
-          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}"
+          jolokiaUsername: "${IMPORTER_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${IMPORTER_JOLOKIAPASSWORD}"
       },
       indexer: {
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
-          jolokiaUsername: "${GLOBAL_JOLOKIAUSERNAME}",
-          jolokiaPassword: "${GLOBAL_JOLOKIAPASSWORD}"
+          jolokiaUsername: "${INDEXER_JOLOKIAUSERNAME}",
+          jolokiaPassword: "${INDEXER_JOLOKIAPASSWORD}"
       }
     }

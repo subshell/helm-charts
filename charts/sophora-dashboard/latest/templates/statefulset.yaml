@@ -53,16 +53,36 @@ spec:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.solrSecret.passwordKey}}
                   name: {{.Values.sophora.authentication.solrSecret.name}}
-            - name: GLOBAL_JOLOKIAUSERNAME
+            - name: SERVER_JOLOKIAUSERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{.Values.sophora.authentication.jolokiaSecret.usernameKey}}
-                  name: {{.Values.sophora.authentication.jolokiaSecret.name}}
-            - name: GLOBAL_JOLOKIAPASSWORD
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.server.usernameKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.server.name}}
+            - name: SERVER_JOLOKIAPASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{.Values.sophora.authentication.jolokiaSecret.passwordKey}}
-                  name: {{.Values.sophora.authentication.jolokiaSecret.name}}
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.server.passwordKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.server.name}}
+            - name: IMPORTER_JOLOKIAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.importer.usernameKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.importer.name}}
+            - name: IMPORTER_JOLOKIAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.importer.passwordKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.importer.name}}
+            - name: INDEXER_JOLOKIAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.indexer.usernameKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.indexer.name}}
+            - name: INDEXER_JOLOKIAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.jolokiaSecrets.indexer.passwordKey}}
+                  name: {{.Values.sophora.authentication.jolokiaSecrets.indexer.name}}
           command: ["/bin/sh"]
           args:
             - "-c"
