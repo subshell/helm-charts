@@ -86,6 +86,15 @@ pipeline {
                 archiveArtifacts artifacts: 'out/**/*.tgz', fingerprint: true
             }
         }
+        stage('Cleanup') {
+            steps {
+                sh '''#!/bin/sh
+                # delete generated dirs so that Jenkins won't have permission problems.
+                rm -rf scripts/__pycache__
+                rm -rf out
+                '''
+            }
+        }
     }
     post {
         always {

@@ -38,7 +38,7 @@ livenessProbe:
 
 ingress:
   tls:
-  host: ""
+  hosts:
   annotations: {}
 
 webclient:

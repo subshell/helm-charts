@@ -6,7 +6,8 @@ sophora:
       name: "sophora-credentials"
 
 ingress:
-  host: "my-site.com"
+  hosts:
+    - host: "my-site.com"
 
 webclient:
   configuration:

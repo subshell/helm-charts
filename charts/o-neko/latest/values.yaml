@@ -63,6 +63,6 @@ service:
   clusterIP:
 
 ingress:
-  host: ""
+  hosts:
   tls:
   annotations: {}

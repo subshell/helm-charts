@@ -28,4 +28,7 @@ oneko:
           autoIndexCreation: true
 
 ingress:
-  host: "oneko.subshell.cloud"
+  hosts:
+    - path: "/"
+      pathType: Prefix
+      host: "oneko.subshell.cloud"

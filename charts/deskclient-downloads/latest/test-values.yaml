@@ -13,6 +13,10 @@ service:
   port: 80
 
 ingress:
+  hosts:
+    - path: "/"
+      pathType: Prefix
+      host: "test.com"
   enabled: true
 
 resources:

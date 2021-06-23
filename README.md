@@ -1,6 +1,7 @@
 # Sophora Helm Charts
 
 This repo is a collection of Sophora [Helm charts](https://helm.sh/docs/topics/charts/).
+We require Kubernetes version **1.19+**.
 
 ## Required Helm plugins
 

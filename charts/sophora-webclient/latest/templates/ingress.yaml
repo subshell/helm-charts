@@ -1,5 +1,5 @@
 {{- $fullName := include "webclient.fullname" . -}}
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
@@ -19,10 +19,15 @@ spec:
   {{- end }}
   {{- end }}
   rules:
-    - host: {{ required "A hostname for the ingress must be provided in .Values.webclient.ingress.host" .Values.ingress.host }}
+    {{- range .Values.ingress.hosts }}
+    - host: {{ required "A hostname for the ingress must be provided in .Values.webclient.ingress.host" .host }}
       http:
         paths:
           - path: /
+            pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
-              serviceName: {{ $fullName }}
-              servicePort: 8080
+              service:
+                name: {{ $fullName }}
+                port:
+                  number: 8080
+    {{- end }}
