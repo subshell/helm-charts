@@ -148,6 +148,9 @@ spec:
           env:
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
