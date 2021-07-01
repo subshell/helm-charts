@@ -25,7 +25,7 @@ by the [build](http://jenkins.subshell.com:9090/view/Weasel/view/All/job/helm-ch
 
 To use the subshell sophora repo execute these commands (this is only required once):
 
-    helm repo add sophora https://docker.subshell.com/chartrepo/sophora
+    helm repo add sophora https://docker.subshell.com/chartrepo/sophora --username docker --password <see 1password>
 
 Before you have a look at the following commands, you should select the kubernetes namespace you are currently
 working on:
