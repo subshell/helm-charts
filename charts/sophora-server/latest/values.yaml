@@ -36,6 +36,8 @@ additionalSelectorLabels:
 # - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
 affinity: {}
 
+nodeSelector: {}
+
 sophora:
   server:
     logback: |
@@ -189,6 +191,9 @@ sophora:
       # sophora.binarystore.s3.host=
       # sophora.binarystore.s3.bucketName=
       # sophora.ibf.enabled = true
+
+  acs:
+    url:
 
 startupProbe:
   failureThreshold: 35

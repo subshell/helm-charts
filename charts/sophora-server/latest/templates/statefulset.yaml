@@ -83,6 +83,11 @@ spec:
             - name: {{ include "sophora-server.propertiesName" . }}
               mountPath: /sophora/config/sophora.properties
               subPath: sophora.properties
+            {{ if .Values.sophora.acs.url }}
+            - name: {{ include "sophora-server.configs" . }}
+              mountPath: /sophora/config/acs.properties
+              subPath: acs.properties
+            {{- end }}
             - name: sophora-server-storage
               mountPath: /sophora/config
               subPath: config
@@ -247,6 +252,10 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
       volumes:
         - name: {{ include "sophora-server.configs" . }}
           configMap:
