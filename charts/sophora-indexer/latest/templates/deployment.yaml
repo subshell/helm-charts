@@ -1,0 +1,142 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-indexer.fullname" . }}
+  labels:
+    {{- include "sophora-indexer.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "sophora-indexer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        {{- end }}
+        checksum/config: {{ toString .Values.indexer.configuration | sha256sum }}
+      labels:
+        {{- include "sophora-indexer.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: config-generator
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          env:
+            - name: SERVER_SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.indexer.secret.contentmanager.usernameKey}}
+                  name: {{.Values.indexer.secret.name}}
+            - name: SERVER_SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.indexer.secret.contentmanager.passwordKey}}
+                  name: {{.Values.indexer.secret.name}}
+            - name: JMX_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.indexer.secret.jmx.usernameKey}}
+                  name: {{.Values.indexer.secret.name}}
+            - name: JMX_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.indexer.secret.jmx.passwordKey}}
+                  name: {{.Values.indexer.secret.name}}
+            - name: JMX_REGISTRY_PORT
+              value: "{{ .Values.configGenerator.ports.jmx }}"
+            - name: RMI_REGISTRY_PORT
+              value: "{{ .Values.configGenerator.ports.rmi }}"
+            - name: JOLOKIA_PORT
+              value: "{{ .Values.configGenerator.ports.jolokia }}"
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              cp /indexer-config-template/indexer.properties /indexer/config/
+              CONFIG=/indexer/config/indexer.properties
+              echo 'sophora.contentmanager.username=${SERVER_SOPHORAUSERNAME}' >> $CONFIG
+              echo 'sophora.contentmanager.password=${SERVER_SOPHORAPASSWORD}' >> $CONFIG
+              echo 'sophora.indexer.jmx.registry.username=${JMX_USERNAME}' >> $CONFIG
+              echo 'sophora.indexer.jmx.registry.password=${JMX_PASSWORD}' >> $CONFIG
+              echo 'sophora.indexer.jmx.registry.port=${JMX_REGISTRY_PORT}' >> $CONFIG
+              echo 'sophora.indexer.rmi.registry.port=${RMI_REGISTRY_PORT}' >> $CONFIG
+              echo 'sophora.indexer.jolokia.port=${JOLOKIA_PORT}' >> $CONFIG
+              cat /additional.properties >> $CONFIG
+              envsubst < $CONFIG > $CONFIG.tmp
+              mv $CONFIG.tmp $CONFIG
+              echo "Generated /indexer/config/indexer.properties from ENV"
+              find /indexer-config-template -type f -not -name indexer.properties -exec cp -v {} /indexer/config/ \;
+          volumeMounts:
+            - name: indexer-config-template
+              mountPath: /indexer-config-template
+            - name: indexer-config
+              mountPath: /indexer/config
+            - name: secret
+              subPath: {{ .Values.indexer.secret.additionalIndexerProperties }}
+              mountPath: /additional.properties
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_OPTS
+              value: {{ .Values.javaOptions }}
+          {{ if .Values.env -}}
+          {{- toYaml .Values.env | nindent 12 }}
+          {{- end }}
+          ports:
+            {{- with .Values.configGenerator.ports }}
+            - name: jolokia
+              containerPort: {{ .jolokia }}
+              protocol: TCP
+            {{- if gt (int .jmx) 0 }}
+            - name: jmx
+              containerPort: {{ .jmx }}
+              protocol: TCP
+            {{- end }}
+            {{- if gt (int .rmi) 0 }}
+            - name: rmi
+              containerPort: {{ .rmi }}
+              protocol: TCP
+            {{- end }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - mountPath: /indexer/config
+              name: indexer-config
+      volumes:
+        - name: indexer-config
+          emptyDir: {}
+        - name: indexer-config-template
+          configMap:
+            name: {{ include "sophora-indexer.fullname" . }}
+        {{- if .Values.indexer.secret.additionalIndexerProperties }}
+        - name: secret
+          secret:
+            secretName: {{ .Values.indexer.secret.name }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

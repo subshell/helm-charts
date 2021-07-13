@@ -1,0 +1,61 @@
+# Default values for sophora-indexer.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.subshell.com/sophora-indexer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+
+configGenerator:
+  image:
+    repository: "docker.subshell.com/misc/alpine-toolkit"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
+  ports:
+    jmx: 0 # With a value of 0 the jmx interface is deactivated in the indexer itself and in the service
+    rmi: 0 # With a value of 0 the jmx interface is deactivated in the indexer itself and in the service
+    jolokia: 1596
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+javaOptions: "-Dlogging.config=/indexer/config/logback.xml -Dsophora.properties=/indexer/config/indexer.properties -Dsophora.groovy.dir=groovy -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+env:

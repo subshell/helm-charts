@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sophora-indexer.fullname" . }}
+  labels:
+    {{- include "sophora-indexer.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.configGenerator.ports.jolokia }}
+      protocol: TCP
+      name: jolokia
+    {{- if gt (int .Values.configGenerator.ports.jmx) 0 }}
+    - port: {{ .Values.configGenerator.ports.jmx }}
+      protocol: TCP
+      name: jmx
+    {{- end }}
+    {{- if gt (int .Values.configGenerator.ports.rmi) 0 }}
+    - port: {{ .Values.configGenerator.ports.rmi }}
+      protocol: TCP
+      name: rmi
+    {{- end }}
+  selector:
+    {{- include "sophora-indexer.selectorLabels" . | nindent 4 }}
