@@ -14,7 +14,7 @@ pipeline {
     }
     parameters {
         booleanParam(name: 'ScanConfig', defaultValue: false, description: 'Scans for new release configurations. This is needed if a new helm chart was recently added.')
-        choice(name: 'HelmChart', choices: ['o-neko', 'sophora-repo-import', 'sophora-indexing-service', 'sophora-dashboard', 'sophora-importer', 'sophora-image-service', 'sophora-server', 'deskclient-downloads', 'sophora-webclient', 'subshell-technology-radar', 'sophora-export-job', 'sophora-export-cronjob', 'courier'], description: 'What helm chart to release')
+        choice(name: 'HelmChart', choices: ['o-neko', 'sophora-repo-import', 'sophora-indexing-service', 'sophora-dashboard', 'sophora-importer', 'sophora-image-service', 'sophora-server', 'deskclient-downloads', 'sophora-webclient', 'subshell-technology-radar', 'sophora-export-job', 'sophora-export-cronjob', 'courier', 'sophora-indexer'], description: 'What helm chart to release')
         choice(name: 'ReleaseType', choices: ['patch', 'minor', 'major'], description: 'SemVer Release type patch, minor or major')
         choice(name: 'ExistingMajorVersion', choices: ['latest', 'v0', 'v1', 'v2', 'v3', 'v4', 'v5'], description: 'Target an existing major version (matches the sub directory)')
     }
