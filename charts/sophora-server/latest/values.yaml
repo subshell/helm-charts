@@ -253,6 +253,10 @@ service:
   clusterIP:
   publishNotReadyAddresses: false
 
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
 # -- if enabled and the server mode is set to sophora.server.isClusterServer, each replica spawns a new
 # ingress and service at deploy time. Scaling the server without a helm deployment will lead to errors.
 clusterReplication:

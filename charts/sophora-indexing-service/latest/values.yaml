@@ -44,6 +44,10 @@ sisi:
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=95.0"
 
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
 startupProbe:
   failureThreshold: 15
   initialDelaySeconds: 10

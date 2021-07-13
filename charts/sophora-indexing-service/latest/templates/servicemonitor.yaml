@@ -1,0 +1,15 @@
+{{- if .Values.serviceMonitor.enabled -}}
+{{- $fullName := include "sophora-indexing-service.fullname" . -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: {{ $fullName }}
+    labels: {{- include "sophora-indexing-service.labels" . | nindent 8 }}
+spec:
+    selector:
+        matchLabels: {{- include "sophora-indexing-service.selectorLabels" . | nindent 12 }}
+    endpoints:
+        - interval: {{ .Values.serviceMonitor.interval }}
+          port: http
+          path: /prometheus
+{{- end }}

@@ -45,3 +45,5 @@ ingress:
   hosts:
   tls: []
 
+serviceMonitor:
+  enabled: true
