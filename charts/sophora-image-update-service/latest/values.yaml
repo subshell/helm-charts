@@ -44,6 +44,9 @@ s3:
     accessKeyIdKey: "accessKeyId"
     secretAccessKeyKey: "secretAccessKey"
 
+service:
+  httpPort: 8090
+
 serviceAccount:
   create: false
 

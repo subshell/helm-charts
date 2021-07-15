@@ -31,6 +31,10 @@ spec:
           volumeMounts:
             - mountPath: /app/config
               name: config
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.httpPort }}
+              protocol: TCP
           env:
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
               valueFrom:
