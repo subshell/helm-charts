@@ -8,6 +8,7 @@ metadata:
 spec:
     selector:
         matchLabels: {{- include "sophora-server.selectorLabels" . | nindent 12 }}
+          {{- include "sophora-server.loadBalancerLabels" . | nindent 12 }}
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
           port: http

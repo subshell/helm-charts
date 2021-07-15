@@ -4,6 +4,7 @@ kind: Service
 metadata:
   name: {{ include "sophora-server.fullname" . }}
   labels: {{- include "sophora-server.labels" . | nindent 4 }}
+    {{- include "sophora-server.loadBalancerLabels" . | nindent 4 }}
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type | quote }}

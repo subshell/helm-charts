@@ -54,6 +54,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Load Balancer service labels
+*/}}
+{{- define "sophora-server.loadBalancerLabels" -}}
+sophora.cloud/service-type: loadBalancer
+{{- end }}
+
+{{/*
 Server configs and scripts config map name
 */}}
 {{- define "sophora-server.configs" -}}
