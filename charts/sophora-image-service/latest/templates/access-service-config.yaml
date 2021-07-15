@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ include "sophora-image-access-service.name" . }}
-  labels:
-  {{- include "sophora-image-access-service.labels" . | nindent 4 }}
-data:
-  application.yaml: |- {{ toYaml (required "A valid application.yml config is required for access-service" .Values.sophora.configuration.accessService) | nindent 4 }}

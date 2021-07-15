@@ -1,13 +1,13 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ include "sophora-image-access-service.fullname" . }}
+  name: {{ include "access-service.fullname" . }}
 spec:
   type: {{ .Values.service.type | quote }}
   {{ if .Values.service.clusterIP -}}
   clusterIP: {{.Values.service.clusterIP}}
   {{- end }}
-  selector: {{- include "sophora-image-access-service.selectorLabels" . | nindent 4 }}
+  selector: {{- include "access-service.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
       port: {{ .Values.service.httpPort }}

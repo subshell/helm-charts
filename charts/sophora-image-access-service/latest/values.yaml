@@ -1,0 +1,85 @@
+# Default values for sophora-image-access-service.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.subshell.com/sophora/sophora-image-access-service
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+timeZone: "Europe/Berlin"
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+
+  # Represents the application.yml of image-access-service:
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: # in secret
+          password: # in secret
+      image-service:
+        s3-image-store:
+          host: ""
+          access-key-id: ${S3_ACCESS_KEY_ID}
+          secret-access-key: ${S3_SECRET_ACCESS_KEY}
+          bucket-name: ""
+          create-bucket: false
+        image-access-service:
+          live-mode: false
+          short-cache-duration: 1m
+          long-cache-duration: 1d
+
+s3:
+  secret:
+    name: ""
+    accessKeyIdKey: "accessKeyId"
+    secretAccessKeyKey: "secretAccessKey"
+
+service:
+  annotations: {}
+  type: ClusterIP
+  ClusterIP:
+  httpPort: 8080
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+  tls: []
+
+serviceAccount:
+  create: false
+
+replicaCount: 1
+resources: {}
+podAnnotations: {}
+
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 1
+  timeoutSeconds: 1
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 1
+  initialDelaySeconds: 1
+  timeoutSeconds: 1
+  periodSeconds: 60
