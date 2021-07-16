@@ -36,6 +36,10 @@ additionalSelectorLabels:
 # - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
 affinity: {}
 
+podManagementPolicy:
+
+updateStrategy:
+
 nodeSelector: {}
 
 sophora:

@@ -14,6 +14,13 @@ spec:
   selector:
     matchLabels:
       {{- include "sophora-server.selectorLabels" . | nindent 6 }}
+  {{- with .Values.podManagementPolicy }}
+  podManagementPolicy: {{ . }}
+  {{- end }}
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
