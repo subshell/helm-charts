@@ -1,0 +1,110 @@
+# Default values for sophora-ugc.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: docker.subshell.com/ugc/ugc
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+service:
+  annotations: {}
+  jolokia:
+    clusterIP: None
+  webapp:
+    type: LoadBalancer
+    loadBalancerIP:
+
+sophora:
+  authentication:
+    secret:
+      name: secret-name
+      usernameKey: username
+      passwordKey: password
+      database:
+        usernameKey: database-user
+        passwordKey: database-password
+  ugc:
+    logback: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration scan="true">
+          <jmxConfigurator />
+
+          <!-- Propagate level settings to java.util.logging. -->
+          <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+          <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+              <File>/logs/ugc-webapp.log</File>
+              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                  <fileNamePattern>/logs/ugc.%d{yyyy-MM-dd}.log</fileNamePattern>
+                  <maxHistory>7</maxHistory>
+              </rollingPolicy>
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.30c:%L: %m%n</pattern>
+              </encoder>
+          </appender>
+          <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+              <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                  <level>ERROR</level>
+              </filter>
+              <File>/logs/error.log</File>
+              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                  <fileNamePattern>/logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                  <maxHistory>7</maxHistory>
+              </rollingPolicy>
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
+              </encoder>
+          </appender>
+
+          <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+              <encoder>
+                  <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
+              </encoder>
+          </appender>
+
+          <logger name="com.subshell.sophora.ugc" level="INFO" />
+
+          <root level="WARN">
+              <appender-ref ref="STDOUT" />
+              <appender-ref ref="logfile" />
+              <appender-ref ref="errorLog" />
+          </root>
+      </configuration>
+
+    config:
+
+# Additional environment variables can be defined here
+env:
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
