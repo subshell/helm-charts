@@ -215,6 +215,10 @@ spec:
               name: http
             - containerPort: 1197
               name: jms
+            - containerPort: 1198
+              name: rmiService
+            - containerPort: 1199
+              name: rmiRegistry
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
