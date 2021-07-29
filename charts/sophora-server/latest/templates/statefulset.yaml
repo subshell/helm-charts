@@ -216,9 +216,9 @@ spec:
             - containerPort: 1197
               name: jms
             - containerPort: 1198
-              name: rmiService
+              name: rmi-service
             - containerPort: 1199
-              name: rmiRegistry
+              name: rmi-registry
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
