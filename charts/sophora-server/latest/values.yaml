@@ -25,7 +25,8 @@ configGenerator:
     tag: "0.0.1"
     pullPolicy: IfNotPresent
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseLargePages"
+# - Setting the RMI hostname to 127.0.0.1 is a hack, but access to the server via RMI (for Toromiro and JMX) requires local tunnels via kubectl, so 127.0.0.1 has to work any way.
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseG1GC -XX:+AlwaysPreTouch -XX:+UseLargePages -Djava.rmi.server.hostname=127.0.0.1"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
