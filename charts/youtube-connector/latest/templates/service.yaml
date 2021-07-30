@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "youtube-connector.fullname" . }}
+  labels:
+    {{- include "youtube-connector.labels" . | nindent 4 }}
+spec:
+  clusterIP: {{ .Values.service.clusterIP }}
+  ports:
+    - port: 1496
+      protocol: TCP
+      targetPort: 1496
+      name: jolokia
+  selector:
+    {{- include "youtube-connector.selectorLabels" . | nindent 4 }}

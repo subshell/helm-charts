@@ -1,0 +1,154 @@
+# Default values for youtube-connector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: docker.subshell.com/sophora/avtool/youtube-connector:4
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "3.0.1"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+configGenerator:
+  image:
+    repository: "docker.subshell.com/misc/alpine-toolkit"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  clusterIP: None
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+sophora:
+  youtubeconnector:
+    logback: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration scan="true" scanPeriod="60 seconds">
+      <jmxConfigurator/>
+
+      <!-- Propagate level settings to java.util.logging. -->
+      <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+
+      <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="logfile">
+      <File>logs/youtube-connector.log</File>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/youtube-connector.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>14</maxHistory>
+      </rollingPolicy>
+      <encoder>
+      <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %c:%L: %m%n</pattern>
+      </encoder>
+      </appender>
+
+      <appender class="ch.qos.logback.core.rolling.RollingFileAppender" name="errorLog">
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+      </filter>
+      <File>logs/youtube-connector_error.log</File>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>logs/youtube-connector_error.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>14</maxHistory>
+      </rollingPolicy>
+      <encoder>
+      <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %c:%L: %m%n</pattern>
+      </encoder>
+      </appender>
+
+      <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+      </filter>
+      <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>DENY</onMatch>
+      <onMismatch>ACCEPT</onMismatch>
+      </filter>
+      <encoder>
+      <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %m%n</pattern>
+      </encoder>
+      </appender>
+
+      <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+      <target>System.err</target>
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>ERROR</level>
+      </filter>
+      <encoder>
+      <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %c:%L: %m%n</pattern>
+      </encoder>
+      </appender>
+
+      <logger name="com.subshell.sophora" level="INFO" />
+      <logger name="com.subshell.sophora.avtool" level="INFO" />
+      <logger name="com.subshell.sophora.avtool.youtube" level="INFO" />
+      <logger name="sun.rmi" level="WARN" />
+      <logger name="com.google" level="INFO" />
+
+      <root level="WARN">
+      <appender-ref ref="STDOUT" />
+      <appender-ref ref="STDERR" />
+      <appender-ref ref="logfile"/>
+      <appender-ref ref="errorLog"/>
+      </root>
+      </configuration>
+
+    mediaconfig:
+
+    config:
+
+    secret:
+      name: youtube-connector-credentials
+      server:
+        usernameKey: sophora-username
+        passwordKey: sophora-password
+
+    jobstore:
+      storage:
+        storageClass:
+        resources: {}
+    oauth:
+      storage:
+        storageClass:
+        resources: {}
+
+extraVolumes:
+
+extraVolumeMounts:
+
+# Additional environment variables can be defined here
+env:
