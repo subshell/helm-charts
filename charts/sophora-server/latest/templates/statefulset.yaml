@@ -178,7 +178,7 @@ spec:
           env:
             - name: JDK_JAVA_OPTIONS
               value: >-
-                {{ .Values.javaOptions }}
+                {{ .Values.javaOptions }} {{ if eq .Values.enableRMIPortForwarding true }}-Djava.rmi.server.hostname=127.0.0.1{{ end }}
             {{ if .Values.sophora.server.binaryStore.s3.secret.name -}}
             - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
               valueFrom:
@@ -215,10 +215,12 @@ spec:
               name: http
             - containerPort: 1197
               name: jms
+          {{- if eq .Values.enableRMIPortForwarding true }}
             - containerPort: 1198
               name: rmi-service
             - containerPort: 1199
               name: rmi-registry
+          {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
