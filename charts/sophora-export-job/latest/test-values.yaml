@@ -1,6 +1,9 @@
 imagePullSecrets: []
 nameOverride: "test-export"
 
+metrics:
+  pushgatewayUrl: puuush-gateway.url
+
 sophora:
   serverUrl: http://sophora-server:1196
   authentication:

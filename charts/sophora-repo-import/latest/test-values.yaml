@@ -16,3 +16,9 @@ sophora:
       name: "sophora-user-admin-credentials"
       usernameKey: "username"
       passwordKey: "password"
+
+metrics:
+  pushgatewayUrl: https://pushgateway.test.cloud:9090
+  authentication:
+    secret:
+      name: pushgateway-secret

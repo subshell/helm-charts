@@ -23,6 +23,8 @@ spec:
           volumeMounts:
             - mountPath: /import
               name: import
+            - mountPath: /metrics
+              name: metrics
           env:
             - name: REPO_ZIP_URLS
               value: {{ include "sophora-repo-import.utils.joinListWithSpace" .Values.repoDownload.zipViaHttp.zipUrls | quote }}
@@ -39,22 +41,7 @@ spec:
           command: ["/bin/sh"]
           args:
             - "-c"
-            - |-
-             mkdir dl;
-             cd dl;
-             for REPO_ZIP_URL in $REPO_ZIP_URLS; do
-               wget -q --user="${HTTP_USERNAME}" --password="${HTTP_PASSWORD}" $REPO_ZIP_URL;
-               echo "Downloaded $REPO_ZIP_URL"
-             done
-             for file in `ls *.zip`; do unzip $file; done
-             rm *.zip;
-             mkdir -p /import/admin/incoming
-             mkdir -p /import/temp
-             mkdir -p /import/admin/success
-             mkdir -p /import/admin/failure
-             {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
-             echo "Copied data to import into local directory /import/admin/incoming"
-             tree /import/admin/incoming
+            - |- {{- .Files.Get "download-files-via-http.sh" | nindent 14 }}
         {{- end }}
         {{- if .Values.repoDownload.zipViaS3.zipPaths }}
         - name: zip-via-s3-downloader
@@ -63,6 +50,8 @@ spec:
           volumeMounts:
             - mountPath: /import
               name: import
+            - mountPath: /metrics
+              name: metrics
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
@@ -83,22 +72,7 @@ spec:
           command: ["/bin/sh"]
           args:
             - "-c"
-            - |-
-              mkdir dl;
-              cd dl;
-              for S3_FILE_PATH in $S3_FILE_PATHS; do
-               aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
-               echo "Downloaded $S3_FILE_PATH"
-              done
-              for file in `ls *.zip`; do unzip $file; done
-              rm *.zip;
-              mkdir -p /import/admin/incoming
-              mkdir -p /import/temp
-              mkdir -p /import/admin/success
-              mkdir -p /import/admin/failure
-              {{ if eq .Values.debugMode false }}mv * /import/admin/incoming{{ end }}
-              echo "Copied data to import into local directory /import/admin/incoming"
-              tree /import/admin/incoming
+            - |- {{- .Files.Get "download-files-via-s3.sh" | nindent 14 }}
         {{- end }}
       containers:
         - name: importer
@@ -129,8 +103,11 @@ spec:
               subPath: application.yml
             - name: import
               mountPath: /import
+            - mountPath: /metrics
+              name: metrics
         - name: process-watcher
-          image: "alpine:latest"
+          image: "{{ .Values.processWatcherImage.repository }}:{{ .Values.processWatcherImage.tag }}"
+          imagePullPolicy: {{ .Values.processWatcherImage.pullPolicy }}
           command: ["/bin/sh"]
           args:
             - "-c"
@@ -138,6 +115,29 @@ spec:
           volumeMounts:
             - mountPath: /import
               name: import
+            - mountPath: /metrics
+              name: metrics
+          env:
+            - name: PUSHGATEWAY_BASE_URL
+              value: {{ .Values.metrics.pushgatewayUrl | quote }}
+            - name: JOB_NAME
+              value: {{ include "sophora-repo-import.name" . | quote }}
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            {{- if .Values.metrics.authentication.secret.name }}
+            - name: PUSHGATEWAY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metrics.authentication.secret.name | quote }}
+                  key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+            - name: PUSHGATEWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metrics.authentication.secret.name | quote }}
+                  key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+            {{- end }}
           securityContext:
             capabilities:
               add:
@@ -148,3 +148,5 @@ spec:
         - name: importer-config
           configMap:
             name: {{ include "sophora-repo-import.fullname" . }}
+        - name: metrics
+          emptyDir: {}

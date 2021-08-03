@@ -31,7 +31,7 @@ configHelper:
   image:
     repository: docker.subshell.com/misc/alpine-toolkit
     pullPolicy: IfNotPresent
-    tag: "0.0.1"
+    tag: "0.1.0"
 
 upload:
   # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise
@@ -40,6 +40,14 @@ upload:
     repository: docker.subshell.com/misc/aws-cli-tools
     pullPolicy: IfNotPresent
     tag: "0.0.1"
+
+metrics:
+  pushgatewayUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
 
 s3:
   name: ""

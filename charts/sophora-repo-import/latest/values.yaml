@@ -20,6 +20,14 @@ hostAliases:
 # -- (bool) If set to true the data will not be imported.
 debugMode: false
 
+metrics:
+  pushgatewayUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
 sophora:
   serverUrl:
   internalConnection: true
@@ -37,7 +45,7 @@ repoDownload:
     passwordKey: "password"
     image:
       repository: "docker.subshell.com/misc/alpine-toolkit"
-      tag: "0.0.1"
+      tag: "0.1.0"
       pullPolicy: IfNotPresent
   zipViaS3:
     secretName:
@@ -50,6 +58,11 @@ repoDownload:
       repository: "docker.subshell.com/misc/aws-cli-tools"
       tag: "0.0.1"
       pullPolicy: IfNotPresent
+
+processWatcherImage:
+  repository: "docker.subshell.com/misc/alpine-toolkit"
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
 
 podAnnotations: {}
 

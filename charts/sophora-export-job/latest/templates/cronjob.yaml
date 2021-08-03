@@ -89,6 +89,26 @@ spec:
                   value: {{ include "sophora-export-job.utils.fileNameWithoutZipExtension" . | quote }}
                 - name: STORE_UPLOAD_PER_WEEKDAY
                   value: {{ .Values.job.cron.enabled | quote }}
+                - name: PUSHGATEWAY_BASE_URL
+                  value: {{ .Values.metrics.pushgatewayUrl | quote }}
+                - name: JOB_NAME
+                  value: {{ include "sophora-export-job.name" . | quote }}
+                - name: POD_NAME
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.name
+                {{- if .Values.metrics.authentication.secret.name }}
+                - name: PUSHGATEWAY_USERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.metrics.authentication.secret.name | quote }}
+                      key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+                - name: PUSHGATEWAY_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.metrics.authentication.secret.name | quote }}
+                      key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+                  {{- end }}
               command: ["/bin/sh"]
               args:
                 - "-c"
@@ -100,6 +120,8 @@ spec:
                 mountPath: /data-export
               - name: exporter-configmap
                 mountPath: /exporter-configmap
+              - name: metrics
+                mountPath: /metrics
               securityContext:
                 capabilities:
                   add:
@@ -111,5 +133,7 @@ spec:
             - name: exporter-config
               emptyDir: {}
             - name: data-export
+              emptyDir: {}
+            - name: metrics
               emptyDir: {}
 {{- end -}}
