@@ -41,3 +41,5 @@ exporter:
         - "vision"
         - "hamburg"
 
+prometheusRule:
+  enabled: true

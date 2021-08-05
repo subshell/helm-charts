@@ -89,11 +89,7 @@ spec:
             - name: PUSHGATEWAY_BASE_URL
               value: {{ .Values.metrics.pushgatewayUrl | quote }}
             - name: JOB_NAME
-              value: {{ include "sophora-export-job.name" . | quote }}
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
+              value: {{ include "sophora-export-job.fullname" . | quote }}
             {{- if .Values.metrics.authentication.secret.name }}
             - name: PUSHGATEWAY_USERNAME
               valueFrom:

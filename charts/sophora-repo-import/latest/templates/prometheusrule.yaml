@@ -1,0 +1,13 @@
+{{- if .Values.prometheusRule.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "sophora-repo-import.fullname" . }}
+  labels: {{- include "sophora-repo-import.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.prometheusRule.rules }}
+  groups:
+    - name: {{ template "sophora-repo-import.fullname" $ }}
+      rules: {{ tpl (toYaml .) $ | nindent 8 }}
+  {{- end }}
+{{- end }}

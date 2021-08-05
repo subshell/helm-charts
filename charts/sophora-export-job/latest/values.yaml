@@ -1,7 +1,3 @@
-# Default values for sophora-importer.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 image:
   repository: docker.subshell.com/sophora/sophora-exporter
   pullPolicy: IfNotPresent
@@ -15,9 +11,6 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
-
-# -- (bool) If set to true the data will not be imported.
-debugMode: false
 
 sophora:
   serverUrl:
@@ -78,6 +71,34 @@ job:
   cron:
     enabled: false
     expression: "0 */6 * * *"
+
+prometheusRule:
+  enabled: false
+  rules:
+    - alert: ExportJobDidNotExportDocuments
+      expr: sophora_export_job_exported_documents{job="{{ include "sophora-export-job.fullname" . }}"} == 0
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not export any documents'
+        summary: 'The job did not export any documents'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-export-job/latest/alerting-runbook.md'
+    - alert: ExportJobFailed
+      expr: max(vector(0) or sophora_export_job_end{success="false", job="{{ include "sophora-export-job.fullname" . }}"}) > max(vector(0) or sophora_export_job_end{success="true", job="{{ include "sophora-export-job.fullname" . }}"})
+      labels:
+        severity: critical
+      annotations:
+        description: 'Sophora export job failed.'
+        summary: 'The export job ({{ include "sophora-export-job.fullname" . }}) did not complete successfully.'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-export-job/latest/alerting-runbook.md'
+    - alert: ExportJobDidNotUpdate
+      expr: (time() - push_time_seconds{job="{{ include "sophora-export-job.fullname" . }}"}) / (60 * 60) > 24
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not update metrics in the last 24 hours'
+        summary: 'The job did not update metrics in the last 24 hours.'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-export-job/latest/alerting-runbook.md'
 
 podAnnotations: {}
 

@@ -22,3 +22,6 @@ metrics:
   authentication:
     secret:
       name: pushgateway-secret
+
+prometheusRule:
+  enabled: true

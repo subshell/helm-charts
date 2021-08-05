@@ -64,6 +64,34 @@ processWatcherImage:
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 
+prometheusRule:
+  enabled: false
+  rules:
+    - alert: ImportJobMissedDocuments
+      expr: abs(sum by (job) (sophora_import_job_downloaded_documents{job="{{ include "sophora-repo-import.fullname" . }}"}) - sum by(job) (sophora_import_job_imported_documents{imported="true", job="{{ include "sophora-repo-import.fullname" . }}"})) > 0
+      labels:
+        severity: error
+      annotations:
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not import some documents: {{ "{{ $value }}" }} '
+        summary: 'The import job downloaded more files than it imported successfully.'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-repo-import/latest/alerting-runbook.md'
+    - alert: ImportJobDidNotDownloadAnyDocuments
+      expr: sophora_import_job_downloaded_documents{job="{{ include "sophora-repo-import.fullname" . }}"} == 0
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not download any documents.'
+        summary: 'The import job did not find any documents in the downloaded archives and hence cannot import anything.'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-repo-import/latest/alerting-runbook.md'
+    - alert: ImportJobFailed
+      expr: max(vector(0) or sophora_import_job_end{success="false", job="{{ include "sophora-repo-import.fullname" . }}"}) > max(vector(0) or sophora_import_job_end{success="true", job="{{ include "sophora-repo-import.fullname" . }}"})
+      labels:
+        severity: critical
+      annotations:
+        description: 'Sophora import job failed.'
+        summary: 'The import job ({{ include "sophora-repo-import.fullname" . }}) did not complete successfully.'
+        runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-repo-import/latest/alerting-runbook.md'
+
 podAnnotations: {}
 
 resources: {}
