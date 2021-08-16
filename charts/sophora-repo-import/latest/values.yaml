@@ -67,7 +67,7 @@ processWatcherImage:
 prometheusRule:
   enabled: false
   rules:
-    - alert: ImportJobMissedDocuments
+    - alert: SophoraImportJobMissedDocuments
       expr: abs(sum by (job) (sophora_import_job_downloaded_documents{job="{{ include "sophora-repo-import.fullname" . }}"}) - sum by(job) (sophora_import_job_imported_documents{imported="true", job="{{ include "sophora-repo-import.fullname" . }}"})) > 0
       labels:
         severity: error
@@ -75,7 +75,7 @@ prometheusRule:
         description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not import some documents: {{ "{{ $value }}" }} '
         summary: 'The import job downloaded more files than it imported successfully.'
         runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-repo-import/latest/alerting-runbook.md'
-    - alert: ImportJobDidNotDownloadAnyDocuments
+    - alert: SophoraImportJobDidNotDownloadAnyDocuments
       expr: sophora_import_job_downloaded_documents{job="{{ include "sophora-repo-import.fullname" . }}"} == 0
       labels:
         severity: warning
@@ -83,7 +83,7 @@ prometheusRule:
         description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not download any documents.'
         summary: 'The import job did not find any documents in the downloaded archives and hence cannot import anything.'
         runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-repo-import/latest/alerting-runbook.md'
-    - alert: ImportJobFailed
+    - alert: SophoraImportJobFailed
       expr: max(vector(0) or sophora_import_job_end{success="false", job="{{ include "sophora-repo-import.fullname" . }}"}) > max(vector(0) or sophora_import_job_end{success="true", job="{{ include "sophora-repo-import.fullname" . }}"})
       labels:
         severity: critical

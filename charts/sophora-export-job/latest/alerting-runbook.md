@@ -4,7 +4,7 @@ This document is a reference to the alerts that the Sophora Export Job can fire.
 
 ## Sophora Export Job
 
-### ExportJobDidNotExportDocuments
+### SophoraExportJobDidNotExportDocuments
 **Severity:** warning
 
 **Summary:** The job did not export any documents
@@ -15,7 +15,7 @@ This document is a reference to the alerts that the Sophora Export Job can fire.
 * Check the job's configuration, e.g. if the exporter is configured correctly
 * Check whether the Sophora installation contains documents matching the exporter's configuration
 
-### ExportJobFailed
+### SophoraExportJobFailed
 **Severity:** critical
 
 **Summary:** The export job did not complete successfully.
@@ -25,7 +25,7 @@ This document is a reference to the alerts that the Sophora Export Job can fire.
 * Check the container logs for obvious errors
 * Check if there are connection issues between the exporter and the Sophora Server
 
-### ExportJobDidNotUpdate
+### SophoraExportJobDidNotUpdate
 **Severity:** warning
 
 **Summary:** The job did not update metrics in the last 24 hours.

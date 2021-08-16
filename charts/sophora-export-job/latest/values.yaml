@@ -75,7 +75,7 @@ job:
 prometheusRule:
   enabled: false
   rules:
-    - alert: ExportJobDidNotExportDocuments
+    - alert: SophoraExportJobDidNotExportDocuments
       expr: sophora_export_job_exported_documents{job="{{ include "sophora-export-job.fullname" . }}"} == 0
       labels:
         severity: warning
@@ -83,7 +83,7 @@ prometheusRule:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not export any documents'
         summary: 'The job did not export any documents'
         runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-export-job/latest/alerting-runbook.md'
-    - alert: ExportJobFailed
+    - alert: SophoraExportJobFailed
       expr: max(vector(0) or sophora_export_job_end{success="false", job="{{ include "sophora-export-job.fullname" . }}"}) > max(vector(0) or sophora_export_job_end{success="true", job="{{ include "sophora-export-job.fullname" . }}"})
       labels:
         severity: critical
@@ -91,7 +91,7 @@ prometheusRule:
         description: 'Sophora export job failed.'
         summary: 'The export job ({{ include "sophora-export-job.fullname" . }}) did not complete successfully.'
         runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-export-job/latest/alerting-runbook.md'
-    - alert: ExportJobDidNotUpdate
+    - alert: SophoraExportJobDidNotUpdate
       expr: (time() - push_time_seconds{job="{{ include "sophora-export-job.fullname" . }}"}) / (60 * 60) > 24
       labels:
         severity: warning
