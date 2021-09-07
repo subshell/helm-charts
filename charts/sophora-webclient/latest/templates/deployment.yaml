@@ -46,6 +46,7 @@ spec:
             value: "443"
           ports:
             - containerPort: 8080
+              name: http
           volumeMounts:
             - name: config
               mountPath: "/app/config"
