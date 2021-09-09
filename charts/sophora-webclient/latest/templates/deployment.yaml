@@ -27,7 +27,7 @@ spec:
       {{- end }}
       containers:
         - name: webclient
-          image: {{ (printf "%s:%s" .Values.image.name .Values.image.version) | quote }}
+          image: "{{ .Values.image.name }}:{{ .Values.image.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
           - name: SOPHORASERVER_USERNAME
