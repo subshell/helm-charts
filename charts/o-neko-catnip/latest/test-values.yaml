@@ -1,0 +1,18 @@
+resources:
+  requests:
+    memory: "0.05G"
+    cpu: "0.5"
+  limits:
+    memory: "1G"
+    cpu: "1"
+
+oneko:
+  api:
+    baseUrl: https://oneko.sophora.code-nnw.cloud
+    auth:
+      secretName: oneko-admin-credentials
+
+ingress:
+  hosts:
+  - host: "*.b.oneko.code-nnw.cloud"
+  - host: "*.b.sportschau.de"
