@@ -18,7 +18,6 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPre
 hostAliases:
 
 sophora:
-  serverUrl: ""
   authentication:
     secret:
       name: ""
