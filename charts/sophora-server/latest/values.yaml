@@ -248,6 +248,7 @@ ingress:
 
 service:
   annotations: {}
+  headlessAnnotations: {}
   type:
   httpPort: 1196
   jmsPort: 1197

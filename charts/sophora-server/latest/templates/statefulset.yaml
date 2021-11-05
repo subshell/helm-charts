@@ -10,7 +10,11 @@ spec:
   {{- else -}}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  {{- if not .Values.sophora.server.isClusterServer }}
+  serviceName: {{ include "sophora-server.fullname" . }}-headless
+  {{- else }}
   serviceName: {{ include "sophora-server.fullname" . }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "sophora-server.selectorLabels" . | nindent 6 }}

@@ -29,3 +29,4 @@ spec:
       targetPort: jms
       protocol: TCP
       name: jms
+

@@ -1,0 +1,21 @@
+{{ if not .Values.sophora.server.isClusterServer }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sophora-server.fullname" . }}-headless
+  labels: {{- include "sophora-server.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.headlessAnnotations | nindent 4 }}
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  ports:
+    - port: {{ .Values.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.jmsPort }}
+      targetPort: jms
+      protocol: TCP
+      name: jms
+{{- end }}
