@@ -63,3 +63,8 @@ resources: {}
 importPvcSpec: {}
 
 env: {}
+
+service:
+  annotations: {}
+  clusterIP: None
+  httpPort: 80

@@ -4,11 +4,12 @@ metadata:
   name: {{ include "sophora-importer.fullname" . }}
   labels:
     {{- include "sophora-importer.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
-  clusterIP: None
+  clusterIP: {{ .Values.service.clusterIP }}
   ports:
     - protocol: TCP
-      port: 80
+      port: {{ .Values.service.httpPort }}
       targetPort: 8082
       name: main
     - protocol: TCP
