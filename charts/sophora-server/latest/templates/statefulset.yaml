@@ -263,8 +263,7 @@ spec:
                   [
                       "/tools/sophora-prestop",
                       "switch",
-                      "--serverUrl=http://localhost:1196",
-                      "--prioritizeFirstStatefulSetMember"
+                      "--serverUrl=http://localhost:1196"
                   ]
           {{- end }}
           resources:
