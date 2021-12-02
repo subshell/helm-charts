@@ -17,6 +17,11 @@ sophora:
       passwordKey: "password"
       usernameKey: "username"
   importer:
+    extraEnv:
+      - name: AAA
+        value: a-value
+      - name: BBB
+        value: b-value
     s3Bucket:
       name: "sophora-test-importer"
       url: "https://storage.googleapis.com"
@@ -26,15 +31,6 @@ sophora:
         accessKeyIdKey: "accessKeyId"
     instances:
       - common
-    additionalDataImage:
-      saxonLicenceSecret:
-        name: "test-secret"
-        licenceFileKey: "saxon-license.lic"
-      repository: "docker.subshell.com/misc/importer-additional-libs"
-      tag: "latest"
-      libsPath: "/libs"
-      xslPath: "/xsl"
-      miscPath: "/misc"
     configuration:
       sophora:
         client:
@@ -80,6 +76,22 @@ sophora:
       server:
         port: 8081
         address: 0.0.0.0
+
+
+transformation:
+  enabled: true
+  xslTransformerFactory: net.sf.saxon.TransformerFactoryImpl
+  data:
+    zipViaS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName: "my-bucket"
+      zipPaths: ["a", "b"]
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    useSaxon: false
+    saxonLicenceSecretName: "saxon-license"
+    saxonLicenceSecretKey: "saxon-license.lic"
 
 resources:
   requests:

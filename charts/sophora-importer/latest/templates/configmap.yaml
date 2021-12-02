@@ -6,3 +6,4 @@ metadata:
   {{- include "sophora-importer.labels" . | nindent 4 }}
 data:
   application.yml: |- {{ toYaml (required "A configuration is required" .Values.sophora.importer.configuration) | nindent 4 }}
+  logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}

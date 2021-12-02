@@ -1,7 +1,8 @@
 imagePullSecrets: []
 nameOverride: "test-repo-import"
 
-repoDownload:
+sophoraDocumentsDownload:
+  use: http
   zipViaHttp:
     secretName: sophora-repository-download-credentials
     zipUrls:
@@ -16,6 +17,31 @@ sophora:
       name: "sophora-user-admin-credentials"
       usernameKey: "username"
       passwordKey: "password"
+
+importer:
+  extraEnv:
+    - name: AAA
+      value: a-value
+    - name: BBB
+      value: b-value
+  instanceName: Import Job
+  instanceKey: importjob
+
+transformation:
+  enabled: true
+  xslTransformerFactory: net.sf.saxon.TransformerFactoryImpl
+  data:
+    zipViaS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName: "my-bucket"
+      zipPaths: ["a", "b"]
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    useSaxon: false
+    saxonLicenceSecretName: "saxon-license"
+    saxonLicenceSecretKey: "saxon-license.lic"
+    transformXslSubDir: "sub"
 
 metrics:
   pushgatewayUrl: https://pushgateway.test.cloud:9090

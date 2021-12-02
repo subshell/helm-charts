@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "sophora-repo-import.fullname" . }}
+  name: {{ include "sophora-import-job.fullname" . }}
   labels:
-  {{- include "sophora-repo-import.labels" . | nindent 4 }}
+  {{- include "sophora-import-job.labels" . | nindent 4 }}
 data:
   application.yml: |-
     sophora:
@@ -19,7 +19,9 @@ data:
           enabled: false
 
     importer:
-      name: Admin-Importer
+      name: {{ .Values.importer.name }}
+
+      xslTransformerFactory: {{ .Values.transformation.xslTransformerFactory }}
 
       # Defaults for all instances.
       folders:
@@ -38,14 +40,14 @@ data:
 
       # Configuration of the importer instances
       instances:
-      - name: Admin Import
-        key: admin
-        transform: skipTransform
+      - name: {{ .Values.importer.instanceName }}
+        key: {{ .Values.importer.instanceKey }}
+        transform: {{ .Values.transformation.enabled | ternary "forceTransform" "skipTransform" }}
         folders:
-          watch: /import/admin/incoming
-          temp: /import/admin/temp
-          success: /import/admin/success
-          failure: /import/admin/failure
-          xsl: /xsl
+          watch: /import/incoming
+          temp: /import/temp
+          success: /import/success
+          failure: /import/failure
+          xsl: {{ include "sophora-import-job.transformationXslPath" . }}/{{ .Values.transformation.data.transformXslSubDir }}
         defaultStructureNode: /import
-  script.sh: |-
+  logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}

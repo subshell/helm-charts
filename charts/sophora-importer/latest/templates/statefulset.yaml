@@ -101,7 +101,10 @@ spec:
                 key: {{.Values.sophora.authentication.secret.passwordKey}}
                 name: {{.Values.sophora.authentication.secret.name}}
           - name: LOADER_PATH
-            value: /data/libs
+            value: {{ include "sophora-importer.transformationLibsPath" . }}
+          {{ if .Values.sophora.importer.extraEnv -}}
+          {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
+          {{- end }}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
@@ -111,13 +114,24 @@ spec:
         - name: importer-config
           mountPath: /sophora/application.yml
           subPath: application.yml
+        - name: importer-config
+          mountPath: /sophora/logback-spring.xml
+          subPath: logback-spring.xml
         - name: shared-imports
           mountPath: /import/
           mountPropagation: Bidirectional
         - name: local-import-folders
           mountPath: /import-local/
-        - name: data
-          mountPath: /data/
+        {{- if .Values.transformation.data.useSaxon }}
+        - name: saxon-licence
+          subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
+          mountPath: "{{ include "sophora-importer.transformationLibsPath" . }}/saxon-license.lic"
+          readOnly: true
+        {{- end }}
+        - name: xsl
+          mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+        - name: libs
+          mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
         {{- with .Values.additionalVolumeMounts }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -125,34 +139,67 @@ spec:
           privileged: true
 
       initContainers:
-        {{- with .Values.sophora.importer.additionalDataImage }}
-        {{- if .repository }}
-        - name: additional-libs-provider
-          image: "{{ .repository }}:{{ .tag }}"
-          imagePullPolicy: IfNotPresent
-          command: ["/bin/sh"]
-          args:
-            - "-c"
-            - |
-              mkdir -p /data-mounted/libs /data-mounted/xsl /data-mounted/misc
-              echo $(ls /data)
-              mv {{ .libsPath }}/* /data-mounted/libs
-              mv {{ .xslPath }}/*  /data-mounted/xsl
-              mv {{ .miscPath }}/*  /data-mounted/misc
-              {{- if .saxonLicenceSecret }}
-              cp /internal/{{.saxonLicenceSecret.licenceFileKey}} /data-mounted/libs/{{.saxonLicenceSecret.licenceFileKey}}
-              ls /data-mounted/
-              {{- end}}
-          volumeMounts:
-          - name: data
-            mountPath: /data-mounted/
-          {{- if .saxonLicenceSecret }}
-          - name: saxon-licence
-            mountPath: "/internal/"
-            readOnly: true
-          {{- end}}
-        {{end}}
-        {{- end}}
+      {{/* Transformations Download */}}
+      {{- with .Values.transformation }}
+      {{- if and .enabled (eq .data.use "s3") }}
+      - name: transformation-data-via-s3-downloader
+        image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
+        imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+        env:
+          - name: AWS_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                key: {{ .data.zipViaS3.accessKeyIdKey }}
+                name: {{ .data.zipViaS3.secretName }}
+          - name: AWS_SECRET_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                key: {{ .data.zipViaS3.secretAccessKeyKey }}
+                name: {{ .data.zipViaS3.secretName }}
+          - name: S3_ENDPOINT
+            value: {{ .data.zipViaS3.s3Endpoint }}
+          - name: S3_NAME
+            value: {{ .data.zipViaS3.bucketName }}
+          - name: S3_FILE_PATHS
+            value: {{ include "sophora-importer.utils.joinListWithSpace" .data.zipViaS3.zipPaths | quote }}
+        command: ["/bin/sh"]
+        args:
+          - "-c"
+          - |- {{- include "sophora-importer.downloadTransformationsScript" $ | nindent 14 }}
+        volumeMounts:
+          - name: xsl
+            mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+          - name: libs
+            mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
+      {{- end }}
+      {{- if and .enabled (eq .data.use "http") }}
+      - name: transformation-data-via-http-downloader
+        image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
+        imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+        env:
+          - name: REPO_ZIP_URLS
+            value: {{ include "sophora-importer.utils.joinListWithSpace" .data.zipViaHttp.zipUrls | quote }}
+          - name: HTTP_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: {{ .data.zipViaHttp.usernameKey | quote }}
+                name: {{ .data.zipViaHttp.secretName | quote }}
+          - name: HTTP_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: {{ .data.zipViaHttp.passwordKey }}
+                name: {{ .data.zipViaHttp.secretName | quote }}
+        command: ["/bin/sh"]
+        args:
+          - "-c"
+          - |- {{- include "sophora-importer.downloadTransformationsScript" $ | nindent 14 }}
+        volumeMounts:
+          - name: xsl
+            mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+          - name: libs
+            mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
+        {{- end }}
+        {{- end }}
       volumes:
       - name: importer-config
         configMap:
@@ -161,15 +208,14 @@ spec:
         emptyDir: {}
       - name: local-import-folders
         emptyDir: {}
-      - name: data
+      - name: xsl
+        emptyDir: {}
+      - name: libs
         emptyDir: {}
       {{- with .Values.additionalVolumes }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
-      {{- if .Values.sophora.importer.additionalDataImage }}
-      {{- if .Values.sophora.importer.additionalDataImage.saxonLicenceSecret }}
       - name: saxon-licence
         secret:
-          secretName: {{.Values.sophora.importer.additionalDataImage.saxonLicenceSecret.name}}
-      {{- end}}
-      {{- end}}
+          secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
+          optional: true

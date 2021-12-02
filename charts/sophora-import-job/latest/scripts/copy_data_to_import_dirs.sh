@@ -3,29 +3,21 @@ count_files() {
   echo "$result"
 }
 
-mkdir dl;
-cd dl;
-
-jobStart=$(date +%s%3N)
-for S3_FILE_PATH in $S3_FILE_PATHS; do
-  aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
-  echo "Downloaded $S3_FILE_PATH"
-done
 downloadEnd=$(date +%s%3N)
 downloadDurationMillis=$((downloadEnd-jobStart))
 downloadDurationSeconds=$(awk -v millis=$downloadDurationMillis 'BEGIN { print ( millis / 1000 ) }')
 
-for file in `ls *.zip`; do unzip $file; done
+for file in `ls *.zip`; do unzip "$file"; done
 rm *.zip;
-mkdir -p /import/admin/incoming
+mkdir -p /import/incoming
 mkdir -p /import/temp
-mkdir -p /import/admin/success
-mkdir -p /import/admin/failure
-mv * /import/admin/incoming
-echo "Copied data to import into local directory /import/admin/incoming"
-tree /import/admin/incoming
+mkdir -p /import/success
+mkdir -p /import/failure
+mv * /import/incoming
+echo "Copied data to import into local directory /import/incoming"
+tree /import/incoming
 
-downloadedFilesCount=$(count_files /import/admin/incoming)
+downloadedFilesCount=$(count_files /import/incoming)
 
 # Write metrics to file
 cat <<EOT >> /metrics/metrics.txt
@@ -37,7 +29,7 @@ sophora_import_job_start $jobStart
 sophora_import_job_downloaded_documents $downloadedFilesCount
 # HELP sophora_import_job_download_duration_seconds
 # TYPE sophora_import_job_download_duration_seconds gauge
-sophora_import_job_download_duration_seconds $downloadDurationSeconds
+sophora_import_job_download_duration_seconds{type="documents"} $downloadDurationSeconds
 EOT
 
 echo "$jobStart" >> /metrics/job_start.txt

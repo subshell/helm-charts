@@ -1,0 +1,251 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "sophora-import-job.fullname" . }}
+  labels: {{- include "sophora-import-job.labels" . | nindent 4 }}
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      shareProcessNamespace: true
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        {{/* Sophora Documents Download */}}
+        {{- if eq .Values.sophoraDocumentsDownload.use "http" }}
+        - name: zip-via-http-downloader
+          image: "{{ .Values.downloadViaHttpImage.repository }}:{{ .Values.downloadViaHttpImage.tag }}"
+          imagePullPolicy: {{ .Values.downloadViaHttpImage.pullPolicy }}
+          volumeMounts:
+            - mountPath: /import
+              name: import
+            - mountPath: /metrics
+              name: metrics
+          env:
+            - name: REPO_ZIP_URLS
+              value: {{ include "sophora-import-job.utils.joinListWithSpace" .Values.sophoraDocumentsDownload.zipViaHttp.zipUrls | quote }}
+            - name: HTTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophoraDocumentsDownload.zipViaHttp.usernameKey | quote }}
+                  name: {{ .Values.sophoraDocumentsDownload.zipViaHttp.secretName | quote }}
+            - name: HTTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophoraDocumentsDownload.zipViaHttp.passwordKey }}
+                  name: {{ .Values.sophoraDocumentsDownload.zipViaHttp.secretName | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl && cd dl || exit;
+              jobStart=$(date +%s%3N)
+              {{- .Files.Get "scripts/download_zip.sh" | nindent 14 }}
+              {{- .Files.Get "scripts/copy_data_to_import_dirs.sh" | nindent 14 }}
+        {{- end }}
+        {{- if eq .Values.sophoraDocumentsDownload.use "s3" }}
+        - name: zip-via-s3-downloader
+          image: "{{ .Values.downloadViaS3Image.repository }}:{{ .Values.downloadViaS3Image.tag }}"
+          imagePullPolicy: {{ .Values.downloadViaS3Image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /import
+              name: import
+            - mountPath: /metrics
+              name: metrics
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophoraDocumentsDownload.zipViaS3.accessKeyIdKey }}
+                  name: {{ .Values.sophoraDocumentsDownload.zipViaS3.secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophoraDocumentsDownload.zipViaS3.secretAccessKeyKey }}
+                  name: {{ .Values.sophoraDocumentsDownload.zipViaS3.secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .Values.sophoraDocumentsDownload.zipViaS3.s3Endpoint }}
+            - name: S3_NAME
+              value: {{.Values.sophoraDocumentsDownload.zipViaS3.bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-import-job.utils.joinListWithSpace" .Values.sophoraDocumentsDownload.zipViaS3.zipPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl && cd dl || exit;
+              jobStart=$(date +%s%3N)
+              {{- .Files.Get "scripts/download_zip.sh" | nindent 14 }}
+              {{- .Files.Get "scripts/copy_data_to_import_dirs.sh" | nindent 14 }}
+        {{- end }}
+
+        {{/* Transformations Download */}}
+        {{- with .Values.transformation }}
+        {{- if and .enabled (eq .data.use "s3") }}
+        - name: transformation-data-via-s3-downloader
+          image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
+          imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaS3.accessKeyIdKey }}
+                  name: {{ .data.zipViaS3.secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaS3.secretAccessKeyKey }}
+                  name: {{ .data.zipViaS3.secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .data.zipViaS3.s3Endpoint }}
+            - name: S3_NAME
+              value: {{ .data.zipViaS3.bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-import-job.utils.joinListWithSpace" .data.zipViaS3.zipPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |- {{- include "sophora-import-job.downloadTransformationsScript" $ | nindent 14 }}
+          volumeMounts:
+            - name: xsl
+              mountPath: {{ include "sophora-import-job.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-import-job.transformationLibsPath" . }}
+            - mountPath: /metrics
+              name: metrics
+        {{- end }}
+        {{- if and .enabled (eq .data.use "http") }}
+        - name: transformation-data-via-http-downloader
+          image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
+          imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+          env:
+            - name: REPO_ZIP_URLS
+              value: {{ include "sophora-import-job.utils.joinListWithSpace" .data.zipViaHttp.zipUrls | quote }}
+            - name: HTTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaHttp.usernameKey | quote }}
+                  name: {{ .data.zipViaHttp.secretName | quote }}
+            - name: HTTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaHttp.passwordKey }}
+                  name: {{ .data.zipViaHttp.secretName | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |- {{- include "sophora-import-job.downloadTransformationsScript" $ | nindent 14 }}
+          volumeMounts:
+            - name: xsl
+              mountPath: {{ include "sophora-import-job.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-import-job.transformationLibsPath" . }}
+            - mountPath: /metrics
+              name: metrics
+        {{- end }}
+        {{- end }}
+
+      containers:
+        - name: importer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |- {{- .Files.Get "scripts/run-importer.sh" | nindent 14 }}
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.usernameKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.passwordKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+            {{- if .Values.transformation.enabled }}
+            - name: LOADER_PATH
+              value: {{ include "sophora-import-job.transformationLibsPath" . }}
+            {{- end }}
+            {{ if .Values.importer.extraEnv -}}
+            {{- toYaml .Values.importer.extraEnv | nindent 12 }}
+            {{- end }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: importer-config
+              mountPath: /sophora/application.yml
+              subPath: application.yml
+            - name: importer-config
+              mountPath: /sophora/logback-spring.xml
+              subPath: logback-spring.xml
+            - name: import
+              mountPath: /import
+            {{- if .Values.transformation.data.useSaxon }}
+            - name: saxon-licence
+              subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
+              mountPath: "{{ include "sophora-import-job.transformationLibsPath" . }}/saxon-license.lic"
+              readOnly: true
+            {{- end }}
+            - name: xsl
+              mountPath: {{ include "sophora-import-job.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-import-job.transformationLibsPath" . }}
+            - mountPath: /metrics
+              name: metrics
+        - name: process-watcher
+          image: "{{ .Values.processWatcherImage.repository }}:{{ .Values.processWatcherImage.tag }}"
+          imagePullPolicy: {{ .Values.processWatcherImage.pullPolicy }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |- {{ .Files.Get "scripts/wait-for-empty-dir.sh" | nindent 14 }}
+          volumeMounts:
+            - mountPath: /import
+              name: import
+            - mountPath: /metrics
+              name: metrics
+          env:
+            - name: PUSHGATEWAY_BASE_URL
+              value: {{ .Values.metrics.pushgatewayUrl | quote }}
+            - name: JOB_NAME
+              value: {{ include "sophora-import-job.fullname" . | quote }}
+            {{- if .Values.metrics.authentication.secret.name }}
+            - name: PUSHGATEWAY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metrics.authentication.secret.name | quote }}
+                  key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+            - name: PUSHGATEWAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.metrics.authentication.secret.name | quote }}
+                  key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+            {{- end }}
+          securityContext:
+            capabilities:
+              add:
+                - SYS_PTRACE
+      volumes:
+        - name: import
+          emptyDir: {}
+        - name: saxon-licence
+          secret:
+            secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
+            optional: true
+        - name: xsl
+          emptyDir: {}
+        - name: libs
+          emptyDir: {}
+        - name: importer-config
+          configMap:
+            name: {{ include "sophora-import-job.fullname" . }}
+        - name: metrics
+          emptyDir: {}

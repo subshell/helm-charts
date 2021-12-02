@@ -8,6 +8,16 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
+downloadViaHttpImage:
+  repository: "docker.subshell.com/misc/alpine-toolkit"
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+downloadViaS3Image:
+  repository: "docker.subshell.com/misc/aws-cli-tools"
+  tag: "0.0.1"
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -31,19 +41,56 @@ sophora:
         name: ""
         secretAccessKeyKey: "accessKey"
         accessKeyIdKey: "accessKeyId"
-    additionalDataImage:
-      saxonLicenceSecret:
-        name: ""
-        licenceFileKey: "saxon-license.lic"
-      repository: ""
-      tag: ""
-      libsPath: "/data/libs"
-      xslPath: "/data/xsl"
-      miscPath: "/data/misc"
-
+    extraEnv:
     instances: []
     configuration: {}
 
+logbackXml: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <configuration scan="true" scanPeriod="60 seconds">
+  	<jmxConfigurator/>
+
+  	<property name="PATTERN"
+  			  value="%d{dd.MM.yyyy HH:mm:ss} %5level [%12.12thread] [%X{importerInstanceName}: %X{feedName} %X{sourceFileName}] %.40(%logger{0}:%L) --- %msg%n"/>
+
+  	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+  		<encoder>
+  			<pattern>${PATTERN}</pattern>
+  		</encoder>
+  	</appender>
+
+  	<logger name="com.subshell.sophora" level="INFO"/>
+  	<logger name="com.subshell.sophora.importer" level="INFO"/>
+  	<logger name="org.springframework.boot" level="INFO"/>
+
+  	<root level="WARN">
+  		<appender-ref ref="console"/>
+  	</root>
+
+  </configuration>
+
+transformation:
+  enabled: false
+  xslTransformerFactory:
+  data:
+    use: s3
+    zipViaHttp:
+      secretName:
+      zipUrls:
+      usernameKey: "username"
+      passwordKey: "password"
+    zipViaS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName:
+      zipPaths:
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    useSaxon: false
+    saxonLicenceSecretName: "saxon-license"
+    saxonLicenceSecretKey: "saxon-license.lic"
+    libsPath: libs
+    xslPath: xsl
 
 podAnnotations: {}
 

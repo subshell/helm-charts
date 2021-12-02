@@ -3,12 +3,12 @@ count_files() {
   echo "$result"
 }
 
-currentFileCount=$(count_files /import/admin/incoming)
+currentFileCount=$(count_files /import/incoming)
 while [ $currentFileCount -gt 0 ]
 do
   echo "Still waiting. Current file count is ${currentFileCount}"
   sleep 1
-  currentFileCount=$(count_files /import/admin/incoming)
+  currentFileCount=$(count_files /import/incoming)
 done
 
 echo "No files remaining. Stopping importer."
@@ -33,16 +33,16 @@ else
   fi
 fi
 
-failure=$(count_files /import/admin/failure)
+failure=$(count_files /import/failure)
 
 if [ "$failure" -gt 0 ]; then
   # error
   echo "import was not successful"
   echo "failures"
   echo "===="
-  ls -R /import/admin/failure
-  exit 1
+  ls -R /import/failure
 else
   echo "import was successful"
-  exit 0
 fi
+
+exit 0

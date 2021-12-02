@@ -6,14 +6,14 @@ count_files() {
 cd /sophora || exit
 echo "Starting importer."
 importerStart=$(date +%s%3N)
-java -cp classpath org.springframework.boot.loader.JarLauncher
+java -cp classpath org.springframework.boot.loader.PropertiesLauncher
 importerStop=$(date +%s%3N)
 echo "Importer stopped."
 importDurationMillis=$((importerStop-importerStart))
 importDurationSeconds=$(awk -v millis=$importDurationMillis 'BEGIN { print ( millis / 1000 ) }')
 
-success=$(count_files /import/admin/success)
-failure=$(count_files /import/admin/failure)
+success=$(count_files /import/success)
+failure=$(count_files /import/failure)
 
 printf "successful imports: %i\t import failures: %i\n" "$success" "$failure"
 
