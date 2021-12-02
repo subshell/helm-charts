@@ -64,3 +64,10 @@ service:
   annotations: {}
   clusterIP: None
   httpPort: 80
+
+
+# There is the option of setting up the importer container with additionalVolumes and additionalVolumeMounts.
+# In this case the volumeMount and the volume must be used together and be configured in the same way (e.g. have the same name).
+additionalVolumes:
+
+additionalVolumeMounts:

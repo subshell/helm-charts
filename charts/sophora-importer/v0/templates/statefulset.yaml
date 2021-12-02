@@ -52,6 +52,9 @@ spec:
               mountPath: /import/
             - name: data
               mountPath: /data/
+            {{- with .Values.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           securityContext:
             privileged: true
 
@@ -136,6 +139,9 @@ spec:
           emptyDir: {}
         - name: data
           emptyDir: {}
+        {{- with .Values.additionalVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
         {{- if .Values.sophora.importer.additionalDataImage }}
         {{- if .Values.sophora.importer.additionalDataImage.saxonLicenceSecret }}
         - name: saxon-licence
