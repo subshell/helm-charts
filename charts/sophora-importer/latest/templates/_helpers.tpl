@@ -76,9 +76,9 @@ Create the name of the service account to use
 {{- end -}}
 
 {{- define "sophora-importer.downloadTransformationsScript" -}}
-mkdir dl && cd dl || exit;
-mkdir {{ include "sophora-importer.transformationXslPath" . }}
-mkdir {{ include "sophora-importer.transformationLibsPath" . }}
+mkdir -p dl && cd dl || exit;
+mkdir -p {{ include "sophora-importer.transformationXslPath" . }}
+mkdir -p {{ include "sophora-importer.transformationLibsPath" . }}
 
 # xsl and libs
 {{ .Files.Get "scripts/download_zip.sh" }}

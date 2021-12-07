@@ -21,7 +21,9 @@ data:
     importer:
       name: {{ .Values.importer.name }}
 
+      {{ if .Values.transformation.xslTransformerFactory }}
       xslTransformerFactory: {{ .Values.transformation.xslTransformerFactory }}
+      {{- end }}
 
       # Defaults for all instances.
       folders:

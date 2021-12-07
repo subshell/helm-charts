@@ -80,7 +80,6 @@ sophora:
 
 transformation:
   enabled: true
-  xslTransformerFactory: net.sf.saxon.TransformerFactoryImpl
   data:
     zipViaS3:
       secretName:

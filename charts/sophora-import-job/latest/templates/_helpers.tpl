@@ -66,9 +66,9 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- define "sophora-import-job.downloadTransformationsScript" -}}
 start=$(date +%s%3N)
 
-mkdir dl && cd dl || exit;
-mkdir {{ include "sophora-import-job.transformationXslPath" . }}
-mkdir {{ include "sophora-import-job.transformationLibsPath" . }}
+mkdir -p dl && cd dl || exit;
+mkdir -p {{ include "sophora-import-job.transformationXslPath" . }}
+mkdir -p {{ include "sophora-import-job.transformationLibsPath" . }}
 
 # xsl and libs
 {{ .Files.Get "scripts/download_zip.sh" }}
