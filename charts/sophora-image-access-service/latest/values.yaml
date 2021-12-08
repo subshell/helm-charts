@@ -39,7 +39,9 @@ sophora:
         image-access-service:
           live-mode: false
           short-cache-duration: 1m
-          long-cache-duration: 1d
+          long-cache-duration: 30d
+        url:
+          domain-name: ""
 
 s3:
   secret:

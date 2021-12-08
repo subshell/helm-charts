@@ -22,6 +22,8 @@ sophora:
         s3-image-store:
           host: "https://storage.googleapis.com"
           bucket-name: "image-service"
+        url:
+          domain-name: "http://image-service"
 
 s3:
   secret:
