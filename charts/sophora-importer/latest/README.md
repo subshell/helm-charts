@@ -4,6 +4,16 @@
 
 Additional environment variables are supported via `sophora.importer.extraEnv`. The variables have to be defined in kubernetes env format.
 
+## Importer without s3 bucket
+
+If you don't need a s3 bucket for incoming Sophora documents, you can set `sophora.importer.s3Bucket.enabled` to false. This might be useful,
+if you only need the SOAP api. The following directories can be referenced in your `application.yaml`:
+
+* success: /import/<instance>/success
+* temp: /import/<instance>/temp
+* failure: /import/<instance>/failure
+* incoming: /import/<instance>/incoming
+
 ## Import transformation files via S3 or HTTP
 
 Activate transformations with by setting `transformation.enabled` to `true`. Now you can reference one or more zip files via s3 or http

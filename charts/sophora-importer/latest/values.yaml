@@ -35,6 +35,8 @@ sophora:
       usernameKey: "username"
   importer:
     s3Bucket:
+      # If enabled, the importer uses a s3 bucket for incoming imports
+      enabled: true
       name: ""
       url: "https://storage.googleapis.com"
       secret:

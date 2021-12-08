@@ -29,6 +29,7 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
+      {{- if .Values.sophora.importer.s3Bucket.enabled }}
       - name: bucket-mount
         image: efrecon/s3fs:1.86
         env:
@@ -84,6 +85,7 @@ spec:
             mountPath: /import
         securityContext:
           privileged: true
+      {{- end }}
       - name: importer
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -137,7 +139,22 @@ spec:
         {{- end }}
         securityContext:
           privileged: true
-
+        {{- if not .Values.sophora.importer.s3Bucket.enabled }}
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - sh
+                - '-c'
+                - |
+                  echo "Creating import folders for importer:"
+                  {{- range .Values.sophora.importer.instances }}
+                  mkdir -p /import/{{.}}/success
+                  mkdir -p /import/{{.}}/temp
+                  mkdir -p /import/{{.}}/failure
+                  mkdir -p /import/{{.}}/incoming
+                  {{ end }}
+        {{- end }}
       initContainers:
       {{/* Transformations Download */}}
       {{- with .Values.transformation }}
