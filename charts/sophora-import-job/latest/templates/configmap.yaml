@@ -15,6 +15,7 @@ data:
           retries: 15
           retry-interval: 10
           internal: {{.Values.sophora.internalConnection}}
+          use-migration-mode: {{.Values.sophora.useMigrationMode}}
         toolInfo:
           enabled: false
 

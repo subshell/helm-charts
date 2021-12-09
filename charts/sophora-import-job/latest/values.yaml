@@ -46,6 +46,7 @@ metrics:
 sophora:
   serverUrl:
   internalConnection: true
+  useMigrationMode: false
   authentication:
     secret:
       name:
@@ -145,7 +146,7 @@ prometheusRule:
       labels:
         severity: critical
       annotations:
-        description: 'Sophora import job failed.'
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) failed.'
         summary: 'The import job ({{ include "sophora-import-job.fullname" . }}) did not complete successfully.'
         runbook_url: 'https://bitbucket.org/subshell_gmbh/helm-charts/src/master/charts/sophora-import-job/latest/alerting-runbook.md'
 

@@ -12,6 +12,7 @@ sophoraDocumentsDownload:
 sophora:
   serverUrl: http://sophora-server:1196
   internalConnection: true
+  useMigrationMode: true
   authentication:
     secret:
       name: "sophora-user-admin-credentials"
