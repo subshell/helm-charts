@@ -12,7 +12,7 @@ if you only need the SOAP api. The following directories can be referenced in yo
 * success: /import/<instance>/success
 * temp: /import/<instance>/temp
 * failure: /import/<instance>/failure
-* incoming: /import/<instance>/incoming
+* watch: /import/<instance>/incoming
 
 ## Import transformation files via S3 or HTTP
 
