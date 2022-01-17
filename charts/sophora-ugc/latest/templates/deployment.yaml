@@ -18,6 +18,9 @@ spec:
       labels:
         {{- include "sophora-ugc.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.sophora.ugc.hostname }}
+      hostname: {{ .Values.sophora.ugc.hostname }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

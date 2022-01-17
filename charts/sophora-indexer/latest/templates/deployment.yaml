@@ -21,6 +21,9 @@ spec:
       labels:
         {{- include "sophora-indexer.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.indexer.hostname }}
+      hostname: {{ .Values.indexer.hostname }}
+      {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
