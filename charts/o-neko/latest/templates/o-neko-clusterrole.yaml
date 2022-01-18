@@ -16,3 +16,10 @@ rules:
       - "*"
     verbs:
       - "*"
+  - apiGroups:
+      - "monitoring.coreos.com"
+    resources:
+      - "servicemonitors"
+      - "prometheusrules"
+    verbs:
+      - "*"
