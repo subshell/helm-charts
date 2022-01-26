@@ -46,6 +46,10 @@ updateStrategy:
 
 nodeSelector: {}
 
+terminationGracePeriodSecondsPerServerMode:
+  cluster: 180
+  staging: 60
+
 sophora:
   server:
     logback: |

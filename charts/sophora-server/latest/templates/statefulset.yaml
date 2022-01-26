@@ -44,6 +44,7 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       affinity: {{- toYaml .Values.affinity | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .Values.sophora.server.isClusterServer | ternary .Values.terminationGracePeriodSecondsPerServerMode.cluster .Values.terminationGracePeriodSecondsPerServerMode.staging }}
       initContainers:
       {{ if eq .Values.sophora.server.isClusterServer true }}
         - name: sophora-prestop-initializer
