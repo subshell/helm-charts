@@ -11,5 +11,5 @@ spec:
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
           port: http
-          path: /prometheus
+          path: {{ .Values.serviceMonitor.path }}
 {{- end }}

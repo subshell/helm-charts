@@ -47,6 +47,7 @@ ingress:
 
 serviceMonitor:
   enabled: true
+  path: /test/prometheus
 
 startupProbe:
   httpPath: '/test/health'
