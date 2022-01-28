@@ -45,6 +45,11 @@ sophora:
         accessKeyIdKey: "accessKeyId"
     extraEnv:
     instances: []
+    createImportFolders:
+      incoming: s3
+      failure: s3
+      success: local
+      temp: local
     configuration: {}
 
 logbackXml: |
@@ -113,6 +118,12 @@ service:
   annotations: {}
   clusterIP: None
   httpPort: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+  tls: []
 
 
 # There is the option of setting up the importer container with additionalVolumes and additionalVolumeMounts.

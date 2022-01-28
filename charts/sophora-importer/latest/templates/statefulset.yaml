@@ -61,12 +61,14 @@ spec:
                 - '-c'
                 - |
                   echo Creating import folders for importer:
-                  {{- range .Values.sophora.importer.instances }}
-                  mkdir -p /import/{{.}}/success
-                  mkdir -p /import/{{.}}/temp
-                  mkdir -p /opt/s3fs/bucket/{{.}}/failure
-                  mkdir -p /opt/s3fs/bucket/{{.}}/incoming
-                  {{ end }}
+                  {{- range $instance := .Values.sophora.importer.instances }}
+                  {{/* Ensure that every instance folder is available on s3 */}}
+                  mkdir -p "/opt/s3fs/bucket/{{ $instance }}"
+                  {{- range $folder, $location := $.Values.sophora.importer.createImportFolders }}
+                  mkdir -p "{{ ((eq $location "s3") | ternary "/opt/s3fs/bucket" "/import") }}/{{ $instance }}/{{ $folder }}"
+                  {{- end }}
+                  {{- end }}
+
                   echo ...folders created as follows:
                   find /import
                   find /opt/s3fs/bucket

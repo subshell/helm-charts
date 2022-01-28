@@ -6,13 +6,38 @@ Additional environment variables are supported via `sophora.importer.extraEnv`. 
 
 ## Importer without s3 bucket
 
-If you don't need a s3 bucket for incoming Sophora documents, you can set `sophora.importer.s3Bucket.enabled` to false. This might be useful,
+If you don't need a s3 bucket for incoming Sophora documents, you can set `sophora.importer.s3Bucket.enabled` to `false`. This might be useful,
 if you only need the SOAP api. The following directories can be referenced in your `application.yaml`:
 
 * success: /import/<instance>/success
 * temp: /import/<instance>/temp
 * failure: /import/<instance>/failure
 * watch: /import/<instance>/incoming
+
+## Importer directory paths
+
+On startup, the Sophora Importer assumes that all directories you defined in your `application.yaml` under `folders` already exist.
+These directories will be created automatically by Helm according to your configuration in `sophora.importer.createImportFolders`.
+Use `s3` to create the directory for s3 bucket (`/import/`) or `local` if you don't want to share it (`/import-local/`).
+
+The following example creates directories:
+
+```yaml
+sophora:
+  importer:
+    createImportFolders:
+      temp: local
+      failure: s3
+      incoming: s3
+      success: s3
+```
+
+```
+/import-local/<instance>/temp
+/import/<instance>/failure
+/import/<instance>/incoming
+/import/<instance>/success
+```
 
 ## Import transformation files via S3 or HTTP
 
