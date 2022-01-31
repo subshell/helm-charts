@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # see https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
-# this script requires env variables S3_NAME, S3_FILE_PATH_WITHOUT_EXTENSION, S3_ENDPOINT, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and STORE_UPLOAD_PER_WEEKDAY to be set
+# this script requires env variables CRON_JOB, ZIP_FILE_NAME_DATE_FORMAT, S3_NAME, S3_FILE_PATH_WITHOUT_EXTENSION, S3_ENDPOINT, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and STORE_UPLOAD_PER_WEEKDAY to be set
 
 echo "creating zip"
 tree /data-export
@@ -14,9 +14,9 @@ echo "start uploading to s3..."
 uploadStart=$(date +%s%3N)
 aws --endpoint="$S3_ENDPOINT" s3 cp "/output/export.zip" "s3://$S3_NAME$S3_FILE_PATH_WITHOUT_EXTENSION.zip"
 
-if [ "$STORE_UPLOAD_PER_WEEKDAY" = "true" ]; then
-  weekday=$(date +"%a")
-  aws --endpoint="$S3_ENDPOINT" s3 cp "/output/export.zip" "s3://$S3_NAME$S3_FILE_PATH_WITHOUT_EXTENSION-$weekday.zip"
+if [ "$CRON_JOB" = "true" ]; then
+  dateId=$(date +"$ZIP_FILE_NAME_DATE_FORMAT")
+  aws --endpoint="$S3_ENDPOINT" s3 cp "/output/export.zip" "s3://$S3_NAME$S3_FILE_PATH_WITHOUT_EXTENSION-$dateId.zip"
 fi
 
 uploadEnd=$(date +%s%3N)

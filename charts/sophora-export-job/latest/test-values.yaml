@@ -41,5 +41,11 @@ exporter:
         - "vision"
         - "hamburg"
 
+job:
+  cron:
+    enabled: true
+    expression: "0 */24 * * *"
+    zipFileNameDateFormat: "%Y-%m-%d"
+
 prometheusRule:
   enabled: true

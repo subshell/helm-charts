@@ -73,3 +73,66 @@ Create the name of the service account to use
 {{- printf "%s" .Values.upload.absoluteFilePath }}
 {{- end }}
 {{- end }}
+
+{{- define "sophora-export-job.utils.upload-to-s3-env" -}}
+- name: AWS_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      key: {{.Values.s3.secret.accessKeyIdKey}}
+      name: {{ .Values.s3.secret.name }}
+- name: AWS_SECRET_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      key: {{.Values.s3.secret.secretAccessKeyKey}}
+      name: {{ .Values.s3.secret.name }}
+- name: S3_ENDPOINT
+  value: {{ .Values.s3.url }}
+- name: S3_NAME
+  value: {{ .Values.s3.name }}
+- name: S3_FILE_PATH_WITHOUT_EXTENSION
+  value: {{ include "sophora-export-job.utils.fileNameWithoutZipExtension" . | quote }}
+- name: ZIP_FILE_NAME_DATE_FORMAT
+  value: {{ .Values.job.zipFileNameDateFormat | quote }}
+- name: CRON_JOB
+  value: {{ .Values.job.cron.enabled | quote }}
+- name: PUSHGATEWAY_BASE_URL
+  value: {{ .Values.metrics.pushgatewayUrl | quote }}
+- name: JOB_NAME
+  value: {{ include "sophora-export-job.fullname" . | quote }}
+{{- if .Values.metrics.authentication.secret.name }}
+- name: PUSHGATEWAY_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.metrics.authentication.secret.name | quote }}
+      key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+- name: PUSHGATEWAY_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.metrics.authentication.secret.name | quote }}
+      key: {{ .Values.metrics.authentication.secret.usernameKey | quote }}
+  {{- end }}
+{{- end }}
+
+{{- define "sophora-export-job.utils.upload-to-s3-container" -}}
+name: upload
+image: "{{ .Values.upload.image.repository }}:{{ .Values.upload.image.tag }}"
+imagePullPolicy: {{ .Values.upload.image.pullPolicy }}
+env: {{ include "sophora-export-job.utils.upload-to-s3-env" . | nindent 2 }}
+command: ["/bin/sh"]
+args:
+  - "-c"
+  - |-
+    sh /exporter-configmap/wait-for-exporter-to-finish.sh
+    sh /exporter-configmap/upload-to-s3.sh
+volumeMounts:
+  - name: data-export
+    mountPath: /data-export
+  - name: exporter-configmap
+    mountPath: /exporter-configmap
+  - name: metrics
+    mountPath: /metrics
+securityContext:
+  capabilities:
+    add:
+      - SYS_PTRACE
+{{- end }}

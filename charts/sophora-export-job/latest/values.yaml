@@ -71,6 +71,10 @@ job:
   cron:
     enabled: false
     expression: "0 */6 * * *"
+  # date format for unix date command. It is used like this: `date +"$zipFileNameDateFormat"`. Defaults to the weekday.
+  # other formats:
+  # - date without time: "%Y-%m-%d"
+  zipFileNameDateFormat: "%a"
 
 prometheusRule:
   enabled: false
