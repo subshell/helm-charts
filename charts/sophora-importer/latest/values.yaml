@@ -18,6 +18,11 @@ downloadViaS3Image:
   tag: "0.0.1"
   pullPolicy: IfNotPresent
 
+s3fsImage:
+  repository: efrecon/s3fs
+  tag: "1.90"
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -43,6 +48,9 @@ sophora:
         name: ""
         secretAccessKeyKey: "accessKey"
         accessKeyIdKey: "accessKeyId"
+      extraEnv:
+        - name: S3FS_ARGS
+          value: nonempty
     extraEnv:
     instances: []
     createImportFolders:

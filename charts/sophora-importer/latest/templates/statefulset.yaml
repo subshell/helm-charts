@@ -31,7 +31,7 @@ spec:
       containers:
       {{- if .Values.sophora.importer.s3Bucket.enabled }}
       - name: bucket-mount
-        image: efrecon/s3fs:1.86
+        image: "{{ .Values.s3fsImage.repository }}:{{ .Values.s3fsImage.tag }}"
         env:
           - name: AWS_S3_BUCKET
             value: {{ .Values.sophora.importer.s3Bucket.name }}
@@ -51,7 +51,10 @@ spec:
                 key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
                 name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
                 optional: false
-        imagePullPolicy: IfNotPresent
+          {{- if .Values.sophora.importer.s3Bucket.extraEnv -}}
+          {{- toYaml .Values.sophora.importer.s3Bucket.extraEnv | nindent 10 }}
+          {{- end }}
+        imagePullPolicy: {{ .Values.s3fsImage.pullPolicy }}
         lifecycle:
           postStart:
             exec:
