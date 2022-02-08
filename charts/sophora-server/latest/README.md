@@ -40,7 +40,6 @@ clusterReplication:
             - "my-server02.com"
   servicesDefaults:
     annotations:
-      kubernetes.io/ingress.class: nginx
       kubernetes.io/tls-acme: "true"
 ```
 

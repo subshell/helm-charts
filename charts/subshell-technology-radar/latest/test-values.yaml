@@ -6,6 +6,7 @@ service:
 
 ingress:
   enabled: true
+  ingressClassName: nginx
 
 resources:
   limits:

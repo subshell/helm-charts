@@ -33,6 +33,7 @@ s3:
 
 ingress:
   enabled: true
+  ingressClassName: nginx
   annotations: {}
   hosts:
   tls: []

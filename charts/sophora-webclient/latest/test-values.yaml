@@ -6,6 +6,7 @@ sophora:
       name: "sophora-credentials"
 
 ingress:
+  ingressClassName: nginx
   hosts:
     - host: "my-site.com"
 

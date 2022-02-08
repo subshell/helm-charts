@@ -13,6 +13,7 @@ oneko:
       secretName: oneko-admin-credentials
 
 ingress:
+  ingressClassName: nginx
   hosts:
   - host: "*.b.oneko.code-nnw.cloud"
   - host: "*.b.sportschau.de"

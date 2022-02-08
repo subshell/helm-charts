@@ -100,3 +100,5 @@ resources:
     memory: "2G"
     cpu: "1"
 
+ingress:
+  ingressClassName: nginx

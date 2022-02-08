@@ -13,6 +13,7 @@ service:
   port: 80
 
 ingress:
+  ingressClassName: nginx
   hosts:
     - path: "/"
       pathType: Prefix

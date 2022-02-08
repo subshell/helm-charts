@@ -28,6 +28,7 @@ oneko:
           autoIndexCreation: true
 
 ingress:
+  ingressClassName: nginx
   hosts:
     - path: "/"
       pathType: Prefix

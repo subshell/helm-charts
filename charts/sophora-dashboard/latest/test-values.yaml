@@ -11,6 +11,7 @@ hostAliases:
 
 ingress:
   enabled: true
+  ingressClassName: nginx
 
 storageClassName: "ssd"
 
