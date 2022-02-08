@@ -2,5 +2,5 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 0.2.3-dev
+version: 0.2.3
 appVersion: '4'
