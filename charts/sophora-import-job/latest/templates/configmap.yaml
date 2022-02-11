@@ -34,7 +34,7 @@ data:
       webService:
         enabled: false
 
-      filenamesAddTimestamp: true
+      filenamesAddTimestamp: false
 
       cleanupFoldersCron: "0 0 9 ? * * *" # every day at 9AM
       cleanupFoldersSuccessfulMaxAge: 1 # in days

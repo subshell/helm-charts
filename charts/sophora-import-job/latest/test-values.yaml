@@ -44,6 +44,9 @@ transformation:
     saxonLicenceSecretKey: "saxon-license.lic"
     transformXslSubDir: "sub"
 
+importFailureFilesUpload:
+  enabled: true
+
 metrics:
   pushgatewayUrl: https://pushgateway.test.cloud:9090
   authentication:

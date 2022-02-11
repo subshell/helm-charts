@@ -12,7 +12,7 @@ By default, all xsl files should be located in `xsl` and all lib files in `libs`
 All possible configurations are available in `values.yaml`. 
 
 **Note**: The Sophora Importer needs a `transform.xml` as an entrypoint. The directory containing this file is configurable 
-via `transformation.data.transformXslSubDir` and is relative to `transformation.data.xslPath`. 
+via `transformation.data.transformXslSubDir` and is relative to `transformation.data.xslPath`.
 
 ### Simple example
 
@@ -52,3 +52,9 @@ transformation:
     saxonLicenceSecretName: "saxon-license"
     saxonLicenceSecretKey: "saxon-license.lic"
 ```
+
+## Upload failures to s3
+
+In on-premise solutions it was easy to access the `failure` directory. In case of this k8s-Job we don't
+have access to any files after the job has finished. Therefore, the import-job has a feature that
+lets you upload the `failure` directory to a s3 bucket (see `importFailureFilesUpload` in `values.yaml`).

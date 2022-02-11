@@ -8,17 +8,12 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
-processWatcherImage:
-  repository: "docker.subshell.com/misc/alpine-toolkit"
-  tag: "0.1.0"
-  pullPolicy: IfNotPresent
-
 downloadViaHttpImage:
   repository: "docker.subshell.com/misc/alpine-toolkit"
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 
-downloadViaS3Image:
+s3CliImage:
   repository: "docker.subshell.com/misc/aws-cli-tools"
   tag: "0.0.1"
   pullPolicy: IfNotPresent
@@ -106,6 +101,15 @@ transformation:
     libsPath: libs
     xslPath: xsl
     transformXslSubDir: .
+
+importFailureFilesUpload:
+  enabled: false
+  uploadPath: "/"
+  s3Endpoint: "https://storage.googleapis.com"
+  bucketName:
+  secretName:
+  secretAccessKeyKey: "secretAccessKey"
+  accessKeyIdKey: "accessKeyId"
 
 sophoraDocumentsDownload:
   use: s3

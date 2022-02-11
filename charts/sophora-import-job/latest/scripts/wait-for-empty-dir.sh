@@ -41,6 +41,12 @@ if [ "$failure" -gt 0 ]; then
   echo "failures"
   echo "===="
   ls -R /import/failure
+
+  if [ -n "$IMPORT_FAILURE_FILES_ENABLED" ]; then
+    s3Path="s3://$S3_NAME$S3_FILE_PATH/${MY_POD_NAME}_$(date '+%Y-%m-%d_%H-%M')"
+    echo "uploading failure files to configured s3 bucket $s3Path"
+    aws --endpoint="$S3_ENDPOINT" s3 cp "/import/failure/" "$s3Path" --recursive
+  fi
 else
   echo "import was successful"
 fi

@@ -50,8 +50,8 @@ spec:
         {{- end }}
         {{- if eq .Values.sophoraDocumentsDownload.use "s3" }}
         - name: zip-via-s3-downloader
-          image: "{{ .Values.downloadViaS3Image.repository }}:{{ .Values.downloadViaS3Image.tag }}"
-          imagePullPolicy: {{ .Values.downloadViaS3Image.pullPolicy }}
+          image: "{{ .Values.s3CliImage.repository }}:{{ .Values.s3CliImage.tag }}"
+          imagePullPolicy: {{ .Values.s3CliImage.pullPolicy }}
           volumeMounts:
             - mountPath: /import
               name: import
@@ -88,8 +88,8 @@ spec:
         {{- with .Values.transformation }}
         {{- if and .enabled (eq .data.use "s3") }}
         - name: transformation-data-via-s3-downloader
-          image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
-          imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+          image: "{{ $.Values.s3CliImage.repository }}:{{ $.Values.s3CliImage.tag }}"
+          imagePullPolicy: {{ $.Values.s3CliImage.pullPolicy }}
           env:
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
@@ -121,8 +121,8 @@ spec:
         {{- end }}
         {{- if and .enabled (eq .data.use "http") }}
         - name: transformation-data-via-http-downloader
-          image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
-          imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+          image: "{{ $.Values.s3CliImage.repository }}:{{ $.Values.s3CliImage.tag }}"
+          imagePullPolicy: {{ $.Values.s3CliImage.pullPolicy }}
           env:
             - name: REPO_ZIP_URLS
               value: {{ include "sophora-import-job.utils.joinListWithSpace" .data.zipViaHttp.zipUrls | quote }}
@@ -201,8 +201,8 @@ spec:
             - mountPath: /metrics
               name: metrics
         - name: process-watcher
-          image: "{{ .Values.processWatcherImage.repository }}:{{ .Values.processWatcherImage.tag }}"
-          imagePullPolicy: {{ .Values.processWatcherImage.pullPolicy }}
+          image: "{{ .Values.s3CliImage.repository }}:{{ .Values.s3CliImage.tag }}"
+          imagePullPolicy: {{ .Values.s3CliImage.pullPolicy }}
           command: ["/bin/sh"]
           args:
             - "-c"
@@ -217,6 +217,30 @@ spec:
               value: {{ .Values.metrics.pushgatewayUrl | quote }}
             - name: JOB_NAME
               value: {{ include "sophora-import-job.fullname" . | quote }}
+            {{- if .Values.importFailureFilesUpload.enabled }}
+            - name: IMPORT_FAILURE_FILES_ENABLED
+              value: "true"
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.importFailureFilesUpload.accessKeyIdKey }}
+                  name: {{ .Values.importFailureFilesUpload.secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.importFailureFilesUpload.secretAccessKeyKey }}
+                  name: {{ .Values.importFailureFilesUpload.secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .Values.importFailureFilesUpload.s3Endpoint }}
+            - name: S3_NAME
+              value: {{ .Values.importFailureFilesUpload.bucketName }}
+            - name: S3_FILE_PATH
+              value: {{ .Values.importFailureFilesUpload.uploadPath | quote }}
+            {{- end }}
             {{- if .Values.metrics.authentication.secret.name }}
             - name: PUSHGATEWAY_USERNAME
               valueFrom:
