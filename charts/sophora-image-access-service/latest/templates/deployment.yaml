@@ -36,6 +36,8 @@ spec:
               containerPort: {{ .Values.service.httpPort }}
               protocol: TCP
           env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
               valueFrom:
                 secretKeyRef:

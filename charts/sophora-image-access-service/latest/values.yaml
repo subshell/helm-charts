@@ -8,7 +8,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: sophora-image-access-service
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
 
@@ -55,6 +55,11 @@ service:
   ClusterIP:
   httpPort: 8080
 
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: /actuator/prometheus
+
 ingress:
   enabled: false
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
@@ -68,7 +73,13 @@ serviceAccount:
   create: false
 
 replicaCount: 1
-resources: {}
+resources:
+  requests:
+    memory: "2G"
+    cpu: "2"
+  limits:
+    memory: "2G"
+    cpu: "4"
 podAnnotations: {}
 
 startupProbe:

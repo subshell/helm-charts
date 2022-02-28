@@ -8,7 +8,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: ""
+fullnameOverride: sophora-image-update-service
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
 
@@ -45,12 +45,25 @@ s3:
     secretAccessKeyKey: "secretAccessKey"
 
 service:
+  type: ClusterIP
+  ClusterIP:
   httpPort: 8090
 
 serviceAccount:
   create: false
 
-resources: {}
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: /actuator/prometheus
+
+resources:
+  requests:
+    memory: "2G"
+    cpu: "2"
+  limits:
+    memory: "2G"
+    cpu: "4"
 podAnnotations: {}
 
 startupProbe:
