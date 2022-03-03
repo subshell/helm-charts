@@ -109,6 +109,11 @@ clusterReplication:
     annotations:
       kubernetes.io/tls-acme: "true"
 
+tolerations:
+  - effect: NoSchedule
+    key: sophora-cluster-server
+    operator: Exists
+
 resources:
   requests:
     memory: "6G"

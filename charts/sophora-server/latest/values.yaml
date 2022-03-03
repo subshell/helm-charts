@@ -46,6 +46,8 @@ updateStrategy:
 
 nodeSelector: {}
 
+tolerations: []
+
 terminationGracePeriodSecondsPerServerMode:
   cluster: 360
   staging: 180

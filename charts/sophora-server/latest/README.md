@@ -72,3 +72,11 @@ also across unique zones or regions.
 
 This is only neccessary for cluster servers as there are usually only two of them and you would want to ensure that in
 case of a node failure at least one cluster server remains running.
+
+#### Taint tolerations
+
+Kubernetes allows to select a node to schedule a pod based on different criteria. If one wants to make sure pod is only scheduled 
+on a certain node, one shall set a node affinity. If the node shall be exclusive for this kind of pod, there is the possibility
+to taint the node and provide the pods with a set of toleration to tolerate the taint. In sophora one may use this to provide a 
+separate node pool for a certain type of sophora servers exclusively.
+Further information on how taints work: [kubernetes.io/Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/#example-use-cases)
