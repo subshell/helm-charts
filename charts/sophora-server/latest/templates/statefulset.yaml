@@ -211,6 +211,8 @@ spec:
                   key: {{ .Values.sophora.server.authentication.secret.passwordKey }}
                   name: {{ .Values.sophora.server.authentication.secret.name }}
                   optional: false
+            - name: LOG_MODE # used by the preStop hook to configure JSON logging
+              value: "prod"
             {{- end }}
             {{ if .Values.sophora.server.env -}}
             {{- toYaml .Values.sophora.server.env | nindent 12 }}
@@ -262,9 +264,9 @@ spec:
               exec:
                 command:
                   [
-                      "/tools/sophora-prestop",
-                      "switch",
-                      "--serverUrl=http://localhost:1196"
+                      "/bin/sh",
+                      "-c",
+                      "/tools/sophora-prestop switch --serverUrl=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
                   ]
           {{- end }}
           resources:
