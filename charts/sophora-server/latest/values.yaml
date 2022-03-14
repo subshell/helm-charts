@@ -17,7 +17,7 @@ preStop:
   image:
     repository: docker.subshell.com/tools/sophora-prestop
     pullPolicy: IfNotPresent
-    tag: "0.5.0"
+    tag: "0.6.0"
 
 configGenerator:
   image:
