@@ -31,7 +31,8 @@ pipeline {
             'courier',
             'sophora-indexer',
             'sophora-ugc',
-            'youtube-connector'
+            'youtube-connector',
+            'external-secrets'
         ], description: 'What helm chart to release')
         choice(name: 'ReleaseType', choices: ['patch', 'minor', 'major'], description: 'SemVer Release type patch, minor or major')
         choice(name: 'ExistingMajorVersion', choices: ['latest', 'v0', 'v1', 'v2', 'v3', 'v4', 'v5'], description: 'Target an existing major version (matches the sub directory)')

@@ -1,0 +1,9 @@
+externalSecrets:
+- name: example
+  type: Opaque
+  store: gcpsm-custom
+  refreshInterval: 1m
+  data:
+  - key: example-key
+    name: example-name
+    version: latest
