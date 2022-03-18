@@ -2,5 +2,5 @@ apiVersion: v2
 name: external-secrets
 description: A Helm chart for creating multiple external secrets
 type: application
-version: 0.1.1-dev
+version: 0.1.0-dev
 appVersion: "0.4.4"
