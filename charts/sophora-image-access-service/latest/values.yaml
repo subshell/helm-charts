@@ -20,6 +20,11 @@ sophora:
       name: ""
       passwordKey: "password"
       usernameKey: "username"
+# configure accessToken (instead of sophora.authentication.secret) for sessionless client-server connections
+#    accessToken:
+#      secret:
+#        name: token
+#        key: accessToken
 
   # Represents the application.yml of image-access-service:
   configuration:

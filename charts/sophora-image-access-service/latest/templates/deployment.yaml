@@ -38,6 +38,15 @@ spec:
           env:
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
+            {{- if .Values.sophora.authentication.accessToken }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_SESSIONLESS
+              value: "true"
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_ACCESSTOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.accessToken.secret.key | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.accessToken.secret.name" .Values.sophora.authentication.accessToken.secret.name | quote }}
+            {{- else }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -48,6 +57,7 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            {{- end }}
             - name: S3_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
