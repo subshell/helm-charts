@@ -22,7 +22,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:

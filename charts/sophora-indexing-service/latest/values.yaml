@@ -42,7 +42,7 @@ sisi:
   env: []
   configuration:
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=95.0"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 serviceMonitor:
   enabled: false

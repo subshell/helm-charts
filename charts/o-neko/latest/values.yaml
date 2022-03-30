@@ -4,7 +4,7 @@ fullnameOverride: ""
 
 imagePullSecrets: []
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 hostAliases:
 
