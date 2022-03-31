@@ -167,17 +167,17 @@ sophora:
         #   usernameKey: username
         #   passwordKey: password
     binaryStore:
-      s3: {}
-        # secret:
-        #  name:
-        #  secretAccessKeyKey: secretAccessKey
-        #  accessKeyIdKey: accessKeyId
+      s3:
+        secret:
+          name:
+          secretAccessKeyKey: secretAccessKey
+          accessKeyIdKey: accessKeyId
 
-    authentication: {}
-      # secret:
-      #  name:
-      #  usernameKey: username
-      #  passwordKey: password
+    authentication:
+       secret:
+         name:
+         usernameKey: username
+         passwordKey: password
 
     # Additional environment variables can be defined here
     env:

@@ -198,7 +198,7 @@ spec:
                   name: {{ .Values.sophora.server.binaryStore.s3.secret.name }}
                   optional: false
             {{- end }}
-            {{ if eq .Values.sophora.server.isClusterServer true -}}
+            {{ if and (eq .Values.sophora.server.isClusterServer true) (.Values.sophora.server.authentication.secret) -}}
             - name: SOPHORAUSERNAME
               valueFrom:
                 secretKeyRef:
