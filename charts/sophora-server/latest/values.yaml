@@ -18,6 +18,21 @@ preStop:
     pullPolicy: IfNotPresent
     tag: "1.0.0"
 
+serverModeLabeler:
+  image:
+    repository: docker.subshell.com/tools/sophora-servermode-labeler
+    pullPolicy: IfNotPresent
+    tag: "0.1.0"
+  enabledOnClusterServers: false
+  createServiceAccount: true
+  resources:
+    requests:
+      memory: "40M"
+      cpu: "0.01"
+    limits:
+      memory: "80M"
+      cpu: "0.05"
+
 configGenerator:
   image:
     repository: "docker.subshell.com/misc/alpine-toolkit"
@@ -40,6 +55,8 @@ additionalSelectorLabels:
 affinity: {}
 
 podManagementPolicy:
+
+serviceAccountName:
 
 updateStrategy:
 

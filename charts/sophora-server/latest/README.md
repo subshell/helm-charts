@@ -80,3 +80,13 @@ on a certain node, one shall set a node affinity. If the node shall be exclusive
 to taint the node and provide the pods with a set of toleration to tolerate the taint. In sophora one may use this to provide a 
 separate node pool for a certain type of sophora servers exclusively.
 Further information on how taints work: [kubernetes.io/Taints and Tolerations](https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/#example-use-cases)
+
+#### Server mode pod labels
+
+Cluster servers run a sidecar container which continuously labels the pods with their server mode
+to make it possible to create a service which always points to the current primary server.
+
+For the sidecar to work the server requires a serviceaccount with the permission to `get` and `patch` pods
+in the namespace the server runs in. SA, Role and Role Binding are created if not unchecked via
+`serverModeLabeler.createServiceAccount: false`. 
+You can provide your own Service Account via `serviceAccountName:` in the values.

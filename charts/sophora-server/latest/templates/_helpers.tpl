@@ -108,3 +108,15 @@ Logback-Config Name
 {{- define "sophora-server.logbackConfigName" -}}
 {{- printf "logback-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
 {{- end }}
+
+
+{{/*
+Service Account Name
+*/}}
+{{- define "sophora-server.serviceAccountName" -}}
+{{- if .Values.serviceAccountName }}
+{{- .Values.serviceAccountName | quote -}}
+{{- else if .Values.serverModeLabeler.enabledOnClusterServers }}
+{{- include "sophora-server.fullname" . | quote -}}
+{{- end }}
+{{- end }}

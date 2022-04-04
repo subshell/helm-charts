@@ -12,6 +12,9 @@ imagePullSecrets:
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
 
+serverModeLabeler:
+  enabledOnClusterServers: true
+
 affinity:
   podAntiAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
