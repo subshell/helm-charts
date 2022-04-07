@@ -3,6 +3,21 @@ entries:
   group-challenge:
   - apiVersion: v2
     appVersion: 0.6.1
+    created: "2022-04-07T14:38:17.510824366Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.17
+    description: Group challenge helm chart
+    digest: 592fd44e2f2a10deea92565e26228de9049d5b396320c1d9ba0acceb946bc009
+    name: group-challenge
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.2/group-challenge-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 0.6.1
     created: "2022-04-07T11:35:58.093963891Z"
     dependencies:
     - condition: postgresql.enabled
@@ -31,4 +46,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.0/group-challenge-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-07T11:35:58.093976891Z"
+generated: "2022-04-07T14:38:17.510841066Z"
