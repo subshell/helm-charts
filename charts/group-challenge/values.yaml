@@ -106,6 +106,9 @@ imgProxy:
 postgresql:
   enabled: true
   fullnameOverride: gc-postgres
+  primary:
+    podAnnotations:
+      "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
   auth:
     database: "group_challenge"
     enablePostgresUser: true
