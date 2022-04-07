@@ -2,9 +2,9 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/subshell/group-challenge
-  pullPolicy: Always
+  pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "0.6.1"
 
 imagePullSecrets: []
 nameOverride: ""
