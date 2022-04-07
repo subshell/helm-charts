@@ -1,37 +1,19 @@
-## Welcome to GitHub Pages
+# helm-charts
 
-You can use the [editor on GitHub](https://github.com/subshell/helm-charts/edit/gh-pages/README.md) to maintain and preview the content for your website in Markdown files.
+Public helm charts supported by subshell.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Add Repo
 
-### Markdown
+The following command allows you to download and install all the charts from this repository:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```sh
+helm repo add subshell-public https://subshell.github.io/helm-charts
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+## Development
 
-### Jekyll Themes
+All charts should be located in the `charts` directory. On every push to the
+main branch, a release of the helm chart is triggered automatically if the
+`Chart.yaml` file contains a new version.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/subshell/helm-charts/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+This git repository uses [Github Pages](https://helm.sh/docs/topics/chart_repository/#github-pages-example) to host the helm repository.
