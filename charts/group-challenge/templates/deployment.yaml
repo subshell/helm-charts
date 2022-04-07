@@ -1,0 +1,114 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "group-challenge.fullname" . }}
+  labels:
+    {{- include "group-challenge.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "group-challenge.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "group-challenge.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "group-challenge.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Always
+      containers:
+        {{ if .Values.imgProxy.enabled -}}
+        - name: img-proxy
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.imgProxy.image.repository }}:{{ .Values.imgProxy.image.tag }}"
+          imagePullPolicy: {{ .Values.imgProxy.image.pullPolicy }}
+          volumeMounts:
+            - name: group-challenge-cache
+              mountPath: "/tmp/group-challenge-cache"
+          env:
+            - name: IMGPROXY_LOCAL_FILESYSTEM_ROOT
+              value: "/tmp/group-challenge-cache"
+            - name: IMGPROXY_BIND
+              value: ":8081"
+            - name: IMGPROXY_PROMETHEUS_BIND
+              value: ":8082"
+            - name: IMGPROXY_MAX_SRC_RESOLUTION
+              value: "25"
+            {{ if .Values.imgProxy.env -}}
+            {{- toYaml .Values.imgProxy.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http-ip
+              containerPort: 8081
+              protocol: TCP            
+            - name: http-ipp
+              containerPort: 8082
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http-ip
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http-ip
+          resources:
+            {{- toYaml .Values.imgProxy.resources | nindent 12 }}
+        {{- end }}
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+            - name: group-challenge-cache
+              mountPath: "/tmp/group-challenge-cache"
+          env:
+            {{ if .Values.groupChallenge.env -}}
+            {{- toYaml .Values.groupChallenge.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "group-challenge.fullname" . }}
+        - name: group-challenge-cache
+          emptyDir: {}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
