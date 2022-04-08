@@ -20,8 +20,8 @@ def build(chart_version_dir: str):
 def push(chart_version_dir: str):
     print('running push only...')
 
-    # special case: o-neko + subshell-technology-radar
-    tools_charts = ['o-neko', 'o-neko-catnip', 'subshell-technology-radar', 'external-secrets']
+    # special cases
+    tools_charts = ['subshell-technology-radar', 'external-secrets']
 
     repo = 'subshell-tools' if any(elem in str(chart_version_dir) for elem in tools_charts) else 'sophora'
 

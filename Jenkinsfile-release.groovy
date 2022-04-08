@@ -15,8 +15,6 @@ pipeline {
     parameters {
         booleanParam(name: 'ScanConfig', defaultValue: false, description: 'Scans for new release configurations. This is needed if a new helm chart was recently added.')
         choice(name: 'HelmChart', choices: [
-            'o-neko',
-            'o-neko-catnip',
             'sophora-import-job',
             'sophora-indexing-service',
             'sophora-dashboard',
