@@ -78,6 +78,7 @@ ingress:
   annotations: {}
 
 mongodb:
+  enabled: true
   architecture: "replicaset"
   auth:
     enabled: true
