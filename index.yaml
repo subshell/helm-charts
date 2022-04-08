@@ -46,4 +46,35 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.0/group-challenge-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-07T14:38:17.510841066Z"
+  o-neko:
+  - apiVersion: v2
+    appVersion: 1.4.0
+    created: "2022-04-08T14:10:46.590724699Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.5
+    description: A Helm chart for O-Neko
+    digest: 485d9c326156de6ea6f5453f2be6a14b69e8005455e8a009ff13750a078e20ff
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-1.0.0/o-neko-1.0.0.tgz
+    version: 1.0.0
+  o-neko-catnip:
+  - apiVersion: v2
+    appVersion: 1.0.1
+    created: "2022-04-08T14:10:46.777569697Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 6c4b847fd079ed65a122346421b0c925d32498b1a494d8e3f104e0cbd1a07a29
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-04-08T14:10:46.777582297Z"
