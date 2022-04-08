@@ -73,6 +73,9 @@ configInitializer:
   env:
     - name: A
       value: B
+  envFrom:
+    - configMapRef:
+        name: sophora-server-post-restore-vars
 
 service:
   annotations:

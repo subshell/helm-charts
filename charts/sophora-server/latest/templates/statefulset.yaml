@@ -73,6 +73,10 @@ spec:
             {{ if .Values.configInitializer.env -}}
             {{- toYaml .Values.configInitializer.env | nindent 12 }}
             {{- end }}
+          {{ if .Values.configInitializer.envFrom -}}
+          envFrom:
+          {{- toYaml .Values.configInitializer.envFrom | nindent 12 }}
+          {{- end }}
           volumeMounts:
             - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
               mountPath: /sophora-repository-template

@@ -228,6 +228,8 @@ sophora:
 configInitializer:
   # Additional environment variables passed to the config initializer can be defined here
   env:
+  # Additional environment variables passed to the config initializer can be defined here
+  envFrom:
 
 startupProbe:
   failureThreshold: 35
