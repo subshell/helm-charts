@@ -225,6 +225,10 @@ sophora:
   acs:
     url:
 
+configInitializer:
+  # Additional environment variables passed to the config initializer can be defined here
+  env:
+
 startupProbe:
   failureThreshold: 35
   initialDelaySeconds: 10

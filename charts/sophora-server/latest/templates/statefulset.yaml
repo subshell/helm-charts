@@ -70,6 +70,9 @@ spec:
             - name: EXTERNAL_HOSTS
               value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
             {{- end }}
+            {{ if .Values.configInitializer.env -}}
+            {{- toYaml .Values.configInitializer.env | nindent 12 }}
+            {{- end }}
           volumeMounts:
             - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
               mountPath: /sophora-repository-template

@@ -69,6 +69,11 @@ sophora:
     properties: |-
       sophora.home=/sophora
 
+configInitializer:
+  env:
+    - name: A
+      value: B
+
 service:
   annotations:
     networking.gke.io/load-balancer-type: "Internal"
