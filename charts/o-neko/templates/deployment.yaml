@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {{- include "o-neko.labels" . | nindent 4 }}
+  name: {{ include "o-neko.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "o-neko.selectorLabels" . | nindent 6 }}
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels: {{- include "o-neko.selectorLabels" . | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "o-neko.fullname" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: o-neko
+          image: {{ (printf "%s:%s" .Values.oneko.image.name .Values.oneko.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.oneko.image.imagePullPolicy }}
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SPRING_DATA_MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "The MongoDB credential secret is required" .Values.oneko.mongodb.secret.name }}
+                  key: {{ .Values.oneko.mongodb.secret.uriField }}
+                  optional: false
+            - name: O-NEKO_SECURITY_CREDENTIALSCODERKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oneko.credentialsCoderKeySecret.name }}
+                  key: {{ .Values.oneko.credentialsCoderKeySecret.fieldName }}
+                  optional: false
+            {{- if .Values.oneko.helm.gcs.secret.name }}
+            - name: GOOGLE_APPLICATION_CREDENTIALS
+              value: "/app/google-service-account.json"
+            {{- end }}
+            {{- if .Values.oneko.env -}}
+            {{- toYaml .Values.oneko.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+          {{- if .Values.oneko.helm.gcs.secret.name }}
+            - name: google-service-account
+              mountPath: "/app/google-service-account.json"
+              subPath: {{ required "The field name of the service account secret is required" .Values.oneko.helm.gcs.secret.serviceAccountField }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Always
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "o-neko.configName" . }}
+      {{- if .Values.oneko.helm.gcs.secret.name }}
+        - name: google-service-account
+          secret:
+            secretName: {{ .Values.oneko.helm.gcs.secret.name }}
+      {{- end }}

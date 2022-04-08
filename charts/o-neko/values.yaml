@@ -1,0 +1,115 @@
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+hostAliases:
+
+resources: {}
+
+oneko:
+  image:
+    name: subshellgmbh/o-neko
+    tag: 1.4.0
+    imagePullPolicy: IfNotPresent
+
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: "json-logs"
+
+  helm:
+    gcs:
+      secret:
+        name:
+        serviceAccountField:
+
+  mongodb:
+    secret:
+      name: #required
+      uriField: uri
+
+  credentialsCoderKeySecret:
+    name: #required
+    fieldName: key
+
+  config:
+    management:
+      endpoints:
+        web:
+          exposure:
+            include: health, info, prometheus, threaddump
+    spring:
+      data:
+        mongodb:
+          autoIndexCreation: true
+
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+service:
+  annotations: {}
+  type:
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  loadBalancerIP:
+  clusterIP:
+
+ingress:
+  # ingressClassName: nginx
+  hosts:
+  tls:
+  annotations: {}
+
+mongodb:
+  architecture: "replicaset"
+  auth:
+    enabled: true
+    existingSecret: #mongodb-credentials
+    username: o-neko
+    database: o-neko
+
+  replicaCount: 3
+
+  #persistence:
+  #  storageClass:
+
+  arbiter:
+    enabled: false
+
+  #affinity:
+  #  podAntiAffinity:
+  #    preferredDuringSchedulingIgnoredDuringExecution:
+  #      - weight: 100
+  #        podAffinityTerm:
+  #          labelSelector:
+  #            matchExpressions:
+  #              - key: app.kubernetes.io/name
+  #                operator: In
+  #                values:
+  #                  - mongodb
+  #          topologyKey: "kubernetes.io/hostname"
+
+  resources:
+    requests:
+      memory: "0.5G"
+      cpu: "0.05"
+    limits:
+      memory: "1G"
+      cpu: "0.15"
