@@ -1,0 +1,56 @@
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+hostAliases:
+
+resources: {}
+
+oneko:
+  image:
+    name: subshellgmbh/o-neko-catnip
+    tag: 1.0.1
+    imagePullPolicy: IfNotPresent
+  api:
+    baseUrl:
+    auth:
+      secretName:
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
+startupProbe:
+  failureThreshold: 10
+  initialDelaySeconds: 0
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 0
+  timeoutSeconds: 5
+  periodSeconds: 1
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 0
+  timeoutSeconds: 5
+  periodSeconds: 10
+
+service:
+  annotations: {}
+  type:
+  sessionAffinity: None
+  sessionAffinityConfig: {}
+  loadBalancerIP:
+  clusterIP:
+
+ingress:
+  # ingressClassName: nginx
+  defaultBackend:
+    enabled: false
+  hosts:
+  tls:
+  annotations: {}

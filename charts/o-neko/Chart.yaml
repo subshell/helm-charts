@@ -1,0 +1,13 @@
+apiVersion: v2
+name: o-neko
+description: A Helm chart for O-Neko
+type: application
+version: 1.0.0
+appVersion: "1.4.0"
+sources:
+- https://github.com/subshell/o-neko/
+dependencies:
+  - name: mongodb
+    version: 11.1.5
+    repository: https://charts.bitnami.com/bitnami
+    condition: mongodb.enabled

@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {{- include "o-neko-catnip.labels" . | nindent 4 }}
+  name: {{ include "o-neko-catnip.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "o-neko-catnip.selectorLabels" . | nindent 6 }}
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels: {{- include "o-neko-catnip.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: o-neko-catnip
+          image: {{ (printf "%s:%s" .Values.oneko.image.name .Values.oneko.image.tag) | quote }}
+          imagePullPolicy: {{ .Values.oneko.image.imagePullPolicy }}
+          env:
+            - name: ONEKO_API_BASEURL
+              value: {{ .Values.oneko.api.baseUrl }}
+            - name: ONEKO_API_AUTH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "The oneko credential secret is required" .Values.oneko.api.auth.secretName }}
+                  key: "username"
+                  optional: false
+            - name: ONEKO_API_AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "The oneko credential secret is required" .Values.oneko.api.auth.secretName }}
+                  key: "password"
+                  optional: false
+            {{- if .Values.oneko.env -}}
+            {{- toYaml .Values.oneko.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8080
+              name: http
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: /metrics
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: /metrics
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /metrics
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Always
