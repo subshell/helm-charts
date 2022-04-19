@@ -22,8 +22,10 @@ serverModeLabeler:
   image:
     repository: docker.subshell.com/tools/sophora-servermode-labeler
     pullPolicy: IfNotPresent
-    tag: "0.1.0"
+    tag: "0.2.0"
+  # not enabled per default and can only be enabled on cluster servers
   enabledOnClusterServers: false
+  # whether to create a service account, role and role binding with the required permissions for pod labeling. will not be created if enabledOnClusterServers is false.
   createServiceAccount: true
   resources:
     requests:
