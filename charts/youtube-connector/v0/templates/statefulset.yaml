@@ -26,38 +26,46 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: envsubst-config-generator
+        - name: config-generator
           image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
           imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
-          {{- if .Values.configGenerator.extraEnvVarsSecret }}
-          envFrom:
-            - secretRef:
-                name: {{ .Values.configGenerator.extraEnvVarsSecret }}
-                optional: true
-          {{- end }}
-          {{ if .Values.configGenerator.env -}}
-          env: {{- toYaml .Values.configGenerator.env | nindent 10 }}
-          {{- end }}
+          env:
+            - name: SERVER_SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.youtubeconnector.secret.server.usernameKey}}
+                  name: {{.Values.sophora.youtubeconnector.secret.name}}
+            - name: SERVER_SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
+                  name: {{.Values.sophora.youtubeconnector.secret.name}}
           command: ["/bin/sh"]
           args:
             - "-c"
             - |
-              envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
-              echo "Generated /{{ include "youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
+              cp /youtube-connector-config-template/application.properties /youtube-connector/config/
+              CONFIG=/youtube-connector/config/application.properties
+              echo '' >> $CONFIG
+              echo 'sophoraServer.username = ${SERVER_SOPHORAUSERNAME}' >> $CONFIG
+              echo 'sophoraServer.password = ${SERVER_SOPHORAPASSWORD}' >> $CONFIG
+              envsubst < $CONFIG > $CONFIG.tmp
+              mv $CONFIG.tmp $CONFIG
+              echo "Generated /youtube-connector/config/application.properties from ENV"
           volumeMounts:
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig-template
-              mountPath: /mediaconfig-configmap-template
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
-              mountPath: /youtube-connector
+            - name: youtube-connector-config-template
+              mountPath: /youtube-connector-config-template
+            - name: {{ include "youtube-connector.fullname" . }}-config
+              mountPath: /youtube-connector/config
       volumes:
-        - name: {{ include "youtube-connector.fullname" . }}-mediaconfig-template
-          configMap:
-            name: {{ include "youtube-connector.fullname" . }}-mediaconfig
-        - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
-          emptyDir: {}
-        - name: {{ include "youtube-connector.fullname" . }}-config
+        - name: youtube-connector-config-template
           configMap:
             name: {{ include "youtube-connector.fullname" . }}-config
+        - name: {{ include "youtube-connector.fullname" . }}-config
+          emptyDir: {}
+        - name: mediaconfig
+          configMap:
+            name: {{ include "youtube-connector.fullname" . }}-mediaconfig
         - name: logback
           configMap:
             name: {{ include "youtube-connector.fullname" . }}-logback
@@ -73,44 +81,25 @@ spec:
           env:
           - name: JAVA_TOOL_OPTIONS
             value: {{ .Values.javaOptions }}
-          - name: SOPHORASERVER_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: {{.Values.sophora.youtubeconnector.secret.server.usernameKey}}
-                name: {{.Values.sophora.youtubeconnector.secret.name}}
-          - name: SOPHORASERVER_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
-                name: {{.Values.sophora.youtubeconnector.secret.name}}
           {{ if .Values.env -}}
           {{- toYaml .Values.env | nindent 10 }}
-          {{- end }}
-          {{- if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
-          envFrom:
-            - secretRef:
-                name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
-                optional: true
-          {{- end }}
-          {{ if .Values.sophora.youtubeconnector.env -}}
-          env: {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10}}
           {{- end }}
           ports:
             - containerPort: 1496
           volumeMounts:
-            - name: {{ include "youtube-connector.fullname" . }}-config
-              mountPath: /app/config/application.{{ .Values.sophora.youtubeconnector.configFormat }}
-              subPath: application.{{ .Values.sophora.youtubeconnector.configFormat }}
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
-              mountPath: /app/mediaconfig.xml
+            - mountPath: /youtube-connector/config/application.properties
+              subPath: application.properties
+              name: {{ include "youtube-connector.fullname" . }}-config
+            - mountPath: /youtube-connector/mediaconfig.xml
               subPath: mediaconfig.xml
-            - name: logback
-              mountPath: /app/logback.xml
+              name: mediaconfig
+            - mountPath: /youtube-connector/config/logback.xml
               subPath: logback.xml
-            - name: yt-jobstore
-              mountPath: /app/jobstore/
-            - name: yt-oauth
-              mountPath: /root/.oauth-credentials/
+              name: logback
+            - mountPath: /youtube-connector/jobstore/
+              name: yt-jobstore
+            - mountPath: /root/.oauth-credentials/
+              name: yt-oauth
             {{- with .Values.extraVolumeMounts}}
             {{- toYaml . | nindent 12 }}
             {{- end }}

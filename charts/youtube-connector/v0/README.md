@@ -8,7 +8,6 @@ This chart requires the following already present in the target namespace:
 
 * An ImagePullSecret for the subshell Docker Registry
 * A secret containing username and password for the sophora server.
-* A secret containing keys to be replaced in the mediaconfig.xml in an init container upon pod startup.
 
 ## Example values.yaml
 
@@ -168,8 +167,8 @@ sophora:
       <property name="transporterFactory" ref="sftpTransporterFactory" />
       <property name="host" value="akamai.example.net" />
       <property name="port" value="22" />
-      <property name="user" value="${MEDIACONFIG_SFPT_USERNAME}" />
-      <property name="password" value="${MEDIACONFIG_SFPT_PASSWORD}" />
+      <property name="user" value="alice" />
+      <property name="password" value="secret" />
       <property name="keyfile" value="" />
 
       <!-- Base directory for all uploads -->
@@ -219,8 +218,7 @@ sophora:
       </bean>
 
       </beans>
-    # can be either 'properties' or 'yml'
-    configFormat: 'properties'
+
     config: |
       sophoraServer.host = http://localhost:1196
       sophoraServer.username = youtubeconnector
@@ -259,8 +257,6 @@ sophora:
       server:
         usernameKey: sophora-username
         passwordKey: sophora-password
-        
-    extraEnvVarsSecret: mediaconfig-secrets
 
     jobstore:
       storage:
@@ -275,36 +271,3 @@ sophora:
           requests:
             storage: 50M
 ```
-
-# Examples for the required Secrets
-
-These are samples for secret files required by this chart. The keys in the MediaConfig secret need to be entered into the mediaconfig template 
-of the provided values under `sophora.youtube-connector.mediaconfig`. For testing/developing this chart the manifest below may be copied to a separate file e.g. `secrets.yml` and applied
-via `kubectl apply -f secrets.yml`.
-```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: avtool-mediaconfig-credentials
-  namespace: sophora
-type: Opaque
-data:
-  MEDIACONFIG_SFPT_USERNAME: dGV0c3RpdGVzdA==
-  MEDIACONFIG_SFTP_PASSWORD: dGV0c3RpdGVzdA==
-  MEDIACONFIG_AKAMAI_MEDIASERVER_USERNAME: dGV0c3RpdGVzdA==
-  MEDIACONFIG_AKAMAI_MEDIASERVER_PASSWORD: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_AUTHCODE: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_CLIENTID: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_CLIENTSECRET: dGV0c3RpdGVzdA==
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: youtube-connector-credentials
-  namespace: sophora
-type: Opaque
-data:
-  sophora-username: dGV0c3RpdGVzdA==
-  sophora-password: dGV0c3RpdGVzdA==
-```
-Note: the value `dGV0c3RpdGVzdA==` is the base64 encoded string "testitest" provided as an example.

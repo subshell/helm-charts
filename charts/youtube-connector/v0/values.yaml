@@ -12,17 +12,13 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-javaOptions: "-Davtool.groovy.dir=/app/groovy -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 configGenerator:
   image:
     repository: "docker.subshell.com/misc/alpine-toolkit"
     tag: "0.0.1"
     pullPolicy: IfNotPresent
-  extraEnvVarsSecret:
-  # Additional environment variables can be defined here
-  env:
-
 
 podAnnotations: {}
 
@@ -134,8 +130,6 @@ sophora:
     mediaconfig:
 
     config:
-    # can be either 'properties' or 'yml'
-    configFormat:
 
     secret:
       name: youtube-connector-credentials
@@ -151,10 +145,10 @@ sophora:
       storage:
         storageClass:
         resources: {}
-    extraEnvVarsSecret:
-    # Additional environment variables can be defined here
-    env:
 
 extraVolumes:
 
 extraVolumeMounts:
+
+# Additional environment variables can be defined here
+env:

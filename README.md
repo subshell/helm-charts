@@ -21,30 +21,30 @@ Each Helm chart should follow these rules:
 
 The Helm Charts are published to [https://docker.subshell.com/](https://docker.subshell.com/). Most of the Helm charts
 can be found in [the sophora helm repository](https://docker.subshell.com/harbor/projects/8/helm-charts). They are published
-by the [build](http://jenkins.subshell.com:9090/view/Weasel/view/All/job/helm-charts) and the [release](http://jenkins.subshell.com:9090/view/Weasel/view/All/job/release-helm-chart) Jenkins jobs.
+by the [build](http://jenkins.subshell.com/view/Weasel/view/Helm/job/Sophora%20Helm%20Charts/) and the [release](http://jenkins.subshell.com/view/Weasel/view/Helm/job/Release%20Helm%20Chart/) Jenkins jobs.
 
-To use the subshell sophora repo execute these commands (this is only required once):
+To use the subshell sophora repo execute these commands with your harbor username, you will be prompted for your account password (this is only required once):
 
-    helm repo add sophora https://docker.subshell.com/chartrepo/sophora --username docker --password <see 1password>
+    helm repo add sophora https://docker.subshell.com/chartrepo/sophora --username <your_harbor_username>
 
 Before you have a look at the following commands, you should select the kubernetes namespace you are currently
 working on:
 
     kubectl config set-context --current --namespace=<insert-namespace-name-here>
 
-To **deploy** a Helm Chart manually:
+To **deploy** a Helm Chart to harbor into the repo "sophora" manually:
 
     helm push <path-to-the-chart> sophora
 
-To **install** a Helm Chart for the first time:
+To **install** a release, an instance of the chart, for the first time:
 
     helm install -f values.yaml <name-of-the-release> <name-of-the-chart>[:<version-of-the-chart>]
 
-To **upgrade** the Helm Chart:
+To **upgrade** a release of the chart:
 
     helm upgrade -f values.yaml <name-of-the-release> <name-of-the-chart>[:<version-of-the-chart>]
 
-To **uninstall** a Helm Chart:
+To **uninstall** a release of the chart:
 
     helm uninstall <name-of-the-release>
 

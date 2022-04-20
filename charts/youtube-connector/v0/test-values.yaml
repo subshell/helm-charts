@@ -1,25 +1,14 @@
-# Helm Chart: youtube-connector
+# Default values for youtube-connector.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-This chart deploys youtube-connector.
-
-## What you need (requirements)
-
-This chart requires the following already present in the target namespace:
-
-* An ImagePullSecret for the subshell Docker Registry
-* A secret containing username and password for the sophora server.
-* A secret containing keys to be replaced in the mediaconfig.xml in an init container upon pod startup.
-
-## Example values.yaml
-
-```yaml
 image:
-  repository: docker.subshell.com/daserste/youtube-connector
+  repository: docker.subshell.com/sophora/avtool/youtube-connector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "3.0.1"
+  tag: "3.0.10"
 
-javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+javaOptions: "-Davtool.groovy.dir=/youtube-connector/groovy -Dlogging.config=/youtube-connector/config/logback.xml -Dspring.config.location=file:/youtube-connector/config/application.properties -Djava.security.egd=file:/dev/./urandom -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
 
 configGenerator:
   image:
@@ -29,8 +18,6 @@ configGenerator:
 
 service:
   clusterIP: None
-  port: 1496
-  targetPort: 1496
 
 resources:
   requests:
@@ -121,6 +108,10 @@ sophora:
       http://www.springframework.org/schema/beans/spring-beans.xsd
       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+      <!--####################################################################
+      Document type and media formats
+      #################################################################### -->
+
       <!-- List of document types -->
       <util:list id="documentDescriptionList">
       <!-- Video -->
@@ -132,6 +123,8 @@ sophora:
       </property>
       <!-- Only events for this document type are handled. -->
       <property name="nodeTypeName" value="example-nt:video" />
+      <!-- Optional: Name of a playout channel. The presence of a document on this channel corresponds to the visibility of the media files on YouTube. -->
+      <property name="playoutChannelName" value="YouTube" />
       </bean>
       </util:list>
 
@@ -143,6 +136,10 @@ sophora:
       <entry key="MANY" value="many" />
       <entry key="OK" value="ok" />
       </util:map>
+
+      <!--####################################################################
+      Source for video files
+      #################################################################### -->
 
       <bean id="localTransporter" class="com.subshell.sophora.avtool.transporter.LocalFSTransporterFactory" />
 
@@ -157,10 +154,22 @@ sophora:
       <entry key="youtube" value="." />
       </map>
       </property>
+      <!-- Optional: A regex to parse the date from a file's name, which will then be applied to all entries
+        in the formatDirecoryMapping that contain format specifiers, e.g. "%1$tY/%1$tm%1$td".
+        The date in the file name must be written in the format "yyyyMMdd". -->
+      <property name="dateRegex" value="#?.{3}(\d{8}).+" />
       <property name="concatVideosScript" value="/opt/addOpenerCloser.sh" />
       </bean>
 
       <util:list id="streamingServerDescriptionList">
+
+      <!--####################################################################
+      Optional list of servers to upload files to.
+      Media files can be uploaded to Akamai or similar CDN servers using ftp, sftp and ftps.
+      When a video document is set offline, the corresponding media files will be removed
+      from these servers.
+      Also purging of files from Akamai can be configured.
+      ####################################################################-->
 
       <bean class="com.subshell.sophora.avtool.api.AkamaiServerDescription">
 
@@ -168,12 +177,15 @@ sophora:
       <property name="transporterFactory" ref="sftpTransporterFactory" />
       <property name="host" value="akamai.example.net" />
       <property name="port" value="22" />
-      <property name="user" value="${MEDIACONFIG_SFPT_USERNAME}" />
-      <property name="password" value="${MEDIACONFIG_SFPT_PASSWORD}" />
+      <property name="user" value="alice" />
+      <property name="password" value="secret" />
       <property name="keyfile" value="" />
 
       <!-- Base directory for all uploads -->
       <property name="basedir" value="/video" />
+
+      <!-- Optional: A regex to parse the date from a file's name. -->
+      <property name="dateRegex" value="#?.{3}(\d{8}).+" />
 
       <!-- Akamai FastPurge -->
       <property name="akamaiUrlPrefixes">
@@ -203,7 +215,11 @@ sophora:
       </property>
       </bean>
       </util:list>
-      
+
+      <!--####################################################################
+      YouTube
+      #################################################################### -->
+
       <!-- YouTube settings for all channels -->
       <bean id="youtubeGlobalConfig" class="com.subshell.sophora.avtool.api.youtube.YoutubeConfiguration">
       <!-- After uploading a video to YouTube, the YouTube id is written back to the document into this property.
@@ -219,39 +235,58 @@ sophora:
       </bean>
 
       </beans>
-    # can be either 'properties' or 'yml'
-    configFormat: 'properties'
+
     config: |
+      # Connection to the Sophora Primary (Master) Server.
       sophoraServer.host = http://localhost:1196
       sophoraServer.username = youtubeconnector
       sophoraServer.password = XXXXXXX
 
+      # URL/Path to the config for media formats and -servers.
       mediaConfig = file:config/mediaconfig.xml
 
+      # Web server
       server.port = 5063
 
+      # JMX
       jmx.registry.port = 5060
       rmi.registry.port = 5061
       jmx.registry.username =
       jmx.registry.password =
 
-     youtube.chunking = true
+      # Upload protocol to use for YouTube videos.
+      # false = the entire media content will be uploaded in a single request (not resumable)
+      # true = the request will use the resumable media upload protocol to upload in data chunks
+      # For details see https://developers.google.com/youtube/v3/guides/using_resumable_upload_protocol
+      youtube.chunking = true
 
+      # tries after first IO error
       uploader.retry.count = 2
       uploader.retry.waitSeconds = 15
 
+      # Path for the MD5 digest database.
       digest.dir = /cms-install-directory/youtube-connector/digest
 
+      # Path for the persistent queue file.
       job.store.path = /cms-install-directory/youtube-connector/queue.xml
 
+      # Test mode: Set to true to only log operations instead of executing them.
       logonly.fileoperations = false
       logonly.publishdocuments = false
 
+      # In the tagging configuration of the YouTube channel configuration, values with these prefixes are considered to be
+      # property references.
       tagging.propertyPrefix.regexp = ^(example:|sophora:|youtube.).*$
+      # In the tagging configuration of the YouTube channel configuration, values with these prefixes are considered to be
+      # references to Groovy tagging scripts.
       tagging.scriptClassPrefix.regexp = ^(scriptClass:)(.+)$
 
+      # Groovy scripts (comma-separated) that can modify the document before processing
       document.preprocessorScripts =
 
+      # Path of the proposal section, path elements must be separated by ';'.
+      # When a transport error occurs, a proposal will be created in this section.
+      # Leave empty to not create proposals.
       proposalsection.path =
 
     secret:
@@ -259,8 +294,6 @@ sophora:
       server:
         usernameKey: sophora-username
         passwordKey: sophora-password
-        
-    extraEnvVarsSecret: mediaconfig-secrets
 
     jobstore:
       storage:
@@ -274,37 +307,3 @@ sophora:
         resources:
           requests:
             storage: 50M
-```
-
-# Examples for the required Secrets
-
-These are samples for secret files required by this chart. The keys in the MediaConfig secret need to be entered into the mediaconfig template 
-of the provided values under `sophora.youtube-connector.mediaconfig`. For testing/developing this chart the manifest below may be copied to a separate file e.g. `secrets.yml` and applied
-via `kubectl apply -f secrets.yml`.
-```
-apiVersion: v1
-kind: Secret
-metadata:
-  name: avtool-mediaconfig-credentials
-  namespace: sophora
-type: Opaque
-data:
-  MEDIACONFIG_SFPT_USERNAME: dGV0c3RpdGVzdA==
-  MEDIACONFIG_SFTP_PASSWORD: dGV0c3RpdGVzdA==
-  MEDIACONFIG_AKAMAI_MEDIASERVER_USERNAME: dGV0c3RpdGVzdA==
-  MEDIACONFIG_AKAMAI_MEDIASERVER_PASSWORD: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_AUTHCODE: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_CLIENTID: dGV0c3RpdGVzdA==
-  MEDIACONFIG_YOUTUBE_OAUTH_CLIENTSECRET: dGV0c3RpdGVzdA==
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: youtube-connector-credentials
-  namespace: sophora
-type: Opaque
-data:
-  sophora-username: dGV0c3RpdGVzdA==
-  sophora-password: dGV0c3RpdGVzdA==
-```
-Note: the value `dGV0c3RpdGVzdA==` is the base64 encoded string "testitest" provided as an example.

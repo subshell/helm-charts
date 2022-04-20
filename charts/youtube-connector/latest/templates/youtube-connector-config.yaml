@@ -5,5 +5,5 @@ metadata:
   labels:
     app: {{ include "youtube-connector.fullname" . }}
 data:
-  application.properties: |-
+  application.{{ .Values.sophora.youtubeconnector.configFormat }}: |-
     {{- (required "A configuration is required" .Values.sophora.youtubeconnector.config) | nindent 4 }}

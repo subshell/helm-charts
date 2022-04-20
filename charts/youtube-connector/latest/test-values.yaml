@@ -3,18 +3,25 @@
 # Declare variables to be passed into your templates.
 
 image:
-  repository: docker.subshell.com/sophora/avtool/youtube-connector:4
+  repository: docker.subshell.com/sophora/avtool/youtube-connector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "3.0.10"
 
-javaOptions: "-Davtool.groovy.dir=/youtube-connector/groovy -Dlogging.config=/youtube-connector/config/logback.xml -Dspring.config.location=file:/youtube-connector/config/application.properties -Djava.security.egd=file:/dev/./urandom -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+javaOptions: "-Davtool.groovy.dir=/youtube-connector/groovy -Djava.security.egd=file:/dev/./urandom -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+imagePullSecrets:
+  - name: docker-subshell
 
 configGenerator:
   image:
     repository: "docker.subshell.com/misc/alpine-toolkit"
     tag: "0.0.1"
     pullPolicy: IfNotPresent
+  extraEnvVarsSecret: avtool-mediaconfig-credentials
+  env:
+    - name: SAMPLE_ENV_VAR
+      value: "Such a sweet sorrow"
 
 service:
   clusterIP: None
@@ -177,8 +184,8 @@ sophora:
       <property name="transporterFactory" ref="sftpTransporterFactory" />
       <property name="host" value="akamai.example.net" />
       <property name="port" value="22" />
-      <property name="user" value="alice" />
-      <property name="password" value="secret" />
+      <property name="user" value="${MEDIACONFIG_SFPT_USERNAME}" />
+      <property name="password" value="${MEDIACONFIG_SFPT_PASSWORD}" />
       <property name="keyfile" value="" />
 
       <!-- Base directory for all uploads -->
@@ -235,7 +242,8 @@ sophora:
       </bean>
 
       </beans>
-
+    # can be either 'properties' or 'yml'
+    configFormat: 'properties'
     config: |
       # Connection to the Sophora Primary (Master) Server.
       sophoraServer.host = http://localhost:1196
@@ -243,7 +251,7 @@ sophora:
       sophoraServer.password = XXXXXXX
 
       # URL/Path to the config for media formats and -servers.
-      mediaConfig = file:config/mediaconfig.xml
+      mediaConfig = file:mediaconfig.xml
 
       # Web server
       server.port = 5063
@@ -268,7 +276,7 @@ sophora:
       digest.dir = /cms-install-directory/youtube-connector/digest
 
       # Path for the persistent queue file.
-      job.store.path = /cms-install-directory/youtube-connector/queue.xml
+      job.store.path = /app/jobstore/queue.xml
 
       # Test mode: Set to true to only log operations instead of executing them.
       logonly.fileoperations = false
@@ -297,13 +305,18 @@ sophora:
 
     jobstore:
       storage:
-        storageClass: ssd
+        storageClass: standard
         resources:
           requests:
             storage: 50M
     oauth:
       storage:
-        storageClass: ssd
+        storageClass: standard
         resources:
           requests:
             storage: 50M
+
+    extraEnvVarsSecret: youtube-connector-envs
+    env:
+      - name: MY_SAMPLE_ENV_VAR
+        value: "hello, I'm an env variable"
