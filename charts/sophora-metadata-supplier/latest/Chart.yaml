@@ -1,0 +1,6 @@
+apiVersion: v2
+name: sophora-metadata-supplier
+description: Sophora Metadata Supplier (SMS)
+type: application
+version: 0.1.0-dev
+appVersion: '4'

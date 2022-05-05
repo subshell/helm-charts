@@ -1,0 +1,108 @@
+image:
+  repository: docker.subshell.com/metadata-supplier/metadata-supplier
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+downloadViaS3Image:
+  repository: "docker.subshell.com/misc/aws-cli-tools"
+  tag: "0.0.1"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+metadataSupplier:
+  configuration:
+    # This is the application.yaml
+  mapping:
+    source: # "s3" or "sidecar". leave blank for none.
+    downloadFromS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName:
+      jarPaths: []
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    copyFromSidecarImage:
+      repository:
+      tag:
+      pullPolicy: IfNotPresent
+      jarFolder: # the folder containing the jar file(s)
+  env:
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+
+ardmedialibrary:
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: /actuator/prometheus
+
+startupProbe:
+  httpPath: '/actuator/health/readiness'
+  failureThreshold: 15
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  httpPath: '/actuator/health/readiness'
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 5
+
+livenessProbe:
+  httpPath: '/actuator/health/liveness'
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 10
+
+podAnnotations: {}
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  # ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+resources: {}
+
+storage:
+  storageClass: ssd
+  size: 10Gi
+
+serviceAccount:
+  create: false
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

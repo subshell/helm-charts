@@ -1,0 +1,80 @@
+image:
+  repository: docker.subshell.com/sophora/sophora-metadata-supplier
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+metadataSupplier:
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls:
+            - 'http://sophora-server.example.com:1196'
+          internal: true
+
+    # Sophora feature settings
+    metadata-supplier-sophora:
+      sync-at-startup: false
+      event-handler:
+        configurations:
+          - on-state-change:
+              - 'PUBLISH'
+            on-documents-of-types:
+              - 'sophora-content-nt:story'
+    # ARD Mediathek/Audiothek user credentials come from the secret
+  mapping:
+    source: "sidecar"
+    downloadFromS3:
+      secretName: "s3-test-credentials"
+      bucketName: "s3-test-bucket"
+      jarPaths:
+        - foo-bar.jar
+    copyFromSidecarImage:
+      repository: "eu.gcr.io/test-project/test-plugins"
+      tag: "1.0.0"
+      jarFolder: "metadata-supplier-plugin"
+
+sophora:
+  authentication:
+    secret:
+      name: "sophora-sms-user-credentials"
+
+ardmedialibrary:
+  authentication:
+    secret:
+      name: "ardmedialibrary-credentials"
+
+podAnnotations: {}
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+serviceMonitor:
+  enabled: true
+  path: /test/prometheus
+
+startupProbe:
+  httpPath: '/test/health'
+  failureThreshold: 15
+  initialDelaySeconds: 10
+  timeoutSeconds: 1
+  periodSeconds: 2
+
+readinessProbe:
+  httpPath: '/test/health'
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 5
+
+livenessProbe:
+  httpPath: '/test/health'
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 1
+  periodSeconds: 10
