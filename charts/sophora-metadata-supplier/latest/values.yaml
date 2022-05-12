@@ -82,6 +82,7 @@ podAnnotations: {}
 service:
   type: ClusterIP
   port: 8080
+  annotations: {}
 
 ingress:
   enabled: false
