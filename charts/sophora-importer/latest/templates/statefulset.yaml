@@ -96,7 +96,7 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
           - name: JAVA_OPTS
-            value: {{ .Values.sophora.importer.javaOptions }}
+            value: {{ .Values.javaOptions }}
           - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
             valueFrom:
               secretKeyRef:
