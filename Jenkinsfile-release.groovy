@@ -105,6 +105,7 @@ pipeline {
         }
         stage('Helm Release') {
             steps {
+				addShortText text: "${HelmChart} ${ReleaseType}"
                 sh '''#!/bin/sh
                 set -o pipefail
                 python3 run.py ${HelmChart} release --release_goal ${ReleaseType} --chart_sub_dir ${ExistingMajorVersion}
