@@ -83,17 +83,14 @@ spec:
               secretKeyRef:
                 key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
                 name: {{.Values.sophora.youtubeconnector.secret.name}}
-          {{ if .Values.env -}}
-          {{- toYaml .Values.env | nindent 10 }}
+          {{ if .Values.sophora.youtubeconnector.env -}}
+          {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10 }}
           {{- end }}
           {{- if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
                 optional: true
-          {{- end }}
-          {{ if .Values.sophora.youtubeconnector.env -}}
-          env: {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10}}
           {{- end }}
           ports:
             - containerPort: 1496
