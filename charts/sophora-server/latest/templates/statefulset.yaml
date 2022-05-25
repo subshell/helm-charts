@@ -47,7 +47,7 @@ spec:
       affinity: {{- toYaml .Values.affinity | nindent 8 }}
       terminationGracePeriodSeconds: {{ .Values.sophora.server.isClusterServer | ternary .Values.terminationGracePeriodSecondsPerServerMode.cluster .Values.terminationGracePeriodSecondsPerServerMode.staging }}
       initContainers:
-      {{ if eq .Values.sophora.server.isClusterServer true }}
+      {{- if and .Values.sophora.server.isClusterServer .Values.preStop.enabled }}
         - name: sophora-prestop-initializer
           image: "{{ .Values.preStop.image.repository }}:{{ .Values.preStop.image.tag }}"
           imagePullPolicy: {{ .Values.preStop.image.pullPolicy }}
@@ -266,7 +266,7 @@ spec:
             periodSeconds: {{ .periodSeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
           {{- end }}
-          {{ if eq .Values.sophora.server.isClusterServer true -}}
+          {{ if and .Values.sophora.server.isClusterServer .Values.preStop.enabled -}}
           lifecycle:
             preStop:
               exec:

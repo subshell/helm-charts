@@ -13,6 +13,7 @@ image:
   tag: "latest"
 
 preStop:
+  enabled: true
   image:
     repository: docker.subshell.com/tools/sophora-prestop
     pullPolicy: IfNotPresent
