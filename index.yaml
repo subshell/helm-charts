@@ -3,6 +3,21 @@ entries:
   group-challenge:
   - apiVersion: v2
     appVersion: 0.6.1
+    created: "2022-06-02T12:59:36.487259339Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.17
+    description: Group challenge helm chart
+    digest: fc258d18294230fbebf00535bc12aa3d5a6404e4c69aca76340af1d0d255244a
+    name: group-challenge
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.3/group-challenge-1.0.3.tgz
+    version: 1.0.3
+  - apiVersion: v2
+    appVersion: 0.6.1
     created: "2022-04-07T14:38:17.510824366Z"
     dependencies:
     - condition: postgresql.enabled
@@ -77,4 +92,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-generated: "2022-04-08T14:10:46.777582297Z"
+generated: "2022-06-02T12:59:36.487280239Z"
