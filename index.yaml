@@ -81,6 +81,18 @@ entries:
     version: 1.0.0
   o-neko-catnip:
   - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2022-06-17T13:19:43.033005441Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 3340d80aef60ada1a74a773421ea4e0bc43c036de751dce3deddcc7548c1aa45
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.1.0/o-neko-catnip-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
     appVersion: 1.0.1
     created: "2022-04-08T14:10:46.777569697Z"
     description: A Helm chart for the O-Neko URL trigger
@@ -92,4 +104,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-generated: "2022-06-02T12:59:36.487280239Z"
+generated: "2022-06-17T13:19:43.033025341Z"
