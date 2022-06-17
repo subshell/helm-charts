@@ -10,7 +10,7 @@ resources: {}
 oneko:
   image:
     name: subshellgmbh/o-neko-catnip
-    tag: 1.0.1
+    tag: 1.1.0
     imagePullPolicy: IfNotPresent
   api:
     baseUrl:
@@ -54,3 +54,8 @@ ingress:
   hosts:
   tls:
   annotations: {}
+
+prometheusRule:
+  enabled: false
+  defaultRulesEnabled: true
+  rules: []

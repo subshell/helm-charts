@@ -1,0 +1,26 @@
+{{- if .Values.prometheusRule.enabled }}
+{{- $defaultRulesEnabled := .Values.prometheusRule.defaultRulesEnabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "o-neko-catnip.fullname" . }}
+  labels: {{- include "o-neko-catnip.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: {{ template "o-neko-catnip.fullname" $ }}
+      rules:
+        {{- if $defaultRulesEnabled }}
+        - alert: OnekoCatnipDisconnected
+          expr: oneko_catnip_api_connected == 0
+          for: 5m
+          labels:
+            severity: error
+          annotations:
+            description: 'O-Neko Catnip ({{ "{{ $labels.pod }}" }}) is not connected to the O-Neko API'
+            summary: 'O-Neko Catnip is not connected to the O-Neko main application and cannot work properly until this issue is resolved.'
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/o-neko-catnip/alerting-runbook.md'
+        {{- end }}
+        {{- with .Values.prometheusRule.rules }}
+        {{ tpl (toYaml .) $ | nindent 8 }}
+        {{- end }}
+{{- end }}
