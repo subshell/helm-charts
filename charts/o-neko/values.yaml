@@ -80,6 +80,7 @@ ingress:
 serviceMonitor:
   enabled: false
   interval: 10s
+  path: "/metrics"
 
 mongodb:
   enabled: true
