@@ -30,12 +30,12 @@ spec:
           image: "{{ .Values.image.name }}:{{ .Values.image.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
-          - name: SOPHORASERVER_USERNAME
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
             valueFrom:
               secretKeyRef:
                 key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
                 name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
-          - name: SOPHORASERVER_PASSWORD
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
             valueFrom:
               secretKeyRef:
                 key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
