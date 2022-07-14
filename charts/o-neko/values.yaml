@@ -80,7 +80,7 @@ ingress:
 serviceMonitor:
   enabled: false
   interval: 10s
-  path: "/metrics"
+  path: "/actuator/prometheus"
 
 mongodb:
   enabled: true
