@@ -1,0 +1,66 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/labday/sprint-dashboard
+  version: latest
+  pullPolicy: IfNotPresent
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file.
+hostAliases:
+
+imagePullSecrets: []
+
+secrets:
+  jira:
+    name: "jira"
+    passwordKey: "password"
+    usernameKey: "user"
+  jenkins:
+    name: "jenkins"
+    passwordKey: "password"
+    usernameKey: "user"
+
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+service:
+  type:
+  annotations:
+  clusterIP:
+  loadBalancerIP:
+  port: 80
+
+ingress:
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  # ingressClassName: nginx
+  tls:
+  hosts:
+  annotations: {}
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
+config: {}
+
+db:
+  size:
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"

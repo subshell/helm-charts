@@ -21,7 +21,7 @@ def push(chart_version_dir: str):
     print('running push only...')
 
     # special cases
-    tools_charts = ['subshell-technology-radar', 'external-secrets']
+    tools_charts = ['subshell-technology-radar', 'external-secrets', 'sprint-dashboard']
 
     repo = 'subshell-tools' if any(elem in str(chart_version_dir) for elem in tools_charts) else 'sophora'
 

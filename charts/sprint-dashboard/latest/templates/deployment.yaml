@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sprint-dashboard.fullname" . }}
+  labels:
+    {{- include "sprint-dashboard.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "sprint-dashboard.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sprint-dashboard.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          volumeMounts:
+            - name: config
+              mountPath: "/config"
+            - name: db
+              mountPath: "/db"
+          env:
+            - name: JAVA_OPTS
+              value: {{ .Values.javaOptions }}
+            - name: JIRA_USER
+              valueFrom:
+                secretKeyRef:
+                  name: jira
+                  key: user
+            - name: JIRA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: jira
+                  key: password
+            - name: JENKINS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins
+                  key: user
+            - name: JENKINS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: jenkins
+                  key: password
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sprint-dashboard.fullname" . }}-config
+        - name: db
+          persistentVolumeClaim:
+            claimName: {{ include "sprint-dashboard.fullname" . }}-db
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
