@@ -62,5 +62,6 @@ config: {}
 
 db:
   size:
+  storageClassName:
 
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"

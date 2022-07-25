@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "sprint-dashboard.fullname" . }}-db
 spec:
-  storageClassName: standard
+  storageClassName: {{ .Values.db.storageClassName | default "standard" }}
   accessModes:
     - ReadWriteOnce
   resources:
