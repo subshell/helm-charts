@@ -21,12 +21,20 @@ the [Bitnami MongoDB Helm chart](https://artifacthub.io/packages/helm/bitnami/mo
 
 To install O-Neko using this Helm chart you will need to create three secrets using your favorite method of doing it:
 
-1. A secret containing the MongoDB credentials
-   e.g.: `k create secret generic mongodb-credentials --from-literal=mongodb-password="SECRET" --from-literal=mongodb-root-password="SECRET" --from-literal=mongodb-replica-set-key="SECRET"`
-2. A "credentialsCoderKey" secret used for symmetrical encryption of sensitive data in the database
-   e.g.: `k create secret generic o-neko-credentials-coder-key --from-literal=key="SECRET"`
-3. A secret containing the MongoDB URI (incl. the MongoDB password)
-   e.g.: `k create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-neko:SECRET@o-neko-db-mongodb-0.mongodb-headless:27017,o-neko-db-mongodb-1.mongodb-headless:27017,o-neko-db-mongodb-2.mongodb-headless:27017/o-neko?"`
+A secret containing the MongoDB credentials, e.g.: 
+```
+kubectl create secret generic mongodb-credentials --from-literal=mongodb-password="SECRET" --from-literal=mongodb-root-password="SECRET" --from-literal=mongodb-replica-set-key="SECRET"
+```
+
+A "credentialsCoderKey" secret used for symmetrical encryption of sensitive data in the database, e.g.:
+```
+kubectl create secret generic o-neko-credentials-coder-key --from-literal=key="SECRET"
+```
+
+A secret containing the MongoDB URI (incl. the MongoDB password), e.g.:
+```
+kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-neko:SECRET@o-neko-db-mongodb-0.mongodb-headless:27017,o-neko-db-mongodb-1.mongodb-headless:27017,o-neko-db-mongodb-2.mongodb-headless:27017/o-neko?"
+```
 
 ## Parameters
 
