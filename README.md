@@ -1,6 +1,8 @@
-# helm-charts
+# subshell Helm Charts
 
-Public helm charts supported by subshell.
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/subshell)](https://artifacthub.io/packages/search?repo=subshell)
+
+Public Helm charts supported by subshell.
 
 ## Add Repo
 
