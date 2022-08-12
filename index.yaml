@@ -1,66 +1,5 @@
 apiVersion: v1
 entries:
-  group-challenge:
-  - apiVersion: v2
-    appVersion: 0.6.1
-    created: "2022-06-02T12:59:36.487259339Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.17
-    description: Group challenge helm chart
-    digest: fc258d18294230fbebf00535bc12aa3d5a6404e4c69aca76340af1d0d255244a
-    name: group-challenge
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.3/group-challenge-1.0.3.tgz
-    version: 1.0.3
-  - apiVersion: v2
-    appVersion: 0.6.1
-    created: "2022-04-07T14:38:17.510824366Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.17
-    description: Group challenge helm chart
-    digest: 592fd44e2f2a10deea92565e26228de9049d5b396320c1d9ba0acceb946bc009
-    name: group-challenge
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.2/group-challenge-1.0.2.tgz
-    version: 1.0.2
-  - apiVersion: v2
-    appVersion: 0.6.1
-    created: "2022-04-07T11:35:58.093963891Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.17
-    description: Group challenge helm chart
-    digest: a54a1ac26e5a0014a32ef8221cb45d3bdc982df6a514f1a45f9dcaa02c4a49c7
-    name: group-challenge
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.1/group-challenge-1.0.1.tgz
-    version: 1.0.1
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2022-04-07T11:18:29.369380622Z"
-    dependencies:
-    - condition: postgresql.enabled
-      name: postgresql
-      repository: https://charts.bitnami.com/bitnami
-      version: 11.1.17
-    description: Group challenge helm chart
-    digest: b84e803f4a988258a80a19887e16d1b65c99bbd80ebaa9f1b926d9cd98fe7dff
-    name: group-challenge
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/group-challenge-1.0.0/group-challenge-1.0.0.tgz
-    version: 1.0.0
   o-neko:
   - apiVersion: v2
     appVersion: 1.5.1
@@ -155,4 +94,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-09T09:02:43.480562631Z"
+generated: "2022-08-12T07:00:43.480562631Z"
