@@ -1,39 +1,74 @@
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override the name
 nameOverride: ""
+
+## @param fullnameOverride String to fully override the release name
 fullnameOverride: ""
 
+## @param imagePullSecrets Docker registry secret names as an array
 imagePullSecrets: []
 
+## @param javaOptions String with Java VM Options passed to the application
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
+## @param hostAliases Host aliases available to the application
 hostAliases:
 
-resources: {}
+## @param resources.limits The resource limits for the container
+## @param resources.requests The resource requests for the container
+resources:
+  limits: {}
+  requests: {}
+
+## @section O-Neko parameters
+## Parameters which configure the O-Neko installation
+##
 
 oneko:
+
+  ## @param oneko.image.name O-Neko image repository
+  ## @param oneko.image.tag O-Neko image tag
+  ## @param oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko
     tag: 1.5.1
     imagePullPolicy: IfNotPresent
 
+  ## @extra oneko.env array of environment variables passed to the container
+  ## @param oneko.env[0].name default environment variable name for activation json logging
+  ## @param oneko.env[0].value name of the Spring profile used to activate json logging
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: "json-logs"
 
+  ## Helm parameter configuration
+  ## @param oneko.helm.gcs.secret.name The secret name of the Google Service Account used, if using Helm GCS
+  ## @param oneko.helm.gcs.secret.serviceAccountField The field in the secret of the Google Service Account
   helm:
     gcs:
       secret:
         name:
         serviceAccountField:
 
+  ## MongoDB connection parameters
+  ## @param oneko.mongodb.secret.name Name of the secret holding the MongoDB connection URI
+  ## @param oneko.mongodb.secret.uriField Name of the field in the secret containing the MongoDB URI
   mongodb:
     secret:
       name: #required
       uriField: uri
 
+  ## Secret containing the key for symmetrical encryption of sensitive data in the database
+  ## @param oneko.credentialsCoderKeySecret.name Name of the secret
+  ## @param oneko.credentialsCoderKeySecret.fieldName Name of the field in the secret
   credentialsCoderKeySecret:
     name: #required
     fieldName: key
 
+  ## @extra oneko.config The application.yaml containing the O-Neko application configuration
+  ## @skip oneko.config
   config:
     management:
       endpoints:
@@ -45,43 +80,97 @@ oneko:
         mongodb:
           autoIndexCreation: true
 
+## @section Probes
+##
+
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
   failureThreshold: 10
   initialDelaySeconds: 10
   timeoutSeconds: 1
   periodSeconds: 2
 
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   failureThreshold: 3
   initialDelaySeconds: 5
   timeoutSeconds: 5
   periodSeconds: 5
 
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 15
   timeoutSeconds: 10
   periodSeconds: 60
 
+## @section Traffic Exposure parameters
+##
+
 service:
+  ## @param service.annotations annotations for the service
   annotations: {}
+  ## @param service.type Kubernetes service type
   type:
+  ## @param service.sessionAffinity the service's sessionAffinity
   sessionAffinity: None
+  ## @param service.sessionAffinityConfig additional sessionAffinity configuration
   sessionAffinityConfig: {}
+  ## @param service.loadBalancerIP A loadBalancerIP configuration
   loadBalancerIP:
+  ## @param service.clusterIP The service's clusterIP
   clusterIP:
 
 ingress:
-  # ingressClassName: nginx
+  ## @param ingress.ingressClassName name of the ingressClass used for the ingress
+  ingressClassName:
+  ## @param ingress.hosts Array with hostnames used for the ingress
+  ## e.g.
+  ## hosts:
+  ##   - host: "oneko.my-company.com"
   hosts:
+  ## @param ingress.tls TLS configuration of the ingress as an array
+  ## e.g.
+  ## tls:
+  ##   - hosts:
+  ##     - "oneko.my-company.com"
+  ##     secretName: oneko-tls
   tls:
+  ## @param ingress.annotations annotations for the ingress
   annotations: {}
 
+## @section Metrics
+##
+## Specific for the use with the kube-prometheus-stack
+
+## @param serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+## @param serviceMonitor.interval Prometheus scrape interval
+## @param serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
 serviceMonitor:
   enabled: false
   interval: 10s
   path: "/actuator/prometheus"
 
+## @section MongoDB
+##
+## MongoDB configuration
+##
+## @descriptionStart
+## Refer to the Bitnami MongoDB Chart for all configuration options: https://artifacthub.io/packages/helm/bitnami/mongodb
+## @descriptionEnd
+##
+
+## @extra mongodb.enabled Whether a MongoDB should be deployed or not
+## @skip mongodb
 mongodb:
   enabled: true
   architecture: "replicaset"
