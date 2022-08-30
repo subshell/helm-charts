@@ -1,7 +1,6 @@
 # O-Neko
 
-O-Neko is a Kubernetes-native application that allows to cross a bridge between developers and other stakeholders by deploying development versions of your
-software into Kubernetes via Helm to allow everybody to try and test them.
+O-Neko lets everyone preview and try out new features of your software by creating on-demand test environments for feature branches. O-Neko is Kubernetes-native and allows for flexible project configurations via Helm charts. Make sure developers, testers, project managers, product owners and clients are on the same page! Preview and test before you merge!
 
 [O-Neko on GitHub](https://github.com/subshell/o-neko)
 
