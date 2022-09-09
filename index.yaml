@@ -2,6 +2,23 @@ apiVersion: v1
 entries:
   o-neko:
   - apiVersion: v2
+    appVersion: 1.5.2
+    created: "2022-09-09T13:57:27.907102436Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 11.1.5
+    description: A Helm chart for O-Neko
+    digest: 851708283ef2508c6d1569435d797abeee10dc34c1297e0f189cd13ecd45c6f9
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-1.1.4/o-neko-1.1.4.tgz
+    version: 1.1.4
+  - apiVersion: v2
     appVersion: 1.5.1
     created: "2022-08-12T11:27:03.884612536Z"
     dependencies:
@@ -111,4 +128,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-generated: "2022-08-12T11:27:03.884635336Z"
+generated: "2022-09-09T13:57:27.907127037Z"
