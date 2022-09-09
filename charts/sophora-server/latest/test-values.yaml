@@ -12,6 +12,8 @@ imagePullSecrets:
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
 
+extraJavaOptions: "-XX:+UseLargePages"
+
 serverModeLabeler:
   enabledOnClusterServers: true
 

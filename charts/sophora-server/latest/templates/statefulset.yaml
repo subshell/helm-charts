@@ -191,7 +191,7 @@ spec:
           env:
             - name: JDK_JAVA_OPTIONS
               value: >-
-                {{ .Values.javaOptions }} {{ if eq .Values.enableRMIPortForwarding true }}-Djava.rmi.server.hostname=127.0.0.1{{ end }}
+                {{ .Values.javaOptions }} {{.Values.extraJavaOptions}} {{ if eq .Values.enableRMIPortForwarding true }}-Djava.rmi.server.hostname=127.0.0.1{{ end }}
             {{ if and (.Values.sophora.server.binaryStore.s3) (.Values.sophora.server.binaryStore.s3.secret.name) -}}
             - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
               valueFrom:
