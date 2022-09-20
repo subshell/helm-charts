@@ -27,11 +27,6 @@ configGenerator:
     tag: "0.0.1"
     pullPolicy: IfNotPresent
 
-service:
-  clusterIP: None
-  port: 1496
-  targetPort: 1496
-
 resources:
   requests:
     memory: "3G"
@@ -227,13 +222,6 @@ sophora:
       sophoraServer.password = XXXXXXX
 
       mediaConfig = file:config/mediaconfig.xml
-
-      server.port = 5063
-
-      jmx.registry.port = 5060
-      rmi.registry.port = 5061
-      jmx.registry.username =
-      jmx.registry.password =
 
      youtube.chunking = true
 

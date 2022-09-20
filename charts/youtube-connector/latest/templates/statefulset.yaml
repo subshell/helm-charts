@@ -93,7 +93,9 @@ spec:
                 optional: true
           {{- end }}
           ports:
-            - containerPort: 1496
+            - name: http
+              containerPort: 8080
+              protocol: TCP
           volumeMounts:
             - name: {{ include "youtube-connector.fullname" . }}-config
               mountPath: /app/config/application.{{ .Values.sophora.youtubeconnector.configFormat }}

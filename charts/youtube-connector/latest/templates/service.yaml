@@ -4,12 +4,16 @@ metadata:
   name: {{ include "youtube-connector.fullname" . }}
   labels:
     {{- include "youtube-connector.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   clusterIP: {{ .Values.service.clusterIP }}
   ports:
-    - port: 1496
+    - port: {{ .Values.service.httpPort }}
       protocol: TCP
-      targetPort: 1496
-      name: jolokia
+      targetPort: http
+      name: http-service
   selector:
     {{- include "youtube-connector.selectorLabels" . | nindent 4 }}
