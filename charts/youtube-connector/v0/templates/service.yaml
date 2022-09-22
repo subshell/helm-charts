@@ -4,6 +4,10 @@ metadata:
   name: {{ include "youtube-connector.fullname" . }}
   labels:
     {{- include "youtube-connector.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   clusterIP: {{ .Values.service.clusterIP }}
   ports:
