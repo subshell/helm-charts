@@ -85,7 +85,9 @@ spec:
           {{- toYaml .Values.env | nindent 10 }}
           {{- end }}
           ports:
-            - containerPort: 1496
+            - name: http
+              containerPort: 8080
+              protocol: TCP
           volumeMounts:
             - mountPath: /youtube-connector/config/application.properties
               subPath: application.properties
