@@ -15,7 +15,7 @@ downloadViaHttpImage:
 
 downloadViaS3Image:
   repository: "docker.subshell.com/misc/aws-cli-tools"
-  tag: "0.0.1"
+  tag: "0.0.2"
   pullPolicy: IfNotPresent
 
 s3fsImage:
