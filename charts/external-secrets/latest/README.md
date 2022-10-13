@@ -14,3 +14,8 @@ externalSecrets:
         name: example-name
         version: latest
 ```
+
+# External Secrets Operator API Versions
+
+Since `0.2.0` we use `v1beta1` as the api version. 
+This requires the External Secrets Operator in version [0.6.0](https://external-secrets.io/v0.6.0/guides/v1beta1/) or higher.
