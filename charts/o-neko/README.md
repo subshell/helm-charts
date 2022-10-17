@@ -55,7 +55,7 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | Name                                        | Description                                                           | Value                    |
 | ------------------------------------------- | --------------------------------------------------------------------- | ------------------------ |
 | `oneko.image.name`                          | O-Neko image repository                                               | `subshellgmbh/o-neko`    |
-| `oneko.image.tag`                           | O-Neko image tag                                                      | `1.5.2`                  |
+| `oneko.image.tag`                           | O-Neko image tag                                                      | `1.5.3`                  |
 | `oneko.image.imagePullPolicy`               | Image Pull Policy                                                     | `IfNotPresent`           |
 | `oneko.env`                                 | array of environment variables passed to the container                |                          |
 | `oneko.env[0].name`                         | default environment variable name for activation json logging         | `SPRING_PROFILES_ACTIVE` |
