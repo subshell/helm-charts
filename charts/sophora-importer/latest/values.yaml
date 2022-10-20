@@ -23,6 +23,7 @@ s3fsImage:
   tag: "1.90"
   pullPolicy: IfNotPresent
 
+nodeSelector: {}
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
