@@ -33,7 +33,7 @@ oneko:
   ## @param oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko
-    tag: 1.5.3
+    tag: 1.5.4
     imagePullPolicy: IfNotPresent
 
   ## @extra oneko.env array of environment variables passed to the container
