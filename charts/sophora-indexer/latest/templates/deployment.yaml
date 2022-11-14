@@ -120,12 +120,17 @@ spec:
           volumeMounts:
             - mountPath: /indexer/config
               name: indexer-config
+            - mountPath: {{ .Values.data.path }}
+              name: data
       volumes:
         - name: indexer-config
           emptyDir: {}
         - name: indexer-config-template
           configMap:
             name: {{ include "sophora-indexer.fullname" . }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "sophora-indexer.fullname" . }}
         {{- if .Values.indexer.secret.additionalIndexerProperties }}
         - name: secret
           secret:

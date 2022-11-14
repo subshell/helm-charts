@@ -59,3 +59,8 @@ affinity: {}
 javaOptions: "-Dlogging.config=/indexer/config/logback.xml -Dsophora.properties=/indexer/config/indexer.properties -Dsophora.groovy.dir=groovy -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 env:
+
+data:
+  size: 1G
+  storageClass: ssd
+  path: /data
