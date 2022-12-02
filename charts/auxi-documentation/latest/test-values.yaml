@@ -1,0 +1,6 @@
+image:
+  tag: latest
+
+service:
+  port: 9999
+  targetPort: 9999
