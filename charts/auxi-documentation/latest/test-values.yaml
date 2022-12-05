@@ -4,3 +4,14 @@ image:
 service:
   port: 9999
   targetPort: 9999
+
+ingress:
+  annotations:
+    cert-manager.io/cluster-issuer: "issuer value"
+  ingressClassName: nginx
+  hosts:
+    - host: "docs.auxi.com"
+  tls:
+    - hosts:
+        - "*.auxi.com"
+      secretName: "myLittleSecret"
