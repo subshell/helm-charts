@@ -85,7 +85,13 @@ ingress:
   hosts:
   tls: []
 
-resources: {}
+resources:
+  requests:
+    cpu: 1
+    memory: 12Gi
+  limits:
+    cpu: 4
+    memory: 12Gi
 
 serviceAccount:
   create: false

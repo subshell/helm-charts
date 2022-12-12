@@ -93,7 +93,13 @@ ingress:
   hosts:
   tls: []
 
-resources: {}
+resources:
+  requests:
+    cpu: 200m
+    memory: 3Gi
+  limits:
+    cpu: 1
+    memory: 3Gi
 
 storage:
   storageClass: ssd

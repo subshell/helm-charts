@@ -82,6 +82,8 @@ spec:
             periodSeconds: {{ .periodSeconds }}
             timeoutSeconds: {{ .timeoutSeconds }}
           {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
       restartPolicy: Always
       volumes:
         - name: config
