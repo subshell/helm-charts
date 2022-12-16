@@ -13,7 +13,7 @@ spec:
   ports:
     - protocol: TCP
       port: {{ .Values.service.port }}
-      targetPort: {{ .Values.service.targetPort }}
+      targetPort: http
       name: web
   selector:
     app: {{ include "auxi-documentation.fullname" . }}
