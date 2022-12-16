@@ -1,6 +1,7 @@
 import argparse
 import os
 import subprocess
+import sys
 from pathlib import Path
 
 from scripts.release import release_git_prepare, release_git_perform
@@ -9,12 +10,22 @@ from scripts.release import release_git_prepare, release_git_perform
 def test(chart_version_dir: str):
     print('running tests...')
     test_file = Path(chart_version_dir, 'test-values.yaml')
-    subprocess.run(['helm', 'template', '-f', test_file, 'test', chart_version_dir])
+    run_result = subprocess.run(['helm', 'template', '-f', test_file, 'test', chart_version_dir])
+    print('test run returned', run_result.returncode)
+    print('...complete result:', run_result)
+    if run_result.returncode != 0:
+        print('Test of', chart_version_dir, 'failed!')
+        sys.exit(run_result.returncode)
 
 
 def build(chart_version_dir: str):
     print('running build...')
-    subprocess.run(['helm', 'package', chart_version_dir, '--destination', 'out'])
+    run_result = subprocess.run(['helm', 'package', chart_version_dir, '--destination', 'out'])
+    print('build run returned', run_result.returncode)
+    print('...complete result:', run_result)
+    if run_result.returncode != 0:
+        print('Build of', chart_version_dir, 'failed!')
+        sys.exit(run_result.returncode)
 
 
 def push(chart_version_dir: str):

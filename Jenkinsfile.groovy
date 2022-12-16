@@ -30,9 +30,7 @@ pipeline {
         stage('Helm Build + Test') {
             steps {
                 sh '''#!/bin/sh
-                rm -rf out/
-                python3 run.py all test
-                python3 run.py all build
+                rm -rf out/ && python3 run.py all test && python3 run.py all build
                 '''
                 archiveArtifacts artifacts: 'out/**/*.tgz', fingerprint: true
             }
