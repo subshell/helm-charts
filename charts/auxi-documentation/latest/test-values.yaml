@@ -3,6 +3,9 @@ image:
 
 service:
   port: 9999
+
+service:
+  port: 9999
   targetPort: 9999
 
 ingress:

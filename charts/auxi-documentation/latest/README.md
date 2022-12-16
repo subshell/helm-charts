@@ -12,7 +12,6 @@ image:
 
 service:
   port: 80
-  targetPort: 80
 
 ingress:
   annotations:

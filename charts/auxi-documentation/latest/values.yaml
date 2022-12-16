@@ -18,7 +18,6 @@ service:
   annotations: {}
   type: LoadBalancer
   port: 80
-  targetPort: 80
 
 ingress:
   ingressClassName: nginx
