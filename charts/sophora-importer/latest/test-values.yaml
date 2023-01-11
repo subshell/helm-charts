@@ -94,11 +94,10 @@ transformation:
 
 resources:
   requests:
-    memory: "0.4G"
+    memory: "2G"
     cpu: "0.01"
   limits:
     memory: "2G"
-    cpu: "1"
 
 ingress:
   ingressClassName: nginx

@@ -70,9 +70,8 @@ sisi:
 
 resources:
   requests:
-    memory: "0.5G"
+    memory: "2G"
     cpu: "0.25"
   limits:
     memory: "2G"
-    cpu: "1"
 ```

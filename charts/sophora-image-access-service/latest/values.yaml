@@ -84,7 +84,6 @@ resources:
     cpu: "2"
   limits:
     memory: "3G"
-    cpu: "4"
 podAnnotations: {}
 
 startupProbe:

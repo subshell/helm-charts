@@ -129,8 +129,7 @@ tolerations:
 
 resources:
   requests:
-    memory: "6G"
+    memory: "12G"
     cpu: "2"
   limits:
     memory: "12G"
-    cpu: "6"

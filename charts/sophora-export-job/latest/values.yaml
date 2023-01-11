@@ -111,5 +111,4 @@ resources:
     cpu: 50m
     memory: 1Gi
   limits:
-    cpu: 100m
     memory: 1Gi

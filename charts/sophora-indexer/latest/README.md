@@ -28,8 +28,7 @@ resources:
     memory: "3G"
     cpu: "0.5"
   limits:
-    memory: "3.5G"
-    cpu: "2"
+    memory: "3G"
 
 indexer:
   secret:

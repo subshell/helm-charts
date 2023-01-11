@@ -72,7 +72,6 @@ resources:
     cpu: "0.5"
   limits:
     memory: "3.5G"
-    cpu: "2"
 
 secret:
   name: courier-credentials

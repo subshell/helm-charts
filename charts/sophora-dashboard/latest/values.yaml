@@ -123,7 +123,6 @@ resources:
     cpu: 50m
     memory: 2.5Gi
   limits:
-    cpu: 100m
     memory: 2.5Gi
 
 podAnnotations: {}

@@ -9,9 +9,8 @@ ingress:
   ingressClassName: nginx
 
 resources:
-  limits:
-    cpu: "500m"
-    memory: "100M"
   requests:
     cpu: "250m"
-    memory: "25M"
+    memory: "100M"
+  limits:
+    memory: "100M"

@@ -90,7 +90,6 @@ resources:
     cpu: 1
     memory: 12Gi
   limits:
-    cpu: 4
     memory: 12Gi
 
 serviceAccount:

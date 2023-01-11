@@ -98,7 +98,6 @@ resources:
     cpu: 200m
     memory: 3Gi
   limits:
-    cpu: 1
     memory: 3Gi
 
 storage:

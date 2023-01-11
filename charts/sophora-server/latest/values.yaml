@@ -30,11 +30,10 @@ serverModeLabeler:
   createServiceAccount: true
   resources:
     requests:
-      memory: "40M"
+      memory: "100M"
       cpu: "0.01"
     limits:
-      memory: "80M"
-      cpu: "0.05"
+      memory: "100M"
 
 configGenerator:
   image:
@@ -326,5 +325,4 @@ resources:
     cpu: 2
     memory: 16Gi
   limits:
-    cpu: 4
     memory: 16Gi

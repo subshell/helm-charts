@@ -33,11 +33,10 @@ service:
 
 resources:
   requests:
-    memory: "3G"
+    memory: "3.5G"
     cpu: "0.5"
   limits:
     memory: "3.5G"
-    cpu: "2"
 
 sophora:
   youtubeconnector:

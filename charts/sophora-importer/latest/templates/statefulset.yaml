@@ -81,11 +81,10 @@ spec:
                   find /opt/s3fs/bucket
         resources:
           limits:
-            cpu: 300m
             memory: 256Mi
           requests:
             cpu: 100m
-            memory: 128Mi
+            memory: 256Mi
         volumeMounts:
           - name: shared-imports
             mountPath: /opt/s3fs/bucket
