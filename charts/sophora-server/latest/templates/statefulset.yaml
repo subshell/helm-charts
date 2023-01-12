@@ -33,6 +33,7 @@ spec:
       {{- end }}
       labels:
         {{- include "sophora-server.selectorLabels" . | nindent 8 }}
+        {{- toYaml .Values.podLabels | nindent 8 }}
     spec:
       serviceAccountName: {{ include "sophora-server.serviceAccountName" . }}
       {{- with .Values.imagePullSecrets }}

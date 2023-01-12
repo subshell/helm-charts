@@ -9,6 +9,9 @@ image:
 imagePullSecrets:
   - name: docker-subshell
 
+podLabels:
+  istio/inject: true
+
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
 

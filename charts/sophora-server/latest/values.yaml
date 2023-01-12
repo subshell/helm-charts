@@ -256,6 +256,8 @@ livenessProbe:
 
 podAnnotations: {}
 
+podLabels: {}
+
 podSecurityContext: {}
   # fsGroup: 2000
 
