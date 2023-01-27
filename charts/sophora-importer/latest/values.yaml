@@ -20,7 +20,7 @@ downloadViaS3Image:
 
 s3fsImage:
   repository: efrecon/s3fs
-  tag: "1.90"
+  tag: "1.91"
   pullPolicy: IfNotPresent
 
 nodeSelector: {}
