@@ -53,5 +53,23 @@ metrics:
     secret:
       name: pushgateway-secret
 
+extraDeploy:
+  - apiVersion: subshell/v2
+  - apiVersion: subshell/cv3
+    a: b
+    c:
+      d: 123
+      e: false
+
+job:
+  ttlSecondsAfterFinished: 42
+  backoffLimit: 2
+  parallelism: 3
+  activeDeadlineSeconds: 4
+  cron:
+    expression: "0 */7 * * 0"
+    suspend: false
+
+
 prometheusRule:
   enabled: true
