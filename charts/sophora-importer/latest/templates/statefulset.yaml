@@ -111,7 +111,11 @@ spec:
                 key: {{.Values.sophora.authentication.secret.passwordKey}}
                 name: {{.Values.sophora.authentication.secret.name}}
           - name: LOADER_PATH
+            {{- if .Values.sophora.importer.loaderPath }}
+            value: {{ .Values.sophora.importer.loaderPath }}
+            {{- else }}
             value: {{ include "sophora-importer.transformationLibsPath" . }}
+            {{- end }}
           {{ if .Values.sophora.importer.extraEnv -}}
           {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
           {{- end }}
@@ -156,11 +160,13 @@ spec:
                 - '-c'
                 - |
                   echo "Creating import folders for importer:"
-                  {{- range .Values.sophora.importer.instances }}
-                  mkdir -p /import/{{.}}/success
-                  mkdir -p /import/{{.}}/temp
-                  mkdir -p /import/{{.}}/failure
-                  mkdir -p /import/{{.}}/incoming
+                  {{- range $folder := tuple "import" "import-local" }}
+                  {{- range $instance := $.Values.sophora.importer.instances }}
+                  mkdir -p /{{$folder}}/{{$instance}}/success
+                  mkdir -p /{{$folder}}/{{$instance}}/temp
+                  mkdir -p /{{$folder}}/{{$instance}}/failure
+                  mkdir -p /{{$folder}}/{{$instance}}/incoming
+                  {{ end }}
                   {{ end }}
         {{- end }}
       initContainers:
@@ -232,7 +238,12 @@ spec:
       - name: shared-imports
         emptyDir: {}
       - name: local-import-folders
+      {{- if not .Values.importPvcSpec }}
         emptyDir: {}
+      {{- else }}
+        persistentVolumeClaim:
+          claimName: local-import-folders
+      {{- end }}
       - name: xsl
         emptyDir: {}
       - name: libs
@@ -244,3 +255,10 @@ spec:
         secret:
           secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
           optional: true
+  {{ if .Values.importPvcSpec }}
+  volumeClaimTemplates:
+    - metadata:
+        name: local-import-folders
+      spec:
+        {{- toYaml .Values.importPvcSpec | nindent 8 }}
+  {{ end }}

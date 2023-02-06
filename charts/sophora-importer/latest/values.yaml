@@ -53,6 +53,7 @@ sophora:
         - name: S3FS_ARGS
           value: nonempty
     extraEnv:
+    loaderPath:
     instances: []
     createImportFolders:
       incoming: s3
@@ -137,3 +138,6 @@ ingress:
 additionalVolumes:
 
 additionalVolumeMounts:
+
+# This option can be used to create a pvc for the local import folders
+importPvcSpec:
