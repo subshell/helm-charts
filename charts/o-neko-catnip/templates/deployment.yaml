@@ -55,7 +55,7 @@ spec:
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -65,7 +65,7 @@ spec:
           {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -75,7 +75,7 @@ spec:
           {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
