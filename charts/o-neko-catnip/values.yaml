@@ -30,7 +30,7 @@ oneko:
   ## @param oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko-catnip
-    tag: 1.1.0
+    tag: 1.2.0
     imagePullPolicy: IfNotPresent
 
   ## @param oneko.api.baseUrl The base URL of the O-Neko installation, e.g. my.oneko.com
