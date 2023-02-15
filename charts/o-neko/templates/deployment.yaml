@@ -28,7 +28,7 @@ spec:
       {{- end }}
       containers:
         - name: o-neko
-          image: {{ (printf "%s:%s" .Values.oneko.image.name .Values.oneko.image.tag) | quote }}
+          image: {{ (printf "%s:%s" .Values.oneko.image.name (.Values.oneko.image.tag | default .Chart.AppVersion )) | quote }}
           imagePullPolicy: {{ .Values.oneko.image.imagePullPolicy }}
           env:
             - name: JDK_JAVA_OPTIONS
