@@ -1,60 +1,134 @@
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override the name
 nameOverride: ""
+
+## @param fullnameOverride String to fully override the release name
 fullnameOverride: ""
 
+## @param imagePullSecrets Docker registry secret names as an array
 imagePullSecrets: []
 
+## @param hostAliases Host aliases available to the application
 hostAliases:
 
-resources: {}
+## @param resources.limits The resource limits for the container
+## @param resources.requests The resource requests for the container
+resources:
+  limits: {}
+  requests: {}
+
+## @section O-Neko Catnip parameters
+## Parameters which configure the O-Neko Catnip installation
+##
 
 oneko:
+
+  ## @param oneko.image.name O-Neko Catnip image repository
+  ## @param oneko.image.tag O-Neko Catnip image tag
+  ## @param oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko-catnip
-    tag: 1.1.0
+    tag: 1.2.0
     imagePullPolicy: IfNotPresent
+
+  ## @param oneko.api.baseUrl The base URL of the O-Neko installation, e.g. my.oneko.com
+  ## @param oneko.api.auth.secretName The name of the secret which contains the O-Neko credentials
   api:
     baseUrl:
     auth:
       secretName:
 
-serviceMonitor:
-  enabled: false
-  interval: 10s
+  ## @param oneko.catnipUrl The base URL of the O-Neko Catnip installation, e.g. catnip.oneko.com
+  catnipUrl:
 
+## @section Probes
+##
+
+## @param startupProbe.failureThreshold Failure threshold for startupProbe
+## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
+## @param startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
   failureThreshold: 10
   initialDelaySeconds: 0
   timeoutSeconds: 1
   periodSeconds: 2
 
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   failureThreshold: 3
   initialDelaySeconds: 0
   timeoutSeconds: 5
   periodSeconds: 1
 
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 0
   timeoutSeconds: 5
   periodSeconds: 10
 
+## @section Traffic Exposure parameters
+##
+
 service:
+  ## @param service.annotations annotations for the service
   annotations: {}
+  ## @param service.type Kubernetes service type
   type:
+  ## @param service.sessionAffinity the service's sessionAffinity
   sessionAffinity: None
+  ## @param service.sessionAffinityConfig additional sessionAffinity configuration
   sessionAffinityConfig: {}
+  ## @param service.loadBalancerIP A loadBalancerIP configuration
   loadBalancerIP:
+  ## @param service.clusterIP The service's clusterIP
   clusterIP:
 
+
+
 ingress:
-  # ingressClassName: nginx
+  ## @param ingress.ingressClassName name of the ingressClass used for the ingress
+  ingressClassName:
+  ## @param ingress.hosts Array with hostnames used for the ingress
+  ## e.g.
+  ## hosts:
+  ##   - host: "catnip.oneko.com"
+  hosts:
+  ## @param ingress.tls TLS configuration of the ingress as an array
+  ## e.g.
+  ## tls:
+  ##   - hosts:
+  ##     - "catnip.oneko.com"
+  ##     secretName: catnip-tls
+  tls:
+  ## @param ingress.annotations annotations for the ingress
+  annotations: {}
+  ## @param ingress.defaultBackend.enabled Whether the default backend should be enabled or not
   defaultBackend:
     enabled: false
-  hosts:
-  tls:
-  annotations: {}
 
+## @section Metrics and Alerting
+##
+## Specific for the use with the kube-prometheus-stack
+
+## @param serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+## @param serviceMonitor.interval Prometheus scrape interval
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
+## @param prometheusRule.enabled Whether the prometheusRule resource should be deployed
+## @param prometheusRule.defaultRulesEnabled Whether the default alerting rules should be enabled or not
+## @param prometheusRule.rules Custom alerting rules which can be deployed
 prometheusRule:
   enabled: false
   defaultRulesEnabled: true

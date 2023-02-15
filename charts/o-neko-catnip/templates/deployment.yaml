@@ -31,7 +31,9 @@ spec:
           imagePullPolicy: {{ .Values.oneko.image.imagePullPolicy }}
           env:
             - name: ONEKO_API_BASEURL
-              value: {{ .Values.oneko.api.baseUrl }}
+              value: {{ required "The O-Neko base URL needs to be configured." .Values.oneko.api.baseUrl }}
+            - name: ONEKO_CATNIPURL
+              value: {{ required "The O-Neko Catnip URL needs to be configured." .Values.oneko.catnipUrl }}
             - name: ONEKO_API_AUTH_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -53,7 +55,7 @@ spec:
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -63,7 +65,7 @@ spec:
           {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -73,7 +75,7 @@ spec:
           {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
-              path: /metrics
+              path: /up
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
