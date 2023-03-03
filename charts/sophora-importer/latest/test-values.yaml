@@ -10,6 +10,17 @@ hostAliases:
     hostnames:
       - sophora.test.code-nnw.cloud
 
+extraDeploy:
+  - |
+    apiVersion: v1
+    data:
+      auth: Zm9vOiRhcHIxJE9GRzNYeWJwJGNrTDBGSERBa29YWUlsSDkuY3lzVDAK
+    kind: Secret
+    metadata:
+      name: basic-auth
+      namespace: default
+    type: Opaque
+
 sophora:
   authentication:
     secret:

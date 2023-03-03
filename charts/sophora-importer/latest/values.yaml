@@ -28,6 +28,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
