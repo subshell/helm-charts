@@ -29,6 +29,7 @@ service:
   type: ClusterIP
 
 configGenerator:
+  env: # additional environment variables for config-generator (init-container)
   image:
     repository: "docker.subshell.com/misc/alpine-toolkit"
     tag: "0.0.1"
@@ -53,7 +54,7 @@ affinity: {}
 
 javaOptions: "-Dlogging.config=/indexer/config/logback.xml -Dsophora.properties=/indexer/config/indexer.properties -Dsophora.groovy.dir=groovy -XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
-env:
+env: # additional environment variables for sophora-indexer container
 
 data:
   size: 1G

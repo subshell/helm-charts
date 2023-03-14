@@ -61,6 +61,9 @@ spec:
               value: "{{ .Values.configGenerator.ports.rmi }}"
             - name: JOLOKIA_PORT
               value: "{{ .Values.configGenerator.ports.jolokia }}"
+          {{ if .Values.configGenerator.env -}}
+          {{- toYaml .Values.configGenerator.env | nindent 12 }}
+          {{- end }}
           command: ["/bin/sh"]
           args:
             - "-c"
@@ -84,9 +87,11 @@ spec:
               mountPath: /indexer-config-template
             - name: indexer-config
               mountPath: /indexer/config
+            {{- if .Values.indexer.secret.additionalIndexerProperties }}
             - name: secret
               subPath: {{ .Values.indexer.secret.additionalIndexerProperties }}
               mountPath: /additional.properties
+            {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
