@@ -18,7 +18,6 @@ jobs:
       - name: Helm Deps
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm dependency build
       - name: Test Chart
         run: |
           for d in charts/* ; do
