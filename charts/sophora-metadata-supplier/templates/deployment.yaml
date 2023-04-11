@@ -1,0 +1,186 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-metadata-supplier.fullname" . }}
+  labels:
+    {{- include "sophora-metadata-supplier.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "sophora-metadata-supplier.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true" # required because of the emptyDir volume
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "sophora-metadata-supplier.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "sophora-metadata-supplier.serviceAccountName" . }}
+      initContainers:
+        {{ if eq .Values.metadataSupplier.mapping.source "s3" }}
+        - name: plugins-downloader-via-s3
+          image: {{ .Values.downloadViaS3Image.repository }}:{{ .Values.downloadViaS3Image.tag }}
+          imagePullPolicy: {{ .Values.downloadViaS3Image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          {{ with .Values.metadataSupplier.mapping.downloadFromS3 }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .accessKeyIdKey }}
+                  name: {{ .secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .secretAccessKeyKey }}
+                  name: {{ .secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .s3Endpoint }}
+            - name: S3_NAME
+              value: {{ .bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-metadata-supplier.utils.joinListWithSpace" .jarPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl && cd dl || exit;
+              if [ -n "$S3_FILE_PATHS" ]; then
+                for S3_FILE_PATH in $S3_FILE_PATHS; do
+                  aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
+                  echo "Downloaded $S3_FILE_PATH"
+                done
+              fi
+              mv *.jar /plugins
+          {{- end }}
+        {{- else if eq .Values.metadataSupplier.mapping.source "sidecar" }}
+        - name: plugins-downloader-via-sidecar
+          image: {{ .Values.metadataSupplier.mapping.copyFromSidecarImage.repository }}:{{ .Values.metadataSupplier.mapping.copyFromSidecarImage.tag }}
+          imagePullPolicy: {{ .Values.metadataSupplier.mapping.copyFromSidecarImage.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          env:
+            - name: JAR_FOLDER
+              value: {{ .Values.metadataSupplier.mapping.copyFromSidecarImage.jarFolder }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              cd $JAR_FOLDER
+              mv *.jar /plugins
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /app/config/application.yaml
+              subPath: application.yaml
+              name: config
+            - mountPath: /app/loader.properties
+              subPath: loader.properties
+              name: config
+            - mountPath: /app/plugins
+              name: plugins
+            - mountPath: /app/data
+              name: data
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            - name: ARDMEDIALIBRARY_CREDENTIALS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.ardmedialibrary.authentication.secret.usernameKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.ardmedialibrary.authentication.secret.name" .Values.ardmedialibrary.authentication.secret.name | quote }}
+            - name: ARDMEDIALIBRARY_CREDENTIALS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.ardmedialibrary.authentication.secret.passwordKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.ardmedialibrary.authentication.secret.name" .Values.ardmedialibrary.authentication.secret.name | quote }}
+            {{ if .Values.metadataSupplier.env -}}
+            {{- toYaml .Values.metadataSupplier.env | nindent 12 }}
+            {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-metadata-supplier.name" . }}
+        - name: plugins
+          emptyDir: {}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ include "sophora-metadata-supplier.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
