@@ -1,0 +1,182 @@
+image:
+  repository: docker.subshell.com/sophora/sophora-importer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "master"
+
+downloadViaHttpImage:
+  repository: "docker.subshell.com/misc/alpine-toolkit"
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+s3CliImage:
+  repository: "docker.subshell.com/misc/aws-cli-tools"
+  tag: "0.0.2"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+metrics:
+  pushgatewayUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
+sophora:
+  serverUrl:
+  internalConnection: true
+  useMigrationMode: false
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
+importer:
+  extraEnv:
+  name: Importer
+  instanceName: Import Job
+  instanceKey: importjob
+
+logbackXml: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <configuration scan="true" scanPeriod="60 seconds">
+  	<jmxConfigurator/>
+
+  	<property name="PATTERN"
+  			  value="%d{dd.MM.yyyy HH:mm:ss} %5level [%12.12thread] [%X{importerInstanceName}: %X{feedName} %X{sourceFileName}] %.40(%logger{0}:%L) --- %msg%n"/>
+
+  	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+  		<encoder>
+  			<pattern>${PATTERN}</pattern>
+  		</encoder>
+  	</appender>
+
+  	<logger name="com.subshell.sophora" level="INFO"/>
+  	<logger name="com.subshell.sophora.importer" level="INFO"/>
+  	<logger name="org.springframework.boot" level="INFO"/>
+
+  	<root level="WARN">
+  		<appender-ref ref="console"/>
+  	</root>
+
+  </configuration>
+
+transformation:
+  enabled: false
+  xslTransformerFactory:
+  data:
+    use: s3
+    zipViaHttp:
+      secretName:
+      zipUrls:
+      usernameKey: "username"
+      passwordKey: "password"
+    zipViaS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName:
+      zipPaths:
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    useSaxon: false
+    saxonLicenceSecretName: "saxon-license"
+    saxonLicenceSecretKey: "saxon-license.lic"
+    libsPath: libs
+    xslPath: xsl
+    transformXslSubDir: .
+
+importFailureFilesUpload:
+  enabled: false
+  uploadPath: "/"
+  s3Endpoint: "https://storage.googleapis.com"
+  bucketName:
+  secretName:
+  secretAccessKeyKey: "secretAccessKey"
+  accessKeyIdKey: "accessKeyId"
+
+sophoraDocumentsDownload:
+  use: s3
+  zipViaHttp:
+    secretName:
+    zipUrls:
+    usernameKey: "username"
+    passwordKey: "password"
+  zipViaS3:
+    secretName:
+    s3Endpoint: "https://storage.googleapis.com"
+    bucketName:
+    zipPaths:
+    secretAccessKeyKey: "secretAccessKey"
+    accessKeyIdKey: "accessKeyId"
+
+prometheusRule:
+  enabled: false
+  rules:
+    - alert: SophoraImportJobMissedDocuments
+      expr: abs(sum by (job) (sophora_import_job_downloaded_documents{job="{{ include "sophora-import-job.fullname" . }}"}) - sum by(job) (sophora_import_job_imported_documents{imported="true", job="{{ include "sophora-import-job.fullname" . }}"})) > 0
+      labels:
+        severity: error
+      annotations:
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not import some documents: {{ "{{ $value }}" }} '
+        summary: 'The import job downloaded more files than it imported successfully.'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-import-job/alerting-runbook.md'
+    - alert: SophoraImportJobDidNotDownloadAnyDocuments
+      expr: sophora_import_job_downloaded_documents{job="{{ include "sophora-import-job.fullname" . }}"} == 0
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not download any documents.'
+        summary: 'The import job did not find any documents in the downloaded archives and hence cannot import anything.'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-import-job/alerting-runbook.md'
+    - alert: SophoraImportJobFailed
+      expr: max(vector(0) or sophora_import_job_end{success="false", job="{{ include "sophora-import-job.fullname" . }}"}) > max(vector(0) or sophora_import_job_end{success="true", job="{{ include "sophora-import-job.fullname" . }}"})
+      labels:
+        severity: critical
+      annotations:
+        description: 'Sophora import job ({{ "{{ $labels.job }}" }}) failed.'
+        summary: 'The import job ({{ include "sophora-import-job.fullname" . }}) did not complete successfully.'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-import-job/alerting-runbook.md'
+
+## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+
+job:
+  ## @param job.ttlSecondsAfterFinished k8s job config, defaults to 7 days in seconds
+  ##
+  ttlSecondsAfterFinished: 604800
+  ## @param job.backoffLimit k8s job config
+  ##
+  backoffLimit: 1
+  ## @param job.parallelism k8s job config
+  ##
+  parallelism: 1
+  ## @param job.activeDeadlineSeconds k8s job config, default of 3 hours in seconds
+  ##
+  activeDeadlineSeconds: 10800
+  cron:
+    ## @param job.cron.expression Cron expression, defaults to every 3rd hour on Sunday
+    ##
+    expression: "0 */3 * * 0"
+    ## @param job.cron.suspend Suspends the cron job. Defaults to true
+    ##
+    suspend: true
+
+podAnnotations: {}
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 2Gi
+  limits:
+    memory: 2Gi

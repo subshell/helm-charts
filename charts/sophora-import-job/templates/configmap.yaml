@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-import-job.fullname" . }}
+  labels:
+  {{- include "sophora-import-job.labels" . | nindent 4 }}
+data:
+  application.yml: |-
+    sophora:
+      client:
+        server-connection:
+          urls: {{.Values.sophora.serverUrl}}
+          username: # in secret
+          password: # in secret
+          retries: 15
+          retry-interval: 10
+          internal: {{.Values.sophora.internalConnection}}
+          use-migration-mode: {{.Values.sophora.useMigrationMode}}
+        toolInfo:
+          enabled: false
+
+    importer:
+      name: {{ .Values.importer.name }}
+
+      {{ if .Values.transformation.xslTransformerFactory }}
+      xslTransformerFactory: {{ .Values.transformation.xslTransformerFactory }}
+      {{- end }}
+
+      # Defaults for all instances.
+      folders:
+        watchCheckInterval: 1000
+        watchRecursive: true
+
+      webService:
+        enabled: false
+
+      filenamesAddTimestamp: false
+
+      cleanupFoldersCron: "0 0 9 ? * * *" # every day at 9AM
+      cleanupFoldersSuccessfulMaxAge: 1 # in days
+      cleanupFoldersFailureMaxAge: 7 # in days
+
+      # Configuration of the importer instances
+      instances:
+      - name: {{ .Values.importer.instanceName }}
+        key: {{ .Values.importer.instanceKey }}
+        transform: {{ .Values.transformation.enabled | ternary "forceTransform" "skipTransform" }}
+        folders:
+          watch: /import/incoming
+          temp: /import/temp
+          success: /import/success
+          failure: /import/failure
+          xsl: {{ include "sophora-import-job.transformationXslPath" . }}/{{ .Values.transformation.data.transformXslSubDir }}
+        defaultStructureNode: /import
+  logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}
