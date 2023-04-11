@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "youtube-connector.fullname" . }}-config
+  labels:
+    app: {{ include "youtube-connector.fullname" . }}
+data:
+  application.{{ .Values.sophora.youtubeconnector.configFormat }}: |-
+    {{- (required "A configuration is required" .Values.sophora.youtubeconnector.config) | nindent 4 }}
