@@ -1,0 +1,30 @@
+name: Test Charts
+
+on: ["push", "pull_request"]
+
+jobs:
+  release:
+    runs-on: alpine/helm:3.11.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Helm Deps
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+          helm dependency build
+      - name: Test Chart
+        run: |
+          for d in charts/* ; do
+            echo "testing $d..."
+            pushd $d
+            helm dependency build
+            if [ -e "test-values.yaml" ]
+            then
+              helm template -f test-values.yaml test .
+            else
+              echo "skipping $d because test-values.yaml was not found"
+            fi
+            popd
+          done
