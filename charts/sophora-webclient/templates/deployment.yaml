@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels: {{- include "webclient.labels" . | nindent 4 }}
+  name: {{ include "webclient.fullname" . }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels: {{- include "webclient.selectorLabels" . | nindent 6 }}
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels: {{- include "webclient.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: webclient
+          image: "{{ .Values.image.name }}:{{ .Values.image.version }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          env:
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+                name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+                name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+          - name: SOPHORA_CLIENT_HOSTNAME
+            value: {{ .Values.ingress.host | quote }}
+          - name: SOPHORA_CLIENT_HTTPS_PORT
+            value: "443"
+          ports:
+            - containerPort: 8080
+              name: http
+          volumeMounts:
+            - name: config
+              mountPath: "/app/config"
+            - name: binary
+              mountPath: "/app/binary"
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      restartPolicy: Always
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "webclient.configName" . }}
+        - name: binary
+          configMap:
+            name: {{ include "webclient.binaryConfigName" . }}

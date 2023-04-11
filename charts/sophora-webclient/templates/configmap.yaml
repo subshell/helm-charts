@@ -1,0 +1,7 @@
+{{- $configName := include "webclient.configName" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $configName }}
+data:
+  application.yaml: |- {{ toYaml (required "A valid application.yml webclient config is required (nested in the value .Values.webclient.configuration)!" .Values.webclient.configuration) | nindent 4 }}
