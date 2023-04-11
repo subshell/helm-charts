@@ -1,0 +1,10 @@
+externalSecrets: []
+# externalSecrets:
+# - name: example
+#   type: Opaque (default)
+#   store: gcpsm (default)
+#   refreshInterval: 1m (default)
+#   data:
+#   - key: example-key
+#     name: example-name
+#     version: latest (default)
