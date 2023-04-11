@@ -1,0 +1,162 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-importer.fullname" . }}
+  labels:
+  {{- include "sophora-importer.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  serviceName: {{ include "sophora-importer.fullname" . }}
+  selector:
+    matchLabels:
+  {{- include "sophora-importer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        {{if .Values.podAnnotations}}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+      {{end}}
+      labels:
+    {{- include "sophora-importer.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: importer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_OPTS
+              value: {{ .Values.sophora.importer.javaOptions }}
+            - name: LOADER_PATH
+              value: /data/libs
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+          resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - containerPort: 8082
+            - containerPort: 1496
+          volumeMounts:
+            - name: importer-config
+              mountPath: /importer/config
+            - name: import-folders
+              mountPath: /import/
+            - name: data
+              mountPath: /data/
+            {{- with .Values.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          securityContext:
+            privileged: true
+
+      initContainers:
+        {{- with .Values.sophora.importer.additionalDataImage }}
+        {{- if .repository }}
+        - name: additional-libs-provider
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              mkdir -p /data-mounted/libs /data-mounted/xsl /data-mounted/misc
+              mv {{ .libsPath }}/* /data-mounted/libs
+              mv {{ .xslPath }}/*  /data-mounted/xsl
+              mv {{ .miscPath }}/*  /data-mounted/misc
+              {{- if .saxonLicenceSecret }}
+              cp /internal/{{.saxonLicenceSecret.licenceFileKey}} /data-mounted/libs/{{.saxonLicenceSecret.licenceFileKey}}
+              ls /data-mounted/
+              {{- end}}
+              echo Creating import folders ...
+              {{ range $.Values.sophora.importer.folders }}
+              mkdir -p {{ . }}
+              {{ end }}
+              echo ... folders created as follows.
+              find /import
+          volumeMounts:
+            - name: data
+              mountPath: /data-mounted/
+            {{- if .saxonLicenceSecret }}
+            - name: saxon-licence
+              mountPath: "/internal/"
+              readOnly: true
+            {{- end}}
+            - name: import-folders
+              mountPath: /import
+        {{end}}
+        {{- end}}
+        - name: config-generator
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          env:
+            - name: SERVER_SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.usernameKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+            - name: SERVER_SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.sophora.authentication.secret.passwordKey}}
+                  name: {{.Values.sophora.authentication.secret.name}}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              cp /importer-config-template/sophora-importer.properties /importer/config/
+              CONFIG=/importer/config/sophora-importer.properties
+              echo 'sophora.contentmanager.username=${SERVER_SOPHORAUSERNAME}' >> $CONFIG
+              echo 'sophora.contentmanager.password=${SERVER_SOPHORAPASSWORD}' >> $CONFIG
+              envsubst < $CONFIG > $CONFIG.tmp
+              mv $CONFIG.tmp $CONFIG
+              echo "Generated /importer/config/sophora-importer.properties from ENV"
+              find /importer-config-template -type f -not -name sophora-importer.properties -exec cp {} /importer/config/ \;
+          volumeMounts:
+            - name: importer-config-template
+              mountPath: /importer-config-template
+            - name: importer-config
+              mountPath: /importer/config
+            - name: import-folders
+              mountPath: /import
+      volumes:
+        - name: importer-config-template
+          configMap:
+            name: {{ include "sophora-importer.fullname" . }}
+        {{ if not .Values.importPvcSpec }}
+        - name: import-folders
+          emptyDir: {}
+        {{ end }}
+        - name: importer-config
+          emptyDir: {}
+        - name: data
+          emptyDir: {}
+        {{- with .Values.additionalVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- if .Values.sophora.importer.additionalDataImage }}
+        {{- if .Values.sophora.importer.additionalDataImage.saxonLicenceSecret }}
+        - name: saxon-licence
+          secret:
+            secretName: {{.Values.sophora.importer.additionalDataImage.saxonLicenceSecret.name}}
+      {{- end}}
+  {{- end}}
+  {{ if .Values.importPvcSpec }}
+  volumeClaimTemplates:
+    - metadata:
+        name: import-folders
+      spec:
+        {{- toYaml .Values.importPvcSpec | nindent 8 }}
+  {{ end }}

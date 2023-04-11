@@ -1,0 +1,143 @@
+image:
+  pullPolicy: Always
+  tag: "3"
+
+nameOverride: "test-importer"
+javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
+
+extraDeploy:
+  - apiVersion: subshell/v2
+  - apiVersion: subshell/cv3
+    a: b
+    c:
+      d: 123
+      e: false
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-importer-credentials"
+      passwordKey: "password"
+      usernameKey: "username"
+  importer:
+    additionalDataImage:
+      saxonLicenceSecret:
+        name: ""
+        licenceFileKey: "saxon-license.lic"
+      repository: ""
+      tag: ""
+      libsPath: "/data/libs"
+      xslPath: "/data/xsl"
+      miscPath: "/data/misc"
+    folders:
+      - /import/successful
+      - /import/failure
+      - /import/incoming
+      - /import/temp
+
+    configuration:
+      sophora-importer.properties: |
+        sophora.importer.name=Importer
+
+        sophora.contentmanager.serviceUrl=http://sophora-server:1196/
+
+        sophora.contentmanager.migrationMode=false
+
+        sophora.importer.xslTransformerFactory=net.sf.saxon.TransformerFactoryImpl
+
+        sophora.importer.watchfolder.checkInterval=5000
+
+        sophora.importer.keepTempfiles=true
+
+        sophora.importer.filenames.addTimestamp=true
+
+        sophora.importer.transformation.repairXml=false
+
+        sophora.importer.disableImport=false
+
+        #############################
+        # JMX-/MBeans-Einstellungen #
+        #############################
+        sophora.rmi.servicePort=5000
+
+        sophora.rmi.registryPort=5001
+
+        sophora.importer.maximumImportsToKeep=1000
+
+        sophora.importer.minimumFailedImportsToKeep=100
+
+        sophora.importer.webservice.active=true
+        sophora.importer.webservice.baseAddress=http://0.0.0.0:8082/
+
+        sophora.importer.cleanupFolders.cron=0 0 0 * * ? *
+        sophora.importer.cleanupFolders.successful.maxAge=4
+        sophora.importer.cleanupFolders.failure.maxAge=4
+      sophora-importer_instance-1.properties: |
+        # Das zu �berwachende Verzeichnis:
+        sophora.importer.directory.watchfolder=/import/incoming
+
+        # Verzeichnis f�r die beim Importvorgang angelegten XML-Dateien:
+        sophora.importer.directory.temp=/import/temp
+
+        sophora.importer.directory.successful=/import/successful
+
+        sophora.importer.directory.failure=/import/failure
+
+        # Bestimmt den XSL-Transformationsmodus, in dem der Importer arbeitet. Es sind die
+        # Werte 'transformIfNotSophoraXml' (Default), 'forceTransform' und 'skipTransform'
+        # m�glich.
+        sophora.importer.transformationMode=skipTransform
+
+        # Wird dieser Wert auf 'true' gesetzt, werden auch alle Unterverzeichnisse,
+        # des zu �berwachenden Verzeichnisse (watchfolder) ber�cksichtigt. Es muss
+        # darauf geachtet werden, dass sich unterhalb des 'watchfolder' keine
+        # Systemverzeichnisse wie 'successful', 'failure', 'xsl' oder 'temp' befinden.
+        sophora.importer.watchfolder.includeSubfolder=true
+
+        sophora.importer.instance.webservice.enabled=true
+
+        # Interval (in milliseconds) to check the import directory (watch folder); e.g. 30000
+        sophora.importer.watchfolder.checkInterval=5000
+
+        sophora.importer.instance.name=instance-name
+
+        sophora.importer.disableImport=false
+      logback.xml: |
+        <?xml version="1.0" encoding="ISO-8859-1"?>
+
+        <!-- For more information on logback logging see: http://logback.qos.ch/manual/index.html -->
+        <configuration scan="true" scanPeriod="30 seconds">
+        	<jmxConfigurator />
+
+        	<!-- Logging pattern: 'importerInstanceName' and 'sourceFileName' are references to MDC properties in the importer code. -->
+        	<property name="APPENDER_PATTERN" value="[%d{ISO8601}, %-5p] [%t] [%X{importerInstanceName}] [%X{sourceFileName}] %.40c:%L: %m%n" />
+
+        	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        		<filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+        			<evaluator>
+        				<!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
+        				<expression>marker != null &amp;&amp; marker.getName().equals("SPECIAL_EMAIL_NOTIFICATION")</expression>
+        			</evaluator>
+        			<OnMismatch>NEUTRAL</OnMismatch>
+        			<OnMatch>DENY</OnMatch>
+        		</filter>
+        		<encoder>
+        			<pattern>${APPENDER_PATTERN}</pattern>
+        		</encoder>
+        	</appender>
+
+        	<logger name="com.subshell.sophora" level="INFO" />
+
+        	<root level="INFO">
+        		<appender-ref ref="STDOUT" />
+        	</root>
+        </configuration>
+
+resources:
+  requests:
+    memory: "2G"
+    cpu: "0.01"
+  limits:
+    memory: "2G"
+
