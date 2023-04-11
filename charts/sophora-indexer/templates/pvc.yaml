@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sophora-indexer.fullname" . }}
+  labels:
+    {{- include "sophora-indexer.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.data.size }}
+  storageClassName: {{ .Values.data.storageClass }}
