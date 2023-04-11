@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-server.logbackConfigName" . }}
+  labels:
+  {{- include "sophora-server.labels" . | nindent 4 }}
+data:
+  logback.xml: |
+    {{- .Values.sophora.server.logback | nindent 4}}

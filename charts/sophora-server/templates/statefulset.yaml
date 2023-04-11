@@ -1,0 +1,365 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-server.fullname" . }}
+  labels:
+    {{- include "sophora-server.labels" . | nindent 4 }}
+spec:
+  {{ if and (eq .Values.clusterReplication.enabled false) (eq .Values.sophora.server.isClusterServer true) -}}
+  replicas: 1
+  {{- else -}}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  {{- if not .Values.sophora.server.isClusterServer }}
+  serviceName: {{ include "sophora-server.fullname" . }}-headless
+  {{- else }}
+  serviceName: {{ include "sophora-server.fullname" . }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "sophora-server.selectorLabels" . | nindent 6 }}
+  {{- with .Values.podManagementPolicy }}
+  podManagementPolicy: {{ . }}
+  {{- end }}
+  {{- with .Values.updateStrategy }}
+  updateStrategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sophora-server.selectorLabels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      serviceAccountName: {{ include "sophora-server.serviceAccountName" . }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      affinity: {{- toYaml .Values.affinity | nindent 8 }}
+      terminationGracePeriodSeconds: {{ .Values.sophora.server.isClusterServer | ternary .Values.terminationGracePeriodSecondsPerServerMode.cluster .Values.terminationGracePeriodSecondsPerServerMode.staging }}
+      initContainers:
+      {{- if and .Values.sophora.server.isClusterServer .Values.preStop.enabled }}
+        - name: sophora-prestop-initializer
+          image: "{{ .Values.preStop.image.repository }}:{{ .Values.preStop.image.tag }}"
+          imagePullPolicy: {{ .Values.preStop.image.pullPolicy }}
+          command: ["cp", "/sophora-prestop", "/tools/sophora-prestop"]
+          volumeMounts:
+            - name: tools
+              mountPath: "/tools"
+      {{- end }}
+        - name: cluster-server-config-initializer
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          command: ["/bin/sh", "/configs/config-setup.sh"]
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            {{ include "sophora-server.mysqlEnv" . | trim | nindent 12 }}
+            {{- if .Values.clusterReplication.enabled }}
+            - name: EXTERNAL_HOSTS
+              value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
+            {{- end }}
+            {{ if .Values.configInitializer.env -}}
+            {{- toYaml .Values.configInitializer.env | nindent 12 }}
+            {{- end }}
+          {{ if .Values.configInitializer.envFrom -}}
+          envFrom:
+          {{- toYaml .Values.configInitializer.envFrom | nindent 12 }}
+          {{- end }}
+          volumeMounts:
+            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+              mountPath: /sophora-repository-template
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              mountPath: /sophora-repository
+            - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+              mountPath: /sophora-archive-template
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              mountPath: /sophora-archive
+            - name: {{ include "sophora-server.configs" . }}
+              mountPath: /configs
+            - name: {{ include "sophora-server.propertiesName" . }}
+              mountPath: /sophora-properties
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: logback-xml-config
+              mountPath: /sophora/config/logback.xml
+              subPath: logback.xml
+            - name: {{ include "sophora-server.propertiesName" . }}
+              mountPath: /sophora/config/sophora.properties
+              subPath: sophora.properties
+            {{ if .Values.sophora.acs.url }}
+            - name: {{ include "sophora-server.configs" . }}
+              mountPath: /sophora/config/acs.properties
+              subPath: acs.properties
+            {{- end }}
+            - name: sophora-server-storage
+              mountPath: /sophora/config
+              subPath: config
+            - name: sophora-server-data
+              mountPath: /sophora/data
+              subPath: data
+            - name: sophora-server-storage
+              mountPath: /sophora/solr
+              subPath: solr
+
+            # Repository Folder Structure
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/repository
+              subPath: repository.repository
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/binaries
+              subPath: repository.binaries
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/binarystore
+              subPath: repository.binarystore
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/changeregistry
+              subPath: repository.changeregistry
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/syncRequest
+              subPath: repository.syncRequest
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/version
+              subPath: repository.version
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/default/db
+              subPath: repository.workspaces.default.db
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/default/index
+              subPath: repository.workspaces.default.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/live/index
+              subPath: repository.workspaces.live.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/workspaces/live/db
+              subPath: repository.workspaces.live.db
+
+            # Repository Archive Structure
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/repository
+              subPath: repository_archive.repository
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/version
+              subPath: repository_archive.version
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/workspaces/default/index
+              subPath: repository_archive.workspaces.default.index
+            - name: sophora-server-storage
+              mountPath: /sophora/repository_archive/workspaces/default/db
+              subPath: repository_archive.workspaces.default.db
+
+            # Main Repo
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: repository.xml
+              mountPath: /sophora/repository/repository.xml
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository/workspaces/default/workspace.xml
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: workspace.live.xml
+              mountPath: /sophora/repository/workspaces/live/workspace.xml
+
+            # Archive Repo
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              subPath: repository.xml
+              mountPath: /sophora/repository_archive/repository.xml
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
+
+            {{ if eq .Values.sophora.server.isClusterServer true -}}
+            # Shutdown-Hook
+            - name: tools
+              mountPath: "/tools"
+            {{- end }}
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: >-
+                {{ .Values.javaOptions }} {{.Values.extraJavaOptions}} {{ if eq .Values.enableRMIPortForwarding true }}-Djava.rmi.server.hostname=127.0.0.1{{ end }}
+            {{ if and (.Values.sophora.server.binaryStore.s3) (.Values.sophora.server.binaryStore.s3.secret.name) -}}
+            - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.binaryStore.s3.secret.accessKeyIdKey }}
+                  name: {{ .Values.sophora.server.binaryStore.s3.secret.name }}
+                  optional: false
+            - name: SOPHORA_BINARYSTORE_S3_CREDENTIALS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.binaryStore.s3.secret.secretAccessKeyKey }}
+                  name: {{ .Values.sophora.server.binaryStore.s3.secret.name }}
+                  optional: false
+            {{- end }}
+            {{ if and (eq .Values.sophora.server.isClusterServer true) (.Values.sophora.server.authentication.secret) -}}
+            - name: SOPHORAUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.authentication.secret.usernameKey }}
+                  name: {{ .Values.sophora.server.authentication.secret.name }}
+                  optional: false
+            - name: SOPHORAPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.authentication.secret.passwordKey }}
+                  name: {{ .Values.sophora.server.authentication.secret.name }}
+                  optional: false
+            - name: LOG_MODE # used by the preStop hook to configure JSON logging
+              value: "prod"
+            {{- end }}
+            {{ if .Values.sophora.server.env -}}
+            {{- toYaml .Values.sophora.server.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 1196
+              name: http
+            - containerPort: 1197
+              name: jms
+          {{- if eq .Values.enableRMIPortForwarding true }}
+            - containerPort: 1198
+              name: rmi-service
+            - containerPort: 1199
+              name: rmi-registry
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: /status/liveness
+              port: 1196
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: /status/ready
+              port: 1196
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: /status/started
+              port: 1196
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{ if and .Values.sophora.server.isClusterServer .Values.preStop.enabled -}}
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  [
+                      "/bin/sh",
+                      "-c",
+                      "/tools/sophora-prestop switch --serverUrl=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
+                  ]
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        {{ if and (eq .Values.sophora.server.isClusterServer true) (eq .Values.serverModeLabeler.enabledOnClusterServers true) -}}
+        - name: server-mode-labeler
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.serverModeLabeler.image.repository }}:{{ .Values.serverModeLabeler.image.tag }}"
+          imagePullPolicy: {{ .Values.serverModeLabeler.image.pullPolicy }}
+          env:
+            - name: LOG_MODE
+              value: prod
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          resources:
+            {{- toYaml .Values.serverModeLabeler.resources | nindent 12 }}
+        {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: {{ include "sophora-server.configs" . }}
+          configMap:
+            name: {{ include "sophora-server.configs" . }}
+        - name: {{ include "sophora-server.propertiesName" . }}
+          emptyDir: {}
+        - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+          configMap:
+            name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+        - name: {{ include "sophora-server.repositoryConfigName" . }}
+          emptyDir: {}
+        - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+          configMap:
+            name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+        - name: {{ include "sophora-server.archiveConfigName" . }}
+          emptyDir: {}
+
+        - name: logback-xml-config
+          configMap:
+            name: {{ include "sophora-server.logbackConfigName" . }}
+        {{ if eq .Values.sophora.server.isClusterServer true -}}
+        - name: tools
+          emptyDir: {}
+        {{- end }}
+        - name: sophora-server-storage
+          persistentVolumeClaim:
+            claimName: sophora-server-storage
+        - name: sophora-server-repository
+          configMap:
+            name: {{ include "sophora-server.repositoryConfigName" . }}
+        - name: sophora-server-archive
+          configMap:
+            name: {{ include "sophora-server.archiveConfigName" . }}
+  volumeClaimTemplates:
+    - metadata:
+        name: sophora-server-storage
+        labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        {{ if .Values.sophora.server.storage.dataSource -}}
+        dataSource: {{ toYaml .Values.sophora.server.storage.dataSource | nindent 10 }}
+        {{- end }}
+        resources:
+          {{- toYaml .Values.sophora.server.storage.resources | nindent 10 }}
+        storageClassName: {{ .Values.sophora.server.storage.storageClass }}
+    - metadata:
+        name: sophora-server-data
+        labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+        {{- toYaml .Values.sophora.server.storage.dataDirResources | nindent 10 }}
+        storageClassName: {{ .Values.sophora.server.storage.storageClass }}

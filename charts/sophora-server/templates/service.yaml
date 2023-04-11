@@ -1,0 +1,32 @@
+{{- $enableSessionAffinity := (eq (.Values.service.enableSessionAffinity | quote) "") | ternary .Values.sophora.server.isClusterServer .Values.service.enableSessionAffinity -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sophora-server.fullname" . }}
+  labels: {{- include "sophora-server.labels" . | nindent 4 }}
+    {{- include "sophora-server.loadBalancerLabels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  {{ if .Values.service.clusterIP -}}
+  clusterIP: {{.Values.service.clusterIP}}
+  {{- end }}
+  {{ if .Values.service.loadBalancerIP -}}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
+  {{- end }}
+  selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  {{ if $enableSessionAffinity -}}
+  sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
+  sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}
+  {{- end }}
+  publishNotReadyAddresses: {{ .Values.service.publishNotReadyAddresses }}
+  ports:
+    - port: {{ .Values.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.service.jmsPort }}
+      targetPort: jms
+      protocol: TCP
+      name: jms
+

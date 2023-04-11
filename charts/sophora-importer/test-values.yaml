@@ -8,7 +8,7 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPre
 hostAliases:
   - ip: 10.10.1.1
     hostnames:
-      - sophora.test.code-nnw.cloud
+      - sophora.domain.de
 
 extraDeploy:
   - |

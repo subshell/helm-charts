@@ -1,0 +1,326 @@
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/sophora/sophora-server
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+preStop:
+  enabled: true
+  image:
+    repository: docker.subshell.com/tools/sophora-prestop
+    pullPolicy: IfNotPresent
+    tag: "1.0.0"
+
+serverModeLabeler:
+  image:
+    repository: docker.subshell.com/tools/sophora-servermode-labeler
+    pullPolicy: IfNotPresent
+    tag: "0.2.0"
+  # not enabled per default and can only be enabled on cluster servers
+  enabledOnClusterServers: false
+  # whether to create a service account, role and role binding with the required permissions for pod labeling. will not be created if enabledOnClusterServers is false.
+  createServiceAccount: true
+  resources:
+    requests:
+      memory: "100M"
+      cpu: "0.01"
+    limits:
+      memory: "100M"
+
+configGenerator:
+  image:
+    repository: "docker.subshell.com/misc/alpine-toolkit"
+    tag: "0.0.1"
+    pullPolicy: IfNotPresent
+
+# Default Java options. Additional Java options (like -XX:+UseLargePages) should be added via `extraJavaOptions`.
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+ParallelRefProcEnabled -XX:G1HeapRegionSize=8m -XX:MaxGCPauseMillis=250 -XX:InitiatingHeapOccupancyPercent=75"
+# Extra Java options in addition to `javaOptions`. Use this if you don't want to override `javaOptions`.
+extraJavaOptions:
+
+# - Sets the RMI hostname (java.rmi.server.hostname) to 127.0.0.1 and opens the container ports 1198 and 1199.
+#   Access to the server via RMI (for Toromiro and JMX) requires local tunnels via kubectl, so 127.0.0.1 has to work anyway.
+enableRMIPortForwarding: true
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+# - (object) additional selector labels that will be added to all resources
+additionalSelectorLabels:
+
+# - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
+affinity: {}
+
+podManagementPolicy:
+
+serviceAccountName:
+
+updateStrategy:
+
+nodeSelector: {}
+
+tolerations: []
+
+terminationGracePeriodSecondsPerServerMode:
+  cluster: 360
+  staging: 180
+
+sophora:
+  server:
+    logback: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration scan="true" scanPeriod="60 seconds">
+          <jmxConfigurator />
+
+          <property file="${sophora.properties}" />
+
+          <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>INFO</level>
+            </filter>
+              <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                  <level>ERROR</level>
+                <onMatch>DENY</onMatch>
+                <onMismatch>ACCEPT</onMismatch>
+              </filter>
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %m%n</pattern>
+              </encoder>
+          </appender>
+
+          <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+              <target>System.err</target>
+              <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                  <level>ERROR</level>
+              </filter>
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %c:%L: %m%n</pattern>
+              </encoder>
+          </appender>
+
+          <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+              <File>${sophora.home}/logs/sophora.log</File>
+
+              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                  <fileNamePattern>${sophora.home}/logs/sophora.%d{yyyy-MM-dd}.log</fileNamePattern>
+                  <maxHistory>14</maxHistory>
+              </rollingPolicy>
+
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %m%n</pattern>
+              </encoder>
+          </appender>
+
+          <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+              <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                  <level>ERROR</level>
+              </filter>
+
+              <File>${sophora.home}/logs/error.log</File>
+
+              <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                  <fileNamePattern>${sophora.home}/logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                  <maxHistory>14</maxHistory>
+              </rollingPolicy>
+
+              <encoder>
+                  <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %c:%L: %m%n</pattern>
+              </encoder>
+          </appender>
+
+          <logger name="com.subshell.sophora" level="INFO" />
+
+          <logger name="com.subshell.sophora.delivery.filter.BenchmarkFilter" level="INFO" />
+
+          <logger name="org.springmodules.cache.interceptor.caching.MetadataCachingInterceptor"
+                  level="FATAL" />
+          <logger name="org.apache.jackrabbit" level="INFO" />
+          <logger name="org.apache.jackrabbit.core.persistence.bundle.util.BundleCache"
+                  level="WARN" />
+          <logger name="com.subshell.sophora.commons.profile.LoggingProfiler"
+                  level="WARN" />
+          <logger name="com.subshell.sophora.server.application.manager.impl.LockManager"
+                  level="WARN" />
+          <logger name="org.apache.jackrabbit.core.ItemManager"
+                  level="ERROR" />
+          <logger name="org.apache.jackrabbit.core.nodetype.ValueConstraint"
+                  level="WARN" />
+          <logger name="org.apache.jackrabbit.core.persistence.bundle.util.LRUNodeIdCache"
+                  level="WARN" />
+
+          <root level="WARN">
+              <appender-ref ref="STDOUT" />
+              <appender-ref ref="STDERR" />
+              <appender-ref ref="logfile" />
+              <appender-ref ref="errorLog" />
+          </root>
+      </configuration>
+    isClusterServer: true
+    storage:
+      storageClass:
+      dataSource:
+      resources:
+         requests:
+           storage: 25Gi
+      dataDirResources:
+        requests:
+          storage: 2Gi
+    persistence:
+      repositoryType: localdb # or mysql
+      archiveType: localdb # or mysql
+      # if clusterReplication.enabled is set to false the list of reposities and archieves should only contain one entry
+      mysql:
+        repositories:
+        #   secretName:
+        #   hostnameKey: hostname
+        #   usernameKey: username
+        #   passwordKey: password
+        archives:
+        #   secretName:
+        #   hostnameKey: hostname
+        #   usernameKey: username
+        #   passwordKey: password
+    binaryStore:
+      s3:
+        secret:
+          name:
+          secretAccessKeyKey: secretAccessKey
+          accessKeyIdKey: accessKeyId
+
+    authentication:
+       secret:
+         name:
+         usernameKey: username
+         passwordKey: password
+
+    # Additional environment variables can be defined here
+    env:
+    #  - name: SOPHORA_INITIALADMINUSERS_0_USERNAME
+    #    value: admin
+    #  - name: SOPHORA_INITIALADMINUSERS_0_PASSWORD
+    #    value: admin
+
+    properties:
+      sophora.home=/sophora
+      # sophora.replication.mode=
+      # # clusterMode=open
+      # # Ingress specific
+      # sophora.replication.slaveHostname=
+      # sophora.remote.api.http.port=1196
+      # sophora.remote.jmsbroker.host=
+      # sophora.remote.jmsbroker.port=1197
+      # sophora.rmi.servicePort=1198
+      # sophora.rmi.registryPort=1199
+      # sophora.local.jmsbroker.host=0.0.0.0
+      # sophora.local.jmsbroker.port=1197
+      # # S3 credentials are stored in a secret
+      # sophora.binarystore=s3
+      # sophora.binarystore.s3.host=
+      # sophora.binarystore.s3.bucketName=
+      # sophora.ibf.enabled = true
+
+  acs:
+    url:
+
+configInitializer:
+  # Additional environment variables passed to the config initializer can be defined here
+  env:
+  # Additional environment variables passed to the config initializer can be defined here
+  envFrom:
+
+startupProbe:
+  failureThreshold: 35
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+readinessProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  periodSeconds: 15
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 60
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+podAnnotations: {}
+
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+imagePullSecrets: []
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+ingress:
+  enabled: false
+  # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+  # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+  # ingressClassName: nginx
+  annotations: {}
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+service:
+  annotations: {}
+  headlessAnnotations: {}
+  type:
+  httpPort: 1196
+  jmsPort: 1197
+  # -- (boolean) defaults to sophora.server.isClusterServer
+  enableSessionAffinity:
+  sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
+  loadBalancerIP:
+  clusterIP:
+  publishNotReadyAddresses: false
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
+# -- if enabled and the server mode is set to sophora.server.isClusterServer, each replica spawns a new
+# ingress and service at deploy time. Scaling the server without a helm deployment will lead to errors.
+clusterReplication:
+  enabled: false
+  ingressesDefaults:
+    enabled: false
+    annotations: {}
+  ingresses: []
+  # -- all required services are generated based on these defaults. Custom ClusterIPs and LoadBalancerIPs are
+  # not supported.
+  servicesDefaults:
+    annotations: {}
+    type:
+    httpPort: 1196
+    jmsPort: 1197
+    sessionAffinity: None
+    sessionAffinityConfig: {}
+    publishNotReadyAddresses: false
+
+resources:
+  requests:
+    cpu: 2
+    memory: 16Gi
+  limits:
+    memory: 16Gi

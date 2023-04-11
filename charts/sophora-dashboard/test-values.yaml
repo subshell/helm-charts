@@ -7,7 +7,7 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+UseShenan
 hostAliases:
   - ip: 10.10.1.1
     hostnames:
-      - sophora01.test.code-nnw.cloud
+      - sophora01.domain.de
 
 ingress:
   enabled: true
