@@ -1,0 +1,51 @@
+imagePullSecrets: []
+nameOverride: "test-export"
+
+metrics:
+  pushgatewayUrl: push-gateway.url
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-admin-credentials"
+      usernameKey: "username"
+      passwordKey: "password"
+
+exporter:
+  config:
+    deltaExport: true
+    exportDocumentsWithTimestamp: true
+    propertiesNotToExportInSophoraXml: [
+      "sophora:abc",
+      "sophora:def"
+    ]
+    stringToReferenceProperties: {
+      a: b,
+      c: d
+    }
+    adminExport:
+
+    adminElementExport:
+
+    documents:
+      - xpathQueries:
+        - "element(*, sophora-mix:document)"
+      - uuids:
+          - "78f91fd7-740e-419b-9698-29856b56f4d6"
+          - "a595f746-d893-4c4c-8a25-fb82bd69f314"
+        exportRelevantStructure: true,
+        exportRelevantIndexDocuments: true,
+        exportRelevantHierarchyDocuments: true
+      - tags:
+        - "vision"
+        - "hamburg"
+
+job:
+  cron:
+    enabled: true
+    expression: "0 */24 * * *"
+    zipFileNameDateFormat: "%Y-%m-%d"
+
+prometheusRule:
+  enabled: true

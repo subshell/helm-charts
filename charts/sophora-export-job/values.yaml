@@ -1,0 +1,114 @@
+image:
+  repository: docker.subshell.com/sophora/sophora-exporter
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+sophora:
+  serverUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
+configHelper:
+  image:
+    repository: docker.subshell.com/misc/alpine-toolkit
+    pullPolicy: IfNotPresent
+    tag: "0.1.0"
+
+upload:
+  # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise
+  absoluteFilePath: "/export.zip"
+  image:
+    repository: docker.subshell.com/misc/aws-cli-tools
+    pullPolicy: IfNotPresent
+    tag: "0.0.2"
+
+metrics:
+  pushgatewayUrl:
+  authentication:
+    secret:
+      name:
+      usernameKey: "username"
+      passwordKey: "password"
+
+s3:
+  name: ""
+  url: "https://storage.googleapis.com"
+  secret:
+    name: ""
+    secretAccessKeyKey: "secretAccessKey"
+    accessKeyIdKey: "accessKeyId"
+
+exporter:
+  config:
+    deltaExport: false
+    exportDocumentsWithTimestamp: true
+    #propertiesNotToExportInSophoraXml: []
+    stringToReferenceProperties: {}
+    maxRecursionDepthPerFile: 0
+    includeLiveVersionInXml: true
+    #xmlVersion:
+    #adminExport: {}
+    #adminElementExport: {}
+    documents: []
+
+job:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 6
+  parallelism: 1
+  activeDeadlineSeconds: 7200
+  cron:
+    enabled: false
+    expression: "0 */6 * * *"
+  # date format for unix date command. It is used like this: `date +"$zipFileNameDateFormat"`. Defaults to the weekday.
+  # other formats:
+  # - date without time: "%Y-%m-%d"
+  zipFileNameDateFormat: "%a"
+
+prometheusRule:
+  enabled: false
+  rules:
+    - alert: SophoraExportJobDidNotExportDocuments
+      expr: sophora_export_job_exported_documents{job="{{ include "sophora-export-job.fullname" . }}"} == 0
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not export any documents'
+        summary: 'The job did not export any documents'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+    - alert: SophoraExportJobFailed
+      expr: max(vector(0) or sophora_export_job_end{success="false", job="{{ include "sophora-export-job.fullname" . }}"}) > max(vector(0) or sophora_export_job_end{success="true", job="{{ include "sophora-export-job.fullname" . }}"})
+      labels:
+        severity: critical
+      annotations:
+        description: 'Sophora export job failed.'
+        summary: 'The export job ({{ include "sophora-export-job.fullname" . }}) did not complete successfully.'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+    - alert: SophoraExportJobDidNotUpdate
+      expr: (time() - push_time_seconds{job="{{ include "sophora-export-job.fullname" . }}"}) / (60 * 60) > 24
+      labels:
+        severity: warning
+      annotations:
+        description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not update metrics in the last 24 hours'
+        summary: 'The job did not update metrics in the last 24 hours.'
+        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+
+podAnnotations: {}
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 1Gi
+  limits:
+    memory: 1Gi

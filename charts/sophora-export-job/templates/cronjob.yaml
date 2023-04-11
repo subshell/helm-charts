@@ -1,0 +1,81 @@
+{{- if .Values.job.cron.enabled }}
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "sophora-export-job.fullname" . }}
+  labels: {{- include "sophora-export-job.labels" . | nindent 4 }}
+  annotations:
+    {{- with .Values.podAnnotations }}
+    {{- toYaml . | nindent 8 }}
+    {{- end }}
+spec:
+  schedule: {{ .Values.job.cron.expression }}
+  jobTemplate:
+    spec:
+      parallelism: {{ .Values.job.parallelism }}
+      activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
+      ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
+      backoffLimit: {{ .Values.job.backoffLimit }}
+      template:
+        spec:
+          restartPolicy: Never
+          shareProcessNamespace: true
+          {{- with .Values.imagePullSecrets }}
+          imagePullSecrets:
+          {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.hostAliases }}
+          hostAliases: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          initContainers:
+            - name: config-helper
+              image: "{{ .Values.configHelper.image.repository }}:{{ .Values.configHelper.image.tag }}"
+              imagePullPolicy: {{ .Values.configHelper.image.pullPolicy }}
+              env:
+                - name: SERVER_SOPHORAUSERNAME
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.sophora.authentication.secret.usernameKey}}
+                      name: {{.Values.sophora.authentication.secret.name}}
+                - name: SERVER_SOPHORAPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: {{.Values.sophora.authentication.secret.passwordKey}}
+                      name: {{.Values.sophora.authentication.secret.name}}
+              command: ["/bin/sh"]
+              args:
+                - "-c"
+                - |
+                  envsubst < /exporter-configmap/exporter-config-template.json > /output/exporter.json
+                  echo "Generated exporter-config.json from ENV"
+              volumeMounts:
+                - name: exporter-configmap
+                  mountPath: /exporter-configmap
+                - name: exporter-config
+                  mountPath: /output
+          containers:
+            - name: exporter
+              image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: JAVA_OPTS
+                  value: {{ .Values.javaOptions }}
+              resources: {{- toYaml .Values.resources | nindent 16 }}
+              volumeMounts:
+                - name: exporter-config
+                  mountPath: /exporter/config/exporter.json
+                  subPath: exporter.json
+                - name: data-export
+                  mountPath: /data-export
+            - {{- include "sophora-export-job.utils.upload-to-s3-container" . | nindent 14 }}
+          volumes:
+            - name: exporter-configmap
+              configMap:
+                name: {{ include "sophora-export-job.fullname" . }}
+            - name: exporter-config
+              emptyDir: {}
+            - name: data-export
+              emptyDir: {}
+            - name: metrics
+              emptyDir: {}
+{{- end -}}
