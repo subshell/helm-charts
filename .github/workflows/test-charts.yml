@@ -3,7 +3,7 @@ name: Test Charts
 on: ["push", "pull_request"]
 
 jobs:
-  release:
+  test:
     runs-on: alpine/helm:3.11.2
     steps:
       - name: Checkout
