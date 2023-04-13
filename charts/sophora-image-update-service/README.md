@@ -6,9 +6,9 @@ This Helm Chart provides a general setup for Sophora Image **Update** Service.
 
 ### Image Update Service
 
-* [update-service-deployment.yaml](templates/update-service-deployment.yaml) provides the actual spring application
+* [deployment.yaml](templates/deployment.yaml) provides the actual spring application
   container
-* [update-service-config.yaml](templates/update-service-config.yaml) helps mounting the spring application config files
+* [config.yaml](templates/config.yaml) helps mounting the spring application config files
   into to container
 
 ## Configuration notes

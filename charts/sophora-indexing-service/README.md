@@ -4,6 +4,9 @@ The Sophora Indexing Service reads all Sophora documents and indexes them in Sol
 
 ## Dependencies and SolrCloud
 
+The software requires these dependencies (not necessarily by Bitnami though).
+They are not included as Chart dependencies, and they need to be installed separately.
+
 * [bitnami/redis](https://bitnami.com/stack/redis/helm)
 * [bitnami/solr](https://bitnami.com/stack/solr/helm)
 

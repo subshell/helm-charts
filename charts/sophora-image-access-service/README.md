@@ -6,13 +6,13 @@ This Helm Chart provides a general setup for Sophora Image **Access** Service.
 
 ### Image Access Service
 
-* [access-service-deployment.yaml](templates/access-service-deployment.yaml) provides the actual spring application
+* [deployment.yaml](templates/deployment.yaml) provides the actual spring application
   container
-* [access-service-service.yaml](templates/access-service-service.yaml) makes the deployment reachable from outside the
+* [service.yaml](templates/service.yaml) makes the deployment reachable from outside the
   pod
-* [access-service-ingress.yaml](templates/access-service-ingress.yaml) makes the service reachable from outside the
+* [ingress.yaml](templates/ingress.yaml) makes the service reachable from outside the
   cluster
-* [access-service-config.yaml](templates/access-service-config.yaml) helps mounting the spring application config files
+* [config.yaml](templates/config.yaml) helps mounting the spring application config files
   into to container
 
 ## Configuration notes
