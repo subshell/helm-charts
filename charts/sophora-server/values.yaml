@@ -170,20 +170,27 @@ sophora:
         requests:
           storage: 2Gi
     persistence:
-      repositoryType: localdb # or mysql
-      archiveType: localdb # or mysql
-      # if clusterReplication.enabled is set to false the list of reposities and archieves should only contain one entry
+      ## @param sophora.server.persistence.repositoryType string that identifies the archive persistence technology (localdb, or mysql)
+      repositoryType: localdb
+      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql, or postgres)
+      archiveType: localdb
       mysql:
-        repositories:
-        #   secretName:
-        #   hostnameKey: hostname
-        #   usernameKey: username
-        #   passwordKey: password
-        archives:
-        #   secretName:
-        #   hostnameKey: hostname
-        #   usernameKey: username
-        #   passwordKey: password
+        ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
+        ## If clusterReplication.enabled is set to false the list of repositories and archives should only contain one entry.
+        ## e.g.
+        ## - secretName:
+        #    hostnameKey:
+        #    usernameKey:
+        #    passwordKey:
+        repositories: []
+        ## @param sophora.server.persistence.mysql.archives Array of server archive connection configurations via secrets.
+        ## If clusterReplication.enabled is set to false the list of repositories and archives should only contain one entry.
+        ## e.g.
+        ## - secretName:
+        ##   hostnameKey:
+        ##   usernameKey:
+        ##   passwordKey:
+        archives: []
     binaryStore:
       s3:
         secret:

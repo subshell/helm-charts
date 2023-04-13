@@ -2,6 +2,12 @@
 
 The required secrets must be present before you install the server.
 
+## Archive repository persistence
+
+In Sophora 5 the jcr archive repository will be replaced by postgres. 
+To disable jcr archive repositories set `sophora.server.persistence.archiveType` to `postgres`.
+In later versions this will be the default.   
+
 ## Tips for productive installations
 
 ### Cluster servers
