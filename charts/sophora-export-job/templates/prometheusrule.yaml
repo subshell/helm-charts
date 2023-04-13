@@ -1,0 +1,13 @@
+{{- if .Values.prometheusRule.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "sophora-export-job.fullname" . }}
+  labels: {{- include "sophora-export-job.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.prometheusRule.rules }}
+  groups:
+    - name: {{ template "sophora-export-job.fullname" $ }}
+      rules: {{ tpl (toYaml .) $ | nindent 8 }}
+  {{- end }}
+{{- end }}

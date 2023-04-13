@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-export-job.fullname" . }}
+  labels:
+  {{- include "sophora-export-job.labels" . | nindent 4 }}
+data:
+  exporter-config-template.json: |-
+    {
+      "sophoraServer": {
+        "host": {{ .Values.sophora.serverUrl | quote }},
+        "username": "${SERVER_SOPHORAUSERNAME}",
+        "password": "${SERVER_SOPHORAPASSWORD}"
+      },
+      "exportDir": "/data-export",
+      "daemonMode": false,
+      "deltaExport": {{ .Values.exporter.config.deltaExport }},
+      "exportDocumentsWithTimestamp": {{ .Values.exporter.config.exportDocumentsWithTimestamp }},
+      {{ if .Values.exporter.config.propertiesNotToExportInSophoraXml }}"propertiesNotToExportInSophoraXml": {{ .Values.exporter.config.propertiesNotToExportInSophoraXml | toPrettyJson | nindent 8 }},{{ end -}}
+      "stringToReferenceProperties": {{ .Values.exporter.config.stringToReferenceProperties | toPrettyJson | nindent 8 }},
+      "maxRecursionDepthPerFile": {{ .Values.exporter.config.maxRecursionDepthPerFile }},
+      "includeLiveVersionInXml": {{ .Values.exporter.config.includeLiveVersionInXml | quote }},
+      {{ if .Values.exporter.config.xmlVersion }}"xmlVersion": {{ .Values.exporter.config.xmlVersion }},{{ end -}}
+      {{ if .Values.exporter.config.adminExport }}"adminExport": {{ .Values.exporter.config.adminExport | toPrettyJson | nindent 8 }},{{ end -}}
+      {{ if .Values.exporter.config.adminElementExport }}"adminElementExport": {{ .Values.exporter.config.adminElementExport | toPrettyJson | nindent 8 }},{{ end -}}
+      "documents": {{ .Values.exporter.config.documents | toPrettyJson | nindent 8 }}
+    }
+  wait-for-exporter-to-finish.sh: |- {{- .Files.Get "files/wait-for-exporter-to-finish.sh" | nindent 4 }}
+  upload-to-s3.sh: |- {{- .Files.Get "files/upload-to-s3.sh" | nindent 4 }}

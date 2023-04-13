@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-server.configs" . }}
+  labels:
+  {{- include "sophora-server.labels" . | nindent 4 }}
+data:
+  sophora.properties: |-
+    {{- if .Values.clusterReplication.enabled }}
+    sophora.home=/sophora
+    sophora.replication.mode=cluster
+    clusterMode=open
+
+    # internal access
+    sophora.replication.slaveHostname=${SOPHORA_REPLICATION_SLAVEHOSTNAME}
+    sophora.remote.api.http.port=1196
+    sophora.remote.jmsbroker.host=${SOPHORA_REMOTE_JMSBROKER_HOST}
+    sophora.remote.jmsbroker.port=1197
+    sophora.rmi.servicePort=1198
+    sophora.rmi.registryPort=1199
+    sophora.local.jmsbroker.host=0.0.0.0
+    sophora.local.jmsbroker.port=1197
+
+    # external access (Ingress)
+    sophora.remote.api.external.hostname=${SOPHORA_REMOTE_API_EXTERNAL_HOSTNAME}
+    sophora.remote.api.external.protocol=https
+    {{- end }}
+
+    # custom config
+    {{- toString (required "A valid sophora.properties configuration needs to be provided." .Values.sophora.server.properties) | nindent 4  }}
+
+  config-setup.sh: |-
+    # matches the index of the pod 0..n
+    PODID=$(echo "$POD_NAME" | sed 's:.*-::')
+    NEXTPODID=$((($PODID+1)%{{ .Values.replicaCount }}))
+
+    # sophora.properties
+    ##############
+
+    {{- if .Values.clusterReplication.enabled }}
+    export SOPHORA_REPLICATION_SLAVEHOSTNAME={{ include "sophora-server.fullname" . }}-${PODID}
+    export SOPHORA_REMOTE_JMSBROKER_HOST={{ include "sophora-server.fullname" . }}-${NEXTPODID}
+    export SOPHORA_REMOTE_API_EXTERNAL_HOSTNAME=$(echo $EXTERNAL_HOSTS | awk -vIndex=$((PODID+1)) '{print $Index}')
+    {{- end }}
+    envsubst < /configs/sophora.properties > /sophora-properties/sophora.properties
+    echo "Generated sophora.properties from ENV"
+
+    # xml configs
+    ##############
+
+    # envsubst will substitude the following variables with themself, effectively ignoring them
+    env 'rep.home=${rep.home}' > /dev/null
+    env 'wsp.home=${wsp.home}' > /dev/null
+    env 'wsp.name=${wsp.name}' > /dev/null
+
+    # https://stackoverflow.com/a/12873723
+    SED_XML_ESCAPE='s/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g'
+
+    # repository.xml
+    {{- if eq .Values.sophora.server.persistence.repositoryType "mysql" }}
+    eval "export REPOSITORY_MYSQL_HOST=\${REPOSITORY_MYSQL_HOST_${PODID}}"
+    eval "export REPOSITORY_MYSQL_USER=\${REPOSITORY_MYSQL_USER_${PODID}}"
+    eval "export REPOSITORY_MYSQL_PASSWORD=\${REPOSITORY_MYSQL_PASSWORD_${PODID}}"
+    export REPOSITORY_MYSQL_PASSWORD=$(echo $REPOSITORY_MYSQL_PASSWORD | sed "$SED_XML_ESCAPE")
+    {{- end }}
+    envsubst < /sophora-repository-template/repository.xml > /sophora-repository/repository.xml
+    envsubst < /sophora-repository-template/workspace.default.xml > /sophora-repository/workspace.default.xml
+    envsubst < /sophora-repository-template/workspace.live.xml > /sophora-repository/workspace.live.xml
+    echo "Generated repository.xml, workspace.default.xml, and workspace.live.xml from ENV"
+
+    # archive.xml
+    {{- if eq .Values.sophora.server.persistence.archiveType "mysql" }}
+    eval "export ARCHIVE_MYSQL_HOST=\${ARCHIVE_MYSQL_HOST_${PODID}}"
+    eval "export ARCHIVE_MYSQL_USER=\${ARCHIVE_MYSQL_USER_${PODID}}"
+    eval "export ARCHIVE_MYSQL_PASSWORD=\${ARCHIVE_MYSQL_PASSWORD_${PODID}}"
+    export ARCHIVE_MYSQL_PASSWORD=$(echo $ARCHIVE_MYSQL_PASSWORD | sed "$SED_XML_ESCAPE")
+    {{- end }}
+    envsubst < /sophora-archive-template/repository.xml > /sophora-archive/repository.xml
+    envsubst < /sophora-archive-template/workspace.default.xml > /sophora-archive/workspace.default.xml
+    echo "Generated repository.xml and workspace.default.xml for archive from ENV"
+
+  {{- if .Values.sophora.acs.url }}
+  acs.properties: |-
+    sophora.acs.addon.serviceUrl={{ .Values.sophora.acs.url }}
+  {{- end }}

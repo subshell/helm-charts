@@ -1,0 +1,75 @@
+imagePullSecrets: []
+nameOverride: "test-repo-import"
+
+sophoraDocumentsDownload:
+  use: http
+  zipViaHttp:
+    secretName: sophora-repository-download-credentials
+    zipUrls:
+      - "https://software.subshell.com/one.zip"
+      - "https://software.subshell.com/two.zip"
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  internalConnection: true
+  useMigrationMode: true
+  authentication:
+    secret:
+      name: "sophora-user-admin-credentials"
+      usernameKey: "username"
+      passwordKey: "password"
+
+importer:
+  extraEnv:
+    - name: AAA
+      value: a-value
+    - name: BBB
+      value: b-value
+  instanceName: Import Job
+  instanceKey: importjob
+
+transformation:
+  enabled: true
+  xslTransformerFactory: net.sf.saxon.TransformerFactoryImpl
+  data:
+    zipViaS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName: "my-bucket"
+      zipPaths: ["a", "b"]
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    useSaxon: false
+    saxonLicenceSecretName: "saxon-license"
+    saxonLicenceSecretKey: "saxon-license.lic"
+    transformXslSubDir: "sub"
+
+importFailureFilesUpload:
+  enabled: true
+
+metrics:
+  pushgatewayUrl: https://pushgateway.test.cloud:9090
+  authentication:
+    secret:
+      name: pushgateway-secret
+
+extraDeploy:
+  - apiVersion: subshell/v2
+  - apiVersion: subshell/cv3
+    a: b
+    c:
+      d: 123
+      e: false
+
+job:
+  ttlSecondsAfterFinished: 42
+  backoffLimit: 2
+  parallelism: 3
+  activeDeadlineSeconds: 4
+  cron:
+    expression: "0 */7 * * 0"
+    suspend: false
+
+
+prometheusRule:
+  enabled: true

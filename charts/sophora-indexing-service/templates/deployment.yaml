@@ -1,0 +1,124 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-indexing-service.fullname" . }}
+  labels:
+    {{- include "sophora-indexing-service.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "sophora-indexing-service.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/sisi-config.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "sophora-indexing-service.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "sophora-indexing-service.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /app/config
+              name: config
+          ports:
+            - name: http
+              containerPort: 1837
+              protocol: TCP
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            - name: {{ .Values.redis.authentication.envName | quote }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.redis.authentication.secret.passwordKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.redis.authentication.secret.name | quote }}
+            {{- if .Values.solr.basicAuth.enabled }}
+            - name: SOPHORA_SOLR_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.solr.basicAuth.secret.usernameKey}}
+                  name: {{.Values.solr.basicAuth.secret.name}}
+            - name: SOPHORA_SOLR_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{.Values.solr.basicAuth.secret.passwordKey}}
+                  name: {{.Values.solr.basicAuth.secret.name}}
+            {{- end }}
+            {{ if .Values.sisi.env -}}
+            {{- toYaml .Values.sisi.env | nindent 12 }}
+            {{- end }}
+          {{- with .Values.livenessProbe }}
+
+          livenessProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              path: {{ .httpPath }}
+              port: http
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end}}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-indexing-service.name" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

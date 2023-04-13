@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-ugc.fullname" . }}
+  labels:
+    {{- include "sophora-ugc.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "sophora-ugc.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sophora-ugc.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.sophora.ugc.hostname }}
+      hostname: {{ .Values.sophora.ugc.hostname }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA-SERVER_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.usernameKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            - name: SOPHORA-SERVER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.passwordKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.database.usernameKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.database.passwordKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8080
+              name: webapp
+            - containerPort: 1694
+              name: jolokia
+          volumeMounts:
+            - name: logback-xml
+              mountPath: /config/logback
+            - name: application-yml
+              mountPath: /config/application
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: application-yml
+          configMap:
+            name: {{ include "sophora-ugc.fullname" . }}-config
+        - name: logback-xml
+          configMap:
+            name: {{ include "sophora-ugc.fullname" . }}-logback
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,34 @@
+name: Test Charts
+
+on: ["push", "pull_request"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: azure/setup-helm@v3
+        with:
+          version: 'v3.11.2'
+          token: ${{ secrets.GITHUB_TOKEN }}
+        id: install
+      - name: Helm Deps
+        run: |
+          helm repo add bitnami https://charts.bitnami.com/bitnami
+      - name: Test Chart
+        run: |
+          for d in charts/* ; do
+            echo "testing $d..."
+            pushd $d
+            helm dependency build
+            if [ -e "test-values.yaml" ]
+            then
+              helm template -f test-values.yaml test .
+            else
+              echo "skipping $d because test-values.yaml was not found"
+            fi
+            popd
+          done

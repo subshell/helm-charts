@@ -1,0 +1,138 @@
+nameOverride: sophora-server
+
+replicaCount: 3
+
+image:
+  tag: "4.0.0"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: docker-subshell
+
+podLabels:
+  istio/inject: true
+
+additionalSelectorLabels:
+  sophora.cloud/app: cluster-server
+
+extraJavaOptions: "-XX:+UseLargePages"
+
+serverModeLabeler:
+  enabledOnClusterServers: true
+
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: sophora.cloud/app
+              operator: In
+              values:
+                - cluster-server
+
+sophora:
+  server:
+    logback: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration scan="true" scanPeriod="60 seconds">
+        Test Logback
+      </configuration>
+    isClusterServer: true
+    storage:
+      storageClass: ssd
+      resources:
+        requests:
+          storage: 200Gi
+    persistence:
+      repositoryType: mysql
+      archiveType: mysql
+      mysql:
+        repositories:
+          - secretName: repository-secret01
+            hostnameKey: new-hostname
+          - secretName: repository-secret02
+          - secretName: repository-secret03
+        archives:
+          - secretName: archive-secret01
+          - secretName: archive-secret02
+          - secretName: archive-secret03
+    binaryStore:
+      s3:
+        secret:
+          name: sophora-cloud-binary-store-credentials
+
+    authentication:
+      secret:
+        name: sophora-user-admin-credentials
+
+    env:
+      - name: SOPHORA_INITIALADMINUSERS_0_USERNAME
+        value: admin
+      - name: SOPHORA_INITIALADMINUSERS_0_PASSWORD
+        value: 69madweasels
+
+    properties: |-
+      sophora.home=/sophora
+
+configInitializer:
+  env:
+    - name: A
+      value: B
+  envFrom:
+    - configMapRef:
+        name: sophora-server-post-restore-vars
+
+service:
+  annotations:
+    networking.gke.io/load-balancer-type: "Internal"
+    networking.gke.io/internal-load-balancer-subnet: "gke-sophora-services"
+  type: LoadBalancer
+  loadBalancerIP: 1.2.3.4
+
+serviceMonitor:
+  enabled: true
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: "sophora.domain.de"
+
+clusterReplication:
+  enabled: true
+  ingressesDefaults:
+    enabled: true
+    annotations:
+      c: d
+  ingresses:
+    - hosts:
+      - host: "sophora01.domain.de"
+      ingressClassName: nginx
+      tls:
+        - secretName: chart-example01-tls
+          hosts:
+            - "sophora01.domain.de"
+    - annotations:
+        a: b
+      hosts:
+      - host: "sophora02.domain.de"
+      tls:
+        - secretName: chart-example01-tls
+          hosts:
+            - "sophora02.domain.de"
+    - enabled: false
+  servicesDefaults:
+    annotations:
+      kubernetes.io/tls-acme: "true"
+
+tolerations:
+  - effect: NoSchedule
+    key: sophora-cluster-server
+    operator: Exists
+
+resources:
+  requests:
+    memory: "12G"
+    cpu: "2"
+  limits:
+    memory: "12G"

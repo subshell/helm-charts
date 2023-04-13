@@ -1,0 +1,110 @@
+# Sophora Indexer
+
+## What you need (requirements)
+
+### Secret
+
+This chart requires the following already present in the target namespace:
+
+* An ImagePullSecret for the subshell Docker Registry
+* A secret containing username and password for Sophora and jmx
+
+### Dockerfile with groovy scripts for custom mappings
+
+The groovy scripts which are used in `siteAndMappingsConfiguration.xml` have to be in `/indexer/groovy`.
+For example, you can create an indexer image with the solr plugin with custom groovy scripts
+with the following Dockerfile:
+
+```
+FROM docker.subshell.com/sophora/sophora-indexer/solr:4
+
+COPY <path to your groovy scripts> /indexer/groovy
+```
+
+## Example values.yaml
+
+```
+resources:
+  requests:
+    memory: "3G"
+    cpu: "0.5"
+  limits:
+    memory: "3G"
+
+indexer:
+  secret:
+    name: indexer-credentials
+    contentmanager:
+      usernameKey: sophora-username
+      passwordKey: sophora-password
+    jmx:
+      usernameKey: jmx-username
+      passwordKey: jmx-password
+    additionalIndexerProperties: additional-indexer-properties
+  configuration:
+    siteAndMappingConfiguration.xml: |
+      <?xml version="1.0" encoding="UTF-8"?>
+      <configuration xmlns="http://www.sophoracms.com/indexer-configuration/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.sophoracms.com/indexer-configuration/1.0 http://www.sophoracms.com/indexer-configuration/1.0/indexer-configuration-1.0.0.xsd">
+
+          <!-- Assign index keys to sites and filters -->
+          <indexes>
+              <index indexKey="web" isDefault="false">
+                  <sites>
+                  </sites>
+              <filter>
+                  <allowedNodeTypes>
+                  </allowedNodeTypes>
+              </filter>
+              </index>
+          </indexes>
+
+          <!-- Assign index key fields to Sophora document properties -->
+          <mappings>
+          </mappings>
+      </configuration>
+
+    indexer.properties: |
+
+      sophora.contentmanager.serviceUrl=http://sophora-server:1196?acs=true
+
+      sophora.client.dataDir=config/data
+
+      sophora.searchEngine.connection=solr
+
+      sophora.startDatePropertyName=sophora:publishAt
+      sophora.endDatePropertyName=sophora:endDate
+
+      sophora.indexer.searchMixinName=sophora-mix:document
+
+      sophora.indexer.removeAfterUpdate=true
+
+    logback.xml: |
+      <?xml version="1.0" encoding="UTF-8"?>
+
+      <!-- For more information on logback logging see: http://logback.qos.ch/manual/index.html -->
+      <configuration scan="true" scanPeriod="30 seconds">
+              <jmxConfigurator />
+
+              <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+               <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>INFO</level>
+               </filter>
+                  <filter class="ch.qos.logback.classic.filter.LevelFilter">
+                      <level>ERROR</level>
+                   <onMatch>DENY</onMatch>
+                   <onMismatch>ACCEPT</onMismatch>
+                  </filter>
+                  <encoder>
+                      <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [UUID: %X{uuid}] [SOPHORA_ID: %X{sophora_id}] [USER: %X{user}] %m%n</pattern>
+                  </encoder>
+              </appender>
+
+              <logger name="com.subshell.sophora.indexer" level="INFO" />
+
+              <root level="INFO">
+                      <appender-ref ref="STDOUT" />
+              </root>
+
+      </configuration>
+```

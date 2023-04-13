@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "update-service.fullname" . }}
+  labels:
+    {{- include "update-service.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  {{ if .Values.service.clusterIP -}}
+  clusterIP: {{.Values.service.clusterIP}}
+  {{- end }}
+  selector: {{- include "update-service.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.httpPort }}
+      targetPort: http
+      name: http
