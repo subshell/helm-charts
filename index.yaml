@@ -1,5 +1,27 @@
 apiVersion: v1
 entries:
+  courier:
+  - apiVersion: v2
+    appVersion: 4.0.1
+    created: "2023-04-13T15:05:48.882587851Z"
+    description: A Helm chart for Courier
+    digest: 52b0c913832c06e01e818a30631d60530fdb1d4ab97faf6b5b4c8ff2d4a89ff6
+    name: courier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/courier-1.0.0/courier-1.0.0.tgz
+    version: 1.0.0
+  external-secrets:
+  - apiVersion: v2
+    appVersion: 0.8.1
+    created: "2023-04-13T15:05:49.116402213Z"
+    description: A Helm chart for creating multiple external secrets
+    digest: f04af2b0c6027ed5592b4590675c373ebf29be8e907cc4e444bd98601a911fd8
+    name: external-secrets
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/external-secrets-1.0.0/external-secrets-1.0.0.tgz
+    version: 1.0.0
   o-neko:
   - apiVersion: v2
     appVersion: 1.7.0
@@ -225,4 +247,152 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-generated: "2023-04-12T14:39:46.859004378Z"
+  sophora-dashboard:
+  - apiVersion: v2
+    created: "2023-04-13T15:05:49.312256043Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 4d65a34a09e75f52b219c55e03b533bfd4ce2c0f31dc347c005a5dc7746dff45
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-dashboard-1.0.0/sophora-dashboard-1.0.0.tgz
+    version: 1.0.0
+  sophora-export-job:
+  - apiVersion: v2
+    appVersion: "4"
+    created: "2023-04-13T15:05:49.44551376Z"
+    description: A Helm chart for a generic one-time export job
+    digest: f068d1b73ccd60356aa5efd7ea18f1a2fd1da22a070bce0cb04fc91b39650aea
+    name: sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-1.0.0/sophora-export-job-1.0.0.tgz
+    version: 1.0.0
+  sophora-image-access-service:
+  - apiVersion: v2
+    appVersion: 4.4.8
+    created: "2023-04-13T15:05:49.615662797Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: bef66d1a502ecf9e210793ebf352bf53d5ce048f71e46d061417ffdddf94cb01
+    name: sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
+    version: 1.0.0
+  sophora-image-update-service:
+  - apiVersion: v2
+    appVersion: 4.4.8
+    created: "2023-04-13T15:05:49.763764283Z"
+    description: A Helm chart for the Sophora Image Update Service
+    digest: 06613be91eb5ff62827656a4c1c4dfa4ba86829b013067280d819572fd39fe9a
+    name: sophora-image-update-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.0.0/sophora-image-update-service-1.0.0.tgz
+    version: 1.0.0
+  sophora-import-job:
+  - apiVersion: v2
+    appVersion: 4.4.1
+    created: "2023-04-13T15:05:50.032726545Z"
+    description: A Helm chart for the repository import
+    digest: 410462b14a17b57d4ca4884f80cbe336b6cbafefa23c72c4535acf3e0079f236
+    name: sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.0/sophora-import-job-1.0.0.tgz
+    version: 1.0.0
+  sophora-importer:
+  - apiVersion: v2
+    appVersion: 4.4.1
+    created: "2023-04-13T15:05:50.260873842Z"
+    description: A Helm chart for the Sophora importer
+    digest: cdbc07aa762a55d22065d47d19027bade7920908119ec92541b15bcea181f2ac
+    name: sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-1.0.0/sophora-importer-1.0.0.tgz
+    version: 1.0.0
+  sophora-indexer:
+  - apiVersion: v2
+    appVersion: 4.2.2
+    created: "2023-04-13T15:05:50.404071372Z"
+    description: A Helm chart for Kubernetes
+    digest: 964b818ee46e2783639404266b65baa75f3f20cf0538736c76387f2f8bc24f1f
+    name: sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
+    version: 1.0.0
+  sophora-indexing-service:
+  - apiVersion: v2
+    appVersion: 4.4.6
+    created: "2023-04-13T15:05:50.554055879Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 6a2bfda01f3dd6254b5937cc13f9a90fdf4a0feb26a2b8f40e226e6d5e06824e
+    name: sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.0.0/sophora-indexing-service-1.0.0.tgz
+    version: 1.0.0
+  sophora-metadata-supplier:
+  - apiVersion: v2
+    appVersion: 4.14.0
+    created: "2023-04-13T15:05:50.69201415Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 34fd8a111463bb88713623cf4b9c478c1cf5203b033cdb5e74c8717d7dfdcad3
+    name: sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.0.0/sophora-metadata-supplier-1.0.0.tgz
+    version: 1.0.0
+  sophora-server:
+  - apiVersion: v2
+    appVersion: 4.15.2
+    created: "2023-04-13T15:05:50.817825082Z"
+    description: A Helm chart for the Sophora Server
+    digest: caa22d14019e47d7acc37ef2c9edaa0e228131120111859e47434fe00eaf507e
+    name: sophora-server
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-1.0.0/sophora-server-1.0.0.tgz
+    version: 1.0.0
+  sophora-ugc:
+  - apiVersion: v2
+    appVersion: 4.6.1
+    created: "2023-04-13T15:05:50.983521569Z"
+    description: A Helm chart for Kubernetes
+    digest: 22a655df8e6fdfee55a7cf6ca7ec190bc85a5f974d55fd717b72e82734df8f0f
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-1.0.0/sophora-ugc-1.0.0.tgz
+    version: 1.0.0
+  sophora-webclient:
+  - apiVersion: v2
+    appVersion: 4.8.0
+    created: "2023-04-13T15:05:51.140185152Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 538162ceb4e27f8fca99db6cd4b19d36b28e5bae548cd62c3e13d8c9b1acfa67
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.0.0/sophora-webclient-1.0.0.tgz
+    version: 1.0.0
+  youtube-connector:
+  - apiVersion: v2
+    appVersion: 4.6.5
+    created: "2023-04-13T15:05:51.300658979Z"
+    description: A Helm chart for Kubernetes
+    digest: 533d8e5c4b51b303bce1f5124c31cbd63f6f3c28806abf534765660a4747cbed
+    name: youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/youtube-connector-1.0.0/youtube-connector-1.0.0.tgz
+    version: 1.0.0
+generated: "2023-04-13T15:05:51.300696979Z"
