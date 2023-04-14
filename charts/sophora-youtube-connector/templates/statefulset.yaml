@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "youtube-connector.fullname" . }}
+  name: {{ include "sophora-youtube-connector.fullname" . }}
   labels:
-    {{- include "youtube-connector.labels" . | nindent 4 }}
+    {{- include "sophora-youtube-connector.labels" . | nindent 4 }}
 spec:
   replicas: 1
-  serviceName: {{ include "youtube-connector.fullname" . }}
+  serviceName: {{ include "sophora-youtube-connector.fullname" . }}
   selector:
     matchLabels:
-      {{- include "youtube-connector.selectorLabels" . | nindent 6 }}
+      {{- include "sophora-youtube-connector.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -17,7 +17,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "youtube-connector.selectorLabels" . | nindent 8 }}
+        {{- include "sophora-youtube-connector.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -43,24 +43,24 @@ spec:
             - "-c"
             - |
               envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
-              echo "Generated /{{ include "youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
+              echo "Generated /{{ include "sophora-youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
           volumeMounts:
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig-template
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
               mountPath: /mediaconfig-configmap-template
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
               mountPath: /youtube-connector
       volumes:
-        - name: {{ include "youtube-connector.fullname" . }}-mediaconfig-template
+        - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
           configMap:
-            name: {{ include "youtube-connector.fullname" . }}-mediaconfig
-        - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
+            name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
+        - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
           emptyDir: {}
-        - name: {{ include "youtube-connector.fullname" . }}-config
+        - name: {{ include "sophora-youtube-connector.fullname" . }}-config
           configMap:
-            name: {{ include "youtube-connector.fullname" . }}-config
+            name: {{ include "sophora-youtube-connector.fullname" . }}-config
         - name: logback
           configMap:
-            name: {{ include "youtube-connector.fullname" . }}-logback
+            name: {{ include "sophora-youtube-connector.fullname" . }}-logback
         {{- with .Values.extraVolumes}}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -97,10 +97,10 @@ spec:
               containerPort: 8080
               protocol: TCP
           volumeMounts:
-            - name: {{ include "youtube-connector.fullname" . }}-config
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-config
               mountPath: /app/config/application.{{ .Values.sophora.youtubeconnector.configFormat }}
               subPath: application.{{ .Values.sophora.youtubeconnector.configFormat }}
-            - name: {{ include "youtube-connector.fullname" . }}-mediaconfig
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
               mountPath: /app/mediaconfig.xml
               subPath: mediaconfig.xml
             - name: logback

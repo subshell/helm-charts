@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "youtube-connector.fullname" . }}-mediaconfig
+  name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
   labels:
-  {{- include "youtube-connector.labels" . | nindent 4 }}
+  {{- include "sophora-youtube-connector.labels" . | nindent 4 }}
 data:
   mediaconfig.xml: |
     {{- .Values.sophora.youtubeconnector.mediaconfig | nindent 4}}
