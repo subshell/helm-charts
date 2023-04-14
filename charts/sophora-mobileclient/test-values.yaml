@@ -1,0 +1,17 @@
+fullnameOverride: "test-mobileclient"
+
+sophora:
+  authentication:
+    secret:
+      name: "sophora-credentials"
+
+ingress:
+  ingressClassName: nginx
+  hosts:
+    - host: "my-site.com"
+
+mobileclient:
+  configuration:
+    abc: test
+    a:
+      b: test2

@@ -1,0 +1,7 @@
+{{- $configName := include "mobileclient.configName" . -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $configName }}
+data:
+  application.yaml: |- {{ toYaml (required "A valid application.yml mobileclient config is required (nested in the value .Values.mobileclient.configuration)!" .Values.mobileclient.configuration) | nindent 4 }}
