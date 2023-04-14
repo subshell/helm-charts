@@ -306,6 +306,16 @@ entries:
   sophora-import-job:
   - apiVersion: v2
     appVersion: 4.4.1
+    created: "2023-04-14T14:40:17.262135457Z"
+    description: A Helm chart for the repository import
+    digest: 14af69b8f0d21c99039eb590d13492453e2f6cd945f685dc749d85ba781684df
+    name: sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.1/sophora-import-job-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.4.1
     created: "2023-04-13T15:05:50.032726545Z"
     description: A Helm chart for the repository import
     digest: 410462b14a17b57d4ca4884f80cbe336b6cbafefa23c72c4535acf3e0079f236
@@ -405,4 +415,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/youtube-connector-1.0.0/youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-04-14T14:39:21.172016292Z"
+generated: "2023-04-14T14:40:17.262253558Z"
