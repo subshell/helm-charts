@@ -1,16 +1,5 @@
 apiVersion: v1
 entries:
-  courier:
-  - apiVersion: v2
-    appVersion: 4.0.1
-    created: "2023-04-13T15:05:48.882587851Z"
-    description: A Helm chart for Courier
-    digest: 52b0c913832c06e01e818a30631d60530fdb1d4ab97faf6b5b4c8ff2d4a89ff6
-    name: courier
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/courier-1.0.0/courier-1.0.0.tgz
-    version: 1.0.0
   external-secrets:
   - apiVersion: v2
     appVersion: 0.8.1
@@ -247,19 +236,6 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
-  sophora-dashboard:
-  - apiVersion: v2
-    created: "2023-04-13T15:05:49.312256043Z"
-    description: A Helm chart for the Sophora dashboard
-    digest: 4d65a34a09e75f52b219c55e03b533bfd4ce2c0f31dc347c005a5dc7746dff45
-    maintainers:
-    - email: weasel@subshell.com
-      name: Team Weasel
-    name: sophora-dashboard
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/sophora-dashboard-1.0.0/sophora-dashboard-1.0.0.tgz
-    version: 1.0.0
   sophora-export-job:
   - apiVersion: v2
     appVersion: "4"
@@ -415,15 +391,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-  youtube-connector:
-  - apiVersion: v2
-    appVersion: 4.6.5
-    created: "2023-04-13T15:05:51.300658979Z"
-    description: A Helm chart for Kubernetes
-    digest: 533d8e5c4b51b303bce1f5124c31cbd63f6f3c28806abf534765660a4747cbed
-    name: youtube-connector
-    type: application
-    urls:
-    - https://github.com/subshell/helm-charts/releases/download/youtube-connector-1.0.0/youtube-connector-1.0.0.tgz
-    version: 1.0.0
-generated: "2023-04-14T14:40:58.474339711Z"
+generated: "2023-04-14T14:47:50.474339711Z"
