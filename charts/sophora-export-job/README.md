@@ -1,3 +1,3 @@
-# Sophora Exporter Job
+# Sophora Export Job
 
-A one-time Sophora exporter that runs as a k8s job and uploads the data to s3.
+A one-time Sophora Repo Exporter that runs as a k8s job and uploads the data to s3.

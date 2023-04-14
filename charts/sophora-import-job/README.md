@@ -1,4 +1,6 @@
-# Sophora Import Cron Job for Sophora 4+
+# Sophora Import Job
+
+A one-time Sophora Importer that runs as a k8s job and imports the data from s3 or http. This chart requires Sophora 4 or higher. 
 
 **Note**: The Cron Job is disabled by default. 
 
