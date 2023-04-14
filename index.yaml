@@ -236,6 +236,17 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
+  sophora-courier:
+  - apiVersion: v2
+    appVersion: 4.0.1
+    created: "2023-04-14T14:50:59.99242619Z"
+    description: A Helm chart for Sophora Courier
+    digest: e3efcb648210cea8858687863618e9e2e8bf6a88b5d668bd49a4bfcee9e25f03
+    name: sophora-courier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-courier-1.0.1/sophora-courier-1.0.1.tgz
+    version: 1.0.1
   sophora-export-job:
   - apiVersion: v2
     appVersion: "4"
@@ -391,4 +402,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-04-14T14:47:50.474339711Z"
+generated: "2023-04-14T14:50:59.992477492Z"
