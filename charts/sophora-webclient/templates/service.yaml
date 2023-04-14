@@ -1,9 +1,9 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ include "mobileclient.fullname" . }}
+  name: {{ include "webclient.fullname" . }}
 spec:
-  selector: {{- include "mobileclient.selectorLabels" . | nindent 4 }}
+  selector: {{- include "webclient.selectorLabels" . | nindent 4 }}
   ports:
     - protocol: TCP
       port: 8080

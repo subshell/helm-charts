@@ -1,4 +1,4 @@
-{{- $fullName := include "mobileclient.fullname" . -}}
+{{- $fullName := include "webclient.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -23,7 +23,7 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ required "A hostname for the ingress must be provided in .Values.mobileclient.ingress.host" .host }}
+    - host: {{ required "A hostname for the ingress must be provided in .Values.webclient.ingress.host" .host }}
       http:
         paths:
           - path: /

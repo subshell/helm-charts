@@ -1,4 +1,4 @@
-fullnameOverride: "test-mobileclient"
+fullnameOverride: "test-webclient"
 
 sophora:
   authentication:
@@ -10,7 +10,7 @@ ingress:
   hosts:
     - host: "my-site.com"
 
-mobileclient:
+webclient:
   configuration:
     abc: test
     a:

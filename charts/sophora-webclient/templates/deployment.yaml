@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels: {{- include "mobileclient.labels" . | nindent 4 }}
-  name: {{ include "mobileclient.fullname" . }}
+  labels: {{- include "webclient.labels" . | nindent 4 }}
+  name: {{ include "webclient.fullname" . }}
 spec:
   replicas: 1
   selector:
-    matchLabels: {{- include "mobileclient.selectorLabels" . | nindent 6 }}
+    matchLabels: {{- include "webclient.selectorLabels" . | nindent 6 }}
   minReadySeconds: 5
   strategy:
     type: RollingUpdate
@@ -16,7 +16,7 @@ spec:
   revisionHistoryLimit: 10
   template:
     metadata:
-      labels: {{- include "mobileclient.selectorLabels" . | nindent 8 }}
+      labels: {{- include "webclient.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.hostAliases }}
       hostAliases: {{- toYaml . | nindent 8 }}
@@ -26,7 +26,7 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: mobileclient
+        - name: webclient
           image: "{{ .Values.image.name }}:{{ .Values.image.version }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
@@ -88,7 +88,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: {{ include "mobileclient.configName" . }}
+            name: {{ include "webclient.configName" . }}
         - name: binary
           configMap:
-            name: {{ include "mobileclient.binaryConfigName" . }}
+            name: {{ include "webclient.binaryConfigName" . }}

@@ -1,13 +1,13 @@
 {{- if .Values.serviceMonitor.enabled -}}
-{{- $fullName := include "mobileclient.fullname" . -}}
+{{- $fullName := include "webclient.fullname" . -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
     name: {{ $fullName }}
-    labels: {{- include "mobileclient.labels" . | nindent 8 }}
+    labels: {{- include "webclient.labels" . | nindent 8 }}
 spec:
     selector:
-        matchLabels: {{- include "mobileclient.selectorLabels" . | nindent 12 }}
+        matchLabels: {{- include "webclient.selectorLabels" . | nindent 12 }}
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
           port: http
