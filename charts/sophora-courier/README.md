@@ -1,6 +1,6 @@
-# Courier
+# Sophora Courier
 
-This chart deploys courier.
+This chart deploys Sophora Courier.
 
 ## What you need (requirements)
 

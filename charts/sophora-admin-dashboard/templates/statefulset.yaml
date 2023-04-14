@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ include "sophora-dashboard.fullname" . }}
+  name: {{ include "sophora-admin-dashboard.fullname" . }}
   labels:
-    {{- include "sophora-dashboard.labels" . | nindent 4 }}
+    {{- include "sophora-admin-dashboard.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  serviceName: {{ include "sophora-dashboard.fullname" . }}
+  serviceName: {{ include "sophora-admin-dashboard.fullname" . }}
   selector:
     matchLabels:
-      {{- include "sophora-dashboard.selectorLabels" . | nindent 6 }}
+      {{- include "sophora-admin-dashboard.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       annotations:
@@ -19,7 +19,7 @@ spec:
         {{- toYaml .Values.podAnnotations | nindent 8 -}}
         {{end}}
       labels:
-        {{- include "sophora-dashboard.selectorLabels" . | nindent 8 }}
+        {{- include "sophora-admin-dashboard.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -167,16 +167,16 @@ spec:
       volumes:
         - name: sophora-dashboard-config-template
           configMap:
-            name: {{ include "sophora-dashboard.fullname" . }}
+            name: {{ include "sophora-admin-dashboard.fullname" . }}
         - name: sophora-dashboard-logback
           configMap:
-            name: {{ include "sophora-dashboard.fullname" . }}-logback
+            name: {{ include "sophora-admin-dashboard.fullname" . }}-logback
         - name: sophora-dashboard-config
           emptyDir: {}
   volumeClaimTemplates:
     - metadata:
         name: persistence
-        labels: {{- include "sophora-dashboard.selectorLabels" . | nindent 10 }}
+        labels: {{- include "sophora-admin-dashboard.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}
@@ -185,7 +185,7 @@ spec:
             storage: 1Mi
     - metadata:
         name: rrd
-        labels: {{- include "sophora-dashboard.selectorLabels" . | nindent 10 }}
+        labels: {{- include "sophora-admin-dashboard.selectorLabels" . | nindent 10 }}
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}

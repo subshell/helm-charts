@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "courier.fullname" . }}
+  name: {{ include "sophora-courier.fullname" . }}
   {{- with .Values.podAnnotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}
   labels:
-  {{- include "courier.labels" . | nindent 4 }}
+  {{- include "sophora-courier.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      app: {{ include "courier.fullname" . }}
+      app: {{ include "sophora-courier.fullname" . }}
   template:
     metadata:
       labels:
-        app: {{ include "courier.fullname" . }}
+        app: {{ include "sophora-courier.fullname" . }}
     spec:
       containers:
         - name: {{ .Chart.Name }}-container
@@ -65,9 +65,9 @@ spec:
             - containerPort: 1496
             - containerPort: 8080
           volumeMounts:
-            - name: {{ include "courier.fullname" . }}-logback-config
+            - name: {{ include "sophora-courier.fullname" . }}-logback-config
               mountPath: /config/logback
-            - name: {{ include "courier.fullname" . }}-application-yml
+            - name: {{ include "sophora-courier.fullname" . }}-application-yml
               mountPath: /config
       {{- with .Values.nodeSelector }}
       nodeSelector:
@@ -78,9 +78,9 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       volumes:
-        - name: {{ include "courier.fullname" . }}-logback-config
+        - name: {{ include "sophora-courier.fullname" . }}-logback-config
           configMap:
-            name: {{ include "courier.fullname" . }}-logback
-        - name: {{ include "courier.fullname" . }}-application-yml
+            name: {{ include "sophora-courier.fullname" . }}-logback
+        - name: {{ include "sophora-courier.fullname" . }}-application-yml
           configMap:
-            name: {{ include "courier.fullname" . }}-config
+            name: {{ include "sophora-courier.fullname" . }}-config

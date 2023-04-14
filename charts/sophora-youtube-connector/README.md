@@ -1,6 +1,6 @@
-# Helm Chart: youtube-connector
+# Sophora YouTube Connector
 
-This chart deploys youtube-connector.
+This chart deploys the Sophora YouTube Connector
 
 ## What you need (requirements)
 
@@ -14,7 +14,7 @@ This chart requires the following already present in the target namespace:
 
 ```yaml
 image:
-  repository: docker.subshell.com/daserste/youtube-connector
+  repository: docker.subshell.com/sophora/avtool/youtube-connector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "3.0.1"

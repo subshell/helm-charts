@@ -1,6 +1,6 @@
 apiVersion: v2
-name: courier
-description: A Helm chart for Courier
+name: sophora-courier
+description: A Helm chart for Sophora Courier
 
 # A chart can be either an 'application' or a 'library' chart.
 #
