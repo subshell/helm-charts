@@ -80,7 +80,7 @@ data:
     envsubst < /sophora-archive-template/workspace.default.xml > /sophora-archive/workspace.default.xml
     echo "Generated repository.xml and workspace.default.xml for archive from ENV"
 
-    {{- if .Values.sophora.acs.url }}
+  {{- if .Values.sophora.acs.url }}
   acs.properties: |-
     sophora.acs.addon.serviceUrl={{ .Values.sophora.acs.url }}
   {{- end }}
