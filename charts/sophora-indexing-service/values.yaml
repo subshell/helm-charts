@@ -102,6 +102,10 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+  keda:
+    enabled: false
+    spec: {}
+
 nodeSelector: {}
 
 tolerations: []

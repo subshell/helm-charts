@@ -1,0 +1,10 @@
+{{- if and .Values.autoscaling.enabled (not .Values.autoscaling.keda.enabled) }}
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ include "sophora-indexing-service.fullname" . }}
+spec:
+  scaleTargetRef:
+    name: {{ include "sophora-indexing-service.fullname" . }}
+  {{- toYaml .Values.autoscaling.keda.spec | nindent 2 -}}
+{{- end }}
