@@ -104,7 +104,7 @@ autoscaling:
 
   customScaler: {}
 
-extreDeploy: []
+extraDeploy: []
 
 nodeSelector: {}
 
