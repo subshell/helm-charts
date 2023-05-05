@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "sophora-indexing-service.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
+  {{- if and (not .Values.autoscaling.enabled) (or (kindIs "int64" .Values.replicaCount) (kindIs "float64" .Values.replicaCount)) }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
