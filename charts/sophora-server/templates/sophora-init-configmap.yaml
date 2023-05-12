@@ -32,13 +32,14 @@ data:
   config-setup.sh: |-
     # matches the index of the pod 0..n
     PODID=$(echo "$POD_NAME" | sed 's:.*-::')
-    NEXTPODID=$((($PODID+1)%{{ .Values.replicaCount }}))
 
     # sophora.properties
     ##############
 
     {{- if .Values.clusterReplication.enabled }}
     export SOPHORA_REPLICATION_SLAVEHOSTNAME={{ include "sophora-server.fullname" . }}-${PODID}
+
+    NEXTPODID=$((($PODID+1)%{{ .Values.replicaCount }}))
     export SOPHORA_REMOTE_JMSBROKER_HOST={{ include "sophora-server.fullname" . }}-${NEXTPODID}
     export SOPHORA_REMOTE_API_EXTERNAL_HOSTNAME=$(echo $EXTERNAL_HOSTS | awk -vIndex=$((PODID+1)) '{print $Index}')
     {{- end }}

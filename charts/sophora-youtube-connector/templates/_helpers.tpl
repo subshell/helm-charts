@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "youtube-connector.name" -}}
+{{- define "sophora-youtube-connector.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "youtube-connector.fullname" -}}
+{{- define "sophora-youtube-connector.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "youtube-connector.chart" -}}
+{{- define "sophora-youtube-connector.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "youtube-connector.labels" -}}
-helm.sh/chart: {{ include "youtube-connector.chart" . }}
-{{ include "youtube-connector.selectorLabels" . }}
+{{- define "sophora-youtube-connector.labels" -}}
+helm.sh/chart: {{ include "sophora-youtube-connector.chart" . }}
+{{ include "sophora-youtube-connector.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "youtube-connector.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "youtube-connector.name" . }}
+{{- define "sophora-youtube-connector.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "sophora-youtube-connector.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "youtube-connector.serviceAccountName" -}}
+{{- define "sophora-youtube-connector.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "youtube-connector.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "sophora-youtube-connector.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

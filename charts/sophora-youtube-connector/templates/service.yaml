@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "youtube-connector.fullname" . }}
+  name: {{ include "sophora-youtube-connector.fullname" . }}
   labels:
-    {{- include "youtube-connector.labels" . | nindent 4 }}
+    {{- include "sophora-youtube-connector.labels" . | nindent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -16,4 +16,4 @@ spec:
       targetPort: http
       name: http-service
   selector:
-    {{- include "youtube-connector.selectorLabels" . | nindent 4 }}
+    {{- include "sophora-youtube-connector.selectorLabels" . | nindent 4 }}

@@ -1,6 +1,6 @@
-# Sophora Dashboard
+# Sophora Admin Dashboard
 
-This chart deploys the Sophora Dashboard with an ingress for external access.
+This chart deploys the Sophora Admin Dashboard with an ingress for external access.
 
 ## Example values.yaml
 
