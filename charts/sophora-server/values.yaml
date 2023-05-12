@@ -172,7 +172,7 @@ sophora:
     persistence:
       ## @param sophora.server.persistence.repositoryType string that identifies the archive persistence technology (localdb, or mysql)
       repositoryType: localdb
-      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql, or postgres)
+      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql or none)
       archiveType: localdb
       mysql:
         ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
