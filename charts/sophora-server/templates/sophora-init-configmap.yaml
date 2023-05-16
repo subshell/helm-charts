@@ -69,16 +69,18 @@ data:
     envsubst < /sophora-repository-template/workspace.live.xml > /sophora-repository/workspace.live.xml
     echo "Generated repository.xml, workspace.default.xml, and workspace.live.xml from ENV"
 
-    # archive.xml
+    {{/* Archive */}}
     {{- if eq .Values.sophora.server.persistence.archiveType "mysql" }}
     eval "export ARCHIVE_MYSQL_HOST=\${ARCHIVE_MYSQL_HOST_${PODID}}"
     eval "export ARCHIVE_MYSQL_USER=\${ARCHIVE_MYSQL_USER_${PODID}}"
     eval "export ARCHIVE_MYSQL_PASSWORD=\${ARCHIVE_MYSQL_PASSWORD_${PODID}}"
     export ARCHIVE_MYSQL_PASSWORD=$(echo $ARCHIVE_MYSQL_PASSWORD | sed "$SED_XML_ESCAPE")
     {{- end }}
+    {{- if or (eq .Values.sophora.server.persistence.archiveType "mysql") (eq .Values.sophora.server.persistence.archiveType "localdb") }}
     envsubst < /sophora-archive-template/repository.xml > /sophora-archive/repository.xml
     envsubst < /sophora-archive-template/workspace.default.xml > /sophora-archive/workspace.default.xml
     echo "Generated repository.xml and workspace.default.xml for archive from ENV"
+    {{- end }}
 
   {{- if .Values.sophora.acs.url }}
   acs.properties: |-

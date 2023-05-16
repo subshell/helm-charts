@@ -85,14 +85,18 @@ spec:
               mountPath: /sophora-repository-template
             - name: {{ include "sophora-server.repositoryConfigName" . }}
               mountPath: /sophora-repository
-            - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
-              mountPath: /sophora-archive-template
-            - name: {{ include "sophora-server.archiveConfigName" . }}
-              mountPath: /sophora-archive
             - name: {{ include "sophora-server.configs" . }}
               mountPath: /configs
             - name: {{ include "sophora-server.propertiesName" . }}
               mountPath: /sophora-properties
+
+            {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
+            # archive
+            - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+              mountPath: /sophora-archive-template
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              mountPath: /sophora-archive
+            {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -153,6 +157,7 @@ spec:
               mountPath: /sophora/repository/workspaces/live/db
               subPath: repository.workspaces.live.db
 
+            {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
             # Repository Archive Structure
             - name: sophora-server-storage
               mountPath: /sophora/repository_archive/repository
@@ -167,6 +172,15 @@ spec:
               mountPath: /sophora/repository_archive/workspaces/default/db
               subPath: repository_archive.workspaces.default.db
 
+            # Archive Repo
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              subPath: repository.xml
+              mountPath: /sophora/repository_archive/repository.xml
+            - name: {{ include "sophora-server.archiveConfigName" . }}
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
+            {{- end }}
+
             # Main Repo
             - name: {{ include "sophora-server.repositoryConfigName" . }}
               subPath: repository.xml
@@ -177,14 +191,6 @@ spec:
             - name: {{ include "sophora-server.repositoryConfigName" . }}
               subPath: workspace.live.xml
               mountPath: /sophora/repository/workspaces/live/workspace.xml
-
-            # Archive Repo
-            - name: {{ include "sophora-server.archiveConfigName" . }}
-              subPath: repository.xml
-              mountPath: /sophora/repository_archive/repository.xml
-            - name: {{ include "sophora-server.archiveConfigName" . }}
-              subPath: workspace.default.xml
-              mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
 
             {{ if eq .Values.sophora.server.isClusterServer true -}}
             # Shutdown-Hook
@@ -321,28 +327,33 @@ spec:
             name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
         - name: {{ include "sophora-server.repositoryConfigName" . }}
           emptyDir: {}
-        - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
-          configMap:
-            name: {{ include "sophora-server.archiveConfigTemplateName" . }}
-        - name: {{ include "sophora-server.archiveConfigName" . }}
-          emptyDir: {}
-
         - name: logback-xml-config
           configMap:
             name: {{ include "sophora-server.logbackConfigName" . }}
+
         {{ if eq .Values.sophora.server.isClusterServer true -}}
         - name: tools
           emptyDir: {}
         {{- end }}
+
         - name: sophora-server-storage
           persistentVolumeClaim:
             claimName: sophora-server-storage
         - name: sophora-server-repository
           configMap:
             name: {{ include "sophora-server.repositoryConfigName" . }}
+
+        {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
+          # archive
+        - name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+          configMap:
+            name: {{ include "sophora-server.archiveConfigTemplateName" . }}
+        - name: {{ include "sophora-server.archiveConfigName" . }}
+          emptyDir: {}
         - name: sophora-server-archive
           configMap:
             name: {{ include "sophora-server.archiveConfigName" . }}
+        {{- end }}
   volumeClaimTemplates:
     - metadata:
         name: sophora-server-storage

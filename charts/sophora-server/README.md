@@ -2,6 +2,12 @@
 
 The required secrets must be present before you install the server.
 
+## Archive repository persistence
+
+Starting with Sophora 5 the archive repository is no longer available.
+To disable all archive related storage options, set `sophora.server.persistence.archiveType` to `none`.
+In later chart versions this will be the default.   
+
 ## Tips for productive installations
 
 ### Cluster servers
