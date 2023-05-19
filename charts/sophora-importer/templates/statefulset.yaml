@@ -80,11 +80,7 @@ spec:
                   find /import
                   find /opt/s3fs/bucket
         resources:
-          limits:
-            memory: 256Mi
-          requests:
-            cpu: 100m
-            memory: 256Mi
+          {{- toYaml .Values.sophora.importer.s3Bucket.resources | nindent 12 }}
         volumeMounts:
           - name: shared-imports
             mountPath: /opt/s3fs/bucket
