@@ -52,6 +52,12 @@ sophora:
       extraEnv:
         - name: S3FS_ARGS
           value: nonempty
+      resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+        limits:
+          memory: 256Mi
     extraEnv:
     loaderPath:
     instances: []
