@@ -358,6 +358,16 @@ entries:
     version: 1.0.0
   sophora-indexing-service:
   - apiVersion: v2
+    appVersion: 4.6.0
+    created: "2023-06-09T06:53:10.240881735Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 309c03957ebcad84733df4df2c93a2914502a87a922676d3c39fa111237081ce
+    name: sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.2.0/sophora-indexing-service-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
     appVersion: 4.4.6
     created: "2023-05-05T08:30:22.942405467Z"
     description: Sophora Indexing Service (SISI)
@@ -465,4 +475,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-05-19T06:46:48.168876559Z"
+generated: "2023-06-09T06:53:10.240978541Z"
