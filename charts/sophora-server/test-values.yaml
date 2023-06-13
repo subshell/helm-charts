@@ -45,17 +45,16 @@ sophora:
           storage: 200Gi
     persistence:
       repositoryType: mysql
-      archiveType: mysql
+      archiveType: none
       mysql:
         repositories:
           - secretName: repository-secret01
             hostnameKey: new-hostname
-          - secretName: repository-secret02
-          - secretName: repository-secret03
-        archives:
-          - secretName: archive-secret01
-          - secretName: archive-secret02
-          - secretName: archive-secret03
+      postgres:
+        secret:
+          name: postgres-auth
+          usernameKey: user1
+          passwordKey: pass1
     binaryStore:
       s3:
         secret:

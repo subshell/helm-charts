@@ -191,6 +191,14 @@ sophora:
         ##   usernameKey:
         ##   passwordKey:
         archives: []
+
+      ## @param sophora.server.persistence.postgres postgres authentication via secret. Required for Sophora Server >5.0.0.
+      postgres:
+        secret:
+          name:
+          usernameKey: username
+          passwordKey: password
+
     binaryStore:
       s3:
         secret:
@@ -199,10 +207,10 @@ sophora:
           accessKeyIdKey: accessKeyId
 
     authentication:
-       secret:
-         name:
-         usernameKey: username
-         passwordKey: password
+      secret:
+        name:
+        usernameKey: username
+        passwordKey: password
 
     # Additional environment variables can be defined here
     env:
