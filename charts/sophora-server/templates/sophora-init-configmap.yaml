@@ -26,6 +26,13 @@ data:
     sophora.remote.api.external.protocol=https
     {{- end }}
 
+    {{- if .Values.sophora.server.persistence.postgres.secret.name }}
+    # postgres authentication
+    sophora.persistence.postgres.username=${SOPHORA_PERSISTENCE_POSTGRES_USERNAME}
+    sophora.persistence.postgres.password=${SOPHORA_PERSISTENCE_POSTGRES_PASSWORD}
+    {{- end }}
+
+
     # custom config
     {{- toString (required "A valid sophora.properties configuration needs to be provided." .Values.sophora.server.properties) | nindent 4  }}
 

@@ -73,6 +73,20 @@ spec:
             - name: EXTERNAL_HOSTS
               value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
             {{- end }}
+            {{- if .Values.sophora.server.persistence.postgres.secret.name }}
+            - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.postgres.secret.usernameKey }}
+                  name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
+                  optional: false
+            - name: SOPHORA_PERSISTENCE_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.server.persistence.postgres.secret.passwordKey }}
+                  name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
+                  optional: false
+            {{- end }}
             {{ if .Values.configInitializer.env -}}
             {{- toYaml .Values.configInitializer.env | nindent 12 }}
             {{- end }}

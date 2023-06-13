@@ -6,7 +6,13 @@ The required secrets must be present before you install the server.
 
 Starting with Sophora 5 the archive repository is no longer available.
 To disable all archive related storage options, set `sophora.server.persistence.archiveType` to `none`.
-In later chart versions this will be the default.   
+In later chart versions this will be the default.
+
+## Postgres connection
+
+Starting with Sophora 5 the installation requires postgres. 
+You can provide the credentials via a secret: `sophora.server.persistence.postgres.secret`. 
+For all other configuration options use `sophora.server.properties`. 
 
 ## Tips for productive installations
 
