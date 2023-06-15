@@ -77,7 +77,7 @@ spec:
             - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
               value: {{ .Values.sophora.server.persistence.postgres.hostname }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_PORT
-              value: {{ .Values.sophora.server.persistence.postgres.port }}
+              value: {{ .Values.sophora.server.persistence.postgres.port | quote }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
