@@ -11,8 +11,11 @@ In later chart versions this will be the default.
 ## Postgres connection
 
 Starting with Sophora 5 the installation requires postgres. 
-You can provide the credentials via a secret: `sophora.server.persistence.postgres.secret`. 
+You can provide credentials via a secret: `sophora.server.persistence.postgres.secret`. 
+To enable the postgres version store set `sophora.server.persistence.postgres.versionStoreEnabled` to `true`. 
 For all other configuration options use `sophora.server.properties`. 
+
+It's also possible to use postgres as your jcr repository. To use postgres with jcr set `sophora.server.persistence.repositoryType` to `postgres`.
 
 ## Tips for productive installations
 
