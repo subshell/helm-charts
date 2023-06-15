@@ -170,7 +170,7 @@ sophora:
         requests:
           storage: 2Gi
     persistence:
-      ## @param sophora.server.persistence.repositoryType string that identifies the archive persistence technology (localdb, or mysql)
+      ## @param sophora.server.persistence.repositoryType string that identifies the archive persistence technology (localdb or mysql, or postgres)
       repositoryType: localdb
       ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql or none)
       archiveType: localdb
@@ -192,12 +192,19 @@ sophora:
         ##   passwordKey:
         archives: []
 
-      ## @param sophora.server.persistence.postgres postgres authentication via secret. Required for Sophora Server >5.0.0.
+      ## @param sophora.server.persistence.postgres postgres configuration. Required for Sophora Server >5.0.0.
       postgres:
+        versionStoreEnabled: false
+        hostname:
+        port: 5432
         secret:
           name:
           usernameKey: username
           passwordKey: password
+        repository:
+          defaultWorkspaceDB: "repository"
+          liveWorkspaceDB: "repository"
+          jcrVersionsDB: "repository"
 
     binaryStore:
       s3:

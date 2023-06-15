@@ -44,17 +44,25 @@ sophora:
         requests:
           storage: 200Gi
     persistence:
-      repositoryType: mysql
+      repositoryType: postgres
       archiveType: none
       mysql:
         repositories:
           - secretName: repository-secret01
             hostnameKey: new-hostname
       postgres:
+        versionStoreEnabled: true
+        hostname: my-host
+        port: 5432
         secret:
           name: postgres-auth
           usernameKey: user1
           passwordKey: pass1
+        repository:
+          defaultWorkspaceDB: "repository"
+          liveWorkspaceDB: "repository"
+          jcrVersionsDB: "repository"
+
     binaryStore:
       s3:
         secret:

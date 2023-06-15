@@ -26,10 +26,12 @@ data:
     sophora.remote.api.external.protocol=https
     {{- end }}
 
-    {{- if .Values.sophora.server.persistence.postgres.secret.name }}
+    {{- if .Values.sophora.server.persistence.postgres.versionStoreEnabled }}
     # postgres authentication
     sophora.persistence.postgres.username=${SOPHORA_PERSISTENCE_POSTGRES_USERNAME}
     sophora.persistence.postgres.password=${SOPHORA_PERSISTENCE_POSTGRES_PASSWORD}
+    sophora.persistence.postgres.hostname=${SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME}
+    sophora.persistence.postgres.port=${SOPHORA_PERSISTENCE_POSTGRES_PORT}
     {{- end }}
 
 

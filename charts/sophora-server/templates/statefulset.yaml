@@ -74,6 +74,10 @@ spec:
               value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
             {{- end }}
             {{- if .Values.sophora.server.persistence.postgres.secret.name }}
+            - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
+              value: {{ .Values.sophora.server.persistence.postgres.hostname }}
+            - name: SOPHORA_PERSISTENCE_POSTGRES_PORT
+              value: {{ .Values.sophora.server.persistence.postgres.port }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -86,6 +90,14 @@ spec:
                   key: {{ .Values.sophora.server.persistence.postgres.secret.passwordKey }}
                   name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
                   optional: false
+            {{- end }}
+            {{- if eq .Values.sophora.server.persistence.repositoryType "postgres" }}
+            - name: JCR_REPOSITORY_DEFAULT_POSTGRES_DB
+              value: {{ .Values.sophora.server.persistence.postgres.repository.defaultWorkspaceDB }}
+            - name: JCR_REPOSITORY_LIVE_POSTGRES_DB
+              value: {{ .Values.sophora.server.persistence.postgres.repository.liveWorkspaceDB }}
+            - name: JCR_REPOSITORY_VERSIONS_POSTGRES_DB
+              value: {{ .Values.sophora.server.persistence.postgres.repository.jcrVersionsDB }}
             {{- end }}
             {{ if .Values.configInitializer.env -}}
             {{- toYaml .Values.configInitializer.env | nindent 12 }}
