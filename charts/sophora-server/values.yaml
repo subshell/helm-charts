@@ -196,7 +196,7 @@ sophora:
       postgres:
         versionStoreEnabled: false
         hostname:
-        port: 5432
+        port: "5432"
         secret:
           name:
           usernameKey: username
