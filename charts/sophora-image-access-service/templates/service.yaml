@@ -4,6 +4,7 @@ metadata:
   name: {{ include "access-service.fullname" . }}
   labels:
     {{- include "access-service.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type | quote }}
   {{ if .Values.service.clusterIP -}}
