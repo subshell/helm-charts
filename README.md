@@ -2,14 +2,14 @@
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/subshell)](https://artifacthub.io/packages/search?repo=subshell)
 
-Public Helm charts supported by subshell.
+Helm charts supported by subshell.
 
 ## Add Repo
 
 The following command allows you to download and install all the charts from this repository:
 
 ```sh
-helm repo add subshell-public https://subshell.github.io/helm-charts
+helm repo add subshell https://subshell.github.io/helm-charts
 ```
 
 ## Development
