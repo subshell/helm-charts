@@ -33,6 +33,10 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
 
+serviceMonitor:
+  enabled: false
+  interval: 10s
+
 sophora:
   authentication:
     secret:

@@ -10,6 +10,9 @@ hostAliases:
     hostnames:
       - sophora.domain.de
 
+serviceMonitor:
+  enabled: true
+
 extraDeploy:
   - |
     apiVersion: v1
