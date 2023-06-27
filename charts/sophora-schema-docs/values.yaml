@@ -1,0 +1,43 @@
+# Settings for the Sophora server connection.
+
+image:
+  repository: docker.subshell.com/sophora/schemadoc
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: sophora-schema-docs
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+sophora:
+
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+
+  # Represents the application.yml of sophora schema docs:
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: # in secret
+          password: # in secret
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
