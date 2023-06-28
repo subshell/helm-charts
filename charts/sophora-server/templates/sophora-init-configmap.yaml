@@ -73,6 +73,9 @@ data:
     eval "export REPOSITORY_MYSQL_PASSWORD=\${REPOSITORY_MYSQL_PASSWORD_${PODID}}"
     export REPOSITORY_MYSQL_PASSWORD=$(echo $REPOSITORY_MYSQL_PASSWORD | sed "$SED_XML_ESCAPE")
     {{- end }}
+    {{- if eq .Values.sophora.server.persistence.repositoryType "postgres" }}
+    export SOPHORA_PERSISTENCE_POSTGRES_PASSWORD=$(echo SOPHORA_PERSISTENCE_POSTGRES_PASSWORD | sed "$SED_XML_ESCAPE")
+    {{- end }}
     envsubst < /sophora-repository-template/repository.xml > /sophora-repository/repository.xml
     envsubst < /sophora-repository-template/workspace.default.xml > /sophora-repository/workspace.default.xml
     envsubst < /sophora-repository-template/workspace.live.xml > /sophora-repository/workspace.live.xml
