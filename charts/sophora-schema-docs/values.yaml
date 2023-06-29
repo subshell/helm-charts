@@ -8,7 +8,7 @@ image:
 
 imagePullSecrets: []
 nameOverride: ""
-fullnameOverride: sophora-schema-docs
+fullnameOverride: ""
 
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
@@ -40,4 +40,6 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+extraDeploy: []
 

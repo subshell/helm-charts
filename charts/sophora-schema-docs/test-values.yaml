@@ -1,0 +1,24 @@
+image:
+  repository: docker.subshell.com/sophora/schemadoc
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+sophora:
+  authentication:
+    secret:
+      name: "sophora-secret"
+  client:
+    server-connection:
+      urls:
+        - 'http://sophora-server.example.com:1196'
+      internal: true
+
+podAnnotations: {}
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []

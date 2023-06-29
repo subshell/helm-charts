@@ -10,6 +10,7 @@ spec:
       {{- include "sophora-schema-docs.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations: {}
       labels:
         {{- include "sophora-schema-docs.selectorLabels" . | nindent 8 }}
     spec:
@@ -18,7 +19,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ "schemdoc" }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
