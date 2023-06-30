@@ -13,11 +13,23 @@ sophora:
   authentication:
     secret:
       name: "sophora-secret"
-  client:
-    server-connection:
-      urls:
-        - 'http://sophora-server.example.com:1196'
-      internal: true
+
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls:
+            - 'http://sophora-server.example.com:1196'
+          username: # in secret
+          password: # in secret
+
+  schemadoc:
+    extraEnv:
+      - name: AAA
+        value: a-value
+      - name: BBB
+        value: b-value
+
 
 podAnnotations: {}
 
