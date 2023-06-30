@@ -1,4 +1,4 @@
-nameOverride: sophora-server
+nameOverride: schemadoc
 
 image:
   repository: docker.subshell.com/sophora/schemadoc
