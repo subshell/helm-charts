@@ -1,8 +1,13 @@
+nameOverride: sophora-server
+
 image:
   repository: docker.subshell.com/sophora/schemadoc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+
+imagePullSecrets:
+  - name: docker-subshell
 
 sophora:
   authentication:

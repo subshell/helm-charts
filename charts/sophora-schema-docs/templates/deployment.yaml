@@ -10,7 +10,10 @@ spec:
       {{- include "sophora-schema-docs.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      annotations: {}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "sophora-schema-docs.selectorLabels" . | nindent 8 }}
     spec:
@@ -19,7 +22,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: {{ "schemdoc" }}
+        - name: schemadoc
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
@@ -42,3 +45,10 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            {{ if .Values.sophora.schemadoc.extraEnv -}}
+            {{- toYaml .Values.sophora.schemadoc.extraEnv | nindent 10 }}
+            {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-schema-docs.name" . }}

@@ -29,6 +29,9 @@ sophora:
           username: # in secret
           password: # in secret
 
+  schemadoc:
+    extraEnv:
+
 service:
   type: ClusterIP
   port: 8080
@@ -42,4 +45,6 @@ ingress:
   tls: []
 
 extraDeploy: []
+
+podAnnotations: {}
 
