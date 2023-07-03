@@ -70,6 +70,7 @@ job:
   activeDeadlineSeconds: 7200
   cron:
     enabled: false
+    suspend: false
     expression: "0 */6 * * *"
   # date format for unix date command. It is used like this: `date +"$zipFileNameDateFormat"`. Defaults to the weekday.
   # other formats:
