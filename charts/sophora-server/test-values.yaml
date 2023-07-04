@@ -132,6 +132,26 @@ clusterReplication:
     annotations:
       kubernetes.io/tls-acme: "true"
 
+extraDeploy:
+  - |
+    apiVersion: keda.sh/v1alpha1
+    kind: ScaledObject
+    metadata:
+      name: sophora-server
+    spec:
+      scaleTargetRef:
+        name: sophora-server
+      maxReplicaCount: 1
+      minReplicaCount: 0
+      pollingInterval: 30
+      triggers:
+      - type: cron
+        metadata:
+          timezone: Europe/Berlin
+          start: 0 6 * * 1,2,3,4,5
+          end: 0 23 * * 1,2,3,4,5
+          desiredReplicas: "1"
+
 tolerations:
   - effect: NoSchedule
     key: sophora-cluster-server

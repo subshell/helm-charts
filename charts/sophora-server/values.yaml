@@ -317,6 +317,8 @@ service:
   clusterIP:
   publishNotReadyAddresses: false
 
+extraDeploy: []
+
 serviceMonitor:
   enabled: false
   interval: 10s

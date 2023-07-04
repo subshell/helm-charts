@@ -1,5 +1,5 @@
 {{- if .Values.job.cron.enabled }}
-apiVersion: batch/v1beta1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: {{ include "sophora-export-job.fullname" . }}
@@ -10,6 +10,7 @@ metadata:
     {{- end }}
 spec:
   schedule: {{ .Values.job.cron.expression }}
+  suspend: {{ .Values.job.cron.suspend }}
   jobTemplate:
     spec:
       parallelism: {{ .Values.job.parallelism }}
