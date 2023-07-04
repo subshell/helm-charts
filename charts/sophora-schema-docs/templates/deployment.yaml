@@ -45,8 +45,8 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
-            {{- if .Values.schemadocs.extraEnv -}}
-            {{- toYaml .Values.schemadocs.extraEnv | nindent 10 }}
+            {{- if .Values.schemadocs.extraEnv }}
+            {{- toYaml .Values.schemadocs.extraEnv | nindent 12 }}
             {{- end }}
       volumes:
         - name: config
