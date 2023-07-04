@@ -23,7 +23,7 @@ sophora:
           username: # in secret
           password: # in secret
 
-schemadoc:
+schemadocs:
   extraEnv:
     - name: AAA
       value: a-value
