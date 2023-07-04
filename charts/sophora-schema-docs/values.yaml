@@ -30,7 +30,6 @@ sophora:
           password: # in secret
 
 schemadocs:
-  configuration: {}
   extraEnv:
 
 service:
