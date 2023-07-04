@@ -31,17 +31,6 @@ sophora:
 
 schemadocs:
   configuration: {}
-#    # Settings for the repository.
-#    repository:
-#      # A descriptive label for the repository.
-#      label:
-#    # (optional) Whether to include detailed information for scripts in the documentation.
-#    # (default: false)
-#    detailed-scripts:
-#    # (optional) Settings for nodetypes.
-#    nodetypes: []
-#    # (optional) Settings for field types.
-#    field-types: []
   extraEnv:
 
 service:
