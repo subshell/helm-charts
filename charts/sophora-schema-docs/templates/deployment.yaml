@@ -24,13 +24,21 @@ spec:
       containers:
         - name: schemadoc
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          args:
+            {{if eq .Values.schemadocs.mode "static"}}
+              ["--static", "--out", "/out/schemadocs"]
+            {{else}}
+              ["--dynamic"]
+            {{end}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - mountPath: /app/config
+            - mountPath: /config
               name: config
+            - mountPath: /out
+              name: output-folder
           ports:
             - name: http
-              containerPort: 1837
+              containerPort: 8080
               protocol: TCP
           env:
             - name: JDK_JAVA_OPTIONS
@@ -52,3 +60,5 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-schema-docs.name" . }}
+        - name: output-folder
+          emptyDir: {}
