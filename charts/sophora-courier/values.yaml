@@ -9,6 +9,23 @@ podAnnotations: {}
 
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
+  periodSeconds: 5
+  path: /actuator/health/readiness
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 5
+  periodSeconds: 5
+  path: /actuator/health/liveness
+
+managementPort: 8080
+
+
 service:
   annotations: {}
   type: LoadBalancer
