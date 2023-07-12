@@ -29,7 +29,7 @@ schemadocs:
       value: a-value
     - name: BBB
       value: b-value
-
+  mode: static
 
 podAnnotations: {}
 
