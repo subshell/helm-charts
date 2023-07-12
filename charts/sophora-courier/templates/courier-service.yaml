@@ -22,5 +22,9 @@ spec:
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.targetPort }}
       name: rest
+    - protocol: TCP
+      port: {{ .Values.managementPort }}
+      targetPort: {{ .Values.managementPort }}
+      name: management
   selector:
     app: {{ include "sophora-courier.fullname" . }}
