@@ -20,6 +20,26 @@ spec:
       containers:
         - name: {{ .Chart.Name }}-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: management
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              path: {{ .path }}
+              port: management
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
           env:
             - name: JDK_JAVA_OPTIONS
               value: >-
@@ -64,6 +84,9 @@ spec:
           ports:
             - containerPort: 1496
             - containerPort: 8080
+            - name: management
+              containerPort: {{ .Values.managementPort }}
+              protocol: TCP
           volumeMounts:
             - name: {{ include "sophora-courier.fullname" . }}-logback-config
               mountPath: /config/logback
