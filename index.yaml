@@ -252,6 +252,16 @@ entries:
   sophora-courier:
   - apiVersion: v2
     appVersion: 4.0.2
+    created: "2023-07-12T10:38:26.821851616Z"
+    description: A Helm chart for Sophora Courier
+    digest: 91e6dfe3f8bc27a0b85372bcda3187f107756f979ba3e3e6b3a5ece3a52c17e2
+    name: sophora-courier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-courier-1.1.1/sophora-courier-1.1.1.tgz
+    version: 1.1.1
+  - apiVersion: v2
+    appVersion: 4.0.2
     created: "2023-07-11T14:40:22.614435201Z"
     description: A Helm chart for Sophora Courier
     digest: 96f2dfc1f537b353ed1d52729d2e00e5b1f99fdffc4a9087fcf1780d7c9a821f
@@ -596,4 +606,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-07-12T08:18:29.08609403Z"
+generated: "2023-07-12T10:38:26.821955818Z"
