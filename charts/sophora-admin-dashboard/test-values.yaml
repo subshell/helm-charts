@@ -17,6 +17,7 @@ storageClassName: "ssd"
 
 sophora:
   serverHostname: "sophora-server"
+  hasEmbeddedSolr: false
   authentication:
     serverSecret:
       name: "sophora-user-admin-credentials"

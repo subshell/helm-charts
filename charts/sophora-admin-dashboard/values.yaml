@@ -58,6 +58,8 @@ sophora:
   solrUrl: "/solr"
   # -- (bool) set to true if the ibf filter is enabled
   ibfEnabled: false
+  # -- (bool) set to false if using SolrCloud
+  hasEmbeddedSolr: true
   authentication:
     # -- (object) user credentials for the sophora server stored in a secret
     serverSecret:
