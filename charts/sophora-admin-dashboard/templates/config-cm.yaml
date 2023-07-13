@@ -22,6 +22,7 @@ data:
           jolokiaUsername: "${SERVER_JOLOKIAUSERNAME}",
           jolokiaPassword: "${SERVER_JOLOKIAPASSWORD}",
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
+          hasEmbeddedSolr: {{ .Values.sophora.hasEmbeddedSolr }},
           solrUsername: "${SERVER_SOLRUSERNAME}",
           solrPassword: "${SERVER_SOLRPASSWORD}",
           solrPath: "{{.Values.sophora.solrUrl}}",
