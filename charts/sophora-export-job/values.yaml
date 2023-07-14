@@ -84,6 +84,7 @@ prometheusRule:
       expr: sophora_export_job_exported_documents{job="{{ include "sophora-export-job.fullname" . }}"} == 0
       labels:
         severity: warning
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not export any documents'
         summary: 'The job did not export any documents'
@@ -92,6 +93,7 @@ prometheusRule:
       expr: max(vector(0) or sophora_export_job_end{success="false", job="{{ include "sophora-export-job.fullname" . }}"}) > max(vector(0) or sophora_export_job_end{success="true", job="{{ include "sophora-export-job.fullname" . }}"})
       labels:
         severity: critical
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora export job failed.'
         summary: 'The export job ({{ include "sophora-export-job.fullname" . }}) did not complete successfully.'
@@ -100,6 +102,7 @@ prometheusRule:
       expr: (time() - push_time_seconds{job="{{ include "sophora-export-job.fullname" . }}"}) / (60 * 60) > 24
       labels:
         severity: warning
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not update metrics in the last 24 hours'
         summary: 'The job did not update metrics in the last 24 hours.'
