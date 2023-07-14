@@ -126,6 +126,7 @@ prometheusRule:
       expr: abs(sum by (job) (sophora_import_job_downloaded_documents{job="{{ include "sophora-import-job.fullname" . }}"}) - sum by(job) (sophora_import_job_imported_documents{imported="true", job="{{ include "sophora-import-job.fullname" . }}"})) > 0
       labels:
         severity: error
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not import some documents: {{ "{{ $value }}" }} '
         summary: 'The import job downloaded more files than it imported successfully.'
@@ -134,6 +135,7 @@ prometheusRule:
       expr: sophora_import_job_downloaded_documents{job="{{ include "sophora-import-job.fullname" . }}"} == 0
       labels:
         severity: warning
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora import job ({{ "{{ $labels.job }}" }}) did not download any documents.'
         summary: 'The import job did not find any documents in the downloaded archives and hence cannot import anything.'
@@ -142,6 +144,7 @@ prometheusRule:
       expr: max(vector(0) or sophora_import_job_end{success="false", job="{{ include "sophora-import-job.fullname" . }}"}) > max(vector(0) or sophora_import_job_end{success="true", job="{{ include "sophora-import-job.fullname" . }}"})
       labels:
         severity: critical
+        namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora import job ({{ "{{ $labels.job }}" }}) failed.'
         summary: 'The import job ({{ include "sophora-import-job.fullname" . }}) did not complete successfully.'
