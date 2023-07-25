@@ -32,7 +32,7 @@ spec:
             {{end}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - mountPath: /config
+            - mountPath: /data
               name: config
             - mountPath: /out
               name: output-folder
