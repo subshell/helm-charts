@@ -1,3 +1,4 @@
+## @param replicaCount number of replicas. Cluster servers only support values of 0 or 1.
 replicaCount: 1
 
 nameOverride: ""
@@ -176,7 +177,6 @@ sophora:
       archiveType: localdb
       mysql:
         ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
-        ## If clusterReplication.enabled is set to false the list of repositories and archives should only contain one entry.
         ## e.g.
         ## - secretName:
         #    hostnameKey:
@@ -184,7 +184,6 @@ sophora:
         #    passwordKey:
         repositories: []
         ## @param sophora.server.persistence.mysql.archives Array of server archive connection configurations via secrets.
-        ## If clusterReplication.enabled is set to false the list of repositories and archives should only contain one entry.
         ## e.g.
         ## - secretName:
         ##   hostnameKey:
@@ -322,25 +321,6 @@ extraDeploy: []
 serviceMonitor:
   enabled: false
   interval: 10s
-
-# -- if enabled and the server mode is set to sophora.server.isClusterServer, each replica spawns a new
-# ingress and service at deploy time. Scaling the server without a helm deployment will lead to errors.
-clusterReplication:
-  enabled: false
-  ingressesDefaults:
-    enabled: false
-    annotations: {}
-  ingresses: []
-  # -- all required services are generated based on these defaults. Custom ClusterIPs and LoadBalancerIPs are
-  # not supported.
-  servicesDefaults:
-    annotations: {}
-    type:
-    httpPort: 1196
-    jmsPort: 1197
-    sessionAffinity: None
-    sessionAffinityConfig: {}
-    publishNotReadyAddresses: false
 
 resources:
   requests:
