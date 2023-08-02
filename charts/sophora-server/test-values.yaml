@@ -105,33 +105,6 @@ ingress:
   hosts:
     - host: "sophora.domain.de"
 
-clusterReplication:
-  enabled: true
-  ingressesDefaults:
-    enabled: true
-    annotations:
-      c: d
-  ingresses:
-    - hosts:
-      - host: "sophora01.domain.de"
-      ingressClassName: nginx
-      tls:
-        - secretName: chart-example01-tls
-          hosts:
-            - "sophora01.domain.de"
-    - annotations:
-        a: b
-      hosts:
-      - host: "sophora02.domain.de"
-      tls:
-        - secretName: chart-example01-tls
-          hosts:
-            - "sophora02.domain.de"
-    - enabled: false
-  servicesDefaults:
-    annotations:
-      kubernetes.io/tls-acme: "true"
-
 extraDeploy:
   - |
     apiVersion: keda.sh/v1alpha1

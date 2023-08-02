@@ -5,8 +5,8 @@ metadata:
   labels:
     {{- include "sophora-server.labels" . | nindent 4 }}
 spec:
-  {{ if and (eq .Values.clusterReplication.enabled false) (eq .Values.sophora.server.isClusterServer true) -}}
-  replicas: 1
+  {{ if (eq .Values.sophora.server.isClusterServer true) -}}
+  replicas: {{ min 1 .Values.replicaCount }}
   {{- else -}}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
@@ -69,10 +69,6 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             {{ include "sophora-server.mysqlEnv" . | trim | nindent 12 }}
-            {{- if .Values.clusterReplication.enabled }}
-            - name: EXTERNAL_HOSTS
-              value: {{ range $i, $ingress := .Values.clusterReplication.ingresses }}{{ if $ingress.hosts }}{{ (index $ingress.hosts  0).host }} {{ end }}{{ end }}
-            {{- end }}
             {{- if .Values.sophora.server.persistence.postgres.secret.name }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
               value: {{ .Values.sophora.server.persistence.postgres.hostname }}
