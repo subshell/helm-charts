@@ -21,34 +21,8 @@ It's also possible to use postgres as your jcr repository. To use postgres with 
 
 ### Cluster servers
 
-#### Cluster replication
-
-To enable multiple cluster server in one statefulset set `clusterReplication.enabled` to `true`. To reach individual server instances 
-also set `clusterReplication.ingresses`, and `clusterReplication.services`. The order has to match
-the order of pods in the stateful set. Here is an example of a simple configuration with two replicas:
-
-```yaml
-clusterReplication:
-  enabled: true
-  ingressesDefaults: 
-    enabled: true
-  ingresses: 
-    - hosts:
-      - host: "my-server01.com"
-      tls:
-        - secretName: my-server01-tls
-          hosts:
-            - "my-server01.com"
-    - hosts:
-      - host: "my-server02.com"
-      tls:
-        - secretName: my-server01.com-tls
-          hosts:
-            - "my-server02.com"
-  servicesDefaults:
-    annotations:
-      kubernetes.io/tls-acme: "true"
-```
+Cluster servers require one statefulset per instance. Deploy multiple statefulsets to create an actual sophora cluster. 
+Therefore `replicaCount` only supports `0` and `1`.
 
 #### Pod Anti Affinity
 
