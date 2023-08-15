@@ -32,7 +32,7 @@ spec:
             {{end}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-          {{if eq .Values.image.tag "4.0.0"}}
+          {{if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
             - mountPath: /data
           {{else}}
             - mountPath: /config
