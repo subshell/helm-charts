@@ -26,13 +26,17 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           args:
             {{if eq .Values.schemadocs.mode "static"}}
-              ["--static", "--out", "/out/schemadocs"]
+            [ "--static", "--out", "/out/schemadocs" ]
             {{else}}
-              ["--dynamic"]
+            [ "--dynamic" ]
             {{end}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
+          {{if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
+            - mountPath: /data
+          {{else}}
             - mountPath: /config
+          {{end}}
               name: config
             - mountPath: /out
               name: output-folder
@@ -61,4 +65,4 @@ spec:
           configMap:
             name: {{ include "sophora-schema-docs.name" . }}
         - name: output-folder
-          emptyDir: {}
+          emptyDir: { }
