@@ -328,3 +328,14 @@ resources:
     memory: 16Gi
   limits:
     memory: 16Gi
+
+podDisruptionBudget:
+  ## @param enabled Whether the pod disruption budget resource should be deployed
+  ##
+  enabled: false
+  ## @param podDisruptionBudget.minAvailable Minimum number of pods that must still be available after the eviction
+  ##
+  minAvailable: 1
+  ## @param podDisruptionBudget.maxUnavailable Max number of pods that can be unavailable after the eviction
+  ##
+  maxUnavailable: ""
