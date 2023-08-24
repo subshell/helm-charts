@@ -136,3 +136,8 @@ resources:
     cpu: "2"
   limits:
     memory: "12G"
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+  maxUnavailable: ""
