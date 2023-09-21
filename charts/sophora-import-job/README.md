@@ -8,6 +8,11 @@ A one-time Sophora Importer that runs as a k8s job and imports the data from s3 
 
 Additional environment variables are supported via `importer.extraEnv`. The variables have to be defined in kubernetes env format. 
 
+## Supported archive formats
+
+* `.zip`
+* `.tar.gz`
+
 ## Import transformation files via S3 or HTTP
 
 Activate transformations by setting `transformation.enabled` to `true`. Now you can reference one or more zip files via s3 or http 
@@ -51,7 +56,7 @@ transformation:
       secretName: "read-only-bucket-secret"
       bucketName: "bucket-with-transformations"
       zipPaths:
-        - "/transformation-data.zip"
+        - "/transformation-data.tar.gz"
     useSaxon: true
     saxonLicenceSecretName: "saxon-license"
     saxonLicenceSecretKey: "saxon-license.lic"
