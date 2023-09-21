@@ -8,7 +8,9 @@ downloadDurationMillis=$((downloadEnd-jobStart))
 downloadDurationSeconds=$(awk -v millis=$downloadDurationMillis 'BEGIN { print ( millis / 1000 ) }')
 
 for file in `ls *.zip`; do unzip "$file"; done
-rm *.zip;
+for file in `ls *.tar.gz`; do tar -zxvf "$file"; done
+rm *.zip
+rm *.tar.gz
 mkdir -p /import/incoming
 mkdir -p /import/temp
 mkdir -p /import/success
