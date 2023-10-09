@@ -5,4 +5,4 @@ metadata:
   labels:
   {{- include "sophora-schema-docs.labels" . | nindent 4 }}
 data:
-  application.yaml: |- {{ toYaml (required "A valid application.yml config is required" .Values.sophora.configuration) | nindent 4 }}
+  application.yaml: |- {{ toYaml (required "A valid application.yaml config is required" .Values.sophora.configuration) | nindent 4 }}

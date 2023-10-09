@@ -1,27 +1,26 @@
-# Settings for the Sophora server connection.
+nameOverride: ""
+fullnameOverride: ""
 
 image:
   repository: docker.subshell.com/sophora/schemadoc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "4.0.0"
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
 
-javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
 
 sophora:
-
   authentication:
     secret:
       name: ""
-      passwordKey: "password"
-      usernameKey: "username"
+      usernameKey: username
+      passwordKey: password
 
-  # Represents the application.yml of sophora schema docs:
+  # Represents the application.yaml of Sophora Schema Docs
   configuration:
+    # Settings for the Sophora server connection.
     sophora:
       client:
         server-connection:
@@ -29,13 +28,48 @@ sophora:
           username: # in secret
           password: # in secret
 
-schemadocs:
+    # Settings for Sophora Schema Docs.
+    schema-doc:
+      # Settings for the repository.
+      repository:
+        # A descriptive label for the repository.
+        label: Example Repository
+
+      # (optional) Whether to include detailed information for scripts in the documentation.
+      # (default: false)
+      detailed-scripts: true
+
+      # (optional) Settings for nodetypes.
+      nodetypes:
+        # Settings for the 'example-nt:article' nodetype.
+        # Note: Nodetype names must be enclosed in square brackets.
+        '[example-nt:article]':
+          # (optional) Path to a SVG icon file for this nodetype.
+          # Note: The path must begin with 'icons/'
+          icon-path: icons/article.svg
+
+          # (optional) The Sophora ID of an example document for this nodetype.
+          # This document will be displayed in the documentation.
+          example-document: article-100
+
+      # (optional) Settings for field types.
+      field-types:
+        # Settings for the 'com.example.ExampleInputField' field type.
+        # Note: Field type names must be enclosed in square brackets.
+        '[com.example.ExampleInputField]':
+          # (optional) A descriptive label for this field type in German.
+          label.de: Beispielfeld
+
+          # (optional) A descriptive label for this field type in English.
+          label.en: Example Field
+
+schemaDocs:
   extraEnv:
-  mode:
 
 service:
-  type: ClusterIP
-  port: 8080
+  type: NodePort
+  clusterPort: 8080
+  nodePort: 8080
   annotations: {}
 
 ingress:
@@ -48,4 +82,3 @@ ingress:
 extraDeploy: []
 
 podAnnotations: {}
-

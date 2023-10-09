@@ -22,47 +22,54 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-        - name: schemadoc
+        - name: schema-docs
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          args:
-            {{if eq .Values.schemadocs.mode "static"}}
-            [ "--static", "--out", "/out/schemadocs" ]
-            {{else}}
-            [ "--dynamic" ]
-            {{end}}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: ["--dynamic"]
           volumeMounts:
-          {{if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
-            - mountPath: /data
-          {{else}}
-            - mountPath: /config
-          {{end}}
-              name: config
-            - mountPath: /out
-              name: output-folder
+            - name: config
+              # 4.0.0 is the only version that uses WORKDIR /data
+              {{if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
+              mountPath: /data/config
+              {{else}}
+              mountPath: /config
+              {{end}}
+              readOnly: true
           ports:
             - name: http
-              containerPort: 8080
               protocol: TCP
+              containerPort: 8080
           env:
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
-            {{- if .Values.schemadocs.extraEnv }}
-            {{- toYaml .Values.schemadocs.extraEnv | nindent 12 }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+            {{- if .Values.schemaDocs.extraEnv }}
+            {{- toYaml .Values.schemaDocs.extraEnv | nindent 12 }}
             {{- end }}
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            periodSeconds: 1
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/readiness
       volumes:
         - name: config
           configMap:
-            name: {{ include "sophora-schema-docs.name" . }}
-        - name: output-folder
-          emptyDir: { }
+            name: {{ include "sophora-schema-docs.fullname" . }}
