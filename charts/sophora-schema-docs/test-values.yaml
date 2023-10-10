@@ -24,6 +24,7 @@ sophora:
           password: # in secret
 
 schemaDocs:
+  extraEnv:
 
 podAnnotations: {}
 
