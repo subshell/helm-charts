@@ -29,11 +29,11 @@ spec:
           volumeMounts:
             - name: config
               # 4.0.0 is the only version that uses WORKDIR /data
-              {{if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
+              {{- if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
               mountPath: /data/config
-              {{else}}
+              {{ else }}
               mountPath: /config
-              {{end}}
+              {{ end -}}
               readOnly: true
           ports:
             - name: http
