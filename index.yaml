@@ -13,6 +13,23 @@ entries:
     version: 1.0.0
   o-neko:
   - apiVersion: v2
+    appVersion: 1.8.0
+    created: "2023-10-10T09:13:15.455804629Z"
+    dependencies:
+    - condition: mongodb.enabled
+      name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.6.7
+    description: A Helm chart for O-Neko
+    digest: 9e565c041fbea4cfa2c9272f2243d6e28de77a94043a91357682a659eb01c810
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-1.5.0/o-neko-1.5.0.tgz
+    version: 1.5.0
+  - apiVersion: v2
     appVersion: 1.7.0
     created: "2023-04-12T14:39:46.858937377Z"
     dependencies:
@@ -698,4 +715,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-09T12:01:10.864736036Z"
+generated: "2023-10-10T09:13:15.455920529Z"
