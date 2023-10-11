@@ -540,6 +540,16 @@ entries:
   sophora-schema-docs:
   - apiVersion: v2
     appVersion: 4.0.0
+    created: "2023-10-11T12:47:07.177023384Z"
+    description: Sophora Schema Docs
+    digest: e16ec2d3a183c8f0616cd18e57d4e5acbf3bf95dacdc6eabe8a0b80d01b9acc7
+    name: sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.0.1/sophora-schema-docs-2.0.1.tgz
+    version: 2.0.1
+  - apiVersion: v2
+    appVersion: 4.0.0
     created: "2023-10-10T14:53:56.901693254Z"
     description: Sophora Schema Docs
     digest: e2650f7fba086f2cccbed34b8b1a7eb03fceacfbee40239bf20d5ae9e9d87e9e
@@ -725,4 +735,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-10T14:53:56.901816355Z"
+generated: "2023-10-11T12:47:07.177218495Z"
