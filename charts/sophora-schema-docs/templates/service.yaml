@@ -15,5 +15,4 @@ spec:
   ports:
     - protocol: TCP
       targetPort: http
-      port: {{ .Values.service.clusterPort }}
-      nodePort: {{ .Values.service.nodePort }}
+      port: {{ .Values.service.port }}
