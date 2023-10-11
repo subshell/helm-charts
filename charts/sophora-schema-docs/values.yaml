@@ -67,9 +67,8 @@ schemaDocs:
   extraEnv:
 
 service:
-  type: NodePort
-  clusterPort: 8080
-  nodePort: 8080
+  type: ClusterIP
+  port: 8080
   annotations: {}
 
 ingress:
