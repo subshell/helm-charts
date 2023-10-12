@@ -1,0 +1,82 @@
+{{- if .Values.prometheusRule.enabled }}
+{{- $defaultRulesEnabled := .Values.prometheusRule.defaultRulesEnabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "sophora-server.fullname" . }}
+  labels: {{- include "sophora-server.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: {{ template "sophora-server.fullname" $ }}
+      rules:
+        {{- if $defaultRulesEnabled }}
+        - name: SophoraServerOffline
+          for: 10m
+          expr: 'up{container="sophora-server", job="{{ include "sophora-server.fullname" . }}"} != 1'
+          labels:
+            severity: medium
+          annotations:
+            summary: Sophora Server offline.
+            description: The server "{{`{{ $labels.service }}`}}" is offline for more than 10 minutes.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - name: SophoraServerAPISlow
+          for: 5m
+          expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.15'
+          labels:
+            severity: medium
+          annotations:
+            summary: Sophora Server API is slow
+            description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 150ms for more than 5 minutes at the 95th percentile.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        # -- start of rules for unready server states
+        - name: SophoraServerStateUnknown
+          for: 5m
+          expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == -1'
+          labels:
+            severity: medium
+          annotations:
+            summary: Sophora server's state is unknown
+            description: The Sophora server's state is unknown.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - name: SophoraServerStateSynchronizationDelayed
+          for: 10m
+          expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 3'
+          labels:
+            severity: medium
+          annotations:
+            summary: Sophora server's synchronization is delayed
+            description: The synchronization to the server server "{{`{{ $labels.pod }}`}}" is delayed.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - name: SophoraServerStateQueueTooLong
+          for: 10m
+          expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 4'
+          labels:
+            severity: medium
+          annotations:
+            summary: Sophora server's queue is too long
+            description: The server "{{`{{ $labels.pod }}`}}" is not up-to-date due to a too long queue.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - name: SophoraServerStateUnavailable
+          for: 10m
+          expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 5'
+          labels:
+            severity: high
+          annotations:
+            summary: Sophora server unavailable
+            description: The server "{{`{{ $labels.pod }}`}}" unavailable and the cause should be investigated
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - name: SophoraServerStateConnectionLost
+          for: 10m
+          expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 6'
+          labels:
+            severity: high
+          annotations:
+            summary: Sophora server lost connection to primary
+            description: The server "{{`{{ $labels.pod }}`}}" is disconnected from its primary server
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        # -- end of state alert rules
+        {{- end }}
+        {{- with .Values.prometheusRule.rules }}
+        {{ tpl (toYaml .) $ | nindent 8 }}
+        {{- end }}
+{{- end }}
