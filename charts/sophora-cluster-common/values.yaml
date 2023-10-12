@@ -1,0 +1,32 @@
+clusterServerLb:
+  enabled: true
+  name: cluster-server-lb
+
+  ingress:
+    enabled: true
+    ingressClassName: ""
+    annotations: {}
+    hosts: []
+    #  - host: ""
+    #    path: /
+
+  service:
+    type: ClusterIP
+    selectorLabels:
+      sophora.cloud/app: cluster-server
+      server.sophora.cloud/server-mode: primary
+    httpPort: 1196
+    jmsPort: 1197
+    publishNotReadyAddresses: true
+
+podDisruptionBudget:
+  enabled: true
+  name: sophora-cluster-server
+  minAvailable: 2
+  matchLabels:
+    - sophora.cloud/app: cluster-server
+
+prometheusRules:
+  enabled: false
+  defaultRulesEnabled: true
+  rules: []
