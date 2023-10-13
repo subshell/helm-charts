@@ -322,6 +322,11 @@ serviceMonitor:
   enabled: false
   interval: 10s
 
+prometheusRule:
+  enabled: false
+  defaultRulesEnabled: true
+  rules: []
+
 resources:
   requests:
     cpu: 2
@@ -329,6 +334,7 @@ resources:
   limits:
     memory: 16Gi
 
+# This PDB should only be used for staging server setups
 podDisruptionBudget:
   ## @param enabled Whether the pod disruption budget resource should be deployed
   ##

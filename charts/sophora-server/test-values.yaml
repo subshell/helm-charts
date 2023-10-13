@@ -141,3 +141,17 @@ podDisruptionBudget:
   enabled: false
   minAvailable: 1
   maxUnavailable: ""
+
+prometheusRule:
+  enabled: true
+  defaultRulesEnabled: true
+  rules:
+    - name: Test
+      for: 11m
+      expr: 'expr'
+      labels:
+        severity: high
+      annotations:
+        summary: My summary
+        description: Test description
+        runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
