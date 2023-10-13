@@ -10,7 +10,7 @@ spec:
     - name: {{ template "sophora-cluster-common.fullname" $ }}
       rules:
         {{- if $defaultRulesEnabled }}
-        - name: NoPrimarySophoraServer
+        - alert: NoPrimarySophoraServer
           for: 2m
           expr: 'count(sophora_server_replication_mode == 1) == 0'
           labels:
@@ -19,7 +19,7 @@ spec:
             summary: The Sophora Cluster has no primary.
             description: No primary elected in the cluster for more than 2 minutes.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
-        - name: SophoraServerNotInSync
+        - alert: SophoraServerNotInSync
           for: 2m
           expr: 'max((sophora_server_source_time and sophora_server_is_primary_server == 1)) - max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
           labels:
