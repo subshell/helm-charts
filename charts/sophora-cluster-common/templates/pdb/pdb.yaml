@@ -4,6 +4,7 @@ apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
   name: {{ .name }}
+  labels: {{- include "sophora-cluster-common.labels" . | nindent 4 }}
 spec:
   minAvailable: {{ .minAvailable }}
   selector:

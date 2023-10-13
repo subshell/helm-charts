@@ -1,0 +1,19 @@
+clusterServerLb:
+  enabled: true
+  ingress:
+    ingressClassName: "nginx"
+    hosts:
+      - host: "cms.mysophora.com"
+
+podDisruptionBudget:
+  enabled: true
+
+prometheusRules:
+  enabled: true
+  defaultRulesEnabled: true
+  rules:
+    - alert: Foo
+      expr: bar_metric > 10
+
+extraDeploy:
+  - apiVersion: subshell/v2

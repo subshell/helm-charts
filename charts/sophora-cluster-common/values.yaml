@@ -1,32 +1,78 @@
+## @section Common parameters
+##
+
+## @param nameOverride String to partially override the name
+nameOverride: ""
+
+## @param fullnameOverride String to fully override the release name
+fullnameOverride: ""
+
+## @section Cluster Server Loadbalancer
+## Parameters which configure service and ingress that point to the primary cluster server
+##
 clusterServerLb:
-  enabled: true
+
+  ## @param clusterServerLb.enabled whether the service and ingress should be deployed or not
+  enabled: false
+  ## @param clusterServerLb.name names of the resources
   name: cluster-server-lb
 
   ingress:
+    ## @param clusterServerLb.ingress.enabled whether the ingress should be enabled
     enabled: true
+    ## @param clusterServerLb.ingress.ingressClassName name of the ingressClass used for the ingress
     ingressClassName: ""
+    ## @param clusterServerLb.ingress.annotations annotations for the ingress
     annotations: {}
+    ## @param clusterServerLb.ingress.hosts array with hostnames used for the ingress
+    ## e.g.
+    ## hosts:
+    ##   - host: "cms.mysophora.com"
     hosts: []
     #  - host: ""
     #    path: /
 
   service:
+    ## @param clusterServerLb.service.type Kubernetes service type
     type: ClusterIP
     selectorLabels:
+      ## @param clusterServerLb.service.selectorLabels.sophora.cloud/app labels used to select the primary Sophora server
       sophora.cloud/app: cluster-server
+      ## @param clusterServerLb.service.selectorLabels.server.sophora.cloud/server-mode labels used to select the primary Sophora server
       server.sophora.cloud/server-mode: primary
+    ## @param clusterServerLb.service.httpPort the Sophora server's http port
     httpPort: 1196
+    ## @param clusterServerLb.service.jmsPort the Sophora server's jms port
     jmsPort: 1197
+    ## @param clusterServerLb.service.publishNotReadyAddresses whether the service should publish not ready addresses
     publishNotReadyAddresses: true
 
+## @section Cluster Server Pod Disruption Budget
+## Configuration of the PodDisruptionBudget for the Sophora Cluster Servers (primary and replicas)
+##
 podDisruptionBudget:
-  enabled: true
-  name: sophora-cluster-server
-  minAvailable: 2
-  matchLabels:
-    - sophora.cloud/app: cluster-server
-
-prometheusRules:
+  ## @param podDisruptionBudget.enabled whether the PDB should be installed or not
   enabled: false
+  ## @param podDisruptionBudget.name name of the PDB
+  name: sophora-cluster-server
+  ## @param podDisruptionBudget.minAvailable minimum available replicas
+  minAvailable: 2
+  ## @param podDisruptionBudget.matchLabels.sophora.cloud/app selector label for the cluster servers
+  matchLabels:
+    sophora.cloud/app: cluster-server
+
+## @section Alerting / Prometheus Rules
+## Configuration of the alerting rules
+##
+prometheusRules:
+  ## @param prometheusRules.enabled Whether the alerts should be installed
+  enabled: false
+  ## @param prometheusRules.defaultRulesEnabled Whether the default rules should be installed
   defaultRulesEnabled: true
+  ## @param prometheusRules.rules allows to add custom rules
   rules: []
+
+## @section Extra Deploy
+##
+## @param extraDeploy Allows to specify custom resources that should be deployed
+extraDeploy: []
