@@ -278,6 +278,18 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
+  sophora-cluster-common:
+  - apiVersion: v2
+    appVersion: "4"
+    created: "2023-10-13T11:55:56.024570106Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 37594188b0702cef3f1003cd1f93e94c78acfe0dffd51dc3b3e5bfc06bedc483
+    name: sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.0.0/sophora-cluster-common-1.0.0.tgz
+    version: 1.0.0
   sophora-courier:
   - apiVersion: v2
     appVersion: 4.0.2
@@ -755,4 +767,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-13T11:55:14.347100163Z"
+generated: "2023-10-13T11:55:56.024803607Z"
