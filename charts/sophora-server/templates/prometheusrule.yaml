@@ -35,8 +35,8 @@ spec:
           labels:
             severity: medium
           annotations:
-            summary: Sophora server's state is unknown
-            description: The Sophora server's state is unknown.
+            summary: State of Sophora server is unknown
+            description: State of Sophora server "{{`{{ $labels.pod }}`}}" is unknown
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         - alert: SophoraServerStateSynchronizationDelayed
           for: 10m
