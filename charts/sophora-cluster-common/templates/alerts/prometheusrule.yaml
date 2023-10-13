@@ -1,0 +1,35 @@
+{{- if .Values.prometheusRules.enabled }}
+{{- $defaultRulesEnabled := .Values.prometheusRules.defaultRulesEnabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "sophora-cluster-common.fullname" . }}
+  labels: {{- include "sophora-cluster-common.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: {{ template "sophora-cluster-common.fullname" $ }}
+      rules:
+        {{- if $defaultRulesEnabled }}
+        - alert: NoPrimarySophoraServer
+          for: 2m
+          expr: 'count(sophora_server_replication_mode == 1) == 0'
+          labels:
+            severity: critical
+          annotations:
+            summary: The Sophora Cluster has no primary.
+            description: No primary elected in the cluster for more than 2 minutes.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
+        - alert: SophoraServerNotInSync
+          for: 2m
+          expr: 'max((sophora_server_source_time and sophora_server_is_primary_server == 1)) - max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
+          labels:
+            severity: high
+          annotations:
+            summary: Server is not in sync
+            description: The server  "{{`{{ $labels.pod }}`}}" is not in sync for more than 2 minutes.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
+        {{- end }}
+        {{- with .Values.prometheusRules.rules }}
+        {{ tpl (toYaml .) $ | nindent 8 }}
+        {{- end }}
+{{- end }}

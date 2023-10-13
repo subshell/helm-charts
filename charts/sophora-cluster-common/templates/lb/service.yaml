@@ -1,0 +1,25 @@
+{{- if .Values.clusterServerLb.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.clusterServerLb.name }}
+  labels: {{- include "sophora-cluster-common.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.clusterServerLb.service.annotations | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector: {{- toYaml .Values.clusterServerLb.service.selectorLabels | nindent 4 }}
+  sessionAffinity: ClientIP
+  publishNotReadyAddresses: {{ .Values.clusterServerLb.service.publishNotReadyAddresses }}
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 3600
+  ports:
+    - port: {{ .Values.clusterServerLb.service.httpPort }}
+      targetPort: http
+      protocol: TCP
+      name: http
+    - port: {{ .Values.clusterServerLb.service.jmsPort }}
+      targetPort: jms
+      protocol: TCP
+      name: jms
+{{- end }}

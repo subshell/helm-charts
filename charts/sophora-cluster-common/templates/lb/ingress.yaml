@@ -1,0 +1,39 @@
+{{- if .Values.clusterServerLb.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.clusterServerLb.name }}
+  labels:
+  {{- include "sophora-cluster-common.labels" . | nindent 4 }}
+  {{- with .Values.clusterServerLb.ingress.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.clusterServerLb.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.clusterServerLb.ingress.ingressClassName }}
+  {{- end -}}
+  {{- if .Values.clusterServerLb.ingress.tls }}
+  tls:
+    {{- range .Values.clusterServerLb.ingress.tls }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+      secretName: {{ .secretName }}
+  {{- end }}
+  {{- end }}
+  rules:
+    {{- range .Values.clusterServerLb.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+          - path: {{ .path }}
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $.Values.clusterServerLb.name }}
+                port:
+                  number: {{ $.Values.clusterServerLb.service.httpPort }}
+  {{- end }}
+{{- end }}

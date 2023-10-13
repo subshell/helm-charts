@@ -1,0 +1,14 @@
+{{- if .Values.podDisruptionBudget.enabled }}
+{{- with .Values.podDisruptionBudget }}
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ .name }}
+  labels: {{- include "sophora-cluster-common.labels" $ | nindent 4 }}
+spec:
+  minAvailable: {{ .minAvailable }}
+  selector:
+    matchLabels:
+      {{- .matchLabels | toYaml | nindent 6 }}
+{{- end }}
+{{- end }}
