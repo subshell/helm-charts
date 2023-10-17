@@ -28,6 +28,15 @@ spec:
             summary: Sophora Server API is slow
             description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 150ms for more than 5 minutes at the 95th percentile.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
+        - alert: SophoraServerAsyncEventQueueBlocked
+          for: 10m
+          expr: 'sophora_server_events_number_of_asyc_events_waiting_to_be_processed{job="{{ include "sophora-server.fullname" . }}"} > 10000'
+          labels:
+            severity: high
+          annotations:
+            summary: Sophora Server event processing is slow or blocked
+            description: The internal event queue of the server "{{`{{ $labels.pod }}`}}" exceeds a size of 10,000 for more than 10m.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         # -- start of rules for unready server states
         - alert: SophoraServerStateUnknown
           for: 5m
