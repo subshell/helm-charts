@@ -31,6 +31,19 @@ This document is a reference to the alerts this Helm chart can fire.
 * If the server is a staging server, consider scaling the statefulset up to cover higher loads
 * Check if a newly added or modified server script is inefficient and adds an overhead to many API calls
 
+### SophoraServerAsyncEventQueueBlocked
+
+**Severity:** high
+
+**Summary:** The internal event queue of the server "{{`{{ $labels.pod }}`}}" exceeds a size of 10,000 for more than 10m.
+
+**Remediation steps:**
+
+* Check the Sophora server logs for exceptions in the event processing. Look for logs with a message containing "An exception occurred while broadcasting an event"
+* Check if all Sophora servers are effected
+* Restart the server and monitor the metric sophora_server_events_number_of_asyc_events_waiting_to_be_processed
+* If the error persists it is likely caused by a server side issue in the event processing or a malformed event. Please contact us.
+
 ## Sophora Server: State related alerts
 
 ### SophoraServerStateUnknown
