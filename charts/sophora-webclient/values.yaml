@@ -11,6 +11,8 @@ hostAliases:
 
 imagePullSecrets: []
 
+podAnnotations: {}
+
 sophora:
   authentication:
     secret:
