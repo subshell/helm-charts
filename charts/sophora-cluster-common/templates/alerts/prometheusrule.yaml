@@ -21,7 +21,7 @@ spec:
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: SophoraServerNotInSync
           for: 2m
-          expr: 'max((sophora_server_source_time and sophora_server_is_primary_server == 1)) - max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
+          expr: 'max(sophora_server_source_time and sophora_server_is_primary_server == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
           labels:
             severity: high
           annotations:
