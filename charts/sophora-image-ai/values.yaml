@@ -1,0 +1,58 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/sophora/imageai
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "4.0.0"
+
+imagePullSecrets: []
+
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      usernameKey: username
+      passwordKey: password
+
+  # Represents the application.yaml of Sophora Image AI
+  configuration:
+    # Settings for the Sophora server connection.
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: # in secret
+          password: # in secret
+
+    spring:
+      cloud:
+        gcp:
+          # GCP project ID
+          project-id: my-project
+
+          credentials:
+            # path to GCP credentials file - do not change
+            location: file:/gcp-credentials/credentials.json
+
+imageAI:
+  extraEnv:
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+extraDeploy: []
+
+podAnnotations: {}

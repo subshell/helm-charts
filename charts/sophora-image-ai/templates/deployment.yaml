@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-image-ai.fullname" . }}
+  labels:
+    {{- include "sophora-image-ai.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sophora-image-ai.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "sophora-image-ai.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: image-ai
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config
+              mountPath: /config
+              readOnly: true
+            - name: gcp-credentials
+              mountPath: /gcp-credentials
+              readOnly: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+            {{- if .Values.imageAI.extraEnv }}
+            {{- toYaml .Values.imageAI.extraEnv | nindent 12 }}
+            {{- end }}
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            periodSeconds: 1
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/readiness
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-image-ai.fullname" . }}
+        - name: gcp-credentials
+          secret:
+            secretName: sophora-image-ai-gcp-credentials
