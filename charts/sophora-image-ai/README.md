@@ -16,10 +16,10 @@ To create the secret, run the following command:
 
 ```
 kubectl create secret generic sophora-image-ai-gcp-credentials \
-	--from-literal "credentials.json=$(cat credentials.json)"
+	--from-literal "credentials.json=$(cat my-project-credentials.json)"
 ```
 
-Replace the path to `credentials.json` with the path to your actual credentials JSON file.
+Replace the path to `my-project-credentials.json` with the path to your actual credentials JSON file.
 
 After creating the secret, you can proceed to install the chart.
 
