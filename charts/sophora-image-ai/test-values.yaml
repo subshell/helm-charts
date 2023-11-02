@@ -1,0 +1,46 @@
+nameOverride: image-ai
+
+image:
+  repository: docker.subshell.com/sophora/imageai
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+imagePullSecrets:
+  - name: docker-subshell
+
+sophora:
+  authentication:
+    secret:
+      name: sophora-secret
+
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls:
+            - https://sophora-server.example.com:1196
+          username: # in secret
+          password: # in secret
+
+    spring:
+      cloud:
+        gcp:
+          # GCP project ID
+          project-id: my-project
+
+          credentials:
+            # path to GCP credentials file - do not change
+            location: file:/gcp-credentials/credentials.json
+
+imageAI:
+  extraEnv:
+
+podAnnotations: {}
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
