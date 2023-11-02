@@ -46,6 +46,8 @@ ingress:
   hosts:
   annotations: {}
 
+extraDeploy: []
+
 serviceMonitor:
   enabled: false
   interval: 10s
