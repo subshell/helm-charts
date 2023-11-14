@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "sophora-seo-check.fullname" . }}
   labels:
@@ -12,6 +12,7 @@ spec:
     metadata:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
         {{- with .Values.podAnnotations }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -91,8 +92,15 @@ spec:
           secret:
             secretName: {{ include "sophora-seo-check.fullname" . }}-init-gcp-credentials
         - name: data
-          persistentVolumeClaim:
-            claimName: {{ include "sophora-seo-check.fullname" . }}-data
-        - name: persistent-data
-          persistentVolumeClaim:
-            claimName: {{ include "sophora-seo-check.fullname" . }}-persistent-data
+          emptyDir:
+            sizelimit: {{ .Values.storage.dataSize }}
+  volumeClaimTemplates:
+    - metadata:
+        name: persistent-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: {{ .Values.storage.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.persistentDataSize }}
