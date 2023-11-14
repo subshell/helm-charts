@@ -1,0 +1,51 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/sophora/seocheck
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+imagePullSecrets: []
+
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
+
+sophora:
+  authentication:
+    secret:
+      name: sophora-secret
+
+  # Represents the application.yaml of Sophora SEO Check
+  configuration:
+    # Settings for the Sophora server connection.
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: # in secret
+          password: # in secret
+
+    # Settings for the SEO Check.
+    seo-check:
+
+seoCheck:
+  extraEnv:
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+extraDeploy: []
+
+podAnnotations: {}
+
+pvcAnnotations: {}

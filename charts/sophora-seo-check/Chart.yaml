@@ -1,0 +1,6 @@
+apiVersion: v2
+name: sophora-seo-check
+description: Sophora SEO Check
+type: application
+version: 1.0.0
+appVersion: 4.12.0

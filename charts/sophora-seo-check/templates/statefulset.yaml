@@ -1,0 +1,106 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "sophora-seo-check.fullname" . }}
+  labels:
+    {{- include "sophora-seo-check.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sophora-seo-check.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "sophora-seo-check.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        - name: seo-check-init
+          image: docker.subshell.com/sophora/seocheck-k8s-init:latest
+          imagePullPolicy: IfNotPresent
+          restartPolicy: Always
+          env:
+            - name: GOOGLE_STORAGE_BASE_URI
+              value: {{ .Values.seoCheck.init.googleStorageBaseURI }}
+          volumeMounts:
+            - name: init-gcp-credentials
+              mountPath: /init-data
+              readOnly: true
+            - name: data
+              mountPath: /seo-check-data
+      containers:
+        - name: seo-check
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: persistent-data
+              mountPath: /data
+            - name: config
+              mountPath: /data/config
+              readOnly: true
+            - name: data
+              mountPath: /init-data
+              readOnly: true
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+            {{- if .Values.seoCheck.extraEnv }}
+            {{- toYaml .Values.seoCheck.extraEnv | nindent 12 }}
+            {{- end }}
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health
+            periodSeconds: 1
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-seo-check.fullname" . }}
+        - name: init-gcp-credentials
+          secret:
+            secretName: {{ include "sophora-seo-check.fullname" . }}-init-gcp-credentials
+        - name: data
+          emptyDir:
+            sizelimit: {{ .Values.storage.dataSize }}
+  volumeClaimTemplates:
+    - metadata:
+        name: persistent-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: {{ .Values.storage.storageClass }}
+        resources:
+          requests:
+            storage: {{ .Values.storage.persistentDataSize }}
