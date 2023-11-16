@@ -42,7 +42,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: persistent-data
+            - name: {{ include "sophora-seo-check.fullname" . }}-persistent-data
               mountPath: /data
             - name: config
               mountPath: /data/config
@@ -96,7 +96,7 @@ spec:
             sizeLimit: {{ .Values.storage.dataSize }}
   volumeClaimTemplates:
     - metadata:
-        name: persistent-data
+        name: {{ include "sophora-seo-check.fullname" . }}-persistent-data
       spec:
         accessModes:
           - ReadWriteOnce
