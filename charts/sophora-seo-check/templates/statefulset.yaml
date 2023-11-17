@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       {{- include "sophora-seo-check.selectorLabels" . | nindent 6 }}
+  serviceName: {{ include "sophora-seo-check.fullname" . }}
   template:
     metadata:
       annotations:
@@ -27,7 +28,6 @@ spec:
         - name: seo-check-init
           image: docker.subshell.com/sophora/seocheck-k8s-init:latest
           imagePullPolicy: IfNotPresent
-          restartPolicy: Always
           env:
             - name: GOOGLE_STORAGE_BASE_URI
               value: {{ .Values.seoCheck.init.googleStorageBaseURI }}
@@ -42,7 +42,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - name: persistent-data
+            - name: {{ include "sophora-seo-check.fullname" . }}-persistent-data
               mountPath: /data
             - name: config
               mountPath: /data/config
@@ -93,10 +93,10 @@ spec:
             secretName: {{ include "sophora-seo-check.fullname" . }}-init-gcp-credentials
         - name: data
           emptyDir:
-            sizelimit: {{ .Values.storage.dataSize }}
+            sizeLimit: {{ .Values.storage.dataSize }}
   volumeClaimTemplates:
     - metadata:
-        name: persistent-data
+        name: {{ include "sophora-seo-check.fullname" . }}-persistent-data
       spec:
         accessModes:
           - ReadWriteOnce
