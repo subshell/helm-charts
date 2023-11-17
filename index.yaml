@@ -647,6 +647,16 @@ entries:
   sophora-seo-check:
   - apiVersion: v2
     appVersion: 4.12.0
+    created: "2023-11-17T08:09:38.968067557Z"
+    description: Sophora SEO Check
+    digest: f45f9f95d59c54e0a0d1a57dc1ccd0436c67672bbacee5b3ddf648a019e8eeab
+    name: sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.1/sophora-seo-check-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.12.0
     created: "2023-11-14T15:36:54.056606327Z"
     description: Sophora SEO Check
     digest: 7fdd3a1fd20550079ad9e6b0d8c9700cac6177a103ded7a092cbe9887b173304
@@ -858,4 +868,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-11-15T13:30:55.337566686Z"
+generated: "2023-11-17T08:09:38.968295424Z"
