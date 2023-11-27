@@ -6,6 +6,8 @@ metadata:
   {{- include "sophora-metadata-supplier.labels" . | nindent 4 }}
 data:
   application.yaml: |- {{ toYaml (required "A valid application.yml config is required" .Values.metadataSupplier.configuration) | nindent 4 }}
-  messages.properties: |- {{.Values.metadataSupplier.messages | nindent 4 }}
   loader.properties: |-
     loader.path=plugins
+  {{ if .Values.metadataSupplier.messages}}
+  messages.properties: |- {{.Values.metadataSupplier.messages | nindent 4 }}
+  {{- end }}
