@@ -575,6 +575,16 @@ entries:
   sophora-metadata-supplier:
   - apiVersion: v2
     appVersion: 4.14.0
+    created: "2023-11-27T13:13:01.903571683Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: da005949aec3226bf19022721b689267e06fd0f830dc07abf121c44daa47b49c
+    name: sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.1.0/sophora-metadata-supplier-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
+    appVersion: 4.14.0
     created: "2023-04-13T15:05:50.69201415Z"
     description: Sophora Metadata Supplier (SMS)
     digest: 34fd8a111463bb88713623cf4b9c478c1cf5203b033cdb5e74c8717d7dfdcad3
@@ -868,4 +878,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-11-17T08:09:38.968295424Z"
+generated: "2023-11-27T13:13:01.903697547Z"
