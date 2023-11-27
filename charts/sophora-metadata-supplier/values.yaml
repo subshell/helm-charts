@@ -21,6 +21,8 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 metadataSupplier:
   configuration:
     # This is the application.yaml
+  messages:
+    # This is the custom messages.properties
   mapping:
     source: # "s3" or "sidecar". leave blank for none.
     downloadFromS3:
