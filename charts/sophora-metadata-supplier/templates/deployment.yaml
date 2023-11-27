@@ -101,6 +101,11 @@ spec:
               name: plugins
             - mountPath: /app/data
               name: data
+            {{ if .Values.metadataSupplier.messages}}
+            - mountPath: /app/i18n/messages.properties
+              subPath: messages.properties
+              name: config
+            {{- end }}
           ports:
             - name: http
               containerPort: 8080
