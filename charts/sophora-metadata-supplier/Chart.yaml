@@ -3,4 +3,4 @@ name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
 version: 1.0.0
-appVersion: '4.14.0'
+appVersion: '4.15.0'
