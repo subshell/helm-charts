@@ -247,10 +247,11 @@ spec:
       {{- with .Values.additionalVolumes }}
       {{- toYaml . | nindent 6 }}
       {{- end }}
+      {{- if .Values.transformation.data.useSaxon }}
       - name: saxon-licence
         secret:
           secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
-          optional: true
+      {{- end }}
   {{ if .Values.importPvcSpec }}
   volumeClaimTemplates:
     - metadata:
