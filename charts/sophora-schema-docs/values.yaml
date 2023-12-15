@@ -63,6 +63,31 @@ sophora:
           # (optional) A descriptive label for this field type in English.
           label.en: Example Field
 
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
+  limits:
+    memory: 1Gi
+
 schemaDocs:
   extraEnv:
 
