@@ -79,7 +79,7 @@ spec:
           readinessProbe:
             httpGet:
               port: http
-              path: /actuator/health/liveness
+              path: /actuator/health/readiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}
