@@ -55,20 +55,38 @@ spec:
             {{- if .Values.schemaDocs.extraEnv }}
             {{- toYaml .Values.schemaDocs.extraEnv | nindent 12 }}
             {{- end }}
+          {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
               port: http
               path: /actuator/health/liveness
-            periodSeconds: 1
-            failureThreshold: 30
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
               port: http
               path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
               port: http
-              path: /actuator/health/readiness
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+
+          resources: {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: config
           configMap:
