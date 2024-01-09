@@ -9,6 +9,11 @@ service:
   webapp:
     type: LoadBalancer
 
+ingress:
+  ingressClassName: nginx
+  hosts:
+    - host: "my-site.com"
+
 sophora:
   authentication:
     secret:

@@ -15,13 +15,19 @@ This chart requires the following already present in the target namespace:
 image:
   repository: docker.subshell.com/ugc/ugc
   pullPolicy: Always
-  tag: "3.1.1"
+  tag: "4.8.0"
 
 service:
   jolokia:
     clusterIP: None
   webapp:
     type: LoadBalancer
+
+ingress:
+  tls:
+  hosts:
+    - host: "my-ugc.com"
+  annotations: {}
 
 sophora:
   authentication:
