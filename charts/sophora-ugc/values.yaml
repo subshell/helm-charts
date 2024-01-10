@@ -25,6 +25,13 @@ service:
     type: LoadBalancer
     loadBalancerIP:
 
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  tls:
+  hosts:
+  annotations: {}
+
 sophora:
   authentication:
     secret:
