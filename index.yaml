@@ -838,6 +838,16 @@ entries:
     version: 1.0.0
   sophora-ugc:
   - apiVersion: v2
+    appVersion: 4.8.0
+    created: "2024-01-10T08:24:33.589149059Z"
+    description: A Helm chart for Kubernetes
+    digest: 574c83769132a90ca502f93031cd20117e8b5cf54cd02609fe0acfff4b5c5671
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-1.0.1/sophora-ugc-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 4.6.1
     created: "2023-04-13T15:05:50.983521569Z"
     description: A Helm chart for Kubernetes
@@ -898,4 +908,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2023-12-15T10:08:09.796503583Z"
+generated: "2024-01-10T08:24:33.589323917Z"
