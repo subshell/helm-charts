@@ -10,6 +10,7 @@ service:
     type: LoadBalancer
 
 ingress:
+  enabled: false
   ingressClassName: nginx
   hosts:
     - host: "my-site.com"

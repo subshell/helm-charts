@@ -24,6 +24,8 @@ service:
     type: LoadBalancer
 
 ingress:
+  enabled: false
+  ingressClassName: nginx
   tls:
   hosts:
     - host: "my-ugc.com"
