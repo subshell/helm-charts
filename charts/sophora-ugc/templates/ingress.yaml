@@ -31,7 +31,7 @@ spec:
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-webapp
                 port:
                   number: 8080
     {{- end }}
