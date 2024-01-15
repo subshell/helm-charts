@@ -1,0 +1,10 @@
+oneko:
+  api:
+    baseUrl: "oneko.mycompany.com"
+    auth:
+      secretName: "auth-credentials"
+  catnipUrl: "catnip.mycompany.com"
+  useSeparateMetricsPort: true
+
+serviceMonitor:
+  enabled: true

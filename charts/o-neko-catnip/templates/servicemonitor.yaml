@@ -10,6 +10,6 @@ spec:
         matchLabels: {{- include "o-neko-catnip.selectorLabels" . | nindent 12 }}
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
-          port: http
+          port: {{ .Values.oneko.useSeparateMetricsPort | ternary "metrics" "http" }}
           path: /metrics
 {{- end }}

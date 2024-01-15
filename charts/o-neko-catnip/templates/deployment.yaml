@@ -46,17 +46,25 @@ spec:
                   name: {{ required "The oneko credential secret is required" .Values.oneko.api.auth.secretName }}
                   key: "password"
                   optional: false
+            {{- if .Values.oneko.useSeparateMetricsPort }}
+            - name: ONEKO_SERVER_METRICSPORT
+              value: "8081"
+            {{- end }}
             {{- if .Values.oneko.env -}}
             {{- toYaml .Values.oneko.env | nindent 12 }}
             {{- end }}
           ports:
             - containerPort: 8080
               name: http
+            {{- if .Values.oneko.useSeparateMetricsPort }}
+            - containerPort: 8081
+              name: metrics
+            {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
               path: /up
-              port: http
+              port: {{ $.Values.oneko.useSeparateMetricsPort | ternary "metrics" "http" }}
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}
@@ -66,7 +74,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /up
-              port: http
+              port: {{ $.Values.oneko.useSeparateMetricsPort | ternary "metrics" "http" }}
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}
@@ -76,7 +84,7 @@ spec:
           startupProbe:
             httpGet:
               path: /up
-              port: http
+              port: {{ $.Values.oneko.useSeparateMetricsPort | ternary "metrics" "http" }}
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}
