@@ -47,7 +47,7 @@ spec:
                   key: "password"
                   optional: false
             {{- if .Values.oneko.useSeparateMetricsPort }}
-            - name: ONEKO_API_SERVER_METRICSPORT
+            - name: ONEKO_SERVER_METRICSPORT
               value: "8081"
             {{- end }}
             {{- if .Values.oneko.env -}}
