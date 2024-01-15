@@ -218,6 +218,18 @@ entries:
     version: 1.0.0
   o-neko-catnip:
   - apiVersion: v2
+    appVersion: 1.3.1
+    created: "2024-01-15T13:12:04.397521075Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 89982f51ee452bbc6b561d68b37ce048e77c3131fadb1f0f16500dbddb28821f
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.3.0/o-neko-catnip-1.3.0.tgz
+    version: 1.3.0
+  - apiVersion: v2
     appVersion: 1.2.0
     created: "2023-02-15T15:54:35.097377036Z"
     description: A Helm chart for the O-Neko URL trigger
@@ -928,4 +940,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-10T13:13:25.906250897Z"
+generated: "2024-01-15T13:12:04.397949676Z"
