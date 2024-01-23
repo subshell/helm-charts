@@ -12,6 +12,8 @@ This chart requires the following already present in the target namespace:
 ## Example values.yaml
 
 ```yaml
+replicaCount: 1
+
 image:
   repository: docker.subshell.com/ugc/ugc-multimedia
   pullPolicy: IfNotPresent
@@ -28,19 +30,17 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 podAnnotations: {}
 
 podSecurityContext: {}
+# fsGroup: 2000
 
 service:
-  annotations: {}
   jolokia:
     clusterIP: None
   webapp:
     type: LoadBalancer
-    loadBalancerIP:
 
 ingress:
   enabled: false
   ingressClassName: nginx
-  tls:
   hosts:
   annotations: {}
 
@@ -112,9 +112,7 @@ sophora:
           database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # org.hibernate.dialect.Oracle12cDialect
           database: mysql # oracle
         datasource:
-          url: jdbc:mysql://mysqlhostname:3306/ugc
-          username: admin
-          password: admin
+          url: jdbc:mysql://databasehostname:3306/ugc
           driver-class-name: com.mysql.cj.jdbc.Driver # oracle.jdbc.OracleDriver
         servlet:
           multipart:
@@ -133,9 +131,7 @@ sophora:
       sophora:
         client:
           server-connection:
-            urls: http://sophora-server:1196
-            username: ${SOPHORA-SERVER_USERNAME}
-            password: ${SOPHORA-SERVER_PASSWORD}
+            urls: http://server:1196
 
       storage:
         type: fs

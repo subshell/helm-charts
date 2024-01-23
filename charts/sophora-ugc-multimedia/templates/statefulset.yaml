@@ -61,15 +61,11 @@ spec:
           ports:
             - containerPort: 8080
               name: ugc-multimedia
-            - containerPort: 1694
-              name: jolokia
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback
             - name: application-yml
               mountPath: /config/application
-            - name: binaries
-              mountPath: /binaries/
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -79,14 +75,3 @@ spec:
         - name: logback-xml
           configMap:
             name: {{ include "sophora-ugc-multimedia.fullname" . }}-logback
-
-  volumeClaimTemplates:
-    - metadata:
-        name: binaries
-        labels: {{- include "sophora-ugc-multimedia.selectorLabels" . | nindent 10 }}
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        storageClassName: {{ .Values.storageClassName }}
-        resources:
-          requests:
-            storage: 1Gi
