@@ -56,7 +56,7 @@ ugcMultimedia:
   fullnameOverride: ""
   binariesStorage:
     size: 1G
-    storageClass: ssd
+    storageClass: standard
   hostname:
   logback:
   config:
