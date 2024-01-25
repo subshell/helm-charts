@@ -39,22 +39,22 @@ spec:
             - name: SOPHORA-SERVER_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.server.usernameKey }}
+                  key: {{ .Values.authentication.secret.server.usernameKey }}
                   name: {{ .Values.authentication.secret.server.name }}
             - name: SOPHORA-SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.server.passwordKey }}
+                  key: {{ .Values.authentication.secret.server.passwordKey }}
                   name: {{ .Values.authentication.secret.server.name }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.database.usernameKey }}
+                  key: {{ .Values.authentication.secret.database.usernameKey }}
                   name: {{ .Values.authentication.secret.database.name }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.database.passwordKey }}
+                  key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
             - name: BINARY_STORE_ACCESS_KEY
               valueFrom:
