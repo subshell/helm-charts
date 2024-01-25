@@ -1,4 +1,4 @@
-{{ if eq .Values.ugcMultimedia.config.storage.type "fs" }}
+{{- if and (.Values.ugcMultimedia.enabled) (eq .Values.ugcMultimedia.config.storage.type "fs")  }}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -12,4 +12,4 @@ spec:
     requests:
       storage: {{ .Values.ugcMultimedia.binariesStorage.size }}
   storageClassName: {{ .Values.ugcMultimedia.binariesStorage.storageClass }}
-{{ end }}
+{{- end }}

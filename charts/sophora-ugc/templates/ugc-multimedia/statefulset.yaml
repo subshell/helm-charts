@@ -1,4 +1,4 @@
-{{ if .Values.ugcMultimedia.enabled }}
+{{- if .Values.ugcMultimedia.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -56,7 +56,7 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
-            {{ if eq .Values.ugcMultimedia.config.storage.type "s3" }}
+            {{- if eq .Values.ugcMultimedia.config.storage.type "s3" }}
             - name: BINARY_STORE_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -96,5 +96,5 @@ spec:
         - name: binaries
           persistentVolumeClaim:
             claimName: {{ include "sophora-ugc-multimedia.fullname" . }}
-        {{ end }}
-{{ end }}
+        {{- end }}
+{{- end }}

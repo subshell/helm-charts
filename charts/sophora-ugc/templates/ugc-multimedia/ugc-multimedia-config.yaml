@@ -1,4 +1,4 @@
-{{ if.Values.ugcMultimedia.enabled }}
+{{- if.Values.ugcMultimedia.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -7,4 +7,4 @@ metadata:
     app: {{ include "sophora-ugc-multimedia.fullname" . }}
 data:
   application.yml: |- {{ toYaml ( required "A configuration is required" .Values.ugcMultimedia.config) | nindent 4 }}
-{{ end }}
+{{- end }}

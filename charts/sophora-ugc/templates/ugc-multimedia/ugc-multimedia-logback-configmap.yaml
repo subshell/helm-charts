@@ -1,4 +1,4 @@
-{{ if .Values.ugcMultimedia.enabled }}
+{{- if .Values.ugcMultimedia.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -8,4 +8,4 @@ metadata:
 data:
   logback.xml: |
     {{- .Values.ugcMultimedia.logback | nindent 4}}
-{{ end }}
+{{- end }}
