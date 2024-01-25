@@ -1,3 +1,4 @@
+{{ if .Values.ugcMultimedia.enabled }}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -19,8 +20,8 @@ spec:
       labels:
         {{- include "sophora-ugc-multimedia.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.sophora.ugcMultimedia.hostname }}
-      hostname: {{ .Values.sophora.ugcMultimedia.hostname }}
+      {{- if .Values.ugcMultimedia.hostname }}
+      hostname: {{ .Values.ugcMultimedia.hostname }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -30,31 +31,41 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.ugcMultimedia.image.repository }}:{{ .Values.ugcMultimedia.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.ugcMultimedia.image.pullPolicy }}
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
             - name: SOPHORA-SERVER_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.usernameKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.sophora.authentication.secret.server.usernameKey }}
+                  name: {{ .Values.authentication.secret.server.name }}
             - name: SOPHORA-SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.passwordKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.sophora.authentication.secret.server.passwordKey }}
+                  name: {{ .Values.authentication.secret.server.name }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.database.usernameKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  name: {{ .Values.authentication.secret.database.name }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.database.passwordKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  name: {{ .Values.authentication.secret.database.name }}
+            - name: BINARY_STORE_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.binarystore.accessKeyKey }}
+                  name: {{ .Values.authentication.secret.binarystore.name }}
+            - name: BINARY_STORE_SECRET_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.binarystore.secretIdKey }}
+                  name: {{ .Values.authentication.secret.binarystore.name }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
@@ -75,3 +86,4 @@ spec:
         - name: logback-xml
           configMap:
             name: {{ include "sophora-ugc-multimedia.fullname" . }}-logback
+{{ end }}

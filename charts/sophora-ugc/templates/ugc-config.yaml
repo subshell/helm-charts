@@ -5,4 +5,4 @@ metadata:
   labels:
     app: {{ include "sophora-ugc.fullname" . }}
 data:
-  application.yml: |- {{ toYaml ( required "A configuration is required" .Values.sophora.ugc.config) | nindent 4 }}
+  application.yml: |- {{ toYaml ( required "A configuration is required" .Values.ugc.config) | nindent 4 }}

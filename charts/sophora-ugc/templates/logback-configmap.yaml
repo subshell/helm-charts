@@ -6,4 +6,4 @@ metadata:
   {{- include "sophora-ugc.labels" . | nindent 4 }}
 data:
   logback.xml: |
-    {{- .Values.sophora.ugc.logback | nindent 4}}
+    {{- .Values.ugc.logback | nindent 4}}
