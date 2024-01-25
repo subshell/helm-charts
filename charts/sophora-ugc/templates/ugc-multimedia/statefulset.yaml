@@ -56,6 +56,7 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+            {{ if eq .Values.ugcMultimedia.config.storage.type "s3" }}
             - name: BINARY_STORE_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
@@ -66,6 +67,7 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.binarystore.secretIdKey }}
                   name: {{ .Values.authentication.secret.binarystore.name }}
+            {{ end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
