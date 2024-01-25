@@ -34,26 +34,29 @@ authentication:
       secretIdKey: binarystore-secret-id
 
 ugc:
-  hostname: ""
-  nameOverride: ""
-  fullnameOverride: ""
   image:
     repository: docker.subshell.com/ugc/ugc
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
+  hostname: ""
+  nameOverride: ""
+  fullnameOverride: ""
   logback: 
   config:
 
 ugcMultimedia:
-  name: ""
-  fullnameOverride: ""
-  enabled: true
+  enabled: false
   image:
     repository: docker.subshell.com/ugc/ugc-multimedia
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
+  name: ""
+  fullnameOverride: ""
+  binariesStorage:
+    size: 1G
+    storageClass: ssd
   hostname:
   logback:
   config:

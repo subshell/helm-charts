@@ -77,6 +77,10 @@ spec:
               mountPath: /config/logback
             - name: application-yml
               mountPath: /config/application
+            {{ if eq .Values.ugcMultimedia.config.storage.type "fs" }}
+            - name: binaries
+              mountPath: /binaries/
+            {{ end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
@@ -86,4 +90,9 @@ spec:
         - name: logback-xml
           configMap:
             name: {{ include "sophora-ugc-multimedia.fullname" . }}-logback
+        {{ if eq .Values.ugcMultimedia.config.storage.type "fs" }}
+        - name: binaries
+          persistentVolumeClaim:
+            claimName: {{ include "sophora-ugc-multimedia.fullname" . }}
+        {{ end }}
 {{ end }}

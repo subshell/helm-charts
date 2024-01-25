@@ -1,0 +1,15 @@
+{{ if eq .Values.ugcMultimedia.config.storage.type "fs" }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sophora-ugc-multimedia.fullname" . }}
+  labels:
+    {{- include "sophora-ugc-multimedia.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.ugcMultimedia.binariesStorage.size }}
+  storageClassName: {{ .Values.ugcMultimedia.binariesStorage.storageClass }}
+{{ end }}
