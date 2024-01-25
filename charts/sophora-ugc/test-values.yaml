@@ -10,19 +10,21 @@ ingress:
   hosts:
     - "my-site.com"
 
+imagePullSecrets:
+  - name: regcred
 
 authentication:
   secret:
     server:
-      name: secret-name
+      name: sophora-user
       usernameKey: username
       passwordKey: password
     database:
-      name: secret-name
+      name: sophora-user
       usernameKey: database-user
       passwordKey: database-password
     binarystore:
-      name: secret-name
+      name: binarystorecred
       accessKeyKey: binarystore-access-key
       secretIdKey: binarystore-secret-id
 
@@ -31,7 +33,11 @@ ugc:
     repository: docker.subshell.com/ugc/ugc
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: "latest"
+  binariesStorage:
+    size: 1G
+    storageClass: standard
+  
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true">
@@ -81,20 +87,224 @@ ugc:
 
   config:
     sophora-server:
-      host: "http://localhost:1196"
-
-    # configuration of the database connection. Adapt this to match with your settings
+      username: "admin"
+      password: "admin"
+      host: "http://4.buero.subshell.io:1196"
+      proxyHost: null
+      proxyUser: null
+      proxyPassword: null
+      proxyPort: 0
+      connectRetries: 3
+      connectRetryInterval: 10
+      slavesInfoDir: ""
+    
     database:
-      # url of the jdbc connection, the last part is the name of the database
-      url: "jdbc:mysql://localhost:3306/usercontent"
-
-    # configure the port of the embedded jetty
-    server:
-      port: 9080
-
-    # ratings, image uploads and comments can be enabled for a list of node types
+      url: "jdbc:mysql://host.docker.internal:3306/ugc"
+      user: "root"
+      password: "password"
+      jpaCache: false
+    
+    caching:
+      cacheServerletUrl: null
+      cacheServletGroup: null
+      cacheServletPassword: null
+      invalidationRequestDelay: 30
+    
+    email:
+      transport:
+        host: "localhost"
+        port: 25
+        user: null
+        password: null
+        starttls: true
+        properties: {}
+    
+    double-opt-in:
+      template:
+        from: null
+        subject: "Please verify your email address"
+        replyTo: null
+        cc: null
+        bcc: null
+    
+    confirmation:
+      template:
+        from: null
+        subject: null
+        replyTo: null
+        cc: null
+        bcc: null
+    
+    comment:
+      primaryTypes: ["sophora-content-nt:story"]
+      limitPerTenSeconds: 1
+      limitPerMinute: 2
+      limitPerDay: 100
+      multiUserEnabled: "true"
+      avatarVariant: "small"
+      editorNodetype: "sophora-ugc-nt:ugcEditor"
+      editorAvatarProperty: "sophora-ugc:avatar"
+      editorNameProperty: "sophora-ugc:name"
+      headlineSize: 255
+      contentSize: 1000
+      editTolerance: 0
+    
+    spamList:
+      spamWordsProperty: "sophora-ugc:spamWords"
+      primaryType: "sophora-ugc-nt:spamList"
+      externalId: "49bc5b8c-f37e-45a4-9cc3-c16b38f3b569"
+    
+    form:
+      formFieldName_Email: "email"
+      doubleOptInProperty: "sophora-ugc:useDoubleOptIn"
+      optInEmailTextProperty: "sophora-ugc:emailText"
+      optInEmailSubjectProperty: "sophora-ugc:emailSubject"
+      confirmationEmailProperty: "sophora-ugc:enableConfirmationEmail"
+      confirmationEmailTextProperty: "sophora-ugc:confirmationEmailText"
+      confirmationEmailSubjectProperty: "sophora-ugc:confirmationEmailSubject"
+      formFieldsChildnode: "sophora-ugc:formFields"
+      fieldNameProperty: "sophora-extension:formfieldname"
+      fieldStyleProperty: "sophora-extension:fieldstyle"
+      labelProperty: "sophora-extension:question"
+      requiredProperty: "sophora-extension:formrequired"
+      headlineProperty: "sophora-ugc:title"
+      primaryType: "sophora-ugc-nt:form"
+      useFormWizard: true
+      formWizardProperty: "sophora-ugc:formWizard"
+      blacklistedFieldTypes: ["submit", "button", "reset"]
+    
+    form-search:
+      formDataSearchRegex: ".+"
+      validationErrorMsg: "Ungueltige Eingabe"
+      numberOfResultsCached: 14
+      removeAfter: 7200000
+    
+    image-upload:
+      primaryTypes: ["sophora-content-nt:story"]
+      limitPerTenSeconds: 1
+      limitPerMinute: 2
+      limitPerDay: 100
+      proposalSection: "User-Bilder"
+      imageNodeType: "sophora-extension-nt:image"
+    
     rating:
       primaryTypes: ["sophora-content-nt:story"]
+      limitPerTenSeconds: 1
+      limitPerMinute: 2
+      limitPerDay: 100
+    
+    quiz:
+      formFieldName_Email: "email"
+      answerTextProperty: "sophora-ugc:text"
+      answerUuidProperty: "sophora-ugc:uuid"
+      answerPointsProperty: "sophora-ugc:points"
+      answerCommentProperty: "sophora-ugc:description"
+      answerIsCorrectProperty: "sophora-ugc:isCorrect"
+      questionTextProperty: "sophora-ugc:text"
+      questionAnswersChildnode: "sophora-ugc:answers"
+      headlineProperty: "sophora-ugc:title"
+      questionsChildnode: "sophora-ugc:questions"
+      formProperty: "sophora-ugc:form"
+      primaryType: "sophora-ugc-nt:quiz"
+    
+    voting:
+      formFieldName_Email: "email"
+      headlineProperty: "sophora-ugc:title"
+      formProperty: "sophora-ugc:form"
+      primaryType: "sophora-ugc-nt:voting"
+      votingToProperty: "sophora-ugc:validTo"
+      numberOfVotesProperty: "sophora-ugc:numberOfVotes"
+      itemsChildnode: "sophora-ugc:votingItems"
+      itemTextProperty: "sophora-ugc:text"
+      itemUuidProperty: "sophora-ugc:uuid"
+      itemDescriptionProperty: "sophora-ugc:description"
+      votingTypeProperty: "sophora-ugc:votingType"
+      defaultVotingType: "simple"
+      timeoutDelay: 30
+      cacheUpdateInterval: 240
+      cacheEvictAfterMinutes: 720
+      cacheMaxNumberOfCachedReports: 50
+    
+    manipulation:
+      filtersProperty: "sophora-ugc:manipulationFilters"
+      entriesAllowedProperty: "sophora-ugc:entriesAllowed"
+      intervalProperty: "sophora-ugc:manipulationInterval"
+      intervalTypeProperty: "sophora-ugc:manipulationIntervalType"
+    
+    serial-programs:
+      idProperty: "sophora-ugc:serialProgram"
+      broadcastType: "sophora-content:broadcastType"
+      subHierarchydocument: "subHierarchydocument"
+      externalId: "40b38a3c-dfc0-4e3b-abf2-2bcea73d01b6"
+      titleProperty: "sophora-content:title"
+      allowedNodetypes: []
+    
+    load-information:
+      entriesPerHost: 10000
+      daysToDeclareDead: 2
+    
+    server:
+      port: 9080
+      forward-headers-strategy: "FRAMEWORK"
+    
+    spring:
+      security:
+        user:
+          name: "a"
+          password: "a"
+    
+    jolokia:
+      username: ""
+      password: ""
+    
+    features:
+      actions:
+        enableDeleteByUser: false
+        enableOverwriteUsername: false
+        enableOverwriteExternalUserId: false
+        enableActionsByFilter: false
+        enableDeleteByFilter: false
+    
+      filters:
+        documentTypes: true
+        serialPrograms: false
+        editors: true
+        dates: true
+        status: true
+        markers: false
+        serialProgramsType: "bySelectValue"
+        serialProgramsName: "Sendungsreihe"
+    
+      notes:
+        enabled: false
+    
+      pinning:
+        enabled: false
+    
+      markers: []
+    
+      comment-templates:
+        enabled: false
+        templateNodeType: "sophora-ugc-nt:commentTemplate"
+        templateStructureNodePath: null
+        templateIdStem: "kommentartemplate"
+    
+    isMainApp: false
+    previewUrl: null
+    simpleDocumentHeadlineProperty: "sophora-content:title"
+    waitingTimeBetweenStartupAttempts: 10000
+    maxNumberOfSubmissionsSaved: 500
+    iFramesAllowed: true
+
+websocket:
+  allowedOrigin: http://localhost:9000
+
+springdoc:
+  swagger-ui:
+    url: "/v3/api-docs"
+    disable-swagger-default-url: true
+    csrf:
+      enabled: true
 
 ugcMultimedia:
   enabled: true
@@ -102,7 +312,7 @@ ugcMultimedia:
     repository: docker.subshell.com/ugc/ugc-multimedia
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
-    tag: ""
+    tag: "latest"
   hostname:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
@@ -160,7 +370,9 @@ ugcMultimedia:
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # org.hibernate.dialect.Oracle12cDialect
         database: mysql # oracle
       datasource:
-        url: jdbc:mysql://databasehostname:3306/ugc
+        url: jdbc:mysql://host.docker.internal:3306/ugc
+        username: ${DATABASE_USER}
+        password: ${DATABASE_PASSWORD}
         driver-class-name: com.mysql.cj.jdbc.Driver # oracle.jdbc.OracleDriver
       servlet:
         multipart:
@@ -179,7 +391,9 @@ ugcMultimedia:
     sophora:
       client:
         server-connection:
-          urls: http://server:1196
+          urls: http://4.buero.subshell.io:1196
+          username: ${SOPHORA-SERVER_USERNAME}
+          password: ${SOPHORA-SERVER_PASSWORD}
 
     storage:
       type: fs
