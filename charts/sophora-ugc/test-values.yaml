@@ -5,10 +5,11 @@ service:
     type: LoadBalancer
 
 ingress:
-  enabled: false
+  enabled: true
   ingressClassName: nginx
   hosts:
-    - "my-site.com"
+    - host: "ugc.kunow.io"
+      pathType: Prefix
 
 imagePullSecrets:
   - name: regcred
@@ -24,9 +25,9 @@ authentication:
       usernameKey: database-user
       passwordKey: database-password
     binarystore:
-      name: binarystorecred
+      name: secret-name
       accessKeyKey: binarystore-access-key
-      secretIdKey: binarystore-secret-id
+      secretIdKey: binarystore-secret-id 
 
 ugc:
   image:

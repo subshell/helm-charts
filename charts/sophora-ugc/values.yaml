@@ -5,7 +5,6 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 imagePullSecrets: []
 
 service:
-  annotations: {}
   jolokia:
     clusterIP: None
   webapp:

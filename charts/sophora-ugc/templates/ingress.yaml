@@ -1,9 +1,10 @@
 {{- if .Values.ingress.enabled -}}
-  {{- $fullName := include "sophora-ugc.fullname" . -}}
+  {{- $ugcFullName := include "sophora-ugc.fullname" . -}}
+  {{- $ugcMultimediaFullName := include "sophora-ugc-multimedia.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $ugcFullName }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -31,8 +32,45 @@ spec:
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $fullName }}-webapp
+                name: {{ $ugcFullName }}-webapp
                 port:
                   number: 8080
+          {{- if $.Values.ugcMultimedia.enabled }}
+          - path: /public/binary
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /public/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /secure/binary
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /secure/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /websocket/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          {{- end }}
     {{- end }}
     {{- end }}
