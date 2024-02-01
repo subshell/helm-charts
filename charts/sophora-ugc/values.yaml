@@ -51,7 +51,7 @@ ugcMultimedia:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
-  name: ""
+  name: "ugc-multimedia"
   fullnameOverride: ""
   binariesStorage:
     size: 1G
