@@ -5,14 +5,10 @@ service:
     type: LoadBalancer
 
 ingress:
-  enabled: true
+  enabled: false
   ingressClassName: nginx
   hosts:
-    - host: "ugc.kunow.io"
-      pathType: Prefix
-
-imagePullSecrets:
-  - name: regcred
+    - host: "my-site.com"
 
 authentication:
   secret:
@@ -43,10 +39,8 @@ ugc:
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true">
         <jmxConfigurator />
-
         <!-- Propagate level settings to java.util.logging. -->
         <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
-
         <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <File>/logs/ugc-webapp.log</File>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -70,242 +64,35 @@ ugc:
                 <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
             </encoder>
         </appender>
-
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
             </encoder>
         </appender>
-
         <logger name="com.subshell.sophora.ugc" level="INFO" />
-
         <root level="WARN">
             <appender-ref ref="STDOUT" />
             <appender-ref ref="logfile" />
             <appender-ref ref="errorLog" />
         </root>
     </configuration>
-
   config:
     sophora-server:
-      username: "admin"
-      password: "admin"
-      host: "http://4.buero.subshell.io:1196"
-      proxyHost: null
-      proxyUser: null
-      proxyPassword: null
-      proxyPort: 0
-      connectRetries: 3
-      connectRetryInterval: 10
-      slavesInfoDir: ""
-    
+      host: "http://localhost:1196"
+
+    # configuration of the database connection. Adapt this to match with your settings
     database:
-      url: "jdbc:mysql://host.docker.internal:3306/ugc"
-      user: "root"
-      password: "password"
-      jpaCache: false
-    
-    caching:
-      cacheServerletUrl: null
-      cacheServletGroup: null
-      cacheServletPassword: null
-      invalidationRequestDelay: 30
-    
-    email:
-      transport:
-        host: "localhost"
-        port: 25
-        user: null
-        password: null
-        starttls: true
-        properties: {}
-    
-    double-opt-in:
-      template:
-        from: null
-        subject: "Please verify your email address"
-        replyTo: null
-        cc: null
-        bcc: null
-    
-    confirmation:
-      template:
-        from: null
-        subject: null
-        replyTo: null
-        cc: null
-        bcc: null
-    
-    comment:
-      primaryTypes: ["sophora-content-nt:story"]
-      limitPerTenSeconds: 1
-      limitPerMinute: 2
-      limitPerDay: 100
-      multiUserEnabled: "true"
-      avatarVariant: "small"
-      editorNodetype: "sophora-ugc-nt:ugcEditor"
-      editorAvatarProperty: "sophora-ugc:avatar"
-      editorNameProperty: "sophora-ugc:name"
-      headlineSize: 255
-      contentSize: 1000
-      editTolerance: 0
-    
-    spamList:
-      spamWordsProperty: "sophora-ugc:spamWords"
-      primaryType: "sophora-ugc-nt:spamList"
-      externalId: "49bc5b8c-f37e-45a4-9cc3-c16b38f3b569"
-    
-    form:
-      formFieldName_Email: "email"
-      doubleOptInProperty: "sophora-ugc:useDoubleOptIn"
-      optInEmailTextProperty: "sophora-ugc:emailText"
-      optInEmailSubjectProperty: "sophora-ugc:emailSubject"
-      confirmationEmailProperty: "sophora-ugc:enableConfirmationEmail"
-      confirmationEmailTextProperty: "sophora-ugc:confirmationEmailText"
-      confirmationEmailSubjectProperty: "sophora-ugc:confirmationEmailSubject"
-      formFieldsChildnode: "sophora-ugc:formFields"
-      fieldNameProperty: "sophora-extension:formfieldname"
-      fieldStyleProperty: "sophora-extension:fieldstyle"
-      labelProperty: "sophora-extension:question"
-      requiredProperty: "sophora-extension:formrequired"
-      headlineProperty: "sophora-ugc:title"
-      primaryType: "sophora-ugc-nt:form"
-      useFormWizard: true
-      formWizardProperty: "sophora-ugc:formWizard"
-      blacklistedFieldTypes: ["submit", "button", "reset"]
-    
-    form-search:
-      formDataSearchRegex: ".+"
-      validationErrorMsg: "Ungueltige Eingabe"
-      numberOfResultsCached: 14
-      removeAfter: 7200000
-    
-    image-upload:
-      primaryTypes: ["sophora-content-nt:story"]
-      limitPerTenSeconds: 1
-      limitPerMinute: 2
-      limitPerDay: 100
-      proposalSection: "User-Bilder"
-      imageNodeType: "sophora-extension-nt:image"
-    
-    rating:
-      primaryTypes: ["sophora-content-nt:story"]
-      limitPerTenSeconds: 1
-      limitPerMinute: 2
-      limitPerDay: 100
-    
-    quiz:
-      formFieldName_Email: "email"
-      answerTextProperty: "sophora-ugc:text"
-      answerUuidProperty: "sophora-ugc:uuid"
-      answerPointsProperty: "sophora-ugc:points"
-      answerCommentProperty: "sophora-ugc:description"
-      answerIsCorrectProperty: "sophora-ugc:isCorrect"
-      questionTextProperty: "sophora-ugc:text"
-      questionAnswersChildnode: "sophora-ugc:answers"
-      headlineProperty: "sophora-ugc:title"
-      questionsChildnode: "sophora-ugc:questions"
-      formProperty: "sophora-ugc:form"
-      primaryType: "sophora-ugc-nt:quiz"
-    
-    voting:
-      formFieldName_Email: "email"
-      headlineProperty: "sophora-ugc:title"
-      formProperty: "sophora-ugc:form"
-      primaryType: "sophora-ugc-nt:voting"
-      votingToProperty: "sophora-ugc:validTo"
-      numberOfVotesProperty: "sophora-ugc:numberOfVotes"
-      itemsChildnode: "sophora-ugc:votingItems"
-      itemTextProperty: "sophora-ugc:text"
-      itemUuidProperty: "sophora-ugc:uuid"
-      itemDescriptionProperty: "sophora-ugc:description"
-      votingTypeProperty: "sophora-ugc:votingType"
-      defaultVotingType: "simple"
-      timeoutDelay: 30
-      cacheUpdateInterval: 240
-      cacheEvictAfterMinutes: 720
-      cacheMaxNumberOfCachedReports: 50
-    
-    manipulation:
-      filtersProperty: "sophora-ugc:manipulationFilters"
-      entriesAllowedProperty: "sophora-ugc:entriesAllowed"
-      intervalProperty: "sophora-ugc:manipulationInterval"
-      intervalTypeProperty: "sophora-ugc:manipulationIntervalType"
-    
-    serial-programs:
-      idProperty: "sophora-ugc:serialProgram"
-      broadcastType: "sophora-content:broadcastType"
-      subHierarchydocument: "subHierarchydocument"
-      externalId: "40b38a3c-dfc0-4e3b-abf2-2bcea73d01b6"
-      titleProperty: "sophora-content:title"
-      allowedNodetypes: []
-    
-    load-information:
-      entriesPerHost: 10000
-      daysToDeclareDead: 2
-    
+      # url of the jdbc connection, the last part is the name of the database
+      url: "jdbc:mysql://localhost:3306/usercontent"
+
+    # configure the port of the embedded jetty
     server:
       port: 9080
-      forward-headers-strategy: "FRAMEWORK"
-    
-    spring:
-      security:
-        user:
-          name: "a"
-          password: "a"
-    
-    jolokia:
-      username: ""
-      password: ""
-    
-    features:
-      actions:
-        enableDeleteByUser: false
-        enableOverwriteUsername: false
-        enableOverwriteExternalUserId: false
-        enableActionsByFilter: false
-        enableDeleteByFilter: false
-    
-      filters:
-        documentTypes: true
-        serialPrograms: false
-        editors: true
-        dates: true
-        status: true
-        markers: false
-        serialProgramsType: "bySelectValue"
-        serialProgramsName: "Sendungsreihe"
-    
-      notes:
-        enabled: false
-    
-      pinning:
-        enabled: false
-    
-      markers: []
-    
-      comment-templates:
-        enabled: false
-        templateNodeType: "sophora-ugc-nt:commentTemplate"
-        templateStructureNodePath: null
-        templateIdStem: "kommentartemplate"
-    
-    isMainApp: false
-    previewUrl: null
-    simpleDocumentHeadlineProperty: "sophora-content:title"
-    waitingTimeBetweenStartupAttempts: 10000
-    maxNumberOfSubmissionsSaved: 500
-    iFramesAllowed: true
 
-websocket:
-  allowedOrigin: http://localhost:9000
+    # ratings, image uploads and comments can be enabled for a list of node types
+    rating:
+      primaryTypes: ["sophora-content-nt:story"]
 
-springdoc:
-  swagger-ui:
-    url: "/v3/api-docs"
-    disable-swagger-default-url: true
-    csrf:
-      enabled: true
 
 ugcMultimedia:
   enabled: true
@@ -460,7 +247,14 @@ env:
 
 resources:
   requests:
-    memory: "3.5G"
-    cpu: "0.5"
+    cpu: "200m"
+    memory: "2.5G"
   limits:
-    memory: "3.5G"
+    memory: "2.5G"
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
