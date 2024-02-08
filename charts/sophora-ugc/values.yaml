@@ -1,20 +1,28 @@
 replicaCount: 1
 
-javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
-
 imagePullSecrets: []
 
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+# fsGroup: 2000
+
 service:
+  annotations: {}
   jolokia:
     clusterIP: None
   webapp:
     type: LoadBalancer
+    loadBalancerIP:
 
 ingress:
   enabled: false
   ingressClassName: nginx
+  tls:
   hosts:
-    - "my-site.com"
+  annotations: {}
 
 
 authentication:
@@ -63,13 +71,16 @@ ugcMultimedia:
 # Additional environment variables can be defined here
 env:
 
-podAnnotations: {}
-
-podSecurityContext: {}
-
 resources:
   requests:
     cpu: "200m"
     memory: "2.5G"
   limits:
     memory: "2.5G"
+
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
