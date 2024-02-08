@@ -49,7 +49,47 @@ ugc:
   hostname: ""
   nameOverride: ""
   fullnameOverride: ""
-  logback: 
+  logback: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true">
+        <jmxConfigurator />
+        <!-- Propagate level settings to java.util.logging. -->
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+        <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/logs/ugc-webapp.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/ugc.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.30c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <File>/logs/error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.subshell.sophora.ugc" level="INFO" />
+        <root level="WARN">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="logfile" />
+            <appender-ref ref="errorLog" />
+        </root>
+    </configuration>
   config:
 
 ugcMultimedia:
@@ -65,7 +105,54 @@ ugcMultimedia:
     size: 1G
     storageClass: standard
   hostname:
-  logback:
+  logback: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    
+    <configuration scan="true" scanPeriod="60 seconds">
+    <jmxConfigurator />
+    
+    <!-- Propagate level settings to java.util.logging. -->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+    
+    <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <File>logs/ugc-multimedia.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <fileNamePattern>logs/ugc-multimedia.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+    <maxHistory>7</maxHistory>
+    </rollingPolicy>
+    <encoder>
+    <pattern>[%d{ISO8601}, %-5p] [%t] [%X{ID}] %.30c:%L: %m%n</pattern>
+    </encoder>
+    </appender>
+    <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+    <level>ERROR</level>
+    </filter>
+    <File>logs/ugc-multimedia-error.log</File>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <fileNamePattern>logs/ugc-multimedia-error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+    <maxHistory>7</maxHistory>
+    </rollingPolicy>
+    <encoder>
+    <pattern>[%d{ISO8601}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
+    </encoder>
+    </appender>
+    
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+    <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
+    </encoder>
+    </appender>
+    
+    <logger name="com.subshell.sophora.ugc.services" level="DEBUG" />
+    <logger name="org.springframework" level="INFO" />
+    
+    <root level="INFO">
+    <appender-ref ref="logfile" />
+    <appender-ref ref="STDOUT" />
+    <appender-ref ref="errorLog" />
+    </root>
+    </configuration>
   config:
 
 # Additional environment variables can be defined here
