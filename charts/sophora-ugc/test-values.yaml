@@ -13,11 +13,11 @@ ingress:
 authentication:
   secret:
     server:
-      name: sophora-user
+      name: secret-name
       usernameKey: username
       passwordKey: password
     database:
-      name: sophora-user
+      name: secret-name
       usernameKey: database-user
       passwordKey: database-password
     binarystore:
