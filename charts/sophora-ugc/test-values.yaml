@@ -179,7 +179,7 @@ ugcMultimedia:
     sophora:
       client:
         server-connection:
-          urls: http://4.buero.subshell.io:1196
+          urls: http://server:1196
           username: ${SOPHORA-SERVER_USERNAME}
           password: ${SOPHORA-SERVER_PASSWORD}
 
