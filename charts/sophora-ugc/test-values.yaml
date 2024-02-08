@@ -158,7 +158,7 @@ ugcMultimedia:
         database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # org.hibernate.dialect.Oracle12cDialect
         database: mysql # oracle
       datasource:
-        url: jdbc:mysql://host.docker.internal:3306/ugc
+        url: jdbc:mysql://host.docker.internal:3306/ugc-multimedia
         username: ${DATABASE_USER}
         password: ${DATABASE_PASSWORD}
         driver-class-name: com.mysql.cj.jdbc.Driver # oracle.jdbc.OracleDriver
