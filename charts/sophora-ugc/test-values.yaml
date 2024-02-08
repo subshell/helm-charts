@@ -247,14 +247,7 @@ env:
 
 resources:
   requests:
-    cpu: "200m"
-    memory: "2.5G"
+    memory: "3.5G"
+    cpu: "0.5"
   limits:
-    memory: "2.5G"
-
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
+    memory: "3.5G"
