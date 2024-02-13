@@ -37,12 +37,12 @@ spec:
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
-            - name: SOPHORA-SERVER_USERNAME
+            - name: SOPHORA_CLIENT_SERVER-CONNECTION_USERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.usernameKey }}
                   name: {{ .Values.authentication.secret.server.name }}
-            - name: SOPHORA-SERVER_PASSWORD
+            - name: SOPHORA_CLIENT_SERVER-CONNECTION_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.passwordKey }}

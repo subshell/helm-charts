@@ -180,20 +180,18 @@ ugcMultimedia:
       client:
         server-connection:
           urls: http://server:1196
-          username: ${SOPHORA-SERVER_USERNAME}
-          password: ${SOPHORA-SERVER_PASSWORD}
 
     storage:
-      type: fs
-      fs:
-        baseDir: /binaries/
-      # Configuration for s3
-      # type: s3
-      # s3:
-      #   accessKeyId: ${BINARY_STORE_ACCESS_KEY}
-      #   secretAccessKey: ${BINARY_STORE_SECRET_ID}
-      #   bucketName: <bucketName>
-      #   host: <host>
+      type: s3
+      s3:
+        accessKeyId: ${BINARY_STORE_ACCESS_KEY}
+        secretAccessKey: ${BINARY_STORE_SECRET_ID}
+        bucketName: <bucketName>
+        host: <host>
+      # Configuration for file system storage
+      # type: fs
+      # fs:
+      #   baseDir: /binaries/
 
     multimedia:
       allowedMimeTypes:
@@ -251,4 +249,3 @@ resources:
     cpu: "0.5"
   limits:
     memory: "3.5G"
-    
