@@ -3,6 +3,16 @@ entries:
   external-secrets:
   - apiVersion: v2
     appVersion: 0.8.1
+    created: "2024-02-14T13:20:09.455737851Z"
+    description: A Helm chart for creating multiple external secrets
+    digest: 4cdb78b138dda15f4d871432f2e858be478c029450286403c3b70fad2f414f8e
+    name: external-secrets
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/external-secrets-1.0.1/external-secrets-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 0.8.1
     created: "2023-04-13T15:05:49.116402213Z"
     description: A Helm chart for creating multiple external secrets
     digest: f04af2b0c6027ed5592b4590675c373ebf29be8e907cc4e444bd98601a911fd8
@@ -940,4 +950,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-01-15T13:12:04.397949676Z"
+generated: "2024-02-14T13:20:09.455914449Z"
