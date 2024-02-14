@@ -14,3 +14,7 @@ externalSecrets:
         name: example-name
         version: latest
 ```
+
+- `name` of the Kubernetes secret to create.
+- `data.key` is the identifier in the remote store which holds the secret value.
+- `data.name` the secret key of the Kubernetes secret to receive the value.
