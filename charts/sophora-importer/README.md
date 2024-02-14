@@ -69,7 +69,7 @@ transformation:
 
 Oftentimes you want to use Saxon for your transformations. This is quite easy. Set `transformation.data.useSaxon` to `true`,
 `transformation.xslTransformerFactory` to `net.sf.saxon.TransformerFactoryImpl` and provide a Saxon licence file 
-via Kubernetes secret (see next subsection).
+via Kubernetes secret (see next subsection). Provide the Saxon jar file as described in [Import transformation files via S3 or HTTP](#import-transformation-files-via-s3-or-http) above.
 
 #### Advanced example with Saxon 
 
