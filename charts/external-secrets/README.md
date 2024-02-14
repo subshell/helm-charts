@@ -16,5 +16,5 @@ externalSecrets:
 ```
 
 - `name` of the Kubernetes secret to create.
-- `data.key` is the identifier in the remote store which holds the secret value.
-- `data.name` the secret key of the Kubernetes secret to receive the value.
+- `data[0].key` is the identifier in the remote store which holds the secret value.
+- `data[0].name` the secret key of the Kubernetes secret to receive the value.
