@@ -1,13 +1,29 @@
 {{- if .Values.ingress.enabled -}}
-  {{- $fullName := include "sophora-ugc.fullname" . -}}
+  {{- $ugcFullName := include "sophora-ugc.fullname" . -}}
+  {{- $ugcMultimediaFullName := include "sophora-ugc-multimedia.fullname" . -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
-  {{- with .Values.ingress.annotations }}
+  name: {{ $ugcFullName }}
   annotations:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    nginx.org/server-snippet: |
+      location /websocket/commentsAndImages {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_pass http://{{- include "sophora-ugc.name" . -}}:8080/websocket/commentsAndImages;
+      }
+      {{- if $.Values.ugcMultimedia.enabled }}
+      location /websocket/multimedia {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_pass http://{{- .Values.ugcMultimedia.name -}}:8080/websocket/multimedia;"
+      }
+      {{- end }}
+    {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
@@ -31,8 +47,45 @@ spec:
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $fullName }}-webapp
+                name: {{ $ugcFullName }}-webapp
                 port:
                   number: 8080
+          {{- if $.Values.ugcMultimedia.enabled }}
+          - path: /public/binary
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /public/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /secure/binary
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /secure/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          - path: /websocket/multimedia
+            pathType: {{ default "ImplementationSpecific" .pathType }}
+            backend:
+              service:
+                name: {{ $ugcMultimediaFullName }}-multimedia
+                port:
+                  number: 8080
+          {{- end }}
     {{- end }}
     {{- end }}
