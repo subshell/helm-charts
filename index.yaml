@@ -604,6 +604,17 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.0.0/sophora-indexing-service-1.0.0.tgz
     version: 1.0.0
+  sophora-linkchecker:
+  - apiVersion: v2
+    appVersion: 5.0.0
+    created: "2024-02-15T15:06:41.311268076Z"
+    description: Sophora Link Checker
+    digest: 9ba0b63b5b969cdd06fe3975bc6dcad79478e9ef12ce19c6dd17bf7f56fb9682
+    name: sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
+    version: 0.1.0
   sophora-metadata-supplier:
   - apiVersion: v2
     appVersion: 4.14.0
@@ -967,4 +978,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-15T09:33:24.050049768Z"
+generated: "2024-02-15T15:06:41.311430519Z"
