@@ -51,7 +51,7 @@ sophora:
       url: "https://storage.googleapis.com"
       secret:
         name: ""
-        secretAccessKeyKey: "accessKey"
+        secretAccessKeyKey: "secretAccessKey"
         accessKeyIdKey: "accessKeyId"
       extraEnv:
         - name: S3FS_ARGS
