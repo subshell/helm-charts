@@ -1,0 +1,75 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/sophora/linkchecker
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "5.0.0"
+
+imagePullSecrets: []
+
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      usernameKey: username
+      passwordKey: password
+
+  # Represents the application.yaml of Sophora Link Checker.
+  configuration:
+    # Settings for the Sophora server connection.
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: # in secret
+          password: # in secret
+
+    linkchecker:
+
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
+  limits:
+    memory: 1Gi
+
+linkChecker:
+  extraEnv:
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+extraDeploy: []
+
+podAnnotations: {}
