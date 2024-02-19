@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}
+  labels:
+    {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
+spec:
+  clusterIP: {{ .Values.service.clusterIP }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.httpPort }}
+      targetPort: 8080
+      name: main
+  selector:
+    {{- include "sophora-importer.selectorLabels" . | nindent 4 }}

@@ -1,0 +1,15 @@
+{{- if and (.Values.ugcMultimedia.enabled) (eq .Values.ugcMultimedia.config.storage.type "fs")  }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}
+  labels:
+    {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.sophora.programDataImporter.binariesStorage.size }}
+  storageClassName: {{ .Values.sophora.programDataImporter.binariesStorage.storageClass }}
+{{- end }}

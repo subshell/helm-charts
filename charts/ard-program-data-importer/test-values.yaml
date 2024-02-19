@@ -1,0 +1,64 @@
+image:
+  repository: docker.subshell.com/sophora/program-data-importer
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+nodeSelector: {}
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+# - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
+hostAliases:
+
+sophora:
+  programDataImporter:
+    config:
+      management:
+        endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
+        endpoint:
+          health:
+            show-details: always
+            show-components: always
+            enabled: true
+        metrics:
+          tags:
+            application: ${spring.application.name}
+        server:
+          port: 8081
+      
+      spring:
+        application:
+          name: Subshell Spring Boot Template Application
+        profiles:
+          active: prod
+      
+      server:
+        error:
+          include-stacktrace: NEVER
+        port: 8080
+
+logbackXml:
+
+podAnnotations: {}
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 2Gi
+  limits:
+    memory: 2Gi
+
+service:
+  annotations: {}
+  clusterIP: None
+  httpPort: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+  tls: []

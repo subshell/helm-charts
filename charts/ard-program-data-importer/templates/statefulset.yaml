@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}
+  labels:
+  {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  serviceName: {{ include "ard-program-data-importer.fullname" . }}
+  selector:
+    matchLabels:
+      {{- include "ard-program-data-importer.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{if .Values.podAnnotations}}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{end}}
+      labels:
+        {{- include "ard-program-data-importer.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+      - name: importer
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        env:
+          - name: JDK_JAVA_OPTIONS
+            value: {{ .Values.javaOptions }}
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+            valueFrom:
+              secretKeyRef:
+                key: {{.Values.sophora.authentication.secret.usernameKey}}
+                name: {{.Values.sophora.authentication.secret.name}}
+          - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: {{.Values.sophora.authentication.secret.passwordKey}}
+                name: {{.Values.sophora.authentication.secret.name}}
+        resources:
+          {{- toYaml .Values.resources | nindent 12 }}
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: importer-config
+          mountPath: /sophora/application.yml
+          subPath: application.yml
+        - name: importer-config
+          mountPath: /sophora/logback-spring.xml
+          subPath: logback-spring.xml
+        - name: timestamp
+          mountPath: {{- index .Values "sophora" "programDataImporter" "config" "programm-data-importer" "data-path" }}
+      volumes:
+        - name: application-yml
+          configMap:
+            name: {{ include "ard-program-data-importer.fullname" . }}-config
+        - name: logback-xml
+          configMap:
+            name: {{ include "ard-program-data-importer.fullname" . }}-logback
+        - name: timestamp
+          persistentVolumeClaim:
+            claimName: {{ include "ard-program-data-importer.fullname" . }}
