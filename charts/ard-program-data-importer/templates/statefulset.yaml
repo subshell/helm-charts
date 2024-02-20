@@ -53,13 +53,13 @@ spec:
         ports:
         - containerPort: 8080
         volumeMounts:
-        - name: importer-config
+        - name: {{ include "ard-program-data-importer.fullname" . }}-config
           mountPath: /sophora/application.yml
           subPath: application.yml
-        - name: importer-config
+        - name: {{ include "ard-program-data-importer.fullname" . }}-logback
           mountPath: /sophora/logback-spring.xml
           subPath: logback-spring.xml
-        - name: timestamp
+        - name: {{ include "ard-program-data-importer.fullname" . }}-timestamp
           mountPath: {{- index .Values "sophora" "programDataImporter" "config" "programm-data-importer" "data-path" }}
       volumes:
         - name: application-yml

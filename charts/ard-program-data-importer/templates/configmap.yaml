@@ -7,4 +7,4 @@ metadata:
 data:
   application.yml: |- {{ toYaml (required "A configuration is required" .Values.sophora.programDataImporter.config) | nindent 4 }}
   logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}
-  timestamp.txt: |- {{ .Values.sophora.programDataImporter.initialTimestamp }}
+  timestamp.txt: "{{ .Values.sophora.programDataImporter.initialTimestamp }}"

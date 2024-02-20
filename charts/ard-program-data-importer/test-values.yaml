@@ -63,7 +63,39 @@ sophora:
       size: 100
       storageClass: standard
 
-logbackXml:
+logbackXml: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <configuration scan="true" scanPeriod="60 seconds">
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  
+  <property name="APPENDER_PATTERN"
+  value="%d{dd.MM.yyyy HH:mm:ss} %highlight(%5level) [%10.10thread] %-30.30(%logger{0}:%L): %msg%n%wex" />
+  
+  <logger name="com.subshell" level="INFO" />
+  <logger name="com.subshell.template" level="INFO" />
+  
+  <springProfile name="!prod">
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder>
+  <pattern>${APPENDER_PATTERN}</pattern>
+  </encoder>
+  </appender>
+  <root level="WARN">
+  <appender-ref ref="STDOUT" />
+  </root>
+  </springProfile>
+  
+  <springProfile name="prod">
+  <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+  <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+  </appender>
+  <root level="WARN">
+  <appender-ref ref="jsonConsoleAppender" />
+  </root>
+  </springProfile>
+  
+  </configuration>
+
 
 podAnnotations: {}
 
