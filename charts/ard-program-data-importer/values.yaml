@@ -22,7 +22,7 @@ sophora:
       passwordKey:
   
   programDataImporter:
-    initialTimestamp: 2024-02-19T10:55:30.015145Z
+    initialTimestamp:
       
     config:
       sophora:
