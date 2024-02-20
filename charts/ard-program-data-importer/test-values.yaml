@@ -15,8 +15,26 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 hostAliases:
 
 sophora:
+  authentication:
+    secret:
+      name:
+      usernameKey:
+      passwordKey:
+  
   programDataImporter:
+    initialTimestamp: 2024-02-19T10:55:30.015145Z
+    
     config:
+      sophora:
+        client:
+          server-connection:
+            urls: [""]
+            username: "<user>"
+            password: "<password>"
+      programm-data-importer:
+        # Path to a directory where the Programm Data Importer can write files to.
+        # Used to store meta information about the last import.
+        data-path:
       management:
         endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
         endpoint:
@@ -40,6 +58,10 @@ sophora:
         error:
           include-stacktrace: NEVER
         port: 8080
+    
+    binariesStorage:
+      size: 100
+      storageClass: standard
 
 logbackXml:
 

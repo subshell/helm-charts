@@ -69,5 +69,5 @@ spec:
           configMap:
             name: {{ include "ard-program-data-importer.fullname" . }}-logback
         - name: timestamp
-          persistentVolumeClaim:
-            claimName: {{ include "ard-program-data-importer.fullname" . }}
+          configMap:
+            name: {{ include "ard-program-data-importer.fullname" . }}-timestamp
