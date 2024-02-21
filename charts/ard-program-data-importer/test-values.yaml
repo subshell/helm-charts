@@ -2,7 +2,7 @@ image:
   repository: docker.subshell.com/sophora/program-data-importer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "ARDSOPHI_528"
+  tag: "latest"
 
 nodeSelector: {}
 imagePullSecrets: 
@@ -37,7 +37,7 @@ sophora:
       programm-data-importer:
         data-path: "timestamp/"
       schedule:
-        cron: "*/3 * * * * *" #  Spring CronExpression to schedule polling of the PlanARD API
+        cron: "*/30 * * * * *" #  Spring CronExpression to schedule polling of the PlanARD API
       management:
         endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
         endpoint:
