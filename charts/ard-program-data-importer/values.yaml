@@ -22,6 +22,8 @@ sophora:
       passwordKey:
   
   programDataImporter:
+    storage:
+      size:
     initialTimestamp:
       
     config:
@@ -34,7 +36,7 @@ sophora:
       programm-data-importer:
         # Path to a directory where the Programm Data Importer can write files to.
         # Used to store meta information about the last import.
-        data-path:
+        data-path: "timestamp/"
       management:
         endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
         endpoint:

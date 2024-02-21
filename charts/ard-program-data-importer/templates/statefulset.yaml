@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
         {{if .Values.podAnnotations}}
         {{- toYaml .Values.podAnnotations | nindent 8 -}}
         {{end}}
@@ -32,7 +32,7 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: importer
+      - name: program-data-importer
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
@@ -52,22 +52,30 @@ spec:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
         - containerPort: 8080
+        lifecycle:
+          postStart:
+            exec:  
+              command: ["/bin/sh", "-c", "echo {{ .Values.sophora.programDataImporter.initialTimestamp }} > {{ index .Values "sophora" "programDataImporter" "config" "programm-data-importer" "data-path" }}timestamp.txt"]
+              
         volumeMounts:
-        - name: {{ include "ard-program-data-importer.fullname" . }}-config
-          mountPath: /sophora/application.yml
+        - name: application-yml
+          mountPath: app/application.yml
           subPath: application.yml
-        - name: {{ include "ard-program-data-importer.fullname" . }}-logback
-          mountPath: /sophora/logback-spring.xml
+        - name: logback-xml
+          mountPath: app/logback-spring.xml
           subPath: logback-spring.xml
-        - name: {{ include "ard-program-data-importer.fullname" . }}-timestamp
-          mountPath: {{- index .Values "sophora" "programDataImporter" "config" "programm-data-importer" "data-path" }}
+        - name: timestamp-txt
+          mountPath: app/{{ index .Values "sophora" "programDataImporter" "config" "programm-data-importer" "data-path" }}
       volumes:
         - name: application-yml
           configMap:
-            name: {{ include "ard-program-data-importer.fullname" . }}-config
+            name: {{ include "ard-program-data-importer.fullname" . }}-application-yaml
         - name: logback-xml
           configMap:
             name: {{ include "ard-program-data-importer.fullname" . }}-logback
-        - name: timestamp
-          configMap:
-            name: {{ include "ard-program-data-importer.fullname" . }}-timestamp
+        - name: timestamp-txt
+          persistentVolumeClaim:
+            claimName: {{ include "ard-program-data-importer.fullname" . }}-timestamp
+            
+
+          

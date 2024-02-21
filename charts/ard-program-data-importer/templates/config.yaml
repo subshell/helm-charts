@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}-application-yaml
+  labels:
+  {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+data:
+  application.yml: |- {{ toYaml (required "A configuration is required" .Values.sophora.programDataImporter.config) | nindent 4 }}

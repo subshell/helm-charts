@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}-logback
+  labels:
+  {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+data:
+  logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}

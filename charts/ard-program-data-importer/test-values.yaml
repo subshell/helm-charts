@@ -2,10 +2,11 @@ image:
   repository: docker.subshell.com/sophora/program-data-importer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "ARDSOPHI_528"
 
 nodeSelector: {}
-imagePullSecrets: []
+imagePullSecrets: 
+  - name: regcred
 nameOverride: ""
 fullnameOverride: ""
 
@@ -17,11 +18,13 @@ hostAliases:
 sophora:
   authentication:
     secret:
-      name:
-      usernameKey:
-      passwordKey:
+      name: sophora-user
+      usernameKey: username
+      passwordKey: password
   
   programDataImporter:
+    storage:
+      size: 100
     initialTimestamp: 2024-02-19T10:55:30.015145Z
     
     config:
@@ -32,9 +35,9 @@ sophora:
             username: "<user>"
             password: "<password>"
       programm-data-importer:
-        # Path to a directory where the Programm Data Importer can write files to.
-        # Used to store meta information about the last import.
-        data-path:
+        data-path: "timestamp/"
+      schedule:
+        cron: "*/3 * * * * *" #  Spring CronExpression to schedule polling of the PlanARD API
       management:
         endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
         endpoint:
@@ -58,18 +61,13 @@ sophora:
         error:
           include-stacktrace: NEVER
         port: 8080
-    
-    binariesStorage:
-      size: 100
-      storageClass: standard
 
 logbackXml: |
   <?xml version="1.0" encoding="UTF-8"?>
   <configuration scan="true" scanPeriod="60 seconds">
   <include resource="org/springframework/boot/logging/logback/defaults.xml" />
   
-  <property name="APPENDER_PATTERN"
-  value="%d{dd.MM.yyyy HH:mm:ss} %highlight(%5level) [%10.10thread] %-30.30(%logger{0}:%L): %msg%n%wex" />
+  <property name="APPENDER_PATTERN" value="%d{dd.MM.yyyy HH:mm:ss} %highlight(%5level) [%10.10thread] %-30.30(%logger{0}:%L): %msg%n%wex" />
   
   <logger name="com.subshell" level="INFO" />
   <logger name="com.subshell.template" level="INFO" />
@@ -98,13 +96,6 @@ logbackXml: |
 
 
 podAnnotations: {}
-
-resources:
-  requests:
-    cpu: 200m
-    memory: 2Gi
-  limits:
-    memory: 2Gi
 
 service:
   annotations: {}

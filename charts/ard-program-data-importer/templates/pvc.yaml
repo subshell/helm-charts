@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "ard-program-data-importer.fullname" . }}-timestamp
+  labels:
+    {{- include "ard-program-data-importer.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.sophora.programDataImporter.storage.size }}
