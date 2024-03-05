@@ -628,6 +628,16 @@ entries:
     version: 1.0.0
   sophora-linkchecker:
   - apiVersion: v2
+    appVersion: 6.0.0
+    created: "2024-03-05T13:20:51.2931072Z"
+    description: Sophora Link Checker
+    digest: 71ccd527db0efe3c3ad059f575e06d1d7c84d7217fcd19f3317bcbb135c1cd00
+    name: sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.1/sophora-linkchecker-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
     appVersion: 5.0.0
     created: "2024-02-15T15:06:41.311268076Z"
     description: Sophora Link Checker
@@ -1000,4 +1010,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-03-04T10:54:53.339263683Z"
+generated: "2024-03-05T13:20:51.293312692Z"
