@@ -19,8 +19,8 @@ spec:
       labels:
         {{- include "sophora-ugc.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.sophora.ugc.hostname }}
-      hostname: {{ .Values.sophora.ugc.hostname }}
+      {{- if .Values.ugc.hostname }}
+      hostname: {{ .Values.ugc.hostname }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -30,31 +30,31 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          image: "{{ .Values.ugc.image.repository }}:{{ .Values.ugc.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.ugc.image.pullPolicy }}
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
             - name: SOPHORA-SERVER_USERNAME
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.usernameKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.authentication.secret.server.usernameKey }}
+                  name: {{ .Values.authentication.secret.server.name }}
             - name: SOPHORA-SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.passwordKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.authentication.secret.server.passwordKey }}
+                  name: {{ .Values.authentication.secret.server.name }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.database.usernameKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.authentication.secret.database.usernameKey }}
+                  name: {{ .Values.authentication.secret.database.name }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  key: {{ .Values.sophora.authentication.secret.database.passwordKey }}
-                  name: {{ .Values.sophora.authentication.secret.name }}
+                  key: {{ .Values.authentication.secret.database.passwordKey }}
+                  name: {{ .Values.authentication.secret.database.name }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
