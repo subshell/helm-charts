@@ -3,8 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "webclient.binaryConfigName" . }}
 binaryData:
-  {{ range $index, $value := .Values.webclient.binaryFilesBase64 }}
-  {{- range $filename, $base64content := $value }}
+  {{ range $filename, $base64content := .Values.webclient.binaryFilesBase64 }}
   {{- $filename -}}: {{ $base64content | quote }}
-  {{ end -}}
   {{ end -}}
