@@ -24,3 +24,10 @@ You can use the following values to customize the deployment
 | `webclient.ingress.host`                    | The ingress host                                                           |                                                 | **yes**  |
 | `webclient.ingress.annotations`             | Additional ingress annotations                                             | `{}`                                            | no       |
 | `webclient.configuration`                   | The Sophora webclient `application.yml` file                               |                                                 | **yes**  |
+
+
+## Changelog
+
+### Version 1.2.0
+
+* `webclient.binaryFilesBase64` now accepts a map instead of an array.  
