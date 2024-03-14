@@ -30,4 +30,4 @@ You can use the following values to customize the deployment
 
 ### Version 1.2.0
 
-* `webclient.binaryFilesBase64` now accepts a map, instead of an array.  
+* `webclient.binaryFilesBase64` now accepts a map instead of an array.  
