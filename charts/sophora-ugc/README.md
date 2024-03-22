@@ -112,6 +112,8 @@ ugc:
     # configure the port of the embedded jetty
     server:
       port: 9080
+      
+    previewUrl: "https://localhost:8090/demosite/demosite/system/preview.jsp?sophoraid="
 
     # ratings, image uploads and comments can be enabled for a list of node types
     rating:
