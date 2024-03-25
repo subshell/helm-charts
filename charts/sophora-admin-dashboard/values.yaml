@@ -1,9 +1,11 @@
 # -- (int) number of replicas/pods in the statefulset
 replicaCount: 1
 
+registry: docker.subshell.com
+
 image:
   # -- (string) image repository
-  repository: docker.subshell.com/sophora/sophora-dashboard
+  repository: sophora/sophora-dashboard
   # -- (string) the k8s image pull policy
   pullPolicy: IfNotPresent
   # -- (string) overrides the image tag
@@ -28,7 +30,7 @@ hostAliases:
 
 configGenerator:
   image:
-    repository: "docker.subshell.com/misc/alpine-toolkit"
+    repository: "misc/alpine-toolkit"
     tag: "0.0.1"
     pullPolicy: IfNotPresent
 
