@@ -96,6 +96,12 @@ service:
   type: LoadBalancer
   loadBalancerIP: 1.2.3.4
 
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar
+
 serviceMonitor:
   enabled: true
 

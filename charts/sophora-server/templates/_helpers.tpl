@@ -109,17 +109,17 @@ Logback-Config Name
 {{- printf "logback-%s" (include "sophora-server.fullname" .) | trunc 63 -}}
 {{- end }}
 
-
 {{/*
-Service Account Name
+Create the name of the service account to use
 */}}
 {{- define "sophora-server.serviceAccountName" -}}
-{{- if .Values.serviceAccountName }}
-{{- .Values.serviceAccountName | quote -}}
-{{- else if .Values.serverModeLabeler.enabledOnClusterServers }}
-{{- include "sophora-server.fullname" . | quote -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "sophora-server.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
 
 {{/*
 Renders a value that contains template.
