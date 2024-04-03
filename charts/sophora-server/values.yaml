@@ -205,6 +205,7 @@ sophora:
         versionStoreEnabled: false
         hostname:
         port: "5432"
+        username:
         secret:
           name:
           usernameKey: username

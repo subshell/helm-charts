@@ -69,11 +69,16 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             {{ include "sophora-server.mysqlEnv" . | trim | nindent 12 }}
-            {{- if .Values.sophora.server.persistence.postgres.secret.name }}
+            {{- if (or (eq .Values.sophora.server.persistence.repositoryType "postgres") .Values.sophora.server.persistence.postgres.versionStoreEnabled) }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
               value: {{ .Values.sophora.server.persistence.postgres.hostname }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_PORT
               value: {{ .Values.sophora.server.persistence.postgres.port | quote }}
+            {{- if .Values.sophora.server.persistence.postgres.username }}
+            - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
+              value: {{ .Values.sophora.server.persistence.postgres.username | quote }}
+            {{- end }}
+            {{- if .Values.sophora.server.persistence.postgres.secret.name }}
             - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -87,7 +92,6 @@ spec:
                   name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
                   optional: false
             {{- end }}
-            {{- if eq .Values.sophora.server.persistence.repositoryType "postgres" }}
             - name: JCR_REPOSITORY_DEFAULT_POSTGRES_DB
               value: {{ .Values.sophora.server.persistence.postgres.repository.defaultWorkspaceDB }}
             - name: JCR_REPOSITORY_LIVE_POSTGRES_DB
