@@ -310,7 +310,7 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        {{ if and (eq .Values.sophora.server.isClusterServer true) (eq .Values.serverModeLabeler.enabledOnClusterServers true) -}}
+        {{ if and (eq .Values.sophora.server.isClusterServer true) (eq .Values.serverModeLabeler.enabled true) -}}
         - name: server-mode-labeler
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}

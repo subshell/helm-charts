@@ -22,7 +22,7 @@ serverModeLabeler:
     pullPolicy: IfNotPresent
     tag: "1.1.0"
   # not enabled per default and can only be enabled on cluster servers
-  enabledOnClusterServers: false
+  enabled: false
   resources:
     requests:
       memory: "100M"
