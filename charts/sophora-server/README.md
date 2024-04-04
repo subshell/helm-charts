@@ -72,3 +72,13 @@ For the sidecar to work the server requires a service account with the permissio
 in the namespace the server runs in. SA, Role and Role Binding are created if not unchecked via
 `serverModeLabeler.createServiceAccount: false`. 
 You can provide your own Service Account via `serviceAccountName:` in the values.
+
+
+## Breaking changes
+> [!WARNING] 
+> Please read this information carefully before updating!
+### 2.0.0
+* Renamed `serverModeLabeler.enabledOnClusterServers` to `serverModeLabeler.enabled`
+* Removed `serverModeLabeler.createServiceAccount` in favor of `serviceAccount.create`
+* Renamed `sidecars` to `extraContainers`
+* Create `serviceAccount` by default even if `serverModeLabeler.enabled` is set to `false
