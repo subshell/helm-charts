@@ -77,7 +77,8 @@ terminationGracePeriodSecondsPerServerMode:
   cluster: 360
   staging: 180
 
-sidecars: []
+extraContainers: []
+extraInitContainers: []
 
 sophora:
   server:
