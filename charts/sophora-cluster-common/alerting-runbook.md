@@ -31,8 +31,8 @@ Usually the SourceTimes of the servers should not diverge too much and stay equa
 
 **Remediation steps:**
 
-* Check if the primary server logged a message containing "ReplicationMaster stopped". If yes: The primary server needs to be
-restarted **without electing another server to the primary**. The last part is absolutely critical to prevent data loss. As
+* Check if the primary server logged a message containing "ReplicationMaster stopped" or "StagingMaster stopped". If yes: The primary server needs to be
+restarted. If "ReplicationMaster stopped" is logged, this needs to happen **without electing another server to the primary**. The last part is absolutely critical to prevent data loss. As
 the servers automatically switch using a shutdown hook, a workaround is to exec into the container and replace the
 shutdown hook located in the `/tools/` directory with an empty executable file before restarting the server. Note that during the restart 
 working with Sophora will not be possible for a few minutes. If the error persists check the logs of the primary
