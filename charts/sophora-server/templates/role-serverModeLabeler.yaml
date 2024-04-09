@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{- include "common.truncateName" (list (include "sophora-server.fullname" .) "serverModeLabeler") | nindent 4 }}
+  name: {{- include "common.safeSuffixFullName" (list . "serverModeLabeler") | nindent 4 }}
   labels: {{- include "sophora-server.labels" . | nindent 4 }}
 rules:
   - apiGroups:
