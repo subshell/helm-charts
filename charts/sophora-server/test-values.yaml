@@ -1,4 +1,4 @@
-nameOverride: sophora-server
+nameOverride: sophora-server-this-is-a-very-long-nameOverride
 
 replicaCount: 3
 

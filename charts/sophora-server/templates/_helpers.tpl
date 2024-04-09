@@ -133,3 +133,10 @@ Usage:
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+
+{{- define "common.truncateName" -}}
+    {{- $prefix := index . 0 -}}
+    {{- $suffix := index . 1 -}}
+    {{- printf "%s-%s" ($prefix | trunc (sub 63 (len $suffix) | int)) $suffix }}
+{{- end -}}
