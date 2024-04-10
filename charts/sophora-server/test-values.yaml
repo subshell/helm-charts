@@ -1,4 +1,4 @@
-nameOverride: sophora-server
+nameOverride: sophora-server-this-is-a-very-long-nameOverride
 
 replicaCount: 3
 
@@ -18,7 +18,7 @@ additionalSelectorLabels:
 extraJavaOptions: "-XX:+UseLargePages"
 
 serverModeLabeler:
-  enabledOnClusterServers: true
+  enabled: true
 
 affinity:
   podAntiAffinity:
@@ -96,6 +96,12 @@ service:
   type: LoadBalancer
   loadBalancerIP: 1.2.3.4
 
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar
+
 serviceMonitor:
   enabled: true
 
@@ -130,8 +136,23 @@ tolerations:
     key: sophora-cluster-server
     operator: Exists
 
+extraContainers:
+  - name: cloud-sql-proxy
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.10.1
+    args:
+      - "--private-ip"
+      - "--structured-logs"
+      - "--port=<DB_PORT>"
+      - "<INSTANCE_CONNECTION_NAME>"
 
-sidecars:
+    securityContext:
+      runAsNonRoot: true
+    resources:
+      requests:
+        memory: "2Gi"
+        cpu: "1"
+
+extraInitContainers:
   - name: cloud-sql-proxy
     image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.10.1
     args:
