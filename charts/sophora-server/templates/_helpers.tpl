@@ -138,5 +138,5 @@ Usage:
 {{- define "common.safeSuffixFullname" -}}
     {{- $ctx := index . 0 -}}
     {{- $suffix := index . 1 -}}
-    {{- printf "%s-%s" (include "sophora-server.fullname" $ctx | trunc (sub 63 (len $suffix) | int)) $suffix }}
+    {{- printf "%s-%s" (include "sophora-server.fullname" $ctx | trunc (sub 62 (len $suffix) | int)) $suffix }}
 {{- end -}}
