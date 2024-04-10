@@ -82,3 +82,5 @@ You can provide your own Service Account via `serviceAccountName:` in the values
 * Removed `serverModeLabeler.createServiceAccount` in favor of `serviceAccount.create`
 * Renamed `sidecars` to `extraContainers`
 * Create `serviceAccount` by default even if `serverModeLabeler.enabled` is set to `false
+* Names of `Role` and `RoleBinding` have been suffixed with `-server-mode-labeler`. 
+E.g. `cluster-01-sophora-server` -> `cluster-01-sophora-server-server-mode-labeler` 
