@@ -14,7 +14,7 @@ preStop:
   image:
     repository: docker.subshell.com/tools/sophora-prestop
     pullPolicy: IfNotPresent
-    tag: "1.2.0"
+    tag: "2.0.0"
 
 serverModeLabeler:
   image:
