@@ -320,7 +320,7 @@ spec:
                   [
                       "/bin/sh",
                       "-c",
-                      "/tools/sophora-prestop switch --serverUrl=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
+                      "/tools/sophora-prestop switch --server-url=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
                   ]
           {{- end }}
           resources:
