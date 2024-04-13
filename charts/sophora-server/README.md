@@ -108,8 +108,8 @@ the hook can get information through the Kubernetes API. If you don't manage the
 chart, you may need to configure it manually to provide the required permissions.
 
 ## 2.0.0 (Breaking changes)
-
-> ⚠️ Please read this information carefully before updating!
+> [!WARNING]
+> Please read this information carefully before updating!
 
 * Renamed `serverModeLabeler.enabledOnClusterServers` to `serverModeLabeler.enabled`
 * Removed `serverModeLabeler.createServiceAccount` in favour of `serviceAccount.create`
