@@ -1,7 +1,9 @@
+global:
+  # -- (string) image registry
+  imageRegistry: docker.subshell.com
+
 # -- (int) number of replicas/pods in the statefulset
 replicaCount: 1
-
-registry: docker.subshell.com
 
 image:
   # -- (string) image repository

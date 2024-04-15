@@ -30,7 +30,7 @@ spec:
       {{- end }}
       initContainers:
         - name: config-generator
-          image: "{{ .Values.registry }}/{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          image: "{{ .Values.global.imageRegistry }}/{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
           imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
           env:
             - name: SERVER_SOPHORAUSERNAME
@@ -96,7 +96,7 @@ spec:
               mountPath: /dashboard-config
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          image: "{{ .Values.global.imageRegistry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
