@@ -22,9 +22,7 @@ serverModeLabeler:
     pullPolicy: IfNotPresent
     tag: "1.1.0"
   # not enabled per default and can only be enabled on cluster servers
-  enabledOnClusterServers: false
-  # whether to create a service account, role and role binding with the required permissions for pod labeling. will not be created if enabledOnClusterServers is false.
-  createServiceAccount: true
+  enabled: false
   resources:
     requests:
       memory: "100M"
@@ -58,7 +56,16 @@ affinity: {}
 
 podManagementPolicy:
 
-serviceAccountName:
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
 
 updateStrategy:
 
@@ -69,6 +76,9 @@ tolerations: []
 terminationGracePeriodSecondsPerServerMode:
   cluster: 360
   staging: 180
+
+extraContainers: []
+extraInitContainers: []
 
 sophora:
   server:
@@ -196,6 +206,7 @@ sophora:
         versionStoreEnabled: false
         hostname:
         port: "5432"
+        username:
         secret:
           name:
           usernameKey: username
