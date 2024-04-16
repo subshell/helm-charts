@@ -28,6 +28,15 @@ spec:
             summary: Server is not in sync
             description: The server  "{{`{{ $labels.pod }}`}}" is not in sync for more than 2 minutes.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
+        - alert: MultiplePrimarySophoraServers
+          for: 2m
+          expr: 'count(sophora_server_replication_mode == 1) > 1'
+          labels:
+            severity: critical
+          annotations:
+            summary: The Sophora Cluster has more than one server claiming to be the primary.
+            description: There are two primary servers in the cluster for more than 2 minutes.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         {{- end }}
         {{- with .Values.prometheusRules.rules }}
         {{ tpl (toYaml .) $ | nindent 8 }}

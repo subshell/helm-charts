@@ -245,13 +245,13 @@ spec:
                   optional: false
             {{- end }}
             {{ if and (eq .Values.sophora.server.isClusterServer true) (.Values.sophora.server.authentication.secret) -}}
-            - name: SOPHORAUSERNAME
+            - name: SOPHORA_USERNAME # required for the preStop hook
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.sophora.server.authentication.secret.usernameKey }}
                   name: {{ .Values.sophora.server.authentication.secret.name }}
                   optional: false
-            - name: SOPHORAPASSWORD
+            - name: SOPHORA_PASSWORD # required for the preStop hook
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.sophora.server.authentication.secret.passwordKey }}
@@ -259,6 +259,14 @@ spec:
                   optional: false
             - name: LOG_MODE # used by the preStop hook to configure JSON logging
               value: "prod"
+            - name: POD_NAME # required for the preStop hook
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_NAMESPACE # required for the preStop hook
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
             {{- end }}
             {{ if .Values.sophora.server.env -}}
             {{- toYaml .Values.sophora.server.env | nindent 12 }}
@@ -312,7 +320,7 @@ spec:
                   [
                       "/bin/sh",
                       "-c",
-                      "/tools/sophora-prestop switch --serverUrl=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
+                      "/tools/sophora-prestop switch --server-url=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
                   ]
           {{- end }}
           resources:
