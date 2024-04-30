@@ -75,25 +75,27 @@ sophora:
 logbackXml: |
   <?xml version="1.0" encoding="UTF-8"?>
   <configuration scan="true" scanPeriod="60 seconds">
-  	<jmxConfigurator/>
-
-  	<property name="PATTERN"
-  			  value="%d{dd.MM.yyyy HH:mm:ss} %5level [%12.12thread] [%X{importerInstanceName}: %X{feedName} %X{sourceFileName}] %.40(%logger{0}:%L) --- %msg%n"/>
-
-  	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-  		<encoder>
-  			<pattern>${PATTERN}</pattern>
-  		</encoder>
-  	</appender>
-
-  	<logger name="com.subshell.sophora" level="INFO"/>
-  	<logger name="com.subshell.sophora.importer" level="INFO"/>
-  	<logger name="org.springframework.boot" level="INFO"/>
-
-  	<root level="WARN">
-  		<appender-ref ref="console"/>
-  	</root>
-
+      <jmxConfigurator/>
+  
+      <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+          <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+              <evaluator>
+                  <!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
+                  <expression>marker != null &amp;&amp; marker.getName().equals("SPECIAL_EMAIL_NOTIFICATION")</expression>
+              </evaluator>
+              <OnMismatch>NEUTRAL</OnMismatch>
+              <OnMatch>DENY</OnMatch>
+          </filter>
+          <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+      </appender>
+  
+      <logger name="com.subshell.sophora" level="INFO"/>
+      <logger name="com.subshell.sophora.importer" level="INFO"/>
+      <logger name="org.springframework.boot" level="INFO"/>
+  
+      <root level="WARN">
+          <appender-ref ref="jsonConsoleAppender"/>
+      </root>
   </configuration>
 
 transformation:
