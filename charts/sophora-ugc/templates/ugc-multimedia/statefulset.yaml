@@ -7,7 +7,7 @@ metadata:
     {{- include "sophora-ugc-multimedia.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  serviceName: {{ include "sophora-ugc-multimedia.fullname" . }}-multimedia
+  serviceName: {{ include "sophora-ugc-multimedia.fullname" . }}
   selector:
     matchLabels:
       {{- include "sophora-ugc-multimedia.selectorLabels" . | nindent 6 }}

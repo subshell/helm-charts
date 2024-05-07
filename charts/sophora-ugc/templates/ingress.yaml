@@ -55,35 +55,35 @@ spec:
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $ugcMultimediaFullName }}-multimedia
+                name: {{ $ugcMultimediaFullName }}
                 port:
                   number: 8080
           - path: /public/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $ugcMultimediaFullName }}-multimedia
+                name: {{ $ugcMultimediaFullName }}
                 port:
                   number: 8080
           - path: /secure/binary
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $ugcMultimediaFullName }}-multimedia
+                name: {{ $ugcMultimediaFullName }}
                 port:
                   number: 8080
           - path: /secure/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $ugcMultimediaFullName }}-multimedia
+                name: {{ $ugcMultimediaFullName }}
                 port:
                   number: 8080
           - path: /websocket/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
-                name: {{ $ugcMultimediaFullName }}-multimedia
+                name: {{ $ugcMultimediaFullName }}
                 port:
                   number: 8080
           {{- end }}
