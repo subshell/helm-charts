@@ -844,6 +844,16 @@ entries:
   sophora-server:
   - apiVersion: v2
     appVersion: 4.26.0
+    created: "2024-05-08T12:27:32.980630437Z"
+    description: A Helm chart for the Sophora Server
+    digest: 7fbd5fb5a483be85e92a8956bcd3da9f3b4ddfb59ae79cb1900323a916e0d095
+    name: sophora-server
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.2.0/sophora-server-2.2.0.tgz
+    version: 2.2.0
+  - apiVersion: v2
+    appVersion: 4.26.0
     created: "2024-04-16T14:42:00.002058495Z"
     description: A Helm chart for the Sophora Server
     digest: bb0d62cf5272da9a7de76f12cf32812a743c0c398773c6eb8e99a25fb6e76ddf
@@ -1161,4 +1171,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-08T11:23:46.474599445Z"
+generated: "2024-05-08T12:27:32.980901616Z"
