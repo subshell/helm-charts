@@ -414,3 +414,6 @@ spec:
         resources:
         {{- toYaml .Values.sophora.server.storage.dataDirResources | nindent 10 }}
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}
+    {{- if .Values.extraVolumeClaimTemplates }}
+    {{ include "common.tplvalues.render" (dict "value" .Values.extraVolumeClaimTemplates "context" $) | nindent 4 }}
+    {{- end }}
