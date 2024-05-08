@@ -60,7 +60,7 @@ serviceMonitor:
 
 startupProbe:
   httpPath: '/actuator/health/readiness'
-  failureThreshold: 15
+  failureThreshold: 40
   initialDelaySeconds: 10
   timeoutSeconds: 1
   periodSeconds: 2
