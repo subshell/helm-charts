@@ -9,7 +9,7 @@ on:
 
 jobs:
   release:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.repository == 'subshell/helm-charts'}}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
