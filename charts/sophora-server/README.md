@@ -98,6 +98,60 @@ For the sidecar to work, the server requires a service account with the permissi
 in the namespace the server runs in. The SA, Role and Role Binding are created automatically by this chart.
 The creation of these resources can be controlled with the `serviceAccount:` section in the values file.
 
+### Postgres native sidecar (k8s 1.29+)
+
+All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database.
+However, Sophora staging server support replica scaling, but still require one unique postgres database per instance. 
+The simplest way to accommodate these requirements is to add native sidecar containers into the mix.
+Each Sophora server now has its own postgres instance that it can easily connect to. 
+Read more about native sidecar containers [here](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/).
+
+Add a native sidecar container using the following configuration: 
+
+```yaml
+extraInitContainers:
+  - name: "postgres"
+    image: "postgres:16.2-alpine3.19"
+    imagePullPolicy: "IfNotPresent"
+    restartPolicy: Always
+    ports:
+      - name: http
+        containerPort: 5432
+        protocol: TCP
+    env:
+      - name: POSTGRES_USER
+        value: postgres
+      - name: POSTGRES_PASSWORD
+        value: postgres
+      - name: POSTGRES_DB
+        value: sophora
+    volumeMounts:
+      - name: sophora-server-storage
+        mountPath: /var/lib/postgresql/data
+        subPath: postgres
+    resources:
+      requests:
+        memory: 3G
+      limits:
+        memory: 3G
+```
+
+You may want to adjust configurations like `resources` or the postgres version. 
+The volume mount `sophora-server-storage` is provided by default. You can safely use `postgres` as the subPath.
+If you want to use your own volume, configure one in `extraVolumeClaimTemplates`. 
+
+To complete the setup, add the following properties to `sophora.server.properties` to configure the postgres connection to the sidecar container.
+
+```properties
+# connection to postgres nativ sidecar container
+sophora.persistence.postgres.database=sophora
+sophora.persistence.postgres.username=postgres
+sophora.persistence.postgres.password=postgres
+sophora.persistence.postgres.hostname=localhost
+sophora.persistence.postgres.port=5432
+```
+
+**Note**: For cluster servers we still recommend a separate postgres deployment, like Google Cloud SQL.
 
 ## Notable Changes
 
@@ -114,6 +168,6 @@ chart, you may need to configure it manually to provide the required permissions
 * Renamed `serverModeLabeler.enabledOnClusterServers` to `serverModeLabeler.enabled`
 * Removed `serverModeLabeler.createServiceAccount` in favour of `serviceAccount.create`
 * Renamed `sidecars` to `extraContainers`
-* Create `serviceAccount` by default even if `serverModeLabeler.enabled` is set to `false
+* Create `serviceAccount` by default even if `serverModeLabeler.enabled` is set to `false`
 * Names of `Role` and `RoleBinding` have been suffixed with `-server-mode-labeler`. 
 E.g. `cluster-01-sophora-server` -> `cluster-01-sophora-server-server-mode-labeler` 
