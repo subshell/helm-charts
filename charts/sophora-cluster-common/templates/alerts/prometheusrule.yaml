@@ -11,8 +11,8 @@ spec:
       rules:
         {{- if $defaultRulesEnabled }}
         - alert: NoPrimarySophoraServer
-          for: 2m
-          expr: 'count(sophora_server_replication_mode == 1) == 0'
+          for: 1m
+          expr: 'absent(sophora_server_replication_mode == 1)'
           labels:
             severity: critical
           annotations:
@@ -29,7 +29,7 @@ spec:
             description: The server  "{{`{{ $labels.pod }}`}}" is not in sync for more than 2 minutes.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: MultiplePrimarySophoraServers
-          for: 2m
+          for: 1m
           expr: 'count(sophora_server_replication_mode == 1) > 1'
           labels:
             severity: critical
