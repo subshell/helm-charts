@@ -6,7 +6,7 @@ This document is a reference to the alerts this Helm chart can fire.
 
 ### SophoraServerOffline
 
-**Severity:** medium
+**Severity:** high
 
 **Summary:** The Sophora server is offline for more than 10 minutes.
 
@@ -19,9 +19,9 @@ This document is a reference to the alerts this Helm chart can fire.
 
 ### SophoraServerAPISlow
 
-**Severity:** medium
+**Severity:** high
 
-**Summary:** The API of the server exhibits a response time exceeding 150ms for more than 5 minutes at the 95th percentile.
+**Summary:** The API of the server exhibits a response time exceeding 300ms for more than 15 minutes at the 95th percentile.
 
 **Remediation steps:**
 
