@@ -17,7 +17,7 @@ spec:
             severity: critical
           annotations:
             summary: The Sophora Cluster has no primary.
-            description: No primary elected in the cluster for more than 2 minutes.
+            description: No primary server elected in the cluster.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: SophoraServerNotInSync
           for: 2m
@@ -26,7 +26,7 @@ spec:
             severity: high
           annotations:
             summary: Server is not in sync
-            description: The server  "{{`{{ $labels.pod }}`}}" is not in sync for more than 2 minutes.
+            description: The server  "{{`{{ $labels.pod }}`}}" is not in sync.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: MultiplePrimarySophoraServers
           for: 1m
@@ -35,7 +35,7 @@ spec:
             severity: critical
           annotations:
             summary: The Sophora Cluster has more than one server claiming to be the primary.
-            description: There are two primary servers in the cluster for more than 2 minutes.
+            description: There are two primary servers in the cluster.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         {{- end }}
         {{- with .Values.prometheusRules.rules }}
