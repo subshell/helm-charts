@@ -23,21 +23,32 @@ data:
           jolokiaPassword: "${SERVER_JOLOKIAPASSWORD}",
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
           hasEmbeddedSolr: {{ .Values.sophora.hasEmbeddedSolr }},
+          {{- if .Values.sophora.hasEmbeddedSolr }}
           solrUsername: "${SERVER_SOLRUSERNAME}",
           solrPassword: "${SERVER_SOLRPASSWORD}",
           solrPath: "{{.Values.sophora.solrUrl}}",
+          {{- end }}
           tomcatJmx: {
               port: 9012
           }
-      },
+      }
+{{- $jolokiaPath := .Values.sophora.jolokiaPath }}
+{{- with .Values.sophora.authentication.jolokiaSecrets }}
+      {{- if or .importer.name .indexer.name}},{{ end }}
+      {{- if .importer.name }}
       importer: {
-          jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
+          jolokiaPath: "{{$jolokiaPath}}",
           jolokiaUsername: "${IMPORTER_JOLOKIAUSERNAME}",
           jolokiaPassword: "${IMPORTER_JOLOKIAPASSWORD}"
-      },
+      }
+      {{- end }}
+      {{- if and .importer.name .indexer.name}},{{ end }}
+      {{- if .indexer.name }}
       indexer: {
-          jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
+          jolokiaPath: "{{$jolokiaPath}}",
           jolokiaUsername: "${INDEXER_JOLOKIAUSERNAME}",
           jolokiaPassword: "${INDEXER_JOLOKIAPASSWORD}"
       }
+      {{- end }}
+{{- end }}
     }

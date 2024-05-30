@@ -37,22 +37,25 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.serverSecret.usernameKey}}
-                  name: {{.Values.sophora.authentication.serverSecret.name}}
+                  name: {{ required "A secret name for the Sophora server must be given in sophora.authentication.serverSecret.name!" .Values.sophora.authentication.serverSecret.name}}
             - name: SERVER_SOPHORAPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.serverSecret.passwordKey}}
-                  name: {{.Values.sophora.authentication.serverSecret.name}}
+                  name: {{ required "A secret name for the Sophora server must be given in sophora.authentication.serverSecret.name!" .Values.sophora.authentication.serverSecret.name}}
+            {{- if .Values.sophora.hasEmbeddedSolr }}
             - name: SERVER_SOLRUSERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.solrSecret.usernameKey}}
-                  name: {{.Values.sophora.authentication.solrSecret.name}}
+                  name: {{ required "A secret name for the Solr must be given in sophora.authentication.solrSecret.name!" .Values.sophora.authentication.solrSecret.name}}
             - name: SERVER_SOLRPASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.solrSecret.passwordKey}}
-                  name: {{.Values.sophora.authentication.solrSecret.name}}
+                  name: {{ required "A secret name for the Solr must be given in sophora.authentication.solrSecret.name!" .Values.sophora.authentication.solrSecret.name}}
+            {{- end }}
+            {{- if .Values.sophora.authentication.jolokiaSecrets.server.name }}
             - name: SERVER_JOLOKIAUSERNAME
               valueFrom:
                 secretKeyRef:
@@ -63,6 +66,8 @@ spec:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.jolokiaSecrets.server.passwordKey}}
                   name: {{.Values.sophora.authentication.jolokiaSecrets.server.name}}
+            {{- end }}
+            {{- if .Values.sophora.authentication.jolokiaSecrets.importer.name }}
             - name: IMPORTER_JOLOKIAUSERNAME
               valueFrom:
                 secretKeyRef:
@@ -73,6 +78,8 @@ spec:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.jolokiaSecrets.importer.passwordKey}}
                   name: {{.Values.sophora.authentication.jolokiaSecrets.importer.name}}
+            {{- end }}
+            {{- if .Values.sophora.authentication.jolokiaSecrets.indexer.name }}
             - name: INDEXER_JOLOKIAUSERNAME
               valueFrom:
                 secretKeyRef:
@@ -83,6 +90,7 @@ spec:
                 secretKeyRef:
                   key: {{.Values.sophora.authentication.jolokiaSecrets.indexer.passwordKey}}
                   name: {{.Values.sophora.authentication.jolokiaSecrets.indexer.name}}
+            {{- end }}
           command: ["/bin/sh"]
           args:
             - "-c"
