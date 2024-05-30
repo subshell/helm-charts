@@ -26,8 +26,6 @@ sophora:
     jolokiaSecrets:
       server:
         name: "server-jolokia-credentials"
-      importer:
-        name: "importer-jolokia-credentials"
       indexer:
         name: "indexer-jolokia-credentials"
 
