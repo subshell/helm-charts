@@ -1,0 +1,6 @@
+apiVersion: v2
+name: sophora-contentapi
+description: Sophora Content API
+type: application
+version: 0.1.0
+appVersion: 6.0.0
