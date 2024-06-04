@@ -432,6 +432,17 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.0.0/sophora-cluster-common-1.0.0.tgz
     version: 1.0.0
+  sophora-contentapi:
+  - apiVersion: v2
+    appVersion: 6.0.0
+    created: "2024-06-04T10:26:15.277833974Z"
+    description: Sophora Content API
+    digest: cbc9ec53f760623530c4179f8b2898ccf96a59b6abf02b81d1e4c4390e00a51d
+    name: sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.0.0/sophora-contentapi-1.0.0.tgz
+    version: 1.0.0
   sophora-courier:
   - apiVersion: v2
     appVersion: 4.0.2
@@ -1215,4 +1226,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-05-30T13:00:40.983148182Z"
+generated: "2024-06-04T10:26:15.27798647Z"
