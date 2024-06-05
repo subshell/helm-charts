@@ -4,3 +4,5 @@ description: A Helm chart containing some common resources useful for Sophora cl
 type: application
 version: 1.1.2
 appVersion: "4"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common

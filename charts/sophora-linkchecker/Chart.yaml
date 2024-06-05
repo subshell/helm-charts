@@ -4,3 +4,5 @@ description: Sophora Link Checker
 type: application
 version: 0.1.1
 appVersion: 6.0.0
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker

@@ -17,3 +17,5 @@ maintainers:
 - name: Team Weasel
   email: team-weasel@subshell.com
 
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient

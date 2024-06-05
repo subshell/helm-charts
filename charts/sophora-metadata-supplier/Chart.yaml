@@ -4,3 +4,5 @@ description: Sophora Metadata Supplier (SMS)
 type: application
 version: 1.1.1
 appVersion: '4.14.0'
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier

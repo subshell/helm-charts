@@ -4,3 +4,5 @@ description: Sophora Schema Docs
 type: application
 version: 2.1.0
 appVersion: 4.1.0
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs

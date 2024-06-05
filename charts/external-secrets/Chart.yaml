@@ -4,3 +4,5 @@ description: A Helm chart for creating multiple external secrets
 type: application
 version: 1.0.1
 appVersion: 0.8.1
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/external-secrets
