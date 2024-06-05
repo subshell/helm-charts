@@ -25,3 +25,7 @@ appVersion: '4.4.1'
 # A list of URLs to source code for this project
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-importer102.html
+icon: https://subshell.com/logos/importer114~1x1.1683632365796.png

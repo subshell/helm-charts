@@ -7,4 +7,4 @@ appVersion: 6.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
 home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
-icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.webp
+icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png

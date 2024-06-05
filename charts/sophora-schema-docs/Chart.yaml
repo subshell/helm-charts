@@ -7,4 +7,4 @@ appVersion: 4.1.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
 home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
-icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.webp
+icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
