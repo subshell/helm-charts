@@ -26,5 +26,7 @@ appVersion: 4.11.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
 
+# The URL of this projects home page
 home: https://subshell.com/sophora/modules/sophora-importer102.html
+# A URL to an SVG or PNG image to be used as an icon
 icon: https://subshell.com/logos/importer114~1x1.1683632365796.png

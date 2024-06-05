@@ -30,4 +30,5 @@ sources:
 
 # The URL of this projects home page
 home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+# A URL to an SVG or PNG image to be used as an icon
 icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png

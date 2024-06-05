@@ -26,5 +26,7 @@ appVersion: 4.4.8
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
 
+# The URL of this projects home page
 home: https://subshell.com/sophora/modules/sophora-image-service102.html
+# A URL to an SVG or PNG image to be used as an icon
 icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
