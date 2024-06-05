@@ -6,3 +6,5 @@ version: 1.2.0
 appVersion: '4.6.0'
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.webp

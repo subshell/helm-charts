@@ -6,3 +6,5 @@ version: 1.1.1
 appVersion: '4.14.0'
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.webp

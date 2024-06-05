@@ -6,3 +6,4 @@ version: 1.1.2
 appVersion: "4"
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+home: https://subshell.com/sophora/modules/sophora-server102.html

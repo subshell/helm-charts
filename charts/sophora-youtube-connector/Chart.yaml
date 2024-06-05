@@ -27,3 +27,7 @@ appVersion: '4.6.5'
 # A list of URLs to source code for this project
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+icon: https://subshell.com/logos/ytc100~1x1.1683632527983.webp
