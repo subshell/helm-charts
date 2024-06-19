@@ -189,7 +189,7 @@ sophora:
 
       derby:
         ## @param sophora.server.persistence.derby.driver string that specifies the java derby driver. Defaults to "org.apache.derby.jdbc.EmbeddedDriver".
-        ## For newer Sophora versions (starting Sophora 5.4) use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
+        ## For Sophora versions newer than 5.4 use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
         driver: "org.apache.derby.jdbc.EmbeddedDriver"
 
       mysql:
