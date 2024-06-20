@@ -5,7 +5,7 @@ image:
   repository: docker.subshell.com/sophora/imageai
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "4.0.0"
+  tag: "5.1.0"
 
 imagePullSecrets: []
 
