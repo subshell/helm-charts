@@ -32,7 +32,7 @@ spec:
               {{- if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
               mountPath: /data/config
               {{ else }}
-              mountPath: /config
+              mountPath: /app/config
               {{ end -}}
               readOnly: true
           ports:
