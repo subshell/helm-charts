@@ -31,11 +31,11 @@ spec:
               # 4.0.0, 4.1.0, 5.0.0, and 5.1.0 are the only versions that use WORKDIR /
               {{- if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
               mountPath: /config
-              {{- else if eq (.Values.image.tag | default .Chart.AppVersion) "4.1.0" }}
+              {{ else if eq (.Values.image.tag | default .Chart.AppVersion) "4.1.0" }}
               mountPath: /config
-              {{- else if eq (.Values.image.tag | default .Chart.AppVersion) "5.0.0" }}
+              {{ else if eq (.Values.image.tag | default .Chart.AppVersion) "5.0.0" }}
               mountPath: /config
-              {{- else if eq (.Values.image.tag | default .Chart.AppVersion) "5.1.0" }}
+              {{ else if eq (.Values.image.tag | default .Chart.AppVersion) "5.1.0" }}
               mountPath: /config
               {{ else }}
               mountPath: /app/config
