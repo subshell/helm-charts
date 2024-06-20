@@ -28,9 +28,15 @@ spec:
           args: ["--dynamic"]
           volumeMounts:
             - name: config
-              # 4.0.0 is the only version that uses WORKDIR /data
+              # 4.0.0 uses WORKDIR /data
               {{- if eq (.Values.image.tag | default .Chart.AppVersion) "4.0.0" }}
               mountPath: /data/config
+              # 4.1.0 uses WORKDIR /
+              {{ else if eq (.Values.image.tag | default .Chart.AppVersion) "4.1.0" }}
+              mountPath: /config
+              # 5.0.0 uses WORKDIR /
+              {{ else if eq (.Values.image.tag | default .Chart.AppVersion) "5.0.0" }}
+              mountPath: /config
               {{ else }}
               mountPath: /app/config
               {{ end -}}
