@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
             - name: config
-              mountPath: /config
+              mountPath: /app/config
               readOnly: true
             - name: gcp-credentials
               mountPath: /gcp-credentials
