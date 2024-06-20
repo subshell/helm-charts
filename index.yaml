@@ -539,6 +539,16 @@ entries:
   sophora-image-ai:
   - apiVersion: v2
     appVersion: 4.0.0
+    created: "2024-06-20T12:39:06.074790339Z"
+    description: Sophora Image AI
+    digest: a381b5566c24114e3e3255f2d697fb66a58eb63c3b9fbf169f215c2b63d7dec0
+    name: sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-1.0.1/sophora-image-ai-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
+    appVersion: 4.0.0
     created: "2023-11-02T16:24:47.339881122Z"
     description: Sophora Image AI
     digest: 526a6f08e951088ce2febd33be555d36a021d3317d0675e082abbc4794cb15fb
@@ -1236,4 +1246,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-06-19T09:36:31.032427272Z"
+generated: "2024-06-20T12:39:06.075086734Z"
