@@ -1,11 +1,15 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
   name: {{ include "webclient.fullname" . }}
+  labels:
+    {{- include "webclient.labels" . | nindent 4 }}
 spec:
-  selector: {{- include "webclient.selectorLabels" . | nindent 4 }}
+  type: {{ .Values.service.type }}
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
       name: http
+  selector:
+    {{- include "webclient.selectorLabels" . | nindent 4 }}

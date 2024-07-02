@@ -46,6 +46,10 @@ ingress:
   hosts:
   annotations: {}
 
+service:
+  type: ClusterIP
+  port: 8080
+
 extraDeploy: []
 
 serviceMonitor:
