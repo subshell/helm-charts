@@ -21,10 +21,9 @@ You can use the following values to customize the deployment
 | `webclient.image.name`                      | The name of the docker image                                               | `docker.subshell.com/sophora/sophora-webclient` | no       |
 | `webclient.image.version`                   | The version of the docker image                                            | `master`                                        | no       |
 | `webclient.binaryFilesBase64`               | A map of filename to base64 encoded file contents                          | The logo (logo.png)                             | no       |
-| `webclient.ingress.host`                    | The ingress host                                                           |                                                 | **yes**  |
-| `webclient.ingress.annotations`             | Additional ingress annotations                                             | `{}`                                            | no       |
 | `webclient.configuration`                   | The Sophora webclient `application.yml` file                               |                                                 | **yes**  |
-
+| `ingress.hosts`                             | An array of ingress hosts                                                  |                                                 | **yes**  |
+| `ingress.annotations`                       | A map of additional ingress annotations                                    | `{}`                                            | no       |
 
 ## Changelog
 
