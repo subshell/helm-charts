@@ -1215,6 +1215,19 @@ entries:
   sophora-webclient:
   - apiVersion: v2
     appVersion: 4.8.0
+    created: "2024-07-09T08:29:54.563170675Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 07802a6aa0ade47a5904bef980f776efbaa6c54ecc582093ede8ae2fa84d6980
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.2.2/sophora-webclient-1.2.2.tgz
+    version: 1.2.2
+  - apiVersion: v2
+    appVersion: 4.8.0
     created: "2024-07-02T15:04:54.08554802Z"
     description: A Helm chart for the Sophora Webclient
     digest: 0fd8fbb026989ab3a4db9441c9c89d173d485863e481384d2dfef970c27d82aa
@@ -1289,4 +1302,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-07-02T15:04:54.085765337Z"
+generated: "2024-07-09T08:29:54.563377913Z"
