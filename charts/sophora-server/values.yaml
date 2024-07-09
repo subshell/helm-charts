@@ -272,18 +272,21 @@ configInitializer:
   envFrom:
 
 startupProbe:
+  enabled: true
   failureThreshold: 35
   initialDelaySeconds: 10
   timeoutSeconds: 5
   periodSeconds: 5
 
 readinessProbe:
+  enabled: true
   failureThreshold: 15
   initialDelaySeconds: 30
   timeoutSeconds: 5
   periodSeconds: 15
 
 livenessProbe:
+  enabled: true
   failureThreshold: 3
   initialDelaySeconds: 60
   timeoutSeconds: 10
