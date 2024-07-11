@@ -83,7 +83,7 @@ extraVolumeClaimTemplates: []
 
 sophora:
   server:
-    ports:
+    port:
       http: 1196
       jms: 1197
       rmiService: 1198

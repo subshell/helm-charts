@@ -272,21 +272,21 @@ spec:
             {{- toYaml .Values.sophora.server.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: {{ .Values.sophora.server.ports.http }}
+            - containerPort: {{ .Values.sophora.server.port.http }}
               name: http
-            - containerPort: {{ .Values.sophora.server.ports.jms }}
+            - containerPort: {{ .Values.sophora.server.port.jms }}
               name: jms
           {{- if eq .Values.enableRMIPortForwarding true }}
-            - containerPort: {{ .Values.sophora.server.ports.rmiService }}
+            - containerPort: {{ .Values.sophora.server.port.rmiService }}
               name: rmi-service
-            - containerPort: {{ .Values.sophora.server.ports.rmiRegistry }}
+            - containerPort: {{ .Values.sophora.server.port.rmiRegistry }}
               name: rmi-registry
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /status/liveness
-              port: {{ .Values.sophora.server.ports.http }}
+              port: {{ .Values.sophora.server.port.http }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -296,7 +296,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /status/ready
-              port: {{ .Values.sophora.server.ports.http }}
+              port: {{ .Values.sophora.server.port.http }}
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
@@ -306,7 +306,7 @@ spec:
           startupProbe:
             httpGet:
               path: /status/started
-              port: {{ .Values.sophora.server.ports.http }}
+              port: {{ .Values.sophora.server.port.http }}
             failureThreshold: {{ .Values.startupProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
@@ -320,7 +320,7 @@ spec:
                   [
                       "/bin/sh",
                       "-c",
-                      "/tools/sophora-prestop switch --server-url=http://localhost:{{ .Values.sophora.server.ports.http }} 1> /proc/1/fd/1 2> /proc/1/fd/2",
+                      "/tools/sophora-prestop switch --server-url=http://localhost:{{ .Values.sophora.server.port.http }} 1> /proc/1/fd/1 2> /proc/1/fd/2",
                   ]
           {{- end }}
           resources:
