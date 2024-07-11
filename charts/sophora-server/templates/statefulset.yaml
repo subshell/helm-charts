@@ -272,21 +272,21 @@ spec:
             {{- toYaml .Values.sophora.server.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: 1196
+            - containerPort: {{ .Values.sophora.server.ports.http }}
               name: http
-            - containerPort: 1197
+            - containerPort: {{ .Values.sophora.server.ports.jms }}
               name: jms
           {{- if eq .Values.enableRMIPortForwarding true }}
-            - containerPort: 1198
+            - containerPort: {{ .Values.sophora.server.ports.rmiService }}
               name: rmi-service
-            - containerPort: 1199
+            - containerPort: {{ .Values.sophora.server.ports.rmiRegistry }}
               name: rmi-registry
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe:
             httpGet:
               path: /status/liveness
-              port: 1196
+              port: {{ .Values.sophora.server.ports.http }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
@@ -296,7 +296,7 @@ spec:
           readinessProbe:
             httpGet:
               path: /status/ready
-              port: 1196
+              port: {{ .Values.sophora.server.ports.http }}
             failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
@@ -306,7 +306,7 @@ spec:
           startupProbe:
             httpGet:
               path: /status/started
-              port: 1196
+              port: {{ .Values.sophora.server.ports.http }}
             failureThreshold: {{ .Values.startupProbe.failureThreshold }}
             initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.startupProbe.periodSeconds }}
@@ -320,7 +320,7 @@ spec:
                   [
                       "/bin/sh",
                       "-c",
-                      "/tools/sophora-prestop switch --server-url=http://localhost:1196 1> /proc/1/fd/1 2> /proc/1/fd/2",
+                      "/tools/sophora-prestop switch --server-url=http://localhost:{{ .Values.sophora.server.ports.http }} 1> /proc/1/fd/1 2> /proc/1/fd/2",
                   ]
           {{- end }}
           resources:
