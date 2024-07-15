@@ -83,6 +83,11 @@ extraVolumeClaimTemplates: []
 
 sophora:
   server:
+    ports:
+      http: 1196
+      jms: 1197
+      rmiService: 1198
+      rmiRegistry: 1199
     logback: |
       <?xml version="1.0" encoding="UTF-8"?>
       <configuration scan="true" scanPeriod="60 seconds">
