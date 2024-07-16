@@ -1,0 +1,22 @@
+{{ if .Values.sophora.server.storage.dataDirPersistentVolume.create -}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sophora-server-data-{{ include "sophora-server.fullname" . }}-0
+spec:
+  storageClassName: {{.Values.sophora.server.storage.storageClass }}
+  capacity:
+    storage: {{.Values.sophora.server.storage.dataDirResources.requests.storage }}
+  accessModes:
+    - ReadWriteOnce
+  claimRef:
+    kind: PersistentVolumeClaim
+    namespace: {{ .Release.Namespace }}
+    name: sophora-server-data-{{ include "sophora-server.fullname" . }}-0
+  {{ if .Values.sophora.server.storage.dataDirPersistentVolume.csi -}}
+  csi: {{ toYaml .Values.sophora.server.storage.dataDirPersistentVolume.csi | nindent 4 }}
+  {{- end }}
+  {{ if .Values.sophora.server.storage.dataDirPersistentVolume.nodeAffinity -}}
+  nodeAffinity: {{ toYaml .Values.sophora.server.storage.dataDirPersistentVolume.nodeAffinity | nindent 4 }}
+  {{- end }}
+{{- end }}

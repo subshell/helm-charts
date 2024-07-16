@@ -183,9 +183,17 @@ sophora:
       resources:
          requests:
            storage: 25Gi
+      persistentVolume:
+        create: false
+        csi: {}
+        nodeAffinity: {}
       dataDirResources:
         requests:
           storage: 2Gi
+      dataDirPersistentVolume:
+        create: false
+        csi: {}
+        nodeAffinity: {}
     persistence:
       ## @param sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb or mysql, or postgres)
       repositoryType: localdb
