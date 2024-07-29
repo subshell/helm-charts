@@ -197,7 +197,7 @@ data:
                 <param name="consistencyCheck" value="false" />
                 <param name="minBlobSize" value="16384" />
                 <param name="driver"
-                    value="org.apache.derby.jdbc.EmbeddedDriver" />
+                    value="{{ .Values.sophora.server.persistence.derby.driver }}" />
                 <param name="url"
                     value="jdbc:derby:${wsp.home}/db/itemState;create=true" />
                 <param name="user" value="" />
@@ -252,7 +252,7 @@ data:
                 <param name="consistencyCheck" value="false" />
                 <param name="minBlobSize" value="16384" />
                 <param name="driver"
-                    value="org.apache.derby.jdbc.EmbeddedDriver" />
+                    value="{{ .Values.sophora.server.persistence.derby.driver }}" />
                 <param name="url"
                     value="jdbc:derby:${rep.home}/version/db;create=true" />
                 <param name="user" value="" />
@@ -304,7 +304,7 @@ data:
                 <param name="bundleCacheSize" value="64"/>
                 <param name="consistencyCheck" value="false"/>
                 <param name="minBlobSize" value="16384"/>
-                <param name="driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+                <param name="driver" value="{{ .Values.sophora.server.persistence.derby.driver }}"/>
                 <param name="url" value="jdbc:derby:${wsp.home}/db/itemState;create=true"/>
                 <param name="user" value=""/>
                 <param name="password" value=""/>
@@ -351,7 +351,7 @@ data:
                 <param name="bundleCacheSize" value="64"/>
                 <param name="consistencyCheck" value="false"/>
                 <param name="minBlobSize" value="16384"/>
-                <param name="driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+                <param name="driver" value="{{ .Values.sophora.server.persistence.derby.driver }}"/>
                 <param name="url" value="jdbc:derby:${wsp.home}/db/itemState;create=true"/>
                 <param name="user" value=""/>
                 <param name="password" value=""/>

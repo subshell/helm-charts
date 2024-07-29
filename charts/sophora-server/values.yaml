@@ -83,6 +83,11 @@ extraVolumeClaimTemplates: []
 
 sophora:
   server:
+    ports:
+      http: 1196
+      jms: 1197
+      rmiService: 1198
+      rmiRegistry: 1199
     logback: |
       <?xml version="1.0" encoding="UTF-8"?>
       <configuration scan="true" scanPeriod="60 seconds">
@@ -186,6 +191,12 @@ sophora:
       repositoryType: localdb
       ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql or none)
       archiveType: localdb
+
+      derby:
+        ## @param sophora.server.persistence.derby.driver string that specifies the java derby driver. Defaults to "org.apache.derby.jdbc.EmbeddedDriver".
+        ## For Sophora versions newer than 5.4 use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
+        driver: "org.apache.derby.jdbc.EmbeddedDriver"
+
       mysql:
         ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
         ## e.g.
@@ -266,18 +277,21 @@ configInitializer:
   envFrom:
 
 startupProbe:
+  enabled: true
   failureThreshold: 35
   initialDelaySeconds: 10
   timeoutSeconds: 5
   periodSeconds: 5
 
 readinessProbe:
+  enabled: true
   failureThreshold: 15
   initialDelaySeconds: 30
   timeoutSeconds: 5
   periodSeconds: 15
 
 livenessProbe:
+  enabled: true
   failureThreshold: 3
   initialDelaySeconds: 60
   timeoutSeconds: 10
