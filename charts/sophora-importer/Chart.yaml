@@ -21,3 +21,12 @@ version: 1.3.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 4.11.0
+
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-importer102.html
+# A URL to an SVG or PNG image to be used as an icon
+icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
