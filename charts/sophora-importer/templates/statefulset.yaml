@@ -68,16 +68,12 @@ spec:
                 - '-c'
                 - |
                   echo Creating import folders for importer:
-                  {{ range $instance := .Values.sophora.importer.instances }}
+                  {{- range $instance := .Values.sophora.importer.instances }}
                   {{/* Ensure that every instance folder is available on s3 */}}
-                  {{- $folderPath := (printf "/opt/s3fs/bucket/%s" $instance) -}}
-                  echo "Creating {{ $folderPath }}"
-                  mkdir -p "{{ $folderPath }}"
-                  {{ range $folder, $location := $.Values.sophora.importer.createImportFolders }}
-                  {{- $folderPath := (printf "%s/%s/%s" ((eq $location "s3") | ternary "/opt/s3fs/bucket" "/import") $instance $folder) -}}
-                  echo "Creating {{ $folderPath }}"
-                  mkdir -p "{{ $folderPath }}"
-                  {{ end }}
+                  mkdir -pv "/opt/s3fs/bucket/{{ $instance }}"
+                  {{- range $folder, $location := $.Values.sophora.importer.createImportFolders }}
+                  mkdir -pv "{{ ((eq $location "s3") | ternary "/opt/s3fs/bucket" "/import") }}/{{ $instance }}/{{ $folder }}"
+                  {{- end }}
                   {{- end }}
         resources:
           {{- toYaml .Values.sophora.importer.s3Bucket.resources | nindent 12 }}
