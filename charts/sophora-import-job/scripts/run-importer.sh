@@ -6,7 +6,7 @@ count_files() {
 cd /sophora || exit
 echo "Starting importer."
 importerStart=$(date +%s%3N)
-java -cp classpath org.springframework.boot.loader.PropertiesLauncher
+java -cp classpath org.springframework.boot.loader.launch.PropertiesLauncher
 importerStop=$(date +%s%3N)
 echo "Importer stopped."
 importDurationMillis=$((importerStop-importerStart))

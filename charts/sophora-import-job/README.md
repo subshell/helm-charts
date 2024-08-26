@@ -67,3 +67,9 @@ transformation:
 In on-premise solutions it was easy to access the `failure` directory. In case of this k8s-Job we don't
 have access to any files after the job has finished. Therefore, the import-job has a feature that
 lets you upload the `failure` directory to a s3 bucket (see `importFailureFilesUpload` in `values.yaml`).
+
+## Notable Changes
+
+## 1.2.0 (Breaking Change)
+
+Supports Sophora Importer using Spring Boot 3 starting with version 5.4.0. Use version < 1.2.0 for previous versions with Spring Boot version 2.7.
