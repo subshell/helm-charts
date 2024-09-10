@@ -179,6 +179,16 @@ extraVolumeClaimTemplates:
           storage: 2Gi
       storageClassName: "premium"
 
+extraVolumeMounts:
+  - mountPath: /foo
+    name: bar
+    subPath: baz
+
+extraVolumes:
+  - name: bar
+    persistentVolumeClaim:
+      claimName: bar
+
 resources:
   requests:
     memory: "12G"
