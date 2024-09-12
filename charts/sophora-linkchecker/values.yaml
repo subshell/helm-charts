@@ -28,7 +28,7 @@ sophora:
           username: # in secret
           password: # in secret
 
-    linkchecker:
+    link-checker:
 
 startupProbe:
   failureThreshold: 15
