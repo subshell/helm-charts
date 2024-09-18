@@ -40,9 +40,13 @@ livenessProbe:
   timeoutSeconds: 10
   periodSeconds: 60
 
+apiKey:
+  secretName: ""
+  secretFieldName: api-key
+
 configuration:
   proxy:
     api.base.url: ""
     image.service.url: ""
-    auth.basic.token: ""
+    auth.basic.token: ${API_KEY}
     maxInMemorySizeInMB: 10
