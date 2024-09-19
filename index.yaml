@@ -824,6 +824,17 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
+  sophora-media-finder:
+  - apiVersion: v2
+    appVersion: 5.x
+    created: "2024-09-19T08:35:49.30869243Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: a9b21425ca7f660766990dac3ab08f38b1d728b6f05abd71a0febc9e079eaab2
+    name: sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
+    version: 0.1.0
   sophora-metadata-supplier:
   - apiVersion: v2
     appVersion: 4.14.0
@@ -1383,4 +1394,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-09-12T06:53:10.79301976Z"
+generated: "2024-09-19T08:35:49.308867236Z"
