@@ -40,7 +40,7 @@ spec:
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
-              path: /health
+              path: {{ .path }}
               port: 8080
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -50,7 +50,7 @@ spec:
           {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
-              path: /health
+              path: {{ .path }}
               port: 8080
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -60,7 +60,7 @@ spec:
           {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
-              path: /health
+              path: {{ .path }}
               port: 8080
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
