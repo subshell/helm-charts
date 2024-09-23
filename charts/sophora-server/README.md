@@ -17,6 +17,15 @@ For all other configuration options use `sophora.server.properties`.
 
 It's also possible to use postgres as your jcr repository. To use postgres with jcr set `sophora.server.persistence.repositoryType` to `postgres`.
 
+## gRPC API (Sophora v6+)
+Sophora 6 introduces a gRPC API. gRPC is basically HTTP/2 but requires specific non-default settings in most HTTP proxies, including Ingress Controllers.
+To deal with this, the chart now supports deploying a second Ingress for the gRPC API, which can be configured differently from the main Ingress.
+
+This is not enabled by default.
+To enable it, set `grpcIngress.enabled` to `true` and configure it as needed.
+The example configuration contains the required
+settings for the Nginx Ingress Controller.
+
 ## Tips for productive installations
 
 ### Cluster servers
@@ -154,6 +163,10 @@ sophora.persistence.postgres.port=5432
 **Note**: For cluster servers we still recommend a separate postgres deployment, like Google Cloud SQL.
 
 ## Notable Changes
+
+## 2.5.0
+
+This version of the Chart now supports deploying a second Ingress with the purpose to host the gRPC API, which is coming in Sophora 6.
 
 ## 2.1.0
 Updates the pre-stop hook to version 2.0.0 and configures it accordingly.
