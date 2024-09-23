@@ -23,18 +23,21 @@ ingress:
   tls: []
 
 startupProbe:
+  path: /actuator/health
   failureThreshold: 15
   initialDelaySeconds: 10
   timeoutSeconds: 5
   periodSeconds: 5
 
 readinessProbe:
+  path: /actuator/health
   failureThreshold: 5
   initialDelaySeconds: 5
   timeoutSeconds: 5
   periodSeconds: 5
 
 livenessProbe:
+  path: /actuator/health
   failureThreshold: 3
   initialDelaySeconds: 15
   timeoutSeconds: 10
