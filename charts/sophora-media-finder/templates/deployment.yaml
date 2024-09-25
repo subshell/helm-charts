@@ -26,9 +26,19 @@ spec:
             - name: API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.apiKey.secretName }}
+                  name: {{ required "A valid secret name must be provided in .Values.apiKey.secretName" .Values.apiKey.secretName | quote }}
                   key: {{ .Values.apiKey.secretFieldName }}
                   optional: false
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
           volumeMounts:
             - name: config
               mountPath: /config

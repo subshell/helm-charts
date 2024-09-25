@@ -47,12 +47,33 @@ apiKey:
   secretName: ""
   secretFieldName: api-key
 
+sophora:
+  authentication:
+    secret:
+      name: ""
+      usernameKey: username
+      passwordKey: password
+
 configuration:
   proxy:
     api.base.url: ""
     image.service.url: ""
     auth.basic.token: ${API_KEY}
     maxInMemorySizeInMB: 10
+
+  spring:
+    application:
+      spring-additional-base-packages: ""
+
+  # Connection to the Sophora server.
+  sophora:
+    client:
+      server-connection:
+        urls: []
+        username: #in secret
+        password: #in secret
+        retries: 10
+        retry-interval: 10
 
 loaderProperties:
   loader.path=plugins
