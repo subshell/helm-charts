@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.2.0
+version: 1.2.1
 appVersion: '4.6.0'
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
