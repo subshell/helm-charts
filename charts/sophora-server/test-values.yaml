@@ -111,6 +111,16 @@ ingress:
   hosts:
     - host: "sophora.domain.de"
 
+grpcIngress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+  hosts:
+    - host: "sophora.domain.de"
+      path: /sophora\.grpc.*
+
 extraDeploy:
   - |
     apiVersion: keda.sh/v1alpha1
@@ -178,6 +188,16 @@ extraVolumeClaimTemplates:
         requests:
           storage: 2Gi
       storageClassName: "premium"
+
+extraVolumeMounts:
+  - mountPath: /foo
+    name: bar
+    subPath: baz
+
+extraVolumes:
+  - name: bar
+    persistentVolumeClaim:
+      claimName: bar
 
 resources:
   requests:

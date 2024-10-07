@@ -1,0 +1,55 @@
+replicaCount: 1
+
+image:
+  repository: docker.subshell.com/sophora/media-finder
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "5.x"
+
+imagePullSecrets: []
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: ClusterIP
+  port: 8080
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+startupProbe:
+  path: /actuator/health
+  failureThreshold: 15
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+readinessProbe:
+  path: /actuator/health
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  path: /actuator/health
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+apiKey:
+  secretName: ""
+  secretFieldName: api-key
+
+configuration:
+  proxy:
+    api.base.url: ""
+    image.service.url: ""
+    auth.basic.token: ${API_KEY}
+    maxInMemorySizeInMB: 10

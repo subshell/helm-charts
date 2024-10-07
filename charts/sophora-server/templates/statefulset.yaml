@@ -226,6 +226,10 @@ spec:
             - name: tools
               mountPath: "/tools"
             {{- end }}
+
+            {{- with .Values.extraVolumeMounts}}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           env:
             - name: JDK_JAVA_OPTIONS
               value: >-
@@ -395,6 +399,10 @@ spec:
         - name: sophora-server-archive
           configMap:
             name: {{ include "sophora-server.archiveConfigName" . }}
+        {{- end }}
+
+        {{- with .Values.extraVolumes}}
+        {{- toYaml . | nindent 8 }}
         {{- end }}
   volumeClaimTemplates:
     - metadata:
