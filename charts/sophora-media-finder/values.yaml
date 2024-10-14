@@ -6,6 +6,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "5.x"
 
+downloadViaS3Image:
+  repository: "docker.subshell.com/misc/aws-cli-tools"
+  tag: "0.0.2"
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 
 nameOverride: ""
@@ -54,26 +59,44 @@ sophora:
       usernameKey: username
       passwordKey: password
 
-configuration:
-  proxy:
-    api.base.url: ""
-    image.service.url: ""
-    auth.basic.token: ${API_KEY}
-    maxInMemorySizeInMB: 10
+mediaFinder:
+  configuration:
+    proxy:
+      api.base.url: ""
+      image.service.url: ""
+      auth.basic.token: ${API_KEY}
+      maxInMemorySizeInMB: 10
 
-  spring:
-    application:
-      spring-additional-base-packages: ""
+    spring:
+      application:
+        spring-additional-base-packages: ""
 
-  # Connection to the Sophora server.
-  sophora:
-    client:
-      server-connection:
-        urls: []
-        username: #in secret
-        password: #in secret
-        retries: 10
-        retry-interval: 10
+    # Connection to the Sophora server.
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: #in secret
+          password: #in secret
+          retries: 10
+          retry-interval: 10
+  plugins:
+    source: # "s3" or "sidecar". leave blank for none.
+    downloadFromS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName:
+      jarPaths: []
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    copyFromSidecarImage:
+      repository:
+      tag:
+      pullPolicy: IfNotPresent
+      jarFolder: # the folder containing the jar file(s)
+
+mediaFinderExecutable:
+  JAVA_OPTS="-Xmx1G"
 
 loaderProperties:
   loader.path=plugins
@@ -133,6 +156,3 @@ logbackSpring: |
     </springProfile>
 
   </configuration>
-
-mediaFinderExecutable:
-  JAVA_OPTS="-Xmx1G"

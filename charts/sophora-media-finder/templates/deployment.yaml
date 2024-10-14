@@ -18,6 +18,62 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        {{ if eq .Values.mediaFinder.plugins.source "s3" }}
+        - name: plugins-downloader-via-s3
+          image: {{ .Values.downloadViaS3Image.repository }}:{{ .Values.downloadViaS3Image.tag }}
+          imagePullPolicy: {{ .Values.downloadViaS3Image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          {{ with .Values.mediaFinder.plugins.downloadFromS3 }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .accessKeyIdKey }}
+                  name: {{ .secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .secretAccessKeyKey }}
+                  name: {{ .secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .s3Endpoint }}
+            - name: S3_NAME
+              value: {{ .bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-media-finder.utils.joinListWithSpace" .jarPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl && cd dl || exit;
+              if [ -n "$S3_FILE_PATHS" ]; then
+                for S3_FILE_PATH in $S3_FILE_PATHS; do
+                  aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
+                  echo "Downloaded $S3_FILE_PATH"
+                done
+              fi
+              mv *.jar /plugins
+          {{- end }}
+        {{- else if eq .Values.mediaFinder.plugins.source "sidecar" }}
+        - name: plugins-downloader-via-sidecar
+          image: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.repository }}:{{ .Values.mediaFinder.plugins.copyFromSidecarImage.tag }}
+          imagePullPolicy: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          env:
+            - name: JAR_FOLDER
+              value: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.jarFolder }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              cd $JAR_FOLDER
+              mv *.jar /plugins
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
