@@ -97,8 +97,19 @@ spec:
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
           volumeMounts:
             - name: config
-              mountPath: /config
-              readOnly: true
+              subPath: application.yaml
+              mountPath: /sophora/application.yaml
+            - name: config
+              subPath: loader.properties
+              mountPath: /sophora/loader.properties
+            - name: config
+              subPath: logback-spring.xml
+              mountPath: /sophora/logback-spring.xml
+            - name: config
+              subPath: media-finder-executable.conf
+              mountPath: /sophora/media-finder-executable.conf
+            - name: plugins
+              mountPath: /sophora/plugins
           ports:
             - name: http
               containerPort: 8080
@@ -137,3 +148,5 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-media-finder.fullname" . }}
+        - name: plugins
+          emptyDir: {}

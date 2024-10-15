@@ -95,64 +95,64 @@ mediaFinder:
       pullPolicy: IfNotPresent
       jarFolder: # the folder containing the jar file(s)
 
-mediaFinderExecutable:
-  JAVA_OPTS="-Xmx1G"
+  mediaFinderExecutable:
+    JAVA_OPTS="-Xmx1G"
 
-loaderProperties:
-  loader.path=plugins
+  loaderProperties:
+    loader.path=plugins
 
-logbackSpring: |
-  <?xml version="1.0" encoding="UTF-8"?>
-  <configuration scan="true" scanPeriod="60 seconds">
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    
-    <!-- Logger -->
-    <logger name="com.subshell.sophora" level="INFO"/>
-    <logger name="com.subshell.media.finder" level="INFO"/>
-    <logger name="org.springframework.boot" level="INFO"/>
-    
-    <!-- Default logging configuration -->
-    <springProfile name="!json-logs">
-      <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-          <pattern>[%d{ISO8601}, %-5level] [%-35.35thread] [%-36logger{36}:%4line] %msg%n</pattern>
-        </encoder>
-      </appender>
-      <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/media-finder.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-          <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
-          <maxHistory>90</maxHistory>
-        </rollingPolicy>
-        <encoder>
-          <charset>UTF-8</charset>
-          <pattern>[%d{ISO8601}, %-5p] [%-35t] [%-40logger{40}:%-3L] %m%n</pattern>
-        </encoder>
-      </appender>
+  logbackSpring: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true" scanPeriod="60 seconds">
+      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
       
-      <root level="WARN">
-        <appender-ref ref="console"/>
-        <appender-ref ref="logfile"/>
-      </root>
-    </springProfile>
+      <!-- Logger -->
+      <logger name="com.subshell.sophora" level="INFO"/>
+      <logger name="com.subshell.media.finder" level="INFO"/>
+      <logger name="org.springframework.boot" level="INFO"/>
       
-    <!-- JSON logging configuration -->
-    <springProfile name="json-logs">
-      <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-      </appender>
-      <appender name="jsonLogfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>logs/media-finder.log</File>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-          <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
-          <maxHistory>90</maxHistory>
-        </rollingPolicy>
-        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
-      </appender>
-      <root level="WARN">
-        <appender-ref ref="jsonConsole"/>
-        <appender-ref ref="jsonLogfile"/>
-      </root>
-    </springProfile>
-
-  </configuration>
+      <!-- Default logging configuration -->
+      <springProfile name="!json-logs">
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder>
+            <pattern>[%d{ISO8601}, %-5level] [%-35.35thread] [%-36logger{36}:%4line] %msg%n</pattern>
+          </encoder>
+        </appender>
+        <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <File>logs/media-finder.log</File>
+          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>90</maxHistory>
+          </rollingPolicy>
+          <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{ISO8601}, %-5p] [%-35t] [%-40logger{40}:%-3L] %m%n</pattern>
+          </encoder>
+        </appender>
+        
+        <root level="WARN">
+          <appender-ref ref="console"/>
+          <appender-ref ref="logfile"/>
+        </root>
+      </springProfile>
+        
+      <!-- JSON logging configuration -->
+      <springProfile name="json-logs">
+        <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+        <appender name="jsonLogfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <File>logs/media-finder.log</File>
+          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>90</maxHistory>
+          </rollingPolicy>
+          <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+        <root level="WARN">
+          <appender-ref ref="jsonConsole"/>
+          <appender-ref ref="jsonLogfile"/>
+        </root>
+      </springProfile>
+  
+    </configuration>

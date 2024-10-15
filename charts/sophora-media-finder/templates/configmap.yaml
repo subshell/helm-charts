@@ -5,7 +5,7 @@ metadata:
   labels:
   {{- include "sophora-media-finder.labels" . | nindent 4 }}
 data:
-  application.yaml: |- {{ toYaml (required "A valid application.yaml config is required" .Values.configuration) | nindent 4 }}
-  loader.properties: |- {{ toYaml (required "A valid loader.properties config is required" .Values.loaderProperties) | nindent 4 }}
-  logback-spring.xml: |- {{ toYaml (required "A valid logback-spring.xml config is required" .Values.logbackSpring) | nindent 4 }}
-  media-finder-executable.conf: |- {{ toYaml .Values.mediaFinderExecutable | nindent 4 }}
+  application.yaml: |- {{ toYaml (required "A valid application.yaml config is required" .Values.mediaFinder.configuration) | nindent 4 }}
+  loader.properties: |- {{ toString (required "A valid loader.properties config is required" .Values.mediaFinder.loaderProperties) | nindent 4 }}
+  logback-spring.xml: |- {{ toString (required "A valid logback-spring.xml config is required" .Values.mediaFinder.logbackSpring) | nindent 4 }}
+  media-finder-executable.conf: |- {{ toString .Values.mediaFinder.mediaFinderExecutable | nindent 4 }}
