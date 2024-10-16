@@ -78,14 +78,12 @@ logbackXml: |
       <jmxConfigurator/>
   
       <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-          <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
-              <evaluator>
-                  <!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
-                  <expression>marker != null &amp;&amp; marker.getName().equals("SPECIAL_EMAIL_NOTIFICATION")</expression>
-              </evaluator>
+          <!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
+          <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
+              <Marker>SPECIAL_EMAIL_NOTIFICATION</Marker>
               <OnMismatch>NEUTRAL</OnMismatch>
               <OnMatch>DENY</OnMatch>
-          </filter>
+          </turboFilter>
           <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
       </appender>
   
