@@ -4,6 +4,15 @@ clusterServerLb:
     ingressClassName: "nginx"
     hosts:
       - host: "cms.mysophora.com"
+  grpcIngress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/use-regex: "true"
+      nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
+    hosts:
+      - host: "cms.mysophora.com"
+        path: /sophora\.grpc.*
 
 podDisruptionBudget:
   enabled: true
