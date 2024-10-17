@@ -18,6 +18,62 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      initContainers:
+        {{ if eq .Values.mediaFinder.plugins.source "s3" }}
+        - name: plugins-downloader-via-s3
+          image: {{ .Values.downloadViaS3Image.repository }}:{{ .Values.downloadViaS3Image.tag }}
+          imagePullPolicy: {{ .Values.downloadViaS3Image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          {{ with .Values.mediaFinder.plugins.downloadFromS3 }}
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .accessKeyIdKey }}
+                  name: {{ .secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .secretAccessKeyKey }}
+                  name: {{ .secretName }}
+            - name: S3_ENDPOINT
+              value: {{ .s3Endpoint }}
+            - name: S3_NAME
+              value: {{ .bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-media-finder.utils.joinListWithSpace" .jarPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              mkdir dl && cd dl || exit;
+              if [ -n "$S3_FILE_PATHS" ]; then
+                for S3_FILE_PATH in $S3_FILE_PATHS; do
+                  aws --endpoint="$S3_ENDPOINT" s3 cp "s3://$S3_NAME$S3_FILE_PATH" ./
+                  echo "Downloaded $S3_FILE_PATH"
+                done
+              fi
+              mv *.jar /plugins
+          {{- end }}
+        {{- else if eq .Values.mediaFinder.plugins.source "sidecar" }}
+        - name: plugins-downloader-via-sidecar
+          image: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.repository }}:{{ .Values.mediaFinder.plugins.copyFromSidecarImage.tag }}
+          imagePullPolicy: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.pullPolicy }}
+          volumeMounts:
+            - mountPath: /plugins
+              name: plugins
+          env:
+            - name: JAR_FOLDER
+              value: {{ .Values.mediaFinder.plugins.copyFromSidecarImage.jarFolder }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              cd $JAR_FOLDER
+              mv *.jar /plugins
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -26,13 +82,34 @@ spec:
             - name: API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.apiKey.secretName }}
+                  name: {{ required "A valid secret name must be provided in .Values.apiKey.secretName" .Values.apiKey.secretName | quote }}
                   key: {{ .Values.apiKey.secretFieldName }}
                   optional: false
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
           volumeMounts:
             - name: config
-              mountPath: /config
-              readOnly: true
+              subPath: application.yaml
+              mountPath: /sophora/application.yaml
+            - name: config
+              subPath: loader.properties
+              mountPath: /sophora/loader.properties
+            - name: config
+              subPath: logback-spring.xml
+              mountPath: /sophora/logback-spring.xml
+            - name: config
+              subPath: media-finder-executable.conf
+              mountPath: /sophora/media-finder-executable.conf
+            - name: plugins
+              mountPath: /sophora/plugins
           ports:
             - name: http
               containerPort: 8080
@@ -71,3 +148,5 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-media-finder.fullname" . }}
+        - name: plugins
+          emptyDir: {}

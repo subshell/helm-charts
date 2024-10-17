@@ -6,6 +6,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "5.x"
 
+downloadViaS3Image:
+  repository: "docker.subshell.com/misc/aws-cli-tools"
+  tag: "0.0.2"
+  pullPolicy: IfNotPresent
+
 imagePullSecrets: []
 
 nameOverride: ""
@@ -47,9 +52,107 @@ apiKey:
   secretName: ""
   secretFieldName: api-key
 
-configuration:
-  proxy:
-    api.base.url: ""
-    image.service.url: ""
-    auth.basic.token: ${API_KEY}
-    maxInMemorySizeInMB: 10
+sophora:
+  authentication:
+    secret:
+      name: ""
+      usernameKey: username
+      passwordKey: password
+
+mediaFinder:
+  configuration:
+    proxy:
+      api.base.url: ""
+      image.service.url: ""
+      auth.basic.token: ${API_KEY}
+      maxInMemorySizeInMB: 10
+
+    spring:
+      application:
+        spring-additional-base-packages: ""
+
+    # Connection to the Sophora server.
+    sophora:
+      client:
+        server-connection:
+          urls: []
+          username: #in secret
+          password: #in secret
+          retries: 10
+          retry-interval: 10
+  plugins:
+    source: # "s3" or "sidecar". leave blank for none.
+    downloadFromS3:
+      secretName:
+      s3Endpoint: "https://storage.googleapis.com"
+      bucketName:
+      jarPaths: []
+      secretAccessKeyKey: "secretAccessKey"
+      accessKeyIdKey: "accessKeyId"
+    copyFromSidecarImage:
+      repository:
+      tag:
+      pullPolicy: IfNotPresent
+      jarFolder: # the folder containing the jar file(s)
+
+  mediaFinderExecutable:
+    JAVA_OPTS="-Xmx1G"
+
+  loaderProperties:
+    loader.path=plugins
+
+  logbackSpring: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true" scanPeriod="60 seconds">
+      <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+      
+      <!-- Logger -->
+      <logger name="com.subshell.sophora" level="INFO"/>
+      <logger name="com.subshell.media.finder" level="INFO"/>
+      <logger name="org.springframework.boot" level="INFO"/>
+      
+      <!-- Default logging configuration -->
+      <springProfile name="!json-logs">
+        <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder>
+            <pattern>[%d{ISO8601}, %-5level] [%-35.35thread] [%-36logger{36}:%4line] %msg%n</pattern>
+          </encoder>
+        </appender>
+        <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <File>logs/media-finder.log</File>
+          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>90</maxHistory>
+          </rollingPolicy>
+          <encoder>
+            <charset>UTF-8</charset>
+            <pattern>[%d{ISO8601}, %-5p] [%-35t] [%-40logger{40}:%-3L] %m%n</pattern>
+          </encoder>
+        </appender>
+        
+        <root level="WARN">
+          <appender-ref ref="console"/>
+          <appender-ref ref="logfile"/>
+        </root>
+      </springProfile>
+        
+      <!-- JSON logging configuration -->
+      <springProfile name="json-logs">
+        <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
+          <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+        <appender name="jsonLogfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+          <File>logs/media-finder.log</File>
+          <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/media-finder.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>90</maxHistory>
+          </rollingPolicy>
+          <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        </appender>
+        <root level="WARN">
+          <appender-ref ref="jsonConsole"/>
+          <appender-ref ref="jsonLogfile"/>
+        </root>
+      </springProfile>
+  
+    </configuration>
