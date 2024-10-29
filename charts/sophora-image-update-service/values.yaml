@@ -69,12 +69,6 @@ startupProbe:
   timeoutSeconds: 3
   periodSeconds: 2
 
-readinessProbe:
-  failureThreshold: 3
-  initialDelaySeconds: 1
-  timeoutSeconds: 3
-  periodSeconds: 5
-
 livenessProbe:
   failureThreshold: 1
   initialDelaySeconds: 1
