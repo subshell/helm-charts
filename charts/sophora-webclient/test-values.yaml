@@ -1,5 +1,8 @@
 fullnameOverride: "test-webclient"
 
+image:
+  tag: "latest"
+
 sophora:
   authentication:
     secret:

@@ -32,7 +32,7 @@ spec:
       {{- end }}
       containers:
         - name: webclient
-          image: "{{ .Values.image.name }}:{{ .Values.image.version }}"
+          image: "{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           env:
           - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
