@@ -858,6 +858,16 @@ entries:
   sophora-media-finder:
   - apiVersion: v2
     appVersion: 5.x
+    created: "2024-11-05T08:33:12.369500816Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: f5bd63abf75e0d09fdf44287071152f9d27e92c510537c7866521085b0766dad
+    name: sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.2.0/sophora-media-finder-0.2.0.tgz
+    version: 0.2.0
+  - apiVersion: v2
+    appVersion: 5.x
     created: "2024-09-23T13:40:50.371502147Z"
     description: A Helm chart for Sophora Media Finder
     digest: f25fd82ccec2d4532686814fcacdce2720ab07e427dd830f138af3d562b7b74b
@@ -1458,4 +1468,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-11-01T14:46:17.799200005Z"
+generated: "2024-11-05T08:33:12.369701801Z"
