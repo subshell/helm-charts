@@ -54,7 +54,6 @@ serviceMonitor:
   interval: 10s
   path: /actuator/prometheus
 
-replicaCount: 1
 resources:
   requests:
     memory: "2G"
