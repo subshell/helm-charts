@@ -25,9 +25,11 @@ serverModeLabeler:
   enabled: false
   resources:
     requests:
+      enabled: true
       memory: "100M"
       cpu: "0.01"
     limits:
+      enabled: true
       memory: "100M"
 
 configGenerator:
@@ -377,9 +379,11 @@ prometheusRule:
 
 resources:
   requests:
+    enabled: true
     cpu: 2
     memory: 16Gi
   limits:
+    enabled: true
     memory: 16Gi
 
 # This PDB should only be used for staging server setups

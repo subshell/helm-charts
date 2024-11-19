@@ -328,7 +328,14 @@ spec:
                   ]
           {{- end }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{ if eq .Values.resources.requests.enabled true }}
+            requests:
+              {{- omit .Values.resources.requests "enabled" | toYaml  | nindent 14 }}
+            {{- end }}
+            {{ if eq .Values.resources.limits.enabled true }}
+            limits:
+              {{- omit .Values.resources.limits "enabled" | toYaml  | nindent 14 }}
+            {{- end }}
         {{ if and (eq .Values.sophora.server.isClusterServer true) (eq .Values.serverModeLabeler.enabled true) -}}
         - name: server-mode-labeler
           securityContext:
@@ -349,7 +356,14 @@ spec:
             - name: SERVER_URL
               value: "http://localhost:{{ .Values.sophora.server.ports.http }}"
           resources:
-            {{- toYaml .Values.serverModeLabeler.resources | nindent 12 }}
+            {{ if eq .Values.serverModeLabeler.resources.requests.enabled true }}
+            requests:
+              {{- omit .Values.serverModeLabeler.resources.requests "enabled" | toYaml  | nindent 14 }}
+            {{- end }}
+            {{ if eq .Values.serverModeLabeler.resources.limits.enabled true }}
+            limits:
+              {{- omit .Values.serverModeLabeler.resources.limits "enabled" | toYaml  | nindent 14 }}
+            {{- end }}
         {{- end }}
         {{- if .Values.extraContainers }}
         {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
