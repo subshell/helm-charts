@@ -164,6 +164,9 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
+## 2.5.1
+This version updates the pre-stop hook to version 2.1.0 which is required when using Sophora 6. It is still compatible with previous versions of Sophora.
+
 ## 2.5.0
 
 This version of the Chart now supports deploying a second Ingress with the purpose to host the gRPC API, which is coming in Sophora 6.
