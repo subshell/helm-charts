@@ -10,6 +10,10 @@ This chart requires the following already present in the target namespace:
 * A secret containing BASE64 encoded `<username>:<password>` to access the Asset Research Service of the ARD Mediathek.
 * A secret containing username and password to access the sophora server if needed by the plugin implementation.
 
+## Configuration
+
+The application configuration is located underneath `mediafinder.configuration` and is documented at https://subshell.com/docs/mediafinder/5/mediafinder100.html and located at
+
 ## Plugin Implementation
 
 There are two possibilities to provide the plugin implementation.
@@ -21,7 +25,8 @@ mediaFinder:
         downloadFromS3:
             ...
         copyFromSidecarImage:
-            ...    
+            ...
+    ...    
 ```
 
 ### Via S3 bucket
