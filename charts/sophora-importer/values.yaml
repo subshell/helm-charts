@@ -79,11 +79,12 @@ logbackXml: |
   
       <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
           <!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
-          <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
-              <Marker>SPECIAL_EMAIL_NOTIFICATION</Marker>
-              <OnMismatch>NEUTRAL</OnMismatch>
+          <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+              <evaluator class="ch.qos.logback.classic.boolex.OnMarkerEvaluator">
+                  <marker>SPECIAL_EMAIL_NOTIFICATION</marker>
+              </evaluator>
               <OnMatch>DENY</OnMatch>
-          </turboFilter>
+          </filter>
           <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
       </appender>
   
