@@ -19,6 +19,12 @@ webclient:
     a:
       b: test2
 
+extraEnv:
+  - name: FOO
+    value: bar
+  - name: EXTRA_ENV
+    value: extra-spicy-value
+
 extraDeploy:
   - |
     apiVersion: keda.sh/v1alpha1
