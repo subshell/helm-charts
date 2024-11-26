@@ -77,13 +77,7 @@ logbackXml: |
   <configuration scan="true" scanPeriod="60 seconds">
       <jmxConfigurator/>
   
-      <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-          <!-- No log messages marked as 'SPECIAL_EMAIL_NOTIFICATION' should be shown. -->
-          <turboFilter class="ch.qos.logback.classic.turbo.MarkerFilter">
-              <Marker>SPECIAL_EMAIL_NOTIFICATION</Marker>
-              <OnMismatch>NEUTRAL</OnMismatch>
-              <OnMatch>DENY</OnMatch>
-          </turboFilter>
+      <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">          
           <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
       </appender>
   
