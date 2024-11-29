@@ -87,7 +87,7 @@ spec:
               mv *.jar /plugins
         {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "sophora-metadata-supplier.name" . }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
