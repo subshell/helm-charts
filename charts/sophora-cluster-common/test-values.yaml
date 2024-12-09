@@ -12,7 +12,7 @@ clusterServerLb:
       nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
     hosts:
       - host: "cms.mysophora.com"
-        path: /sophora\.grpc.*
+        path: /sophora\.srpc.*
 
 podDisruptionBudget:
   enabled: true

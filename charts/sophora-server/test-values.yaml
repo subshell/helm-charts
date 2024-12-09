@@ -119,7 +119,7 @@ grpcIngress:
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
   hosts:
     - host: "sophora.domain.de"
-      path: /sophora\.grpc.*
+      path: /sophora\.srpc.*
 
 extraDeploy:
   - |

@@ -342,7 +342,7 @@ grpcIngress:
   # nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
   hosts:
   # - host: chart-example.local
-  #   path: /sophora\.grpc.*
+  #   path: /sophora\.srpc.*
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:

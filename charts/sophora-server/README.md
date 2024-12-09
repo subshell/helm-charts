@@ -24,7 +24,7 @@ To deal with this, the chart now supports deploying a second Ingress for the gRP
 This is not enabled by default.
 To enable it, set `grpcIngress.enabled` to `true` and configure it as needed.
 The example configuration contains the required
-settings for the Nginx Ingress Controller.
+settings for the Nginx Ingress Controller (all paths starting with `/sophora.srpc.` need to be forwarded as gRPC traffic).
 
 ## Tips for productive installations
 
