@@ -21,12 +21,12 @@ spec:
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         - alert: SophoraServerAPISlow
           for: 15m
-          expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.3'
+          expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.5'
           labels:
             severity: high
           annotations:
             summary: Sophora Server API is slow
-            description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 300ms for more than 15 minutes at the 95th percentile.
+            description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 500ms for more than 15 minutes at the 95th percentile.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         - alert: SophoraServerAsyncEventQueueBlocked
           for: 10m
