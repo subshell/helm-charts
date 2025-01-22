@@ -37,14 +37,10 @@ sophora:
       - name: BBB
         value: b-value
     s3Bucket:
-      name: "sophora-test-importer"
-      url: "https://storage.googleapis.com"
       secret:
         name: "sophora-importer-bucket-credentials"
         secretAccessKeyKey: "secretAccessKey"
         accessKeyIdKey: "accessKeyId"
-    instances:
-      - common
     configuration:
       sophora:
         client:

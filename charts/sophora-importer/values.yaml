@@ -14,11 +14,6 @@ downloadViaS3Image:
   tag: "0.0.2"
   pullPolicy: IfNotPresent
 
-s3fsImage:
-  repository: efrecon/s3fs
-  tag: "1.91"
-  pullPolicy: IfNotPresent
-
 nodeSelector: {}
 imagePullSecrets: []
 nameOverride: ""
@@ -45,31 +40,14 @@ sophora:
       usernameKey: "username"
   importer:
     s3Bucket:
-      # If enabled, the importer uses a s3 bucket for incoming imports
+      # enable if importer uses a s3 bucket for imports
       enabled: true
-      name: ""
-      url: "https://storage.googleapis.com"
       secret:
         name: ""
         secretAccessKeyKey: "secretAccessKey"
         accessKeyIdKey: "accessKeyId"
-      extraEnv:
-        - name: S3FS_ARGS
-          value: nonempty
-      resources:
-        requests:
-          cpu: 200m
-          memory: 256Mi
-        limits:
-          memory: 256Mi
     extraEnv:
     loaderPath:
-    instances: []
-    createImportFolders:
-      incoming: s3
-      failure: s3
-      success: local
-      temp: local
     configuration: {}
 
 logbackXml: |
