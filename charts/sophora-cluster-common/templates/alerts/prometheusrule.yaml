@@ -15,6 +15,7 @@ spec:
           expr: 'absent(sophora_server_replication_mode == 1)'
           labels:
             severity: critical
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: The Sophora Cluster has no primary.
             description: No primary server elected in the cluster.
@@ -24,6 +25,7 @@ spec:
           expr: 'max(sophora_server_source_time and sophora_server_is_primary_server == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Server is not in sync
             description: The server  "{{`{{ $labels.pod }}`}}" is not in sync.
@@ -33,6 +35,7 @@ spec:
           expr: 'count(sophora_server_replication_mode == 1) > 1'
           labels:
             severity: critical
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: The Sophora Cluster has more than one server claiming to be the primary.
             description: There are two primary servers in the cluster.
