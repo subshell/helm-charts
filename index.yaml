@@ -705,6 +705,16 @@ entries:
     version: 1.0.0
   sophora-importer:
   - apiVersion: v2
+    appVersion: 5.0.0
+    created: "2025-01-23T15:10:12.104654768Z"
+    description: A Helm chart for the Sophora importer
+    digest: d3c495f9a30195665fff1ec4f9aa4f91c47f3841e9b8b8fa9d1eb6adbf4f3f00
+    name: sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.0.0/sophora-importer-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
     appVersion: 4.11.0
     created: "2024-11-28T12:32:12.722923021Z"
     description: A Helm chart for the Sophora importer
@@ -1573,4 +1583,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-23T09:37:37.877598639Z"
+generated: "2025-01-23T15:10:12.104914345Z"
