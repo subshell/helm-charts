@@ -21,7 +21,7 @@ This document is a reference to the alerts this Helm chart can fire.
 
 **Severity:** high
 
-**Summary:** The API of the server exhibits a response time exceeding 300ms for more than 15 minutes at the 95th percentile.
+**Summary:** The API of the server exhibits a response time exceeding ${threshold} for more than 15 minutes at the 95th percentile.
 
 **Remediation steps:**
 
