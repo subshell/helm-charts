@@ -33,59 +33,6 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      {{- if .Values.sophora.importer.s3Bucket.enabled }}
-      - name: bucket-mount
-        image: "{{ .Values.s3fsImage.repository }}:{{ .Values.s3fsImage.tag }}"
-        env:
-          - name: AWS_S3_BUCKET
-            value: {{ .Values.sophora.importer.s3Bucket.name }}
-          - name: AWS_S3_URL
-            value: {{ .Values.sophora.importer.s3Bucket.url }}
-          - name: S3FS_DEBUG
-            value: "0"
-          - name: AWS_S3_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.sophora.importer.s3Bucket.secret.secretAccessKeyKey }}
-                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
-                optional: false
-          - name: AWS_S3_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
-                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
-                optional: false
-          {{- if .Values.sophora.importer.s3Bucket.extraEnv -}}
-          {{- toYaml .Values.sophora.importer.s3Bucket.extraEnv | nindent 10 }}
-          {{- end }}
-        imagePullPolicy: {{ .Values.s3fsImage.pullPolicy }}
-        lifecycle:
-          postStart:
-            exec:
-              # workaround because the importer can't create the folder by itself.
-              command:
-                - sh
-                - '-c'
-                - |
-                  echo Creating import folders for importer:
-                  {{- range $instance := .Values.sophora.importer.instances }}
-                  {{/* Ensure that every instance folder is available on s3 */}}
-                  mkdir -pv "/opt/s3fs/bucket/{{ $instance }}"
-                  {{- range $folder, $location := $.Values.sophora.importer.createImportFolders }}
-                  mkdir -pv "{{ ((eq $location "s3") | ternary "/opt/s3fs/bucket" "/import") }}/{{ $instance }}/{{ $folder }}"
-                  {{- end }}
-                  {{- end }}
-        resources:
-          {{- toYaml .Values.sophora.importer.s3Bucket.resources | nindent 12 }}
-        volumeMounts:
-          - name: shared-imports
-            mountPath: /opt/s3fs/bucket
-            mountPropagation: Bidirectional
-          - name: local-import-folders
-            mountPath: /import
-        securityContext:
-          privileged: true
-      {{- end }}
       - name: importer
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -108,6 +55,26 @@ spec:
             {{- else }}
             value: {{ include "sophora-importer.transformationLibsPath" . }}
             {{- end }}
+          {{- if .Values.sophora.importer.s3Bucket.name }}
+          - name: IMPORTER_S3_SECRETACCESSKEY
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.importer.s3Bucket.secret.secretAccessKeyKey }}
+                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                optional: false
+          - name: IMPORTER_S3_ACCESSKEYID
+            valueFrom:
+              secretKeyRef:
+                key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
+                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                optional: false
+          - name: IMPORTER_S3_BUCKETNAME
+            value: {{ .Values.sophora.importer.s3Bucket.name }}
+          - name: IMPORTER_S3_HOST
+            value: {{ .Values.sophora.importer.s3Bucket.url }}
+          - name: IMPORTER_S3_REGION
+            value: {{ .Values.sophora.importer.s3Bucket.region }}
+          {{- end }}
           {{ if .Values.sophora.importer.extraEnv -}}
           {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
           {{- end }}
@@ -123,9 +90,6 @@ spec:
         - name: importer-config
           mountPath: /sophora/logback-spring.xml
           subPath: logback-spring.xml
-        - name: shared-imports
-          mountPath: /import/
-          mountPropagation: Bidirectional
         - name: local-import-folders
           mountPath: /import-local/
         {{- if .Values.transformation.data.useSaxon }}
@@ -143,7 +107,6 @@ spec:
         {{- end }}
         securityContext:
           privileged: true
-        {{- if not .Values.sophora.importer.s3Bucket.enabled }}
         lifecycle:
           postStart:
             exec:
@@ -151,16 +114,14 @@ spec:
                 - sh
                 - '-c'
                 - |
-                  echo "Creating import folders for importer:"
-                  {{- range $folder := tuple "import" "import-local" }}
-                  {{- range $instance := $.Values.sophora.importer.instances }}
-                  mkdir -p /{{$folder}}/{{$instance}}/success
-                  mkdir -p /{{$folder}}/{{$instance}}/temp
-                  mkdir -p /{{$folder}}/{{$instance}}/failure
-                  mkdir -p /{{$folder}}/{{$instance}}/incoming
-                  {{ end }}
-                  {{ end }}
-        {{- end }}
+                  echo "Creating local import folders for importer:"
+                  {{- range $.Values.sophora.importer.configuration.importer.instances }}
+                  {{- range $folderType, $folderPath := .folders }}
+                  {{- if and (not (hasPrefix "s3://" $folderPath)) (hasKey (dict "watch" 1 "temp" 1 "success" 1 "failure" 1) $folderType) }}
+                  mkdir -pv {{ $folderPath }}
+                  {{- end }}
+                  {{- end }}
+                  {{- end }}
       initContainers:
       {{/* Transformations Download */}}
       {{- with .Values.transformation }}
@@ -227,8 +188,6 @@ spec:
       - name: importer-config
         configMap:
           name: {{ include "sophora-importer.fullname" . }}
-      - name: shared-imports
-        emptyDir: {}
       - name: local-import-folders
       {{- if not .Values.importPvcSpec }}
         emptyDir: {}
