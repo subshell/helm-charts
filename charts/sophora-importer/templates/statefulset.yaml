@@ -84,7 +84,6 @@ spec:
         - name: importer-config
           mountPath: /sophora/logback-spring.xml
           subPath: logback-spring.xml
-          mountPropagation: Bidirectional
         {{- if .Values.transformation.data.useSaxon }}
         - name: saxon-licence
           subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
