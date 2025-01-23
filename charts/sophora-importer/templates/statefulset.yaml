@@ -85,8 +85,6 @@ spec:
           mountPath: /sophora/logback-spring.xml
           subPath: logback-spring.xml
           mountPropagation: Bidirectional
-        - name: local-import-folders
-          mountPath: /import-local/
         {{- if .Values.transformation.data.useSaxon }}
         - name: saxon-licence
           subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
@@ -113,7 +111,7 @@ spec:
                   {{- range $.Values.sophora.importer.configuration.importer.instances }}
                   {{- range $folderName, $folderPath := .folders }}
                   {{- if and (not (hasPrefix "s3://" $folderPath)) (hasKey (dict "watch" 1 "temp" 1 "success" 1 "failure" 1) $folderName) }}
-                  mkdir -pv /import-local/{{ $folderPath | trimPrefix "/" }}
+                  mkdir -pv {{ $folderPath }}
                   {{- end }}
                   {{- end }}
                   {{- end }}
