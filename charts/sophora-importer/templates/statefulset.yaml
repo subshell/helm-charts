@@ -90,6 +90,8 @@ spec:
         - name: importer-config
           mountPath: /sophora/logback-spring.xml
           subPath: logback-spring.xml
+        - name: local-import-folders
+          mountPath: /import-local/
         {{- if .Values.transformation.data.useSaxon }}
         - name: saxon-licence
           subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
