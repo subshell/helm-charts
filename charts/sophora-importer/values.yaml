@@ -40,8 +40,9 @@ sophora:
       usernameKey: "username"
   importer:
     s3Bucket:
-      # enable if importer uses a s3 bucket for imports
-      enabled: true
+      name:
+      url:
+      region:
       secret:
         name: ""
         secretAccessKeyKey: "secretAccessKey"

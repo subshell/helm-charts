@@ -6,7 +6,7 @@ Additional environment variables are supported via `sophora.importer.extraEnv`. 
 
 ## Importer without s3 bucket
 
-If you don't need a s3 bucket for incoming Sophora documents, you can set `sophora.importer.s3Bucket.enabled` to `false`. This might be useful,
+If you don't need a s3 bucket for incoming Sophora documents, you can omit the configuration of `sophora.importer.s3Bucket.name`. This might be useful,
 if you only need the SOAP api. The following directories can be referenced in your `application.yaml`:
 
 * success: /import/<instance>/success

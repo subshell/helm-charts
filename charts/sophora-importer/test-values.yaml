@@ -37,6 +37,9 @@ sophora:
       - name: BBB
         value: b-value
     s3Bucket:
+      name: "my-bucket"
+      url: "https://storage.googleapis.com"
+      region: "eu-west-3"
       secret:
         name: "sophora-importer-bucket-credentials"
         secretAccessKeyKey: "secretAccessKey"
