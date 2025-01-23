@@ -18,7 +18,7 @@ if you only need the SOAP api. The following directories can be referenced in yo
 
 On startup, the Sophora Importer assumes that all directories you defined in your `application.yaml` under `importer.instances[].folders` already exist.
 These directories will be created automatically by Helm for all paths that don't start with `s3://`.
-All paths starting with `/import/` are persisted and contained data will be kept after a restart. 
+All paths starting with `/import-local/` are persisted and contained data will be kept after a restart. 
 Use `s3://` for folders that should be saved in an S3 bucket as configured with `sophora.importer.s3Bucket` configuration options.
 
 ## Import transformation files via S3 or HTTP
