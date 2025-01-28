@@ -1,4 +1,4 @@
-# subshell Helm Charts
+# subshell Helm Charts test
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/subshell)](https://artifacthub.io/packages/search?repo=subshell)
 
