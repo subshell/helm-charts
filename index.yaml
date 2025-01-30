@@ -1405,6 +1405,23 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: removed
+          description: obsolete nginx/server-snippet has been removed from ingress
+        - kind: changed
+          description: configured Server Port of UGC and UGC Multimedia is now used by ingress
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2025-01-30T15:42:24.680862647Z"
+    description: A Helm chart for Kubernetes
+    digest: f88b2c949e302fa29e62f36bf653a0e4b66d9a105bc0c1641fb3c6dd3ef301d9
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.2/sophora-ugc-2.0.2.tgz
+    version: 2.0.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: UGC Multimedia Service can now be deployed along with UGC
         - kind: changed
@@ -1593,4 +1610,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-27T14:56:20.718341804Z"
+generated: "2025-01-30T15:42:24.681351625Z"
