@@ -26,6 +26,9 @@ appVersion: '4.8.0'
 annotations:
   artifacthub.io/changes: |
     - kind: removed
-     description: obsolete nginx/server-snippet has been removed from ingress
+      description: obsolete nginx/server-snippet has been removed from ingress
     - kind: changed
-     description: configured Server Port of UGC and UGC Multimedia is now used by ingress
+      description: configured Server Port of UGC and UGC Multimedia is now used by ingress
+  artifacthub.io/links: |
+    - name: Documentation for Sophora UGC 
+      url: https://subshell.com/docs/ugc/
