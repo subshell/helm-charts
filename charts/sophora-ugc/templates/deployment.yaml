@@ -69,7 +69,7 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
               name: webapp
             - containerPort: 1694
               name: jolokia
