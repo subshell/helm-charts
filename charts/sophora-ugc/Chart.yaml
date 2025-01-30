@@ -25,10 +25,7 @@ appVersion: '4.8.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: UGC Multimedia Service can now be deployed along with UGC
+    - kind: removed
+     description: obsolete nginx/server-snippet has been removed from ingress
     - kind: changed
-      description: Configuration options in the values.yaml were restructured. An example configuration with the new structure can be found in the README.md.
-  artifacthub.io/links: |
-    - name: Documentation for Sophora UGC 
-      url: https://subshell.com/docs/ugc/
+     description: configured Server Port of UGC and UGC Multimedia is now used by ingress
