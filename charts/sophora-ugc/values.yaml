@@ -39,6 +39,10 @@ authentication:
       name: secret-name
       accessKeyKey: binarystore-access-key
       secretIdKey: binarystore-secret-id
+    s3bucket:
+      name: s3bucket-secret
+      accessKeyKey: s3bucket-access-key
+      secretIdKey: s3bucket-secret-id
 
 ugc:
   image:
