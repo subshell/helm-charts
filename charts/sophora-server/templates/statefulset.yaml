@@ -27,10 +27,11 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        checksum/config: {{ include "common.configMapHash" . }}
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
       labels:
         {{- include "sophora-server.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
