@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.3
+
+- Add S3 submission connection for UGC
+
 ## 2.0.2 -- 2025-01-30
 
 - Configured Server Port of UGC and UGC Multimedia is now used by ingress

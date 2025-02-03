@@ -23,7 +23,11 @@ authentication:
     binarystore:
       name: secret-name
       accessKeyKey: binarystore-access-key
-      secretIdKey: binarystore-secret-id 
+      secretIdKey: binarystore-secret-id
+    s3bucket:
+      name: s3bucket-secret
+      accessKeyKey: s3bucket-access-key
+      secretIdKey: s3bucket-secret-id
 
 ugc:
   image:
@@ -192,6 +196,12 @@ ugcMultimedia:
       # type: fs
       # fs:
       #   baseDir: /binaries/
+    submissions:
+      s3:
+        accessKeyId: ${BINARY_STORE_ACCESS_KEY}
+        secretAccessKey: ${BINARY_STORE_SECRET_ID}
+        bucketName: <bucketName>
+        host: <host>
 
     multimedia:
       allowedMimeTypes:

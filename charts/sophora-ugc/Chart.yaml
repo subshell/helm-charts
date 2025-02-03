@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.2
+version: 2.0.3
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -25,10 +25,8 @@ appVersion: '4.8.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: removed
-      description: obsolete nginx/server-snippet has been removed from ingress
-    - kind: changed
-      description: configured Server Port of UGC and UGC Multimedia is now used by ingress
+    - kind: added
+      description: Add S3 connection for UGC
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

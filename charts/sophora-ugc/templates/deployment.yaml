@@ -55,6 +55,16 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.s3bucket.accessKeyKey }}
+                  name: {{ .Values.authentication.secret.s3bucket.name }}
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.s3bucket.secretIdKey }}
+                  name: {{ .Values.authentication.secret.s3bucket.name }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
