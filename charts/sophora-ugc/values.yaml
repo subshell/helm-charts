@@ -95,6 +95,10 @@ ugc:
         </root>
     </configuration>
   config:
+    sophora-server:
+      host: 
+    database:
+      url:
 
 ugcMultimedia:
   enabled: false
@@ -158,6 +162,10 @@ ugcMultimedia:
     </root>
     </configuration>
   config:
+    storage:
+      type: fs
+      fs:
+        baseDir: /binaries/
 
 # Additional environment variables can be defined here
 env:
