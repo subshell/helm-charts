@@ -1405,6 +1405,21 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: Add S3 connection for UGC
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2025-02-03T15:28:15.843529982Z"
+    description: A Helm chart for Kubernetes
+    digest: e98bbf45e6aa04dc4bcb21ed4f8d57768f59c686adf9b605383d407f436925e9
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.3/sophora-ugc-2.0.3.tgz
+    version: 2.0.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: removed
           description: obsolete nginx/server-snippet has been removed from ingress
         - kind: changed
@@ -1610,4 +1625,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-30T15:42:24.681351625Z"
+generated: "2025-02-03T15:28:15.843749192Z"
