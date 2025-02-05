@@ -198,8 +198,8 @@ ugcMultimedia:
       #   baseDir: /binaries/
     submissions:
       s3:
-        accessKeyId: ${BINARY_STORE_ACCESS_KEY}
-        secretAccessKey: ${BINARY_STORE_SECRET_ID}
+        accessKeyId: ${SUBMISSIONS_S3_ACCESSKEYID}
+        secretAccessKey: ${SUBMISSIONS_S3_SECRETACCESSKEY}
         bucketName: <bucketName>
         host: <host>
 
