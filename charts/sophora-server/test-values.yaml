@@ -12,6 +12,11 @@ imagePullSecrets:
 podLabels:
   istio/inject: true
 
+podAnnotations:
+  some-app: "app-value"
+
+addChecksumAnnotation: true
+
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
 

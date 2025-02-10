@@ -302,6 +302,9 @@ livenessProbe:
 
 podAnnotations: {}
 
+# set to true to add a checksum annotation to the pod so that configmap changes trigger a redeployment
+addChecksumAnnotation: false
+
 podLabels: {}
 
 podSecurityContext: {}
