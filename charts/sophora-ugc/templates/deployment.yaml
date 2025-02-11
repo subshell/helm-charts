@@ -28,6 +28,10 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        {{- if .Values.ugc.extraInitContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraInitContainers "context" $) | nindent 8 }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.ugc.image.repository }}:{{ .Values.ugc.image.tag | default .Chart.AppVersion }}"
@@ -80,6 +84,9 @@ spec:
               mountPath: /config/application
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.ugc.extraContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraContainers "context" $) | nindent 8 }}
+        {{- end }}
       volumes:
         - name: application-yml
           configMap:
