@@ -107,21 +107,6 @@ spec:
         {{- end }}
         securityContext:
           privileged: true
-        lifecycle:
-          postStart:
-            exec:
-              command:
-                - sh
-                - '-c'
-                - |
-                  echo "Creating local import folders for importer:"
-                  {{- range $.Values.sophora.importer.configuration.importer.instances }}
-                  {{- range $folderType, $folderPath := .folders }}
-                  {{- if and (not (hasPrefix "s3://" $folderPath)) (hasKey (dict "watch" 1 "temp" 1 "success" 1 "failure" 1) $folderType) }}
-                  mkdir -pv {{ $folderPath }}
-                  {{- end }}
-                  {{- end }}
-                  {{- end }}
       initContainers:
       {{/* Transformations Download */}}
       {{- with .Values.transformation }}
