@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: {{ include "tablestar-controller.fullname" . }}
+  labels:
+    {{- include "tablestar-controller.labels" . | nindent 4 }}
+  annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
+spec:
+  type: {{ .Values.service.type | quote }}
+  {{ if .Values.service.clusterIP -}}
+  clusterIP: {{ .Values.service.clusterIP }}
+  {{- end }}
+  selector: {{- include "tablestar-controller.selectorLabels" . | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.httpPort }}
+      targetPort: http
+      name: http
