@@ -107,6 +107,20 @@ For the sidecar to work, the server requires a service account with the permissi
 in the namespace the server runs in. The SA, Role and Role Binding are created automatically by this chart.
 The creation of these resources can be controlled with the `serviceAccount:` section in the values file.
 
+#### Ingress with Ingress NGINX Controller
+
+When using `ingress-nginx` you can set the following annotations. The `proxy-*-timeout` allows long running server requests like complex queries to run. The [default timeout of nginx](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_read_timeout) is 60 seconds which may not work for all cases and repository sizes. The `client-body-buffer-size` allows larger responses to be handled in memory.
+
+```yaml
+ingress:
+  ingressClassName: "nginx"
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 2m
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+```
+
 ### Postgres native sidecar (k8s 1.29+)
 
 All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database.
