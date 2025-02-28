@@ -1,0 +1,59 @@
+image:
+  repository: docker.subshell.com/sophora/tablestar/controller
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: sophora-tablestar-controller
+
+javaOptions:
+
+timeZone: "Europe/Berlin"
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      passwordKey: "password"
+      usernameKey: "username"
+
+  # Represents the application.yml of controller:
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls: "https://cms.stable.test.subshell.io"
+          username: # in secret
+          password: # in secret
+
+service:
+  annotations: {}
+  type: ClusterIP
+  clusterIP:
+  httpPort: 8080
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: /actuator/prometheus
+
+resources:
+  requests:
+    memory: 1G
+    cpu: 200m
+  limits:
+    memory: 1.5G
+podAnnotations: {}
+
+startupProbe: # allow at most 27 seconds to start
+  failureThreshold: 5
+  initialDelaySeconds: 2
+  timeoutSeconds: 3
+  periodSeconds: 2
+
+livenessProbe:
+  failureThreshold: 1
+  initialDelaySeconds: 1
+  timeoutSeconds: 3
+  periodSeconds: 60
