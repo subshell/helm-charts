@@ -1441,6 +1441,21 @@ entries:
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
     apiVersion: v2
     appVersion: 4.8.0
+    created: "2025-03-03T15:31:24.666381738Z"
+    description: A Helm chart for Kubernetes
+    digest: bcf9460cef0ff884de7d6768b1d6e9084d54ef089aca27787610bc446ad05336
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.6/sophora-ugc-2.0.6.tgz
+    version: 2.0.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Add S3 connection for UGC
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
     created: "2025-02-11T14:56:09.924355398Z"
     description: A Helm chart for Kubernetes
     digest: b8186c7bc77c3e758ef3ef51120d26c41e7fed037675f5db257efc53030ca7ff
@@ -1696,4 +1711,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-02-28T13:52:02.086496747Z"
+generated: "2025-03-03T15:31:24.666593574Z"
