@@ -102,6 +102,7 @@ ugc:
 
   extraContainers: []
   extraInitContainers: []
+  serviceAccount: []
 
 ugcMultimedia:
   enabled: false
