@@ -1,0 +1,20 @@
+image:
+  tag: "5.0.0"
+  pullPolicy: Always
+
+imagePullSecrets:
+  - name: docker-subshell
+
+sophora:
+  serverUrl: http://sophora-server:1196
+  authentication:
+    secret:
+      name: "sophora-user-admin-credentials"
+
+  configuration:
+    sophora:
+      client:
+        server-connection:
+          urls: "https://cms.dev.sophora.code-nnw.cloud"
+          username: # in secret
+          password: # in secret

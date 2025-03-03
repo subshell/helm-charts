@@ -12,10 +12,12 @@ spec:
       {{- include "sophora-youtube-connector.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        checksum/logbackconfig: {{ toString .Values.sophora.youtubeconnector.logback | sha256sum }}
+        checksum/mediaconfig: {{ toString .Values.sophora.youtubeconnector.mediaconfig | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "sophora-youtube-connector.selectorLabels" . | nindent 8 }}
     spec:
