@@ -54,10 +54,10 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 Create the name of the service account to use
 */}}
 {{- define "sophora-ugc.serviceAccountName" -}}
-{{- if .Values.config.serviceAccount.create }}
-{{- default (include "sophora-ugc.fullname" .) .Values.config.serviceAccount.name }}
+{{- if .Values.ugc.serviceAccount.create }}
+{{- default (include "sophora-ugc.fullname" .) .Values.ugc.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.config.serviceAccount.name }}
+{{- default "default" .Values.ugc.serviceAccount.name }}
 {{- end }}
 {{- end }}
 
