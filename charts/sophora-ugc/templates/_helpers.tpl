@@ -51,6 +51,17 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Create the name of the service account to use
+*/}}
+{{- define "sophora-ugc.serviceAccountName" -}}
+{{- if .Values.ugc.serviceAccount.create }}
+{{- default (include "sophora-ugc.fullname" .) .Values.ugc.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.ugc.serviceAccount.name }}
+{{- end }}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "sophora-ugc-multimedia.chart" -}}

@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.6
+- Add support for service accounts
+
 ## 2.0.3
 
 - Add S3 submission connection for UGC

@@ -129,6 +129,10 @@ ugc:
           memory: "2Gi"
           cpu: "1"
 
+  serviceAccount:
+    create: true
+    annotations:
+      iam.gke.io/gcp-service-account: sophora-ugc@account
 
 ugcMultimedia:
   enabled: true
