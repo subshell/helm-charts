@@ -49,6 +49,8 @@ spec:
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
             - name: TZ
               value: {{ .Values.timeZone | quote }}
+            - name: SPRING_PROFILES_ACTIVE
+              value: {{ .Values.springProfiles }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
