@@ -1434,6 +1434,16 @@ entries:
     version: 1.0.0
   sophora-tablestar-controller:
   - apiVersion: v2
+    appVersion: 5.6.10
+    created: "2025-03-05T11:04:51.873985585Z"
+    description: A Helm chart for the Sophora TableStar Controller
+    digest: 7ce341ccca99fd14d33bbd1b7bd4d70d42b8a678ed67861fdc5f951c1c164992
+    name: sophora-tablestar-controller
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.0.1/sophora-tablestar-controller-1.0.1.tgz
+    version: 1.0.1
+  - apiVersion: v2
     appVersion: 5.5.3
     created: "2025-02-28T13:52:02.086023395Z"
     description: A Helm chart for the Sophora TableStar Controller
@@ -1721,4 +1731,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-03T16:20:28.321526897Z"
+generated: "2025-03-05T11:04:51.874238515Z"
