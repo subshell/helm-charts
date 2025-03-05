@@ -27,6 +27,9 @@ sophora:
           username: # in secret
           password: # in secret
 
+# comma separated list of active spring profiles. Profile "cloud" enables json logging
+springProfiles: cloud
+
 service:
   annotations: {}
   type: ClusterIP
