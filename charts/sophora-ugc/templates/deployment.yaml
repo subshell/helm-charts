@@ -39,36 +39,53 @@ spec:
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
+            {{- if .Values.authentication.secret.server.usernameKey }}
             - name: SOPHORA-SERVER_USERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.usernameKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.server.passwordKey }}
             - name: SOPHORA-SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.passwordKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.database.usernameKey }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.usernameKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.database.passwordKey }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.s3bucket.accessKeyKey }}
             - name: SUBMISSIONS_S3_ACCESSKEYID
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.s3bucket.accessKeyKey }}
                   name: {{ .Values.authentication.secret.s3bucket.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.s3bucket.secretIdKey }}
             - name: SUBMISSIONS_S3_SECRETACCESSKEY
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.s3bucket.secretIdKey }}
                   name: {{ .Values.authentication.secret.s3bucket.name }}
+            {{- end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
