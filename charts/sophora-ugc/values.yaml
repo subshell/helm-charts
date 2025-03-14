@@ -29,12 +29,12 @@ authentication:
   secret:
     server:
       name: secret-name
-      usernameKey: username
-      passwordKey: password
+      usernameKey:
+      passwordKey:
     database:
       name: secret-name
-      usernameKey: database-user
-      passwordKey: database-password
+      usernameKey:
+      passwordKey:
     binarystore:
       name: secret-name
       accessKeyKey: binarystore-access-key
