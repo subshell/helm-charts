@@ -1,7 +1,7 @@
 # Changelog
 
 ## 2.0.7
-- All deployment secrets are optional now. You can use `env` in your `values.yaml` instead of leave it empty.
+- All deployment secrets are optional now. You can use `env` in your `values.yaml` instead, or leave it empty.
 
 ## 2.0.6
 - Add support for service accounts
