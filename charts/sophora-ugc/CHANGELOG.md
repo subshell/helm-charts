@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.8
+- Add service account name to pod. 
+
 ## 2.0.7
 - All deployment secrets are optional now. You can use `env` in your `values.yaml` instead, or leave it empty.
 

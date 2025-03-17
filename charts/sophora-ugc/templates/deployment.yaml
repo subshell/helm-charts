@@ -32,6 +32,7 @@ spec:
         {{- if .Values.ugc.extraInitContainers }}
           {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraInitContainers "context" $) | nindent 8 }}
         {{- end }}
+      serviceAccountName: {{ include "sophora-ugc.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.ugc.image.repository }}:{{ .Values.ugc.image.tag | default .Chart.AppVersion }}"
