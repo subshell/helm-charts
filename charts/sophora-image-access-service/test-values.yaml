@@ -37,3 +37,6 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+extraDeploy:
+  - apiVersion: subshell/v2
