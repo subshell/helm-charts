@@ -521,6 +521,16 @@ entries:
   sophora-export-job:
   - apiVersion: v2
     appVersion: "4"
+    created: "2025-05-09T07:45:47.140319628Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 2ea419411997e73fd18917873c45d6e9634b6eed18cbedce0c107338f19c3c83
+    name: sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.0.0/sophora-export-job-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
+    appVersion: "4"
     created: "2023-07-31T14:50:09.097503214Z"
     description: A Helm chart for a generic one-time export job
     digest: 294fc0908d0a0a3255a223d81dd1b1dcef49824057566b221694e4cdb68967e8
@@ -1771,4 +1781,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-04-03T09:31:43.203952482Z"
+generated: "2025-05-09T07:45:47.140536102Z"
