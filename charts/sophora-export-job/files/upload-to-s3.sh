@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # see https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
-# this script requires env variables ZIP_FILE_NAME_DATE_FORMAT, S3_NAME, S3_FILE_PATH_WITHOUT_EXTENSION, S3_ENDPOINT, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and STORE_UPLOAD_PER_WEEKDAY to be set
+# this script requires env variables S3_NAME, S3_FILE_PATH_WITHOUT_EXTENSION, S3_ENDPOINT, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY and STORE_UPLOAD_PER_WEEKDAY to be set
 
 echo "creating zip"
 tree /data-export
