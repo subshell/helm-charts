@@ -1,6 +1,6 @@
 {{- define "sophora-server.postgresMutliEnv" -}}
 {{- range $index, $podConfig := .Values.sophora.server.persistence.multiPostgres.byPodIndex }}
-- name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME_{{ $index }}
+- name: SOPHORA_PERSISTENCE_POSTGRES_DATABASE_{{ $index }}
   value: {{ $podConfig.database }}
 - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME_{{ $index }}
   value: {{ $podConfig.hostname }}
