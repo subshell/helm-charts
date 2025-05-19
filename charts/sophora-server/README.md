@@ -4,18 +4,55 @@ The required secrets must be present before you install the server.
 
 ## Archive repository persistence
 
-Starting with Sophora 5 the archive repository is no longer available.
-To disable all archive related storage options, set `sophora.server.persistence.archiveType` to `none`.
+Starting with Sophora 5, the archive repository is no longer available.
+To disable all archive-related storage options, set `sophora.server.persistence.archiveType` to `none`.
 In later chart versions this will be the default.
 
 ## Postgres connection
 
 Starting with Sophora 5, the installation requires postgres. 
 You can provide credentials via a secret: `sophora.server.persistence.postgres.secret`. 
-To enable the postgres version store set `sophora.server.persistence.postgres.versionStoreEnabled` to `true`. 
+To enable postgres support set `sophora.server.persistence.postgres.enabled` to `true`. 
 For all other configuration options use `sophora.server.properties`. 
 
 It's also possible to use postgres as your jcr repository. To use postgres with jcr set `sophora.server.persistence.repositoryType` to `postgres`.
+
+## Multi Postgres support
+
+Starting with Sophora 6, staging servers require postgres.
+Typically, Sophora staging servers use statefulset scaling, but they still need a unique postgres database per instance. You can achieve this by doing the following:
+
+* Set `sophora.server.persistence.multiPostgres.enabled` to `true`.
+* Configure all postgres connections under `sophora.server.persistence.multiPostgres.byPodIndex`. Each config entry belongs to a pod at the index.
+
+### Example
+
+```yaml
+sophora:
+  server:
+    persistence:
+      multiPostgres:
+        enabled: true
+        byPodIndex:
+        # config for pod 0
+        - hostname: db.host
+          port: "5432"
+          database: "sophora-0"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+        # config for pod 1
+        - hostname: db.host
+          port: "5432"
+          database: "sophora-1"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+```
+
+See also: [Postgres Native Sidecar](#postgres-native-sidecar-k8s-129)
 
 ## Sophora RPC (Sophora v6+)
 Sophora 6 introduces a completely new API for client-server communication called Sophora RPC (short srpc). Srpc is based on gRPC which in return is essentially HTTP/2 but requires specific non-default settings in most HTTP proxies, including Ingress Controllers.
@@ -123,10 +160,11 @@ ingress:
 
 ### Postgres native sidecar (k8s 1.29+)
 
-All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database.
-However, Sophora staging server support replica scaling, but still require one unique postgres database per instance. 
-The simplest way to accommodate these requirements is to add native sidecar containers into the mix.
-Each Sophora server now has its own postgres instance that it can easily connect to. 
+**All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database**
+
+However, while the Sophora staging server supports replica scaling, each instance still requires a dedicated PostgreSQL database.
+The simplest way to meet these requirements is by introducing native sidecar containers.
+With this setup, each Sophora server now includes its own PostgreSQL instance.
 Read more about native sidecar containers [here](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/).
 
 Add a native sidecar container using the following configuration: 
@@ -134,7 +172,7 @@ Add a native sidecar container using the following configuration:
 ```yaml
 extraInitContainers:
   - name: "postgres"
-    image: "postgres:16.2-alpine3.19"
+    image: "postgres:17.5-alpine3.21"
     imagePullPolicy: "IfNotPresent"
     restartPolicy: Always
     ports:
@@ -166,7 +204,7 @@ If you want to use your own volume, configure one in `extraVolumeClaimTemplates`
 To complete the setup, add the following properties to `sophora.server.properties` to configure the postgres connection to the sidecar container.
 
 ```properties
-# connection to postgres nativ sidecar container
+# connection to postgres native sidecar container
 sophora.persistence.postgres.database=sophora
 sophora.persistence.postgres.username=postgres
 sophora.persistence.postgres.password=postgres
@@ -177,6 +215,11 @@ sophora.persistence.postgres.port=5432
 **Note**: For cluster servers we still recommend a separate postgres deployment, like Google Cloud SQL.
 
 ## Notable Changes
+
+## 2.9.0
+
+* The configuration `sophora.server.persistence.postgres.versionStoreEnabled` has been deprecated. Use `sophora.server.persistence.postgres.enabled` instead.
+* New configuration `sophora.server.persistence.multiPostgres`. [Read more](#multi-postgres-support)
 
 ## 2.5.2
 This version changes the paths for the gRPC-controller from the technology-driven name sophora.grpc to the product driven name sophora.srpc. This only affects server in version 6 or newer.

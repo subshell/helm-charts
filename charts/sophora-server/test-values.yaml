@@ -49,24 +49,31 @@ sophora:
         requests:
           storage: 200Gi
     persistence:
-      repositoryType: postgres
+      repositoryType: localdb
       archiveType: none
       mysql:
         repositories:
           - secretName: repository-secret01
             hostnameKey: new-hostname
-      postgres:
-        versionStoreEnabled: true
-        hostname: my-host
-        port: 5432
-        secret:
-          name: postgres-auth
-          usernameKey: user1
-          passwordKey: pass1
-        repository:
-          defaultWorkspaceDB: "repository"
-          liveWorkspaceDB: "repository"
-          jcrVersionsDB: "repository"
+      multiPostgres:
+        enabled: true
+        byPodIndex:
+        - hostname: otherhost
+          port: "5432"
+          database: "sophora-1"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+        - hostname: secondhost
+          port: "5432"
+          database: "sophora-2"
+          secret:
+            name: secret-2
+            usernameKey: username
+            passwordKey: password
+          repository:
+            defaultWorkspaceDB: "my-repo"
 
     binaryStore:
       s3:
