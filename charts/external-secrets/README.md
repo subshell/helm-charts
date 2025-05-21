@@ -21,4 +21,4 @@ externalSecrets:
 
 # Changelog
 
-- ! Change: Since chart version 2.0.0 requires external-secrets >= v0.16.0 (released April 2025) to use the `v1` apis instead of `v1beta1`.
+- ! Change: Since chart version 2.0.0 requires external-secrets >= v0.16.0 (released April 2025) to use the `v1` apis instead of `v1beta1`. Upgrade existing releases to use this version of the chart prior to using external-secrets-operator >= v0.17.0.
