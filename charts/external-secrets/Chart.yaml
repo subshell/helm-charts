@@ -9,4 +9,4 @@ annotations:
       description: Since chart version 2.0.0 requires external-secrets >= v0.16.0 (released April 2025) to use the `v1` apis instead of `v1beta1`.
       links:
         - name: GitHub Issue
-          url: https://github.com/subshell/helm-charts/issues/133
+          url: https://github.com/subshell/helm-charts/pull/164
