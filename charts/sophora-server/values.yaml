@@ -218,6 +218,9 @@ sophora:
 
       ## @param sophora.server.persistence.postgres postgres configuration. Required for Sophora Server >5.0.0.
       postgres:
+        ## @param sophora.server.persistence.postgres.enabled Must be true for Sophora Server >6.0.0.
+        enabled: false
+        ## @param sophora.server.persistence.postgres.versionStoreEnabled is deprecated. Use enabled instead.
         versionStoreEnabled: false
         hostname:
         port: "5432"
@@ -230,6 +233,23 @@ sophora:
           defaultWorkspaceDB: "repository"
           liveWorkspaceDB: "repository"
           jcrVersionsDB: "repository"
+
+      ## @param sophora.server.persistence.multiPostgres Allows any statefulset pod to connect a uniquely configured postgres.
+      multiPostgres:
+        enabled: false
+        byPodIndex:
+        #- hostname:
+        #  port: "5432"
+        #  username:
+        #  database: "sophora"
+        #  secret:
+        #    name:
+        #    usernameKey: username
+        #    passwordKey: password
+        #  repository:
+        #    defaultWorkspaceDB: "repository"
+        #    liveWorkspaceDB: "repository"
+        #    jcrVersionsDB: "repository"
 
     binaryStore:
       s3:
