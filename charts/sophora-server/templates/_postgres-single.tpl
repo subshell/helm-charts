@@ -1,4 +1,4 @@
-{{- define "sophora-server.postgresSingleEvn" -}}
+{{- define "sophora-server.postgresSingleEnv" -}}
 - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
   value: {{ .Values.sophora.server.persistence.postgres.hostname }}
 - name: SOPHORA_PERSISTENCE_POSTGRES_PORT
