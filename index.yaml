@@ -1,6 +1,22 @@
 apiVersion: v1
 entries:
   external-secrets:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: Since chart version 2.0.0 requires external-secrets >= v0.16.0 (released April 2025) to use the `v1` apis instead of `v1beta1`. Upgrade existing releases to use this version of the chart prior to using external-secrets-operator >= v0.17.0.
+          links:
+            - name: GitHub Issue
+              url: https://github.com/subshell/helm-charts/pull/164
+    apiVersion: v2
+    created: "2025-05-21T10:47:21.226893462Z"
+    description: A Helm chart for creating multiple external secrets
+    digest: 307e2ea9f2c571f07de8ed106b8492fb6964a0598a2a892d0d8dec1c846084f6
+    name: external-secrets
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/external-secrets-2.0.0/external-secrets-2.0.0.tgz
+    version: 2.0.0
   - apiVersion: v2
     appVersion: 0.8.1
     created: "2024-02-14T13:20:09.455737851Z"
@@ -1801,4 +1817,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-21T08:01:30.435419811Z"
+generated: "2025-05-21T10:47:21.227234085Z"
