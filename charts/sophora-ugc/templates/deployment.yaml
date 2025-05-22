@@ -86,6 +86,7 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.s3bucket.secretIdKey }}
                   name: {{ .Values.authentication.secret.s3bucket.name }}
+                  optional: true
             {{- end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
