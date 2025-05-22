@@ -381,6 +381,19 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
+  sophora-ai:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-05-22T13:32:57.699044441Z"
+    description: Sophora AI
+    digest: 8be013ddc2e1c48037d01f90514a32cab2260ff3ae98d521c6657d000af82fde
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.0.0/sophora-ai-1.0.0.tgz
+    version: 1.0.0
   sophora-cluster-common:
   - apiVersion: v2
     appVersion: "4"
@@ -1817,4 +1830,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-21T10:47:21.227234085Z"
+generated: "2025-05-22T13:32:57.699358506Z"
