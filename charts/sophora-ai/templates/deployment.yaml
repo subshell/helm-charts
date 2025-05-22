@@ -1,0 +1,136 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-ai.fullname" . }}
+  labels:
+    {{- include "sophora-ai.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "sophora-ai.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "sophora-ai.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: ai
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+            {{- if .Values.sophora.gcpCredentials }}
+            - name: gcp-credentials
+              mountPath: /app/gcp-credentials
+              readOnly: true
+            {{- end }}
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 8080
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.usernameKey | quote }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+                  key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+            - name: SOPHORAAI_DATABASE_POSTGRES_LOGIN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.postgresCredentials.secret.name" .Values.sophora.postgresCredentials.secret.name | quote }}
+                  key: {{ .Values.sophora.postgresCredentials.secret.loginKey | quote }}
+            - name: SOPHORAAI_DATABASE_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.postgresCredentials.secret.name" .Values.sophora.postgresCredentials.secret.name | quote }}
+                  key: {{ .Values.sophora.postgresCredentials.secret.passwordKey | quote }}
+            {{- if .Values.sophora.llmProviderCredentials }}
+            {{- range $key, $value := .Values.sophora.llmProviderCredentials }}
+            - name: {{ print "SOPHORAAI_LLM_PROVIDERS_" ($key | upper) "_APIKEY" | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required (print "A valid secret name must be provided in .Values.sophora.llmProviderCredentials." $key ".secret.name") $value.secret.name | quote }}
+                  key: {{ $value.secret.apiKeyKey | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.sophora.googleSearchCredentials }}
+            - name: SOPHORAAI_GOOGLE_SEARCH_SEARCHENGINEID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.googleSearchCredentials.secret.name" .Values.sophora.googleSearchCredentials.secret.name | quote }}
+                  key: {{ .Values.sophora.googleSearchCredentials.secret.searchEngineIDKey | quote }}
+            - name: SOPHORAAI_GOOGLE_SEARCH_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.googleSearchCredentials.secret.name" .Values.sophora.googleSearchCredentials.secret.name | quote }}
+                  key: {{ .Values.sophora.googleSearchCredentials.secret.apiKeyKey | quote }}
+            {{- end }}
+            {{- if .Values.sophora.ardRecommenderCredentials }}
+            - name: SOPHORAAI_EMBEDDING_ARDRECOMMENDER_AUTHKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ required "A valid secret name must be provided in .Values.sophora.ardRecommenderCredentials.secret.name" .Values.sophora.ardRecommenderCredentials.secret.name | quote }}
+                  key: {{ .Values.sophora.ardRecommenderCredentials.secret.authKeyKey | quote }}
+            {{- end }}
+            {{- if .Values.ai.extraEnv }}
+            {{- toYaml .Values.ai.extraEnv | nindent 12 }}
+            {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              port: http
+              path: /actuator/health/readiness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ include "sophora-ai.fullname" . }}
+        {{- if .Values.sophora.gcpCredentials }}
+        - name: gcp-credentials
+          secret:
+            secretName: {{ required "A valid secret name must be provided in .Values.sophora.gcpCredentials.secret.name" .Values.sophora.gcpCredentials.secret.name | quote }}
+        {{- end }}
