@@ -107,7 +107,8 @@ ugc:
       security:
         user:
           name: user
-
+    server:
+      port: 9080
 
   extraContainers: []
   extraInitContainers: []
