@@ -47,12 +47,12 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.passwordKey }}
                   name: {{ .Values.authentication.secret.server.name }}
-            - name: DATABASE_USER
+            - name: SPRING_DATASOURCE_USER
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.usernameKey }}
                   name: {{ .Values.authentication.secret.database.name }}
-            - name: DATABASE_PASSWORD
+            - name: SPRING_DATASOURCE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
