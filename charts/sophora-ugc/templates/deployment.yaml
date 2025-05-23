@@ -88,10 +88,11 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
-              name: webapp
-            - containerPort: 1694
-              name: jolokia
+            {{ $httpPort := dig "server" "port" 9080 .Values.ugc.config }}
+            - containerPort: {{ $httpPort }}
+              name: webapp-http
+            - containerPort: {{ dig "management" "server" "port" $httpPort .Values.ugc.config }}
+              name: webapp-jolokia
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback
