@@ -1,0 +1,9 @@
+ingresses:
+  - ingressClassName: nginx
+    annotations: {}
+    hosts:
+    tls: []
+  - ingressClassName: nginx
+    annotations: {}
+    hosts:
+    tls: []
