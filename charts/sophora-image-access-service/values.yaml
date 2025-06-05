@@ -71,6 +71,13 @@ ingress:
   hosts:
   tls: []
 
+extraIngress: []
+  #- ingressClassName: nginx
+  #  annotations:
+  #    foo: baz
+  #  hosts:
+  #  tls: []
+
 serviceAccount:
   create: false
 
