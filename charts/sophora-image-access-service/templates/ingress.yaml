@@ -11,7 +11,7 @@ metadata:
   name: {{ $fullName }}-{{ $index }}
   labels:
   {{- include "access-service.labels" $ | nindent 4 }}
-  {{- with $.Values.ingress.annotations }}
+  {{- with $ingress.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}

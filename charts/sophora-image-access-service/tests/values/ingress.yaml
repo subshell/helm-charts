@@ -2,16 +2,18 @@ ingress:
   enabled: true
   ingressClassName: nginx
   annotations:
-    foo: bar
+    ingress: true
   hosts:
   tls: []
 
 extraIngress:
   - ingressClassName: nginx
-    annotations: {}
+    annotations:
+      extraIngress: first
     hosts:
     tls: []
   - ingressClassName: nginx
-    annotations: {}
+    annotations:
+      extraIngress: second
     hosts:
     tls: []

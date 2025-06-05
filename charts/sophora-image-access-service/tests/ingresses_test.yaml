@@ -18,6 +18,9 @@ tests:
       - equal:
           path: metadata.name
           value: sophora-image-access-service-0
+      - equal:
+          path: metadata.annotations.extraIngress
+          value: first
   - it: should be ingress with correct name
     values:
       - ./values/ingress.yaml
@@ -28,6 +31,9 @@ tests:
       - equal:
           path: metadata.name
           value: sophora-image-access-service-1
+      - equal:
+          path: metadata.annotations.extraIngress
+          value: second
   - it: should be ingress with correct name
     values:
       - ./values/ingress.yaml
@@ -38,3 +44,6 @@ tests:
       - equal:
           path: metadata.name
           value: sophora-image-access-service-2
+      - equal:
+          path: metadata.annotations.ingress
+          value: true
