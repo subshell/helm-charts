@@ -1,4 +1,4 @@
-suite: test serviceattachment
+suite: test ingress
 templates:
   - ingress.yaml
 tests:
