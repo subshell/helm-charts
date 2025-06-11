@@ -25,8 +25,6 @@ appVersion: '4.8.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: Add S3 connection for UGC
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

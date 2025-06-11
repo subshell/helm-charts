@@ -3,6 +3,7 @@ name: external-secrets
 description: A Helm chart for creating multiple external secrets
 type: application
 version: 2.0.0
+
 annotations:
   artifacthub.io/changes: |
     - kind: changed

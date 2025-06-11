@@ -20,6 +20,10 @@ main branch, a release of the helm chart is triggered automatically if the
 
 This git repository uses [Github Pages](https://helm.sh/docs/topics/chart_repository/#github-pages-example) to host the helm repository.
 
+## Changelogs
+
+Add a [Changelog](https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations) for the new chart version. 
+
 
 * * *
 

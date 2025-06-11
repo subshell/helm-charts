@@ -11,3 +11,6 @@ dependencies:
     version: 15.1.7
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
+
+annotations:
+  artifacthub.io/changes: |

@@ -4,3 +4,6 @@ description: Sophora Link Checker
 type: application
 version: 0.1.2
 appVersion: 6.0.0
+
+annotations:
+  artifacthub.io/changes: |

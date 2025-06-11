@@ -4,3 +4,6 @@ description: Sophora Image AI
 type: application
 version: 1.0.2
 appVersion: 5.1.0
+
+annotations:
+  artifacthub.io/changes: |

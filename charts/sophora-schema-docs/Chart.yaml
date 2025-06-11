@@ -4,3 +4,6 @@ description: Sophora Schema Docs
 type: application
 version: 2.1.2
 appVersion: 5.0.0
+
+annotations:
+  artifacthub.io/changes: |
