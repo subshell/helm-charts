@@ -4,3 +4,6 @@ description: Sophora Indexing Service (SISI)
 type: application
 version: 1.2.0
 appVersion: '4.6.0'
+
+annotations:
+  artifacthub.io/changes: |

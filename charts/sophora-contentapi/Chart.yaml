@@ -4,3 +4,6 @@ description: Sophora Content API
 type: application
 version: 1.0.0
 appVersion: 6.0.0
+
+annotations:
+  artifacthub.io/changes: |

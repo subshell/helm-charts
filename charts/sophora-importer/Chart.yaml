@@ -21,3 +21,6 @@ version: 2.0.1
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: 5.0.0
+
+annotations:
+  artifacthub.io/changes: |
