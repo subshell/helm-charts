@@ -34,9 +34,17 @@ s3:
 ingress:
   enabled: true
   ingressClassName: nginx
-  annotations: {}
+  annotations:
+    foo: bar
   hosts:
   tls: []
+
+extraIngress:
+  - ingressClassName: nginx
+    annotations:
+      foo: baz
+    hosts:
+    tls: []
 
 extraDeploy:
   - apiVersion: subshell/v2
