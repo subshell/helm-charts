@@ -611,6 +611,16 @@ entries:
   sophora-image-access-service:
   - apiVersion: v2
     appVersion: 4.4.8
+    created: "2025-06-19T12:40:13.222339285Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 87000d98a1db668409230dfdae3a6c4ca3d5472a69d2c812b632fe4476ce4f38
+    name: sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.2.0/sophora-image-access-service-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 4.4.8
     created: "2025-04-03T09:31:43.20364715Z"
     description: A Helm chart for the Sophora Image Access Service
     digest: aba1f18f4708944bdac9a259db1f3d30eeee3b22cc69fac6a5d049b08d1702cd
@@ -1845,4 +1855,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-23T07:50:47.712205139Z"
+generated: "2025-06-19T12:40:13.222974424Z"
