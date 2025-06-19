@@ -382,6 +382,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
   sophora-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Added configuration for Shorten for Infoscreen feature
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-19T15:17:31.067487872Z"
+    description: Sophora AI
+    digest: eed4256e1cdb5783b074da9a34c338693324e59251d967ec1cd3f1d784fbde8b
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.1.0/sophora-ai-1.1.0.tgz
+    version: 1.1.0
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2025-05-22T13:32:57.699044441Z"
@@ -1855,4 +1871,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-19T12:40:13.222974424Z"
+generated: "2025-06-19T15:17:31.067802933Z"
