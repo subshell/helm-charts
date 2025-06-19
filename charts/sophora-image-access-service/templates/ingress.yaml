@@ -1,6 +1,6 @@
 {{ $allIngresses := .Values.extraIngress -}}
 {{ if .Values.ingress.enabled -}}
-  {{ $allIngresses = append $allIngresses .Values.ingress -}}
+  {{ $allIngresses = prepend $allIngresses .Values.ingress -}}
 {{ end -}}
 {{ $fullName := include "access-service.fullname" $ -}}
 {{ $svcPort := $.Values.service.httpPort -}}
