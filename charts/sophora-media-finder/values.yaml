@@ -72,7 +72,7 @@ mediaFinder:
         spring-additional-base-packages: ""
 
     cors:
-      allowed-origin: 
+      allowed-origin:
 
   plugins:
     source: # "s3" or "sidecar". leave blank for none.
