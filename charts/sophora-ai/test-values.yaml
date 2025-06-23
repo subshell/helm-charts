@@ -108,6 +108,8 @@ sophora:
       testing: true
     shortenTeletext:
       testing: true
+    shortenInfoscreen:
+      testing: true
     summarize:
       testing: true
     teaser:

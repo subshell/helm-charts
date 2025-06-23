@@ -153,6 +153,9 @@ sophora:
     # contents of application-shorten-teletext.yaml
     shortenTeletext:
 
+    # contents of application-shorten-infoscreen.yaml (actually required, but optional to support older app versions)
+    #shortenInfoscreen:
+
     # contents of application-summarize.yaml
     summarize:
 
