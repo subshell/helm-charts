@@ -1013,6 +1013,20 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |-
+        - kind: added
+          description: Add option to set CORS origin for the application
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2025-06-24T11:10:55.243657972Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: dca220e8f06a1602f81984e6710d402117531f3f48e74a80c423cf85c3296ce4
+    name: sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.2.2/sophora-media-finder-0.2.2.tgz
+    version: 0.2.2
   - apiVersion: v2
     appVersion: 5.x
     created: "2024-11-26T12:35:25.018082345Z"
@@ -1871,4 +1885,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-19T15:17:31.067802933Z"
+generated: "2025-06-24T11:10:55.244011572Z"
