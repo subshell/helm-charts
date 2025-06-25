@@ -14,12 +14,3 @@ tests:
     asserts:
       - hasDocuments:
           count: 0
-  - it: this test fails
-    values:
-      - ./values/with-sa-and-without-prestop.yaml
-    set:
-      preStop:
-        enabled: true
-    asserts:
-      - hasDocuments:
-          count: 0
