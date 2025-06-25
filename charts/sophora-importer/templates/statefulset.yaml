@@ -110,7 +110,8 @@ spec:
       initContainers:
       {{/* Transformations Download */}}
       {{- with .Values.transformation }}
-      {{- if and .enabled (eq .data.use "s3") }}
+      {{- if .enabled }}
+      {{- if eq .data.use "s3" }}
       - name: transformation-data-via-s3-downloader
         image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
         imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
@@ -140,8 +141,7 @@ spec:
             mountPath: {{ include "sophora-importer.transformationXslPath" . }}
           - name: libs
             mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
-      {{- end }}
-      {{- if and .enabled (eq .data.use "http") }}
+      {{- else if eq .data.use "http" }}
       - name: transformation-data-via-http-downloader
         image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
         imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
@@ -167,8 +167,35 @@ spec:
             mountPath: {{ include "sophora-importer.transformationXslPath" . }}
           - name: libs
             mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
+      {{- else if eq .data.use "sidecar" }}
+        - name: transformation-data-via-sidecar-copier
+          image: {{ tpl .data.sidecar.repository $ }}:{{ tpl .data.sidecar.tag $ }}
+          imagePullPolicy: {{ .data.sidecar.pullPolicy }}
+          volumeMounts:
+            - name: xsl
+              mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
+          env:
+            - name: XSL_FOLDER
+              value: {{ default "/xsl" .data.sidecar.folders.xsl }}
+            - name: LIBS_FOLDER
+              value: {{ default "/libs" .data.sidecar.folders.libs }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |-
+              if [ -d "$XSL_FOLDER" ]; then
+                cp -r "$XSL_FOLDER"/* "{{ include "sophora-importer.transformationXslPath" . }}"
+                echo "copied xsl files to {{ include "sophora-importer.transformationXslPath" . }}"
+              fi
+              if [ -d "$LIBS_FOLDER" ]; then
+                cp -r "$LIBS_FOLDER"/* "{{ include "sophora-importer.transformationLibsPath" . }}"
+                echo "copied libs to {{ include "sophora-importer.transformationXslPath" . }}"
+              fi
         {{- end }}
-        {{- end }}
+      {{- end }}
+      {{- end }}
       volumes:
       - name: importer-config
         configMap:
