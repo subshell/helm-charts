@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 1.2.0
+version: 1.2.1
 appVersion: 1.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: Added configuration for Proofread feature
+    - kind: changed
+      description: Bumped version because of broken release process. No actual changes have been made in this version.
