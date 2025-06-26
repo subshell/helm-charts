@@ -26,6 +26,9 @@ data:
   application-keywords.yaml: |- {{ toYaml (required "sophora.configuration.keywords is required in values" .Values.sophora.configuration.keywords) | nindent 4 }}
   application-llm.yaml: |- {{ toYaml (required "sophora.configuration.llm is required in values" .Values.sophora.configuration.llm) | nindent 4 }}
   application-named-entities.yaml: |- {{ toYaml (required "sophora.configuration.namedEntities is required in values" .Values.sophora.configuration.namedEntities) | nindent 4 }}
+  {{- if .Values.sophora.configuration.proofread }}
+  application-proofread.yaml: |- {{ toYaml .Values.sophora.configuration.proofread | nindent 4 }}
+  {{- end }}
   application-questions.yaml: |- {{ toYaml (required "sophora.configuration.questions is required in values" .Values.sophora.configuration.questions) | nindent 4 }}
   application-quotations.yaml: |- {{ toYaml (required "sophora.configuration.quotations is required in values" .Values.sophora.configuration.quotations) | nindent 4 }}
   application-recommend-documents.yaml: |- {{ toYaml (required "sophora.configuration.recommendDocuments is required in values" .Values.sophora.configuration.recommendDocuments) | nindent 4 }}
