@@ -384,6 +384,22 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Bumped version because of broken release process. No actual changes have been made in this version.
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-06-26T14:59:22.95655373Z"
+    description: Sophora AI
+    digest: 4960d23afc919d054714d1098c302fe96a044bd37174113cbe9eaf9ad26bf76c
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.2.1/sophora-ai-1.2.1.tgz
+    version: 1.2.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: Added configuration for Shorten for Infoscreen feature
     apiVersion: v2
@@ -1895,4 +1911,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-26T14:11:32.062311793Z"
+generated: "2025-06-26T14:59:22.957027691Z"
