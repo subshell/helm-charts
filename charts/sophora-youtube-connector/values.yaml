@@ -144,6 +144,11 @@ sophora:
 
     mediaconfig:
 
+    preprocessor:
+      enabled:
+      content:
+      filename:
+
     config:
     # can be either 'properties' or 'yml'
     configFormat:

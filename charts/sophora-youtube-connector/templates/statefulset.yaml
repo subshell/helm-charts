@@ -66,13 +66,20 @@ spec:
         - name: logback
           configMap:
             name: {{ include "sophora-youtube-connector.fullname" . }}-logback
+        {{- if .Values.sophora.youtubeconnector.preprocessor.enabled }}
+        - name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+          configMap:
+            name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+        {{- end }}
         {{- with .Values.extraVolumes}}
         {{- toYaml . | nindent 8 }}
         {{- end }}
         {{- if .Values.gcs.enabled }}
         -   name: gcs-volume
-            persistentVolumeClaim:
-                claimName: {{ include "sophora-youtube-connector.fullname" . }}-gcs
+            csi:
+              driver: gcsfuse.csi.storage.gke.io
+              volumeAttributes:
+                bucketName: {{ .Values.gcs.bucket }}
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -122,12 +129,17 @@ spec:
               mountPath: /app/jobstore/
             - name: yt-oauth
               mountPath: /root/.oauth-credentials/
+            {{- if .Values.sophora.youtubeconnector.preprocessor.enabled }}
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+              mountPath: /app/{{ .Values.sophora.youtubeconnector.preprocessor.filename }}
+              subPath: {{ .Values.sophora.youtubeconnector.preprocessor.filename }}
+            {{- end }}
             {{- with .Values.extraVolumeMounts}}
             {{- toYaml . | nindent 12 }}
             {{- end }}
             {{- if .Values.gcs.enabled }}
-            -   name: gcs-volume
-                mountPath: {{ .Values.gcs.mountPath }}
+            - name: gcs-volume
+              mountPath: {{ .Values.gcs.mountPath }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
