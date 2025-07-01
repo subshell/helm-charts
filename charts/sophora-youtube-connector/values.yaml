@@ -47,6 +47,15 @@ ingress:
   hosts:
   tls: []
 
+gcs:
+  enabled: false
+  bucket: "" # bucket name
+  mountPath: ""
+
+serviceAccount:
+  create:
+  annotations:
+
 resources:
   requests:
     cpu: 100m

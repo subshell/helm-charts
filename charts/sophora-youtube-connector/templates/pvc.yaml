@@ -1,0 +1,16 @@
+{{- if .Values.gcs.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: {{ include "sophora-youtube-connector.fullname" . }}-gcs
+    labels:
+    {{- include "sophora-youtube-connector.labels" . | nindent 4 }}
+spec:
+    accessModes:
+        - ReadWriteMany
+    resources:
+        requests:
+            storage: 1Gi #TODO muss gesetzt sein aber wird nicht verwendet?
+    storageClassName: ""
+    volumeName: {{ include "sophora-youtube-connector.fullname" . }}-gcs-pv
+{{- end }}

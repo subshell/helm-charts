@@ -25,32 +25,35 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "sophora-youtube-connector.serviceAccountName" . }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      initContainers:
-        - name: envsubst-config-generator
-          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
-          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
-          {{- if .Values.configGenerator.extraEnvVarsSecret }}
+      #initContainers:
+      #  - name: envsubst-config-generator
+      #    image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+      #    imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          {{- /* if .Values.configGenerator.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.configGenerator.extraEnvVarsSecret }}
                 optional: true
-          {{- end }}
-          {{ if .Values.configGenerator.env -}}
-          env: {{- toYaml .Values.configGenerator.env | nindent 10 }}
-          {{- end }}
-          command: ["/bin/sh"]
-          args:
-            - "-c"
-            - |
-              envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
-              echo "Generated /{{ include "sophora-youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
-          volumeMounts:
-            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
-              mountPath: /mediaconfig-configmap-template
-            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
-              mountPath: /youtube-connector
+          {{- end */}}
+{{/*         {{ if .Values.configGenerator.env -}}*/}}
+{{/*          env: {{- toYaml .Values.configGenerator.env | nindent 10 }}*/}}
+{{/*          {{- end }}*/}}
+       #   command: ["/bin/sh"]
+       #   args:
+       #     - "-c"
+       #     - |
+       #       envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
+       #       echo "Generated /{{ include "sophora-youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
+       #   volumeMounts:
+        #    - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
+        #      mountPath: /mediaconfig-configmap-template
+        #    - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
+        #      mountPath: /youtube-connector
       volumes:
         - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
           configMap:
@@ -66,6 +69,11 @@ spec:
         {{- with .Values.extraVolumes}}
         {{- toYaml . | nindent 8 }}
         {{- end }}
+        {{- if .Values.gcs.enabled }}
+        -   name: gcs-volume
+            persistentVolumeClaim:
+                claimName: {{ include "sophora-youtube-connector.fullname" . }}-gcs
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -75,6 +83,7 @@ spec:
           env:
           - name: JAVA_TOOL_OPTIONS
             value: {{ .Values.javaOptions }}
+          {{- /* Secrets commented out for testing
           - name: SOPHORASERVER_USERNAME
             valueFrom:
               secretKeyRef:
@@ -85,15 +94,16 @@ spec:
               secretKeyRef:
                 key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
                 name: {{.Values.sophora.youtubeconnector.secret.name}}
+          */}}
           {{ if .Values.sophora.youtubeconnector.env -}}
           {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10 }}
           {{- end }}
-          {{- if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
+          {{- /* if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
                 optional: true
-          {{- end }}
+          {{- end */}}
           ports:
             - name: http
               containerPort: 8080
@@ -114,6 +124,10 @@ spec:
               mountPath: /root/.oauth-credentials/
             {{- with .Values.extraVolumeMounts}}
             {{- toYaml . | nindent 12 }}
+            {{- end }}
+            {{- if .Values.gcs.enabled }}
+            -   name: gcs-volume
+                mountPath: {{ .Values.gcs.mountPath }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
