@@ -1,0 +1,7 @@
+storage:
+  size: 4Gi
+  storageClass:
+  dataSource:
+    apiGroup: snapshot.storage.k8s.io
+    kind: VolumeSnapshot
+    name: sophora-metadata-supplier
