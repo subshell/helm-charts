@@ -140,3 +140,9 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar

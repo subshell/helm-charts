@@ -22,6 +22,10 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.extraInitContainers }}
+      initContainers:
+        {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
+      {{- end }}
       containers:
         - name: ai
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -52,16 +56,24 @@ spec:
                 secretKeyRef:
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
+            {{- if .Values.sophora.postgresCredentials.username }}
+            - name: SOPHORAAI_DATABASE_POSTGRES_LOGIN
+              value: {{ .Values.sophora.postgresCredentials.username | quote }}
+            - name: SOPHORAAI_DATABASE_POSTGRES_PASSWORD
+              value: ""
+            {{- end }}
+            {{- if .Values.sophora.postgresCredentials.secret.name }}
             - name: SOPHORAAI_DATABASE_POSTGRES_LOGIN
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "A valid secret name must be provided in .Values.sophora.postgresCredentials.secret.name" .Values.sophora.postgresCredentials.secret.name | quote }}
+                  name: {{ .Values.sophora.postgresCredentials.secret.name | quote }}
                   key: {{ .Values.sophora.postgresCredentials.secret.loginKey | quote }}
             - name: SOPHORAAI_DATABASE_POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "A valid secret name must be provided in .Values.sophora.postgresCredentials.secret.name" .Values.sophora.postgresCredentials.secret.name | quote }}
+                  name: {{ .Values.sophora.postgresCredentials.secret.name | quote }}
                   key: {{ .Values.sophora.postgresCredentials.secret.passwordKey | quote }}
+            {{- end }}
             {{- if .Values.sophora.llmProviderCredentials }}
             {{- range $key, $value := .Values.sophora.llmProviderCredentials }}
             - name: {{ print "SOPHORAAI_LLM_PROVIDERS_" ($key | upper) "_APIKEY" | quote }}
@@ -125,6 +137,10 @@ spec:
           {{- end }}
 
           resources: {{- toYaml .Values.resources | nindent 12 }}
+
+        {{- if .Values.extraContainers }}
+        {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
+        {{- end }}
       volumes:
         - name: config
           configMap:
