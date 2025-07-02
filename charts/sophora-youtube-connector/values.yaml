@@ -51,6 +51,7 @@ gcs:
   enabled: false
   bucket: "" # bucket name
   mountPath: ""
+  mountOptions:
 
 serviceAccount:
   create:

@@ -30,30 +30,30 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
-      #initContainers:
-      #  - name: envsubst-config-generator
-      #    image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
-      #    imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
-          {{- /* if .Values.configGenerator.extraEnvVarsSecret }}
+      initContainers:
+        - name: envsubst-config-generator
+          image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
+          imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
+          {{-  if .Values.configGenerator.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.configGenerator.extraEnvVarsSecret }}
                 optional: true
-          {{- end */}}
-{{/*         {{ if .Values.configGenerator.env -}}*/}}
-{{/*          env: {{- toYaml .Values.configGenerator.env | nindent 10 }}*/}}
-{{/*          {{- end }}*/}}
-       #   command: ["/bin/sh"]
-       #   args:
-       #     - "-c"
-       #     - |
-       #       envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
-       #       echo "Generated /{{ include "sophora-youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
-       #   volumeMounts:
-        #    - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
-        #      mountPath: /mediaconfig-configmap-template
-        #    - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
-        #      mountPath: /youtube-connector
+          {{- end }}
+         {{ if .Values.configGenerator.env -}}
+          env: {{- toYaml .Values.configGenerator.env | nindent 10 }}
+          {{- end }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |
+              envsubst < /mediaconfig-configmap-template/mediaconfig.xml > /youtube-connector/mediaconfig.xml
+              echo "Generated /{{ include "sophora-youtube-connector.fullname" . }}-mediaconfig/mediaconfig.xml from ENV"
+          volumeMounts:
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
+              mountPath: /mediaconfig-configmap-template
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
+              mountPath: /youtube-connector
       volumes:
         - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
           configMap:
@@ -80,6 +80,7 @@ spec:
               driver: gcsfuse.csi.storage.gke.io
               volumeAttributes:
                 bucketName: {{ .Values.gcs.bucket }}
+                mountOptions: {{ .Values.gcs.mountOptions }}
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
@@ -90,7 +91,6 @@ spec:
           env:
           - name: JAVA_TOOL_OPTIONS
             value: {{ .Values.javaOptions }}
-          {{- /* Secrets commented out for testing
           - name: SOPHORASERVER_USERNAME
             valueFrom:
               secretKeyRef:
@@ -101,16 +101,20 @@ spec:
               secretKeyRef:
                 key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
                 name: {{.Values.sophora.youtubeconnector.secret.name}}
-          */}}
           {{ if .Values.sophora.youtubeconnector.env -}}
           {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10 }}
           {{- end }}
-          {{- /* if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
+          {{- if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
                 optional: true
-          {{- end */}}
+          {{- end }}
+          command: ["/bin/sh"]
+          args:
+              - "-c"
+              - |
+                sleep 3d
           ports:
             - name: http
               containerPort: 8080
