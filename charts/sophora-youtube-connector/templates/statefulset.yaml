@@ -34,13 +34,13 @@ spec:
         - name: envsubst-config-generator
           image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
           imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
-          {{-  if .Values.configGenerator.extraEnvVarsSecret }}
+          {{- if .Values.configGenerator.extraEnvVarsSecret }}
           envFrom:
             - secretRef:
                 name: {{ .Values.configGenerator.extraEnvVarsSecret }}
                 optional: true
           {{- end }}
-         {{ if .Values.configGenerator.env -}}
+          {{ if .Values.configGenerator.env -}}
           env: {{- toYaml .Values.configGenerator.env | nindent 10 }}
           {{- end }}
           command: ["/bin/sh"]
