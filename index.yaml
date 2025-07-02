@@ -946,6 +946,20 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-importer-1.0.0/sophora-importer-1.0.0.tgz
     version: 1.0.0
   sophora-indexer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: add dataSource to PVC
+    apiVersion: v2
+    appVersion: 4.2.2
+    created: "2025-07-02T07:09:54.920634483Z"
+    description: A Helm chart for Kubernetes
+    digest: 6000c7aa393e9f6bba942cd8847f5ad3c31b398c0240c4b8930bd7fd707df1a2
+    name: sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.1.0/sophora-indexer-1.1.0.tgz
+    version: 1.1.0
   - apiVersion: v2
     appVersion: 4.2.2
     created: "2023-04-13T15:05:50.404071372Z"
@@ -1925,4 +1939,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-02T07:05:40.12129292Z"
+generated: "2025-07-02T07:09:54.921127882Z"
