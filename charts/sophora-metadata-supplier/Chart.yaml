@@ -4,3 +4,8 @@ description: Sophora Metadata Supplier (SMS)
 type: application
 version: 1.2.0
 appVersion: '4.14.0'
+
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: add dataSource to PVC
