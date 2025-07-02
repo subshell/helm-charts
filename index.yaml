@@ -1084,6 +1084,20 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: add dataSource to PVC
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2025-07-02T07:05:40.12096044Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: e995192265a01fb26fb7dbe3a4943465f22e0fb299cffa90f0ae6fd050262a94
+    name: sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.2.0/sophora-metadata-supplier-1.2.0.tgz
+    version: 1.2.0
   - apiVersion: v2
     appVersion: 4.14.0
     created: "2024-05-08T11:23:46.47441393Z"
@@ -1911,4 +1925,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-06-26T14:59:22.957027691Z"
+generated: "2025-07-02T07:05:40.12129292Z"
