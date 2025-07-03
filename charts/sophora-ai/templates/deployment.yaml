@@ -61,8 +61,7 @@ spec:
               value: {{ .Values.sophora.postgresCredentials.username | quote }}
             - name: SOPHORAAI_DATABASE_POSTGRES_PASSWORD
               value: ""
-            {{- end }}
-            {{- if .Values.sophora.postgresCredentials.secret.name }}
+            {{- else if .Values.sophora.postgresCredentials.secret.name }}
             - name: SOPHORAAI_DATABASE_POSTGRES_LOGIN
               valueFrom:
                 secretKeyRef:
