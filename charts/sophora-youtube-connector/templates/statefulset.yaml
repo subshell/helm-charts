@@ -110,11 +110,6 @@ spec:
                 name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
                 optional: true
           {{- end }}
-          command: ["/bin/sh"]
-          args:
-              - "-c"
-              - |
-                sleep 3d
           ports:
             - name: http
               containerPort: 8080
