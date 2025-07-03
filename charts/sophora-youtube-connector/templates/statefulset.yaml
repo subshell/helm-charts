@@ -74,14 +74,6 @@ spec:
         {{- with .Values.extraVolumes}}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-        {{- if .Values.gcs.enabled }}
-        -   name: gcs-volume
-            csi:
-              driver: gcsfuse.csi.storage.gke.io
-              volumeAttributes:
-                bucketName: {{ .Values.gcs.bucket }}
-                mountOptions: {{ .Values.gcs.mountOptions }}
-        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -135,10 +127,6 @@ spec:
             {{- end }}
             {{- with .Values.extraVolumeMounts}}
             {{- toYaml . | nindent 12 }}
-            {{- end }}
-            {{- if .Values.gcs.enabled }}
-            - name: gcs-volume
-              mountPath: {{ .Values.gcs.mountPath }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

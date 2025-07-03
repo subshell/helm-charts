@@ -19,12 +19,6 @@ configGenerator:
     - name: SAMPLE_ENV_VAR
       value: "Such a sweet sorrow"
 
-gcs:
-  enabled: false
-  bucket: "" # bucket name
-  mountPath: ""
-  mountOptions:
-
 service:
   clusterIP: None
 
