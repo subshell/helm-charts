@@ -1,0 +1,11 @@
+{{- if .Values.sophora.youtubeconnector.preprocessor.enabled -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+  labels:
+  {{ include "sophora-youtube-connector.labels" . | nindent 4 }}
+data:
+  {{- .Values.sophora.youtubeconnector.preprocessor.filename | nindent 2 }}: |
+    {{- .Values.sophora.youtubeconnector.preprocessor.content | nindent 4 }}
+{{- end }}
