@@ -1941,6 +1941,16 @@ entries:
   sophora-youtube-connector:
   - apiVersion: v2
     appVersion: 4.6.5
+    created: "2025-07-04T09:48:29.326062661Z"
+    description: A Helm chart for Kubernetes
+    digest: abd6a4a0cfcccba0d1bbdf3d6c8deb1d15326093f688b437c4678150a5ba594d
+    name: sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.2.0/sophora-youtube-connector-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 4.6.5
     created: "2025-02-21T10:11:04.618624989Z"
     description: A Helm chart for Kubernetes
     digest: 173e2683e63c5dab813b5b47651dd7ae9fe5bb5693be62d0ad6fde562ab3ef3c
@@ -1959,4 +1969,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-03T14:58:38.01017119Z"
+generated: "2025-07-04T09:48:29.326369906Z"
