@@ -92,6 +92,8 @@ sophora:
       testing: true
     namedEntities:
       testing: true
+    proofread:
+      testing: true
     questions:
       testing: true
     quotations:
@@ -138,3 +140,9 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar

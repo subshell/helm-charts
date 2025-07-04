@@ -1,0 +1,16 @@
+suite: test serviceaccount
+templates:
+  - rolebinding-prestop-hook.yaml
+tests:
+  - it: should be created
+    values:
+      - ./values/with-sa-and-prestop.yaml
+    asserts:
+      - isKind:
+          of: RoleBinding
+  - it: should not be created
+    values:
+      - ./values/with-sa-and-without-prestop.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
