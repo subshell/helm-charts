@@ -36,6 +36,8 @@ affinity:
                 - cluster-server
 
 sophora:
+  grpcApi:
+    enabled: true
   server:
     logback: |
       <?xml version="1.0" encoding="UTF-8"?>
@@ -124,7 +126,6 @@ ingress:
     - host: "sophora.domain.de"
 
 grpcIngress:
-  enabled: true
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"

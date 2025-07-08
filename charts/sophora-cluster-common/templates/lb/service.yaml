@@ -22,4 +22,10 @@ spec:
       targetPort: jms
       protocol: TCP
       name: jms
+    {{- if .Values.clusterServerLb.grpcIngress.enabled }}
+    - port: {{ .Values.clusterServerLb.service.grpcPort }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    {{- end }}
 {{- end }}
