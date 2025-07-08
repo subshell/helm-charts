@@ -261,6 +261,10 @@ spec:
               name: http
             - containerPort: {{ .Values.sophora.server.ports.jms }}
               name: jms
+          {{- if eq .Values.sophora.grpcApi.enabled true }}
+            - containerPort: {{ .Values.sophora.server.ports.grpc }}
+              name: grpc
+          {{- end }}
           {{- if eq .Values.enableRMIPortForwarding true }}
             - containerPort: {{ .Values.sophora.server.ports.rmiService }}
               name: rmi-service
