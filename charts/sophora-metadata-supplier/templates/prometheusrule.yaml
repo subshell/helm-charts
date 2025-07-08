@@ -17,7 +17,7 @@ spec:
             severity: high
           annotations:
             summary: 'Metadata Supplier Job Queue Full'
-            description: 'The internal job queue of the Sophora Metadata Supplier exceeds a size of 1,000 for more than 10m'
+            description: 'The internal job queue of the Sophora Metadata Supplier exceeds a size of 1,000 entries for more than 10 minutes'
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-metadata-supplier/alerting-runbook.md'
         {{- end }}
         {{- with .Values.prometheusRule.rules }}
