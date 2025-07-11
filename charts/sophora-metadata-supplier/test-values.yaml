@@ -78,3 +78,8 @@ livenessProbe:
   initialDelaySeconds: 5
   timeoutSeconds: 1
   periodSeconds: 10
+  
+prometheusRule:
+  enabled: true
+  defaultRulesEnabled: true
+  rules: []

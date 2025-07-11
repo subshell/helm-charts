@@ -1,0 +1,26 @@
+{{- if .Values.prometheusRule.enabled }}
+{{- $defaultRulesEnabled := .Values.prometheusRule.defaultRulesEnabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "sophora-metadata-supplier.fullname" . }}
+  labels: {{- include "sophora-metadata-supplier.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: {{ template "sophora-metadata-supplier.fullname" $ }}
+      rules:
+        {{- if $defaultRulesEnabled }}
+        - alert: MetadataSupplierJobQueueFull
+          expr: metadatasupplier_supplyjob_queue_size_jobs > 1000
+          for: 10m
+          labels:
+            severity: high
+          annotations:
+            summary: 'Metadata Supplier Job Queue Full'
+            description: 'The internal job queue of the Sophora Metadata Supplier exceeds a size of 1,000 entries for more than 10 minutes'
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-metadata-supplier/alerting-runbook.md'
+        {{- end }}
+        {{- with .Values.prometheusRule.rules }}
+        {{ tpl (toYaml .) $ | nindent 8 }}
+        {{- end }}
+{{- end }}

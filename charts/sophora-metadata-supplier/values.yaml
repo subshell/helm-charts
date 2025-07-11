@@ -95,6 +95,11 @@ ingress:
   hosts:
   tls: []
 
+prometheusRule:
+  enabled: false
+  defaultRulesEnabled: true
+  rules: []
+
 resources:
   requests:
     cpu: 200m
