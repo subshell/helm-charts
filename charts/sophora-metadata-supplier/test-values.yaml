@@ -81,5 +81,10 @@ livenessProbe:
   
 prometheusRule:
   enabled: true
-  defaultRulesEnabled: true
+  defaultRules:
+    enabled: true
+    jobQueue:
+      maxQueueSize: 1000
+      maxQueueTime: 10m
+      maxQueueSeverity: high
   rules: []

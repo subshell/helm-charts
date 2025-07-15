@@ -2,10 +2,10 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.3.0
+version: 1.3.1
 appVersion: '4.14.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: add alert for job queue
+    - kind: changed
+      description: alert for job queue is configurable

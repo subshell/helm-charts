@@ -10,4 +10,4 @@ This Helm Chart supports the installation of additional mappings via s3 or conta
 
 To enable a prometheus alert when the job queue is full for some time set `prometheusRule.enabled: true` in your values. You can add custom alerts via `prometheusRule.rules`.
 
-To disable the default rule, set `prometheusRule.defaultRulesEnabled: false`.
+To disable the default rules, set `prometheusRule.defaultRules.enabled: false`.
