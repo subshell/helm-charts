@@ -97,13 +97,13 @@ ingress:
 
 prometheusRule:
   enabled: false
-	defaultRules:
-	  enabled: true
-	  jobQueue:
-	    maxQueueSize: 1000
-	    maxQueueTime: 10m
-	    maxQueueSeverity: high
-	rules: []
+  defaultRules:
+    enabled: true
+    jobQueue:
+      maxQueueSize: 1000
+      maxQueueTime: 10m
+      maxQueueSeverity: high
+  rules: []
 
 resources:
   requests:
