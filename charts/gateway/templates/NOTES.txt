@@ -1,0 +1,7 @@
+Load balancer will be reachable at these URLs:
+{{- range .Values.gateway.https }}
+  https://{{ .host }}
+{{- end }}
+{{- range .Values.gateway.listeners }}
+  {{ .protocol }}://{{ default .hostname "example.com" }}:{{ .port }}
+{{- end }}
