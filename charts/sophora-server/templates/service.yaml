@@ -29,4 +29,9 @@ spec:
       targetPort: jms
       protocol: TCP
       name: jms
-
+    {{- if .Values.sophora.grpcApi.enabled }}
+    - port: {{ .Values.service.grpcPort }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    {{- end }}
