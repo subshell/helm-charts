@@ -1,0 +1,57 @@
+{{- if .Values.gateway.enabled -}}
+{{- $fullName := include "gateway-gke.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- $certManager := .Values.cert-manager -}}
+{{- if and .Values.gateway.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
+  {{- if not (hasKey .Values.gateway.annotations "kubernetes.io/ingress.class") }}
+  {{- $_ := set .Values.gateway.annotations "kubernetes.io/ingress.class" .Values.gateway.className}}
+  {{- end }}
+{{- end }}
+{{- if .Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1" -}}
+apiVersion: gateway.networking.k8s.io/v1
+{{- else -}}
+apiVersion: gateway.networking.k8s.io/v1beta1
+{{- end }}
+kind: Gateway
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "gateway-gke.labels" . | nindent 4 }}
+  annotations:
+  {{- if .Values.cert-manager.clusterIssuer }}
+    cert-manager.io/cluster-issuer: "{{ .Value.cert-manager.clusterIssuer }}"
+  {{- else if .Values.cert-manager.issuer }}
+    cert-manager.io/issuer: "{{ .Value.cert-manager.issuer }}"
+  {{- end }}
+  {{- with .Values.gateway.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  gatewayClassName: {{ .Values.gateway.className }}
+  {{- with .Values.gateway.addresses }}
+  addresses:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  listeners:
+  {{- with .Values.gateway.listeners }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- range .Values.gateway.hosts }}
+  - name: listener-{{ .host }}
+    hostname: "{{ .host }}"
+    protocol: HTTPS
+    port: 443
+    tls:
+      mode: {{ default .tls.mode "Terminate" }}
+    {{- if .tls.certRef }}
+      certificateRefs:
+        - name: {{ .certRef }}
+    {{- else if or $certManager.clusterIssuer $certManager.issuer }}
+      certificateRefs:
+        - name: gateway-cert-{{ .host }}
+    {{- end }}
+    {{- with .allowedRoutes }}
+    allowedRoutes:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}
+{{- end }}

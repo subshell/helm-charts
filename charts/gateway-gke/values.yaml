@@ -1,0 +1,32 @@
+# Default values for gateway-gke.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+gateway:
+  enabled: true
+  className: "gke-l7-rilb"
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # Addresses requested for this Gateway.
+  addresses: []
+#   - type: NamedAddress
+#    value: chart-example-address
+#   - value: "1.2.3.4"
+  # HTTPS hosts listening on default port 443
+  hosts: []
+#    - host: chart-example.local
+#      allowedRoutes: []
+#      tls:
+#        mode: Passthrough
+#        # optional when using cert-manager!
+#        certRef: chart-example-tls
+  # own custom listeners
+  listeners: []
+
+cert-manager:
+  # cluster-issuer: acme-issuer
+  # issuer: acme-issuer
