@@ -23,9 +23,9 @@ Use `s3://` for folders that should be saved in an S3 bucket as configured with 
 
 ## Import transformation files via S3 or HTTP
 
-Activate transformations with by setting `transformation.enabled` to `true`. Now you can reference one or more zip files via s3 or http
-download (use `transformation.data.use` to set your preferred method. Defaults to s3).
-By default, all xsl files should be located in `xsl` and all lib files in `libs` inside the .zip file. 
+Activate transformations with by setting `transformation.enabled` to `true`. Now you can reference one or more zip files to download via s3 or http 
+or a sidecar-container, containing the files in directories. Use `transformation.data.use` to set your preferred method. Defaults to s3.
+By default, all xsl files should be located in `xsl` and all lib files in `libs` inside the .zip file or the sidecar-container 
 All possible configurations are available in `values.yaml`. Enabling transformations will create 
 the following directories, that can be accessed within the importer configuration:
 
