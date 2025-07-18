@@ -6,7 +6,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 gateway:
-  # default: GKE Layer 7 Internal Regional Application Load Balancer
+  # default: GKE layer 7 regional internal application load balancer
   className: "gke-l7-rilb"
   annotations: {}
   # Addresses requested for this Gateway.

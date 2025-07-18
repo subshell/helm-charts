@@ -1,23 +1,24 @@
-# Gateway for GKE
+# Gateway Chart
 
-This chart deploys a Gateway resource to create a Google Layer 7 HTTP(S) Load Balancer. It also can retrieve certificates for the domains by using the cert-manager to retrieve Let's Encrypt certificates.
+This helm chart deploys a Gateway resource to create load balancer infrastructure for ingress traffic. It can optionally retrieve certificates for the domains by using the cert-manager to retrieve Let's Encrypt certificates for TLS.
 
-The design goal of this chart is that a single Gateway exists for the whole Kubernetes cluster. So it is expected to be deployed in a separate namespace. The services to be made available with HTTPRoutes must reside in the namespace of the service. So we have a distributed setup.
-
-Currently only internal gateway is supported.
+The design goal of this chart is that a single Gateway exists for the whole Kubernetes cluster. So it is expected to be deployed in its own namespace. The services to be made available with HTTPRoutes must reside in the namespace of the service and reference this gateway. So we have a distributed setup.
 
 ## What you need (requirements)
 
-This chart requires the following already present. See the [GKE Gateway controller requirements](https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#requirements) too.
+This chart requires the following already present. See the [GKE Gateway controller requirements](https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#requirements) for Google Cloud requirements.
+
+* The [Gateway API](https://gateway-api.sigs.k8s.io/) custom resource definitions (CRDs) must be installed at least version 'v1beta1'. For a GKE cluster enable "[Gateway API](https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#enable-gateway)" by using channel "standard" (`CHANNEL_STANDARD` in [Terraform block `gateway_api_config`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#nested_gateway_api_config)).
+
+When using Google Kubernetes Engine (GKE):
 
 * GKE version 1.24 or later.
-* The [Gateway API](https://gateway-api.sigs.k8s.io/) custom resource definitios (CRDs) must be installed at least v1beta1. For a GKE cluster enable "[Gateway API](https://cloud.google.com/kubernetes-engine/docs/how-to/deploying-gateways#enable-gateway)" by using channel "standard" (`CHANNEL_STANDARD` in [Terraform block `gateway_api_config`](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#nested_gateway_api_config)).
 * Your cluster must have the HttpLoadBalancing add-on enabled.
-* If you are using the internal GatewayClasses, you must enable a proxy-only subnet.
+* If you are using the internal GatewayClasses, you must enable a proxy-only subnet for the proxy address.
 
-Only for certificates provided by cert-manager:
+Only when certificates should be provided by cert-manager with [annotated Gateway resource](https://cert-manager.io/docs/usage/gateway/):
 
-* cert-manager setup with an Issuer or ClusterIssuer.
+* cert-manager setup with an [Issuer or ClusterIssuer](https://cert-manager.io/docs/configuration/).
 * cert-manager must have Gateway API enabled. To do so add `enableGatewayAPI: true` to the controller config.yaml. Requires version >= 1.15.
 
 ## Notes
