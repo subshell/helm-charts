@@ -34,11 +34,14 @@ sophora:
           # GCP project ID
           project-id: my-project
 
-          credentials:
-            # path to GCP credentials file - do not change
-            location: file:/gcp-credentials/credentials.json
-
 imageAI:
+  # Extra environment variables.
+  #
+  # Example extra environment variable to use a GCP credentials file from a secret.
+  # Use this in combination with extraVolumes and extraVolumeMounts.
+  #
+  # - name: GOOGLE_APPLICATION_CREDENTIALS
+  #   value: /gcp-credentials/credentials.json
   extraEnv:
 
 service:
@@ -54,5 +57,23 @@ ingress:
   tls: []
 
 extraDeploy: []
+
+# Extra volumes.
+#
+# Example extra volume to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   secret:
+#     secretName: sophora-image-ai-gcp-credentials
+extraVolumes: []
+
+# Extra volume mounts.
+#
+# Example extra volume mount to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   mountPath: /gcp-credentials
+#   readOnly: true
+extraVolumeMounts: []
 
 podAnnotations: {}
