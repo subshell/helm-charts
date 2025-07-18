@@ -15,7 +15,7 @@ gateway:
 #    value: chart-example-address
 #  - value: "1.2.3.4"
   # HTTPS hosts listening on default port 443
-  hosts: []
+  https: []
 #    - host: chart-example.local
 #      allowedRoutes: []
 #      tls:
