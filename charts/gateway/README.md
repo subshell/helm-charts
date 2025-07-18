@@ -27,10 +27,6 @@ Only for certificates provided by cert-manager:
 ## Example values.yaml
 
 ```yaml
-# Default values for gateway-gke.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
-
 nameOverride: testgateway
 fullnameOverride: ''
 

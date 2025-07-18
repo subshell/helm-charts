@@ -1,4 +1,4 @@
-{{- $fullName := include "gateway-gke.fullname" . -}}
+{{- $fullName := include "gateway.fullname" . -}}
 {{- $certManager := .Values.certManager -}}
 {{- if and .Values.gateway.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.gateway.annotations "kubernetes.io/ingress.class") }}
@@ -14,7 +14,7 @@ kind: Gateway
 metadata:
   name: {{ $fullName }}
   labels:
-    {{- include "gateway-gke.labels" . | nindent 4 }}
+    {{- include "gateway.labels" . | nindent 4 }}
   annotations:
   {{- with $certManager }}
   {{- if .clusterIssuer }}
