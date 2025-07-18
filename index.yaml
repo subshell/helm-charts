@@ -702,6 +702,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: Added support for Google Application Default Credentials (ADC). The 'sophora-image-ai-gcp-credentials' secret (name was hard-coded) is no longer required, but a secret containing the credentials can still be used. See values.yaml for details.
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2025-07-18T16:00:48.42832526Z"
+    description: Sophora Image AI
+    digest: 93cc26c1f7c93fa4834f8e43a831887bd001bf26cd8e4357f8aceafd595127e3
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.0.0/sophora-image-ai-2.0.0.tgz
+    version: 2.0.0
   - apiVersion: v2
     appVersion: 5.1.0
     created: "2024-06-20T14:15:36.073198114Z"
@@ -1997,4 +2013,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-16T08:55:18.165918586Z"
+generated: "2025-07-18T16:00:48.428569677Z"
