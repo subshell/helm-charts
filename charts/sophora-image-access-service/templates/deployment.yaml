@@ -35,6 +35,9 @@ spec:
             - name: http
               containerPort: {{ .Values.service.httpPort }}
               protocol: TCP
+            - name: metrics
+              containerPort: {{ .Values.service.metricsPort }}
+              protocol: TCP
           env:
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
