@@ -6,7 +6,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 gateway:
-  enabled: true
+  # default: GKE Layer 7 Internal Regional Application Load Balancer
   className: "gke-l7-rilb"
   annotations: {}
     # kubernetes.io/ingress.class: nginx

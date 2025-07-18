@@ -1,4 +1,3 @@
-{{- if .Values.gateway.enabled -}}
 {{- $fullName := include "gateway-gke.fullname" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- $certManager := .Values.cert-manager -}}
@@ -58,4 +57,3 @@ spec:
   infrastructure:
     {{- toYaml . | nindent 4 }}
   {{- end }}
-{{- end }}
