@@ -1,6 +1,5 @@
 {{- $fullName := include "gateway-gke.fullname" . -}}
-{{- $svcPort := .Values.service.port -}}
-{{- $certManager := .Values.cert-manager -}}
+{{- $certManager := .Values.certManager -}}
 {{- if and .Values.gateway.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.gateway.annotations "kubernetes.io/ingress.class") }}
   {{- $_ := set .Values.gateway.annotations "kubernetes.io/ingress.class" .Values.gateway.className}}
@@ -17,10 +16,12 @@ metadata:
   labels:
     {{- include "gateway-gke.labels" . | nindent 4 }}
   annotations:
-  {{- if .Values.cert-manager.clusterIssuer }}
-    cert-manager.io/cluster-issuer: "{{ .Value.cert-manager.clusterIssuer }}"
-  {{- else if .Values.cert-manager.issuer }}
-    cert-manager.io/issuer: "{{ .Value.cert-manager.issuer }}"
+  {{- with $certManager }}
+  {{- if .clusterIssuer }}
+    cert-manager.io/cluster-issuer: "{{ .clusterIssuer }}"
+  {{- else if .issuer }}
+    cert-manager.io/issuer: "{{ .issuer }}"
+  {{- end }}
   {{- end }}
   {{- with .Values.gateway.annotations }}
     {{- toYaml . | nindent 4 }}
@@ -35,24 +36,27 @@ spec:
   {{- with .Values.gateway.listeners }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- range .Values.gateway.hosts }}
-  - name: listener-{{ .host }}
-    hostname: "{{ .host }}"
-    protocol: HTTPS
-    port: 443
-    tls:
-      mode: {{ default .tls.mode "Terminate" }}
-    {{- if .tls.certRef }}
-      certificateRefs:
-        - name: {{ .certRef }}
-    {{- else if or $certManager.clusterIssuer $certManager.issuer }}
-      certificateRefs:
-        - name: gateway-cert-{{ .host }}
-    {{- end }}
-    {{- with .allowedRoutes }}
-    allowedRoutes:
-      {{- toYaml . | nindent 6 }}
-    {{- end }}
+  {{- range .Values.gateway.https }}
+    - name: listener-{{ .host }}
+      hostname: "{{ .host }}"
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: {{ if and .tls .tls.mode }}{{ .tls.mode }}{{ else }}Terminate{{ end }}
+      {{- if and .tls .tls.certRef }}
+        certificateRefs:
+          - name: {{ .tls.certRef }}
+      {{- else if or $certManager.clusterIssuer $certManager.issuer }}
+        certificateRefs:
+          - name: gateway-cert-{{ .host }}
+      {{- end }}
+      allowedRoutes:
+      {{- if .allowedRoutes }}
+        {{- toYaml .allowedRoutes | nindent 6 }}
+      {{- else }}
+        from: All
+      {{- end }}
+  {{- end }}
   {{- with .Values.gateway.infrastructure }}
   infrastructure:
     {{- toYaml . | nindent 4 }}

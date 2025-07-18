@@ -17,10 +17,73 @@ This chart requires the following already present. See the [GKE Gateway controll
 
 Only for certificates provided by cert-manager:
 
-* cert-manager setup with an ClusterIssuer.
+* cert-manager setup with an Issuer or ClusterIssuer.
+* cert-manager must have Gateway API enabled. To do so add `enableGatewayAPI: true` to the controller config.yaml. Requires version >= 1.15.
+
+## Notes
+
+- When using a regional load balancer then the IP address must be regional too. When using a global load balancer use a global IP address.
 
 ## Example values.yaml
 
 ```yaml
-TODO
+# Default values for gateway-gke.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: testgateway
+fullnameOverride: ''
+
+gateway:
+  className: gke-l7-global-external-managed-mc
+  annotations:
+    example.com/template-value: This is a test
+    example.com/some.more: 1234
+  addresses:
+  - type: NamedAddress
+    value: chart-example-address
+  - value: 1.2.3.4
+  https:
+  - host: simple.example.com
+  - host: chart-example.local
+    allowedRoutes:
+    - namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            example: use-gateway
+      kinds:
+      - group: gateway.example.com
+        kind: ExampleRoute
+    tls:
+      mode: Passthrough
+      certRef: chart-example-tls
+  listeners:
+  - name: other-port
+    hostname: other.example.com
+    port: 12345
+    protocol: example.com/bar
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - name: other-certificate
+        namspace: secret-ns
+        kind: SpecialSecret
+        group: foo.example.com
+  - name: http
+    port: 80
+    protocol: HTTP
+  infrastructure:
+    annotations:
+      foo: bar
+    labels:
+      bar: foo
+    parametersRef:
+      group: settings.example.com
+      kind: ExampleSettings
+      name: example-settings
+
+certManager:
+  clusterIssuer: acme-issuer
+
 ```
