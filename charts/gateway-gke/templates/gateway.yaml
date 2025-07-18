@@ -54,4 +54,8 @@ spec:
     allowedRoutes:
       {{- toYaml . | nindent 6 }}
     {{- end }}
+  {{- with .Values.gateway.infrastructure }}
+  infrastructure:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 {{- end }}

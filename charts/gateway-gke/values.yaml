@@ -26,6 +26,10 @@ gateway:
 #        certRef: chart-example-tls
   # own custom listeners
   listeners: []
+#  infrastructure:
+#    annotations:
+#    labels:
+#    parametersRef:
 
 cert-manager:
   # cluster-issuer: acme-issuer
