@@ -1,6 +1,6 @@
 # Gateway Chart
 
-This helm chart deploys a Gateway resource to create load balancer infrastructure for ingress traffic. It can optionally retrieve certificates for the domains by using the cert-manager to retrieve Let's Encrypt certificates for TLS.
+This helm chart deploys a [Gateway](https://gateway-api.sigs.k8s.io/) resource to create load balancer infrastructure for ingress traffic. It can optionally retrieve certificates for the domains by using the cert-manager to retrieve Let's Encrypt certificates for TLS.
 
 The design goal of this chart is that a single Gateway exists for the whole Kubernetes cluster. So it is expected to be deployed in its own namespace. The services to be made available with HTTPRoutes must reside in the namespace of the service and reference this gateway. So we have a distributed setup.
 
