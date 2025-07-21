@@ -399,6 +399,22 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: Added support for Google Application Default Credentials (ADC). A secret containing the credentials can still be used, see values.yaml for details.
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-21T14:50:16.684091337Z"
+    description: Sophora AI
+    digest: c4d2903902f39de8a3d145581f055c16bc6a0086ed264f211bcb59644a31da3d
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.0.0/sophora-ai-2.0.0.tgz
+    version: 2.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: Added support for extra init containers and extra containers.
         - kind: added
@@ -2028,4 +2044,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-21T12:21:38.068758447Z"
+generated: "2025-07-21T14:50:16.684377054Z"
