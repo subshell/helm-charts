@@ -55,15 +55,15 @@ logbackXml: |
   <?xml version="1.0" encoding="UTF-8"?>
   <configuration scan="true" scanPeriod="60 seconds">
       <jmxConfigurator/>
-  
+
       <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">          
           <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
       </appender>
-  
+
       <logger name="com.subshell.sophora" level="INFO"/>
       <logger name="com.subshell.sophora.importer" level="INFO"/>
       <logger name="org.springframework.boot" level="INFO"/>
-  
+
       <root level="WARN">
           <appender-ref ref="jsonConsoleAppender"/>
       </root>
@@ -86,6 +86,11 @@ transformation:
       zipPaths:
       secretAccessKeyKey: "secretAccessKey"
       accessKeyIdKey: "accessKeyId"
+    sidecar:
+      pullPolicy: IfNotPresent
+      folders:
+        xsl: "/xsl"
+        libs: "/libs"
     useSaxon: false
     saxonLicenceSecretName: "saxon-license"
     saxonLicenceSecretKey: "saxon-license.lic"
@@ -114,7 +119,6 @@ ingress:
   annotations: {}
   hosts:
   tls: []
-
 
 # There is the option of setting up the importer container with additionalVolumes and additionalVolumeMounts.
 # In this case the volumeMount and the volume must be used together and be configured in the same way (e.g. have the same name).
