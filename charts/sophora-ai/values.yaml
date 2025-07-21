@@ -32,12 +32,6 @@ sophora:
   #      name: ""
   #      apiKeyKey: apiKey
 
-  # GCP credentials.json secret (optional)
-  # This secret must contain a 'credentials.json' key.
-  #gcpCredentials:
-  #  secret:
-  #    name: ""
-
   # Google Search credentials secret (optional)
   #googleSearchCredentials:
   #  secret:
@@ -198,6 +192,13 @@ resources:
     memory: 1Gi
 
 ai:
+  # Extra environment variables.
+  #
+  # Example extra environment variable to use a GCP credentials file from a secret.
+  # Use this in combination with extraVolumes and extraVolumeMounts.
+  #
+  # - name: GOOGLE_APPLICATION_CREDENTIALS
+  #   value: /gcp-credentials/credentials.json
   extraEnv:
 
 service:
@@ -213,6 +214,24 @@ ingress:
   tls: []
 
 extraDeploy: []
+
+# Extra volumes.
+#
+# Example extra volume to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   secret:
+#     secretName: sophora-image-ai-gcp-credentials
+extraVolumes: []
+
+# Extra volume mounts.
+#
+# Example extra volume mount to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   mountPath: /gcp-credentials
+#   readOnly: true
+extraVolumeMounts: []
 
 podAnnotations: {}
 
