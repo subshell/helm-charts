@@ -1,0 +1,58 @@
+{{- $fullName := include "gateway.fullname" . -}}
+{{- $certManager := .Values.certManager -}}
+{{- if .Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1" -}}
+apiVersion: gateway.networking.k8s.io/v1
+{{- else -}}
+apiVersion: gateway.networking.k8s.io/v1beta1
+{{- end }}
+kind: Gateway
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
+  annotations:
+  {{- with $certManager }}
+  {{- if .clusterIssuer }}
+    cert-manager.io/cluster-issuer: "{{ .clusterIssuer }}"
+  {{- else if .issuer }}
+    cert-manager.io/issuer: "{{ .issuer }}"
+  {{- end }}
+  {{- end }}
+  {{- with .Values.gateway.annotations }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  gatewayClassName: {{ .Values.gateway.className }}
+  {{- with .Values.gateway.addresses }}
+  addresses:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  listeners:
+  {{- with .Values.gateway.listeners }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- range .Values.gateway.https }}
+    - name: listener-{{ .host }}
+      hostname: "{{ .host }}"
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: {{ if and .tls .tls.mode }}{{ .tls.mode }}{{ else }}Terminate{{ end }}
+      {{- if and .tls .tls.certRef }}
+        certificateRefs:
+          - name: {{ .tls.certRef }}
+      {{- else if or $certManager.clusterIssuer $certManager.issuer }}
+        certificateRefs:
+          - name: gateway-cert-{{ .host }}
+      {{- end }}
+      allowedRoutes:
+      {{- if .allowedRoutes }}
+        {{- toYaml .allowedRoutes | nindent 6 }}
+      {{- else }}
+        from: All
+      {{- end }}
+  {{- end }}
+  {{- with .Values.gateway.infrastructure }}
+  infrastructure:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
