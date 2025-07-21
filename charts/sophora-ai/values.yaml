@@ -32,12 +32,6 @@ sophora:
   #      name: ""
   #      apiKeyKey: apiKey
 
-  # GCP credentials.json secret (optional)
-  # This secret must contain a 'credentials.json' key.
-  #gcpCredentials:
-  #  secret:
-  #    name: ""
-
   # Google Search credentials secret (optional)
   #googleSearchCredentials:
   #  secret:

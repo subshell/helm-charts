@@ -26,10 +26,6 @@ sophora:
         name: openai-credentials
         apiKeyKey: apiKey
 
-  gcpCredentials:
-    secret:
-      name: sophora-ai-gcp-credentials
-
   googleSearchCredentials:
     secret:
       name: google-search-credentials

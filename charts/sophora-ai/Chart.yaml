@@ -9,4 +9,4 @@ sources:
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: Added support for Google Application Default Credentials (ADC). The 'sophora-image-ai-gcp-credentials' secret (name was hard-coded) is no longer required, but a secret containing the credentials can still be used. See values.yaml for details.
+      description: Added support for Google Application Default Credentials (ADC). A secret containing the credentials can still be used, see values.yaml for details.
