@@ -14,7 +14,7 @@ gateway:
   - host: simple.example.com
   - host: chart-example.local
     allowedRoutes:
-    - namespaces:
+      namespaces:
         from: Selector
         selector:
           matchLabels:

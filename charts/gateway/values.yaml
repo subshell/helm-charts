@@ -17,7 +17,9 @@ gateway:
   # HTTPS hosts listening on default port 443
   https: []
 #    - host: chart-example.local
-#      allowedRoutes: []
+#      allowedRoutes:
+#        namespaces:
+#          from: Same
 #      tls:
 #        mode: Passthrough
 #        # optional when using cert-manager!
