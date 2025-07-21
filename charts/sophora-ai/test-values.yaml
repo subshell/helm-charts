@@ -123,6 +123,8 @@ sophora:
 
 ai:
   extraEnv:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /gcp-credentials/credentials.json
 
 resources:
   requests:
@@ -146,3 +148,13 @@ serviceAccount:
   automount: true
   annotations:
     foo: bar
+
+extraVolumes:
+  - name: gcp-credentials
+    secret:
+      secretName: sophora-image-ai-gcp-credentials
+
+extraVolumeMounts:
+  - name: gcp-credentials
+    mountPath: /gcp-credentials
+    readOnly: true
