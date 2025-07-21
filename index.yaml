@@ -37,6 +37,21 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/external-secrets-1.0.0/external-secrets-1.0.0.tgz
     version: 1.0.0
+  gateway:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: initial release
+    apiVersion: v2
+    created: "2025-07-21T12:21:38.068404917Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: 4c146286808bc484e8ab493f5ad589950ab55bbfe9ef2248c21ba42db76f9341
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.0.0/gateway-1.0.0.tgz
+    version: 1.0.0
   o-neko:
   - apiVersion: v2
     appVersion: 1.8.0
@@ -2013,4 +2028,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-18T16:00:48.428569677Z"
+generated: "2025-07-21T12:21:38.068758447Z"
