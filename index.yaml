@@ -41,6 +41,20 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: 'allowedRoutes' fixed typo
+    apiVersion: v2
+    created: "2025-07-21T17:32:48.860639896Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: 7d9ed033460ef3922da464023b3d3c3926dc86a86c6f89fab593e3915e868971
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.0.2/gateway-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: 'allowedRoutes' in `https` config allows all namespaces
     apiVersion: v2
     created: "2025-07-21T17:21:57.570352133Z"
@@ -2058,4 +2072,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-21T17:21:57.570654167Z"
+generated: "2025-07-21T17:32:48.861020171Z"
