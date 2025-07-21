@@ -1,10 +1,5 @@
 {{- $fullName := include "gateway.fullname" . -}}
 {{- $certManager := .Values.certManager -}}
-{{- if and .Values.gateway.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
-  {{- if not (hasKey .Values.gateway.annotations "kubernetes.io/ingress.class") }}
-  {{- $_ := set .Values.gateway.annotations "kubernetes.io/ingress.class" .Values.gateway.className}}
-  {{- end }}
-{{- end }}
 {{- if .Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1" -}}
 apiVersion: gateway.networking.k8s.io/v1
 {{- else -}}
