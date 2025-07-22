@@ -4,10 +4,14 @@ description: A Helm chart to deploy a Gateway. Optionally use cert-manager to fe
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
-# to the chart and its templates, including the app version.
+# to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.2
+version: 1.0.3
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "'allowedRoutes' fixed typo"
+    - kind: changed
+      description: "more compact secret name"
+    - kind: changed
+      description: "listener prefix ends in underscore _ now"
+    - kind: changed
+      description: "ReadMe with simpler examples"

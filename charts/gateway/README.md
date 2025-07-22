@@ -27,6 +27,27 @@ Only when certificates should be provided by cert-manager with [annotated Gatewa
 
 ## Example values.yaml
 
+### Basic
+
+```yaml
+gateway:
+  https:
+  - host: simple.example.com
+```
+
+### Basic with cert-manager certificate
+
+```yaml
+gateway:
+  https:
+  - host: simple.example.com
+
+certManager:
+  clusterIssuer: acme-issuer
+```
+
+### Extended
+
 ```yaml
 nameOverride: testgateway
 fullnameOverride: ''
