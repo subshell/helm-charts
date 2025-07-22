@@ -22,7 +22,7 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  gatewayClassName: {{ .Values.gateway.className }}
+  gatewayClassName: "{{ .Values.gateway.className }}"
   {{- with .Values.gateway.addresses }}
   addresses:
     {{- toYaml . | nindent 4 }}
@@ -32,18 +32,18 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- range .Values.gateway.https }}
-    - name: listener_{{ .host }}
+    - name: "https-{{ .host }}"
       hostname: "{{ .host }}"
       port: 443
       protocol: HTTPS
       tls:
-        mode: {{ if and .tls .tls.mode }}{{ .tls.mode }}{{ else }}Terminate{{ end }}
+        mode: {{ if and .tls .tls.mode }}"{{ .tls.mode }}"{{ else }}Terminate{{ end }}
       {{- if and .tls .tls.certRef }}
         certificateRefs:
-          - name: {{ .tls.certRef }}
+          - name: "{{ .tls.certRef }}"
       {{- else if or $certManager.clusterIssuer $certManager.issuer }}
         certificateRefs:
-          - name: gw-cert-{{ .host }}
+          - name: "gw-cert-{{ .host }}"
       {{- end }}
       allowedRoutes:
       {{- if .allowedRoutes }}

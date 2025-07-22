@@ -6,12 +6,10 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.3
+version: 1.0.4
 annotations:
   artifacthub.io/changes: |
+    - kind: fixed
+      description: "use host as listener name, as it must be a valid domain name"
     - kind: changed
-      description: "more compact secret name"
-    - kind: changed
-      description: "listener prefix ends in underscore _ now"
-    - kind: changed
-      description: "ReadMe with simpler examples"
+      description: "quote all used strings from values"
