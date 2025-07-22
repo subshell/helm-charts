@@ -41,7 +41,7 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
-          description: 'allowedRoutes' fixed typo
+          description: "'allowedRoutes' fixed typo"
     apiVersion: v2
     created: "2025-07-21T17:32:48.860639896Z"
     description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
@@ -55,7 +55,7 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
-          description: 'allowedRoutes' in `https` config allows all namespaces
+          description: "'allowedRoutes' in `https` config allows all namespaces"
     apiVersion: v2
     created: "2025-07-21T17:21:57.570352133Z"
     description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
