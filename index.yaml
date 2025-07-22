@@ -40,6 +40,22 @@ entries:
   gateway:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "use host as listener name, as it must be a valid domain name"
+        - kind: changed
+          description: "quote all used strings from values"
+    apiVersion: v2
+    created: "2025-07-22T07:03:55.188723046Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: b404925131a97cdfdcafa0e238cbaafc0e5669b7656c7d55a30d3d94846108a1
+    name: gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.0.4/gateway-1.0.4.tgz
+    version: 1.0.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "more compact secret name"
         - kind: changed
@@ -2090,4 +2106,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-22T06:43:03.324357015Z"
+generated: "2025-07-22T07:03:55.189033811Z"
