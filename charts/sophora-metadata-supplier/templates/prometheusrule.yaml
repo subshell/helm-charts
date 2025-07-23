@@ -17,7 +17,7 @@ spec:
             severity: {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSeverity }}
           annotations:
             summary: 'Metadata Supplier Job Queue Full'
-            description: 'The internal job queue of the Sophora Metadata Supplier exceeds a size of {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }} entries for more than {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueTime }} minutes'
+            description: 'The internal job queue of the Sophora Metadata Supplier exceeds a size of {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }} entries for more than {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueTime }}'
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-metadata-supplier/alerting-runbook.md'
         {{- end }}
         {{- with .Values.prometheusRule.rules }}
