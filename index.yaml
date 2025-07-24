@@ -399,6 +399,18 @@ entries:
     version: 1.0.0
   sophora-admin-dashboard:
   - apiVersion: v2
+    created: "2025-07-24T11:42:50.348768147Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 1d7cf649d4d5703213afba24d631aa244248f6ebbe28c455f4a8dbd832b35221
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.3.1/sophora-admin-dashboard-1.3.1.tgz
+    version: 1.3.1
+  - apiVersion: v2
     created: "2024-05-30T13:00:40.982986701Z"
     description: A Helm chart for the Sophora dashboard
     digest: a233b964706b0594856ff6b7f93269f79b47579e89675a469e1cf0aab1f1a1ec
@@ -2120,4 +2132,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-23T13:50:01.552537985Z"
+generated: "2025-07-24T11:42:50.34914046Z"
