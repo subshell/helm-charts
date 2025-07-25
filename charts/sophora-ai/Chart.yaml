@@ -2,15 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 1.3.0
+version: 2.0.0
 appVersion: 1.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: Added support for extra init containers and extra containers.
-    - kind: added
-      description: Added support for service account creation.
-    - kind: added
-      description: Added support for directly specifying a PostgresQL username in values.
+    - kind: changed
+      description: Added support for Google Application Default Credentials (ADC). A secret containing the credentials can still be used, see values.yaml for details.

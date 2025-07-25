@@ -78,3 +78,13 @@ livenessProbe:
   initialDelaySeconds: 5
   timeoutSeconds: 1
   periodSeconds: 10
+  
+prometheusRule:
+  enabled: true
+  defaultRules:
+    enabled: true
+    jobQueue:
+      maxQueueSize: 1000
+      maxQueueTime: 10m
+      maxQueueSeverity: high
+  rules: []
