@@ -554,6 +554,17 @@ entries:
   sophora-cluster-common:
   - apiVersion: v2
     appVersion: "4"
+    created: "2025-07-25T13:29:23.73638013Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 90fc531d24e7ba83183ae2c1e558db42a78a0fa5b3767c486fd901ea214fc68e
+    name: sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.4.0/sophora-cluster-common-1.4.0.tgz
+    version: 1.4.0
+  - apiVersion: v2
+    appVersion: "4"
     created: "2025-01-23T09:37:37.76476593Z"
     description: A Helm chart containing some common resources useful for Sophora
       cloud setups
@@ -1440,6 +1451,16 @@ entries:
   sophora-server:
   - apiVersion: v2
     appVersion: 4.26.0
+    created: "2025-07-25T13:29:23.884090763Z"
+    description: A Helm chart for the Sophora Server
+    digest: edb5dcbbd13e21df74c46ade4c1d011c348c941bb6e667d2e16a87c435dcd112
+    name: sophora-server
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.10.0/sophora-server-2.10.0.tgz
+    version: 2.10.0
+  - apiVersion: v2
+    appVersion: 4.26.0
     created: "2025-06-26T14:11:32.061939428Z"
     description: A Helm chart for the Sophora Server
     digest: 88f8df8191ccd82a1ab266e92e98e4e60a1f751cc57d49a33978892cfaf9fe6f
@@ -2132,4 +2153,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-24T11:42:50.34914046Z"
+generated: "2025-07-25T13:29:23.884790371Z"
