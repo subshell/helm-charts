@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-image-ai
 description: Sophora Image AI
 type: application
-version: 2.0.0
+version: 2.1.0
 appVersion: 5.1.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: Added support for Google Application Default Credentials (ADC). The 'sophora-image-ai-gcp-credentials' secret (name was hard-coded) is no longer required, but a secret containing the credentials can still be used. See values.yaml for details.
+    - kind: added
+      description: Enabled the use of a service account.

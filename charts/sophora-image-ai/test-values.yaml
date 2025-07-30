@@ -43,6 +43,12 @@ ingress:
   hosts:
   tls: []
 
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar
+
 extraVolumes:
   - name: gcp-credentials
     secret:
