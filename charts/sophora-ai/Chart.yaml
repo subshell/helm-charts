@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.0.0
+version: 2.0.1
 appVersion: 1.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: Added support for Google Application Default Credentials (ADC). A secret containing the credentials can still be used, see values.yaml for details.
+    - kind: fixed
+      description: The deployment descriptor now correctly uses the configured service account name.

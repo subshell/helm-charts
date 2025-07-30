@@ -22,6 +22,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "sophora-ai.serviceAccountName" . }}
       {{- if .Values.extraInitContainers }}
       initContainers:
         {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
