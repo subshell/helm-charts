@@ -473,6 +473,22 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: The deployment descriptor now correctly uses the configured service account name.
+    apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-07-30T14:28:14.585129361Z"
+    description: Sophora AI
+    digest: e174c71b60cd229a4211696bbe782e0e8cb22e534f18b324d7622aba3fdb41d9
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.0.1/sophora-ai-2.0.1.tgz
+    version: 2.0.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: Added support for Google Application Default Credentials (ADC). A secret containing the credentials can still be used, see values.yaml for details.
     apiVersion: v2
@@ -2153,4 +2169,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-07-25T13:29:23.884790371Z"
+generated: "2025-07-30T14:28:14.585514254Z"
