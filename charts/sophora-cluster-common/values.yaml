@@ -62,6 +62,8 @@ clusterServerLb:
       server.sophora.cloud/server-mode: primary
     ## @param clusterServerLb.service.httpPort the Sophora server's http port
     httpPort: 1196
+    ## @param clusterServerLb.service.grpcPort the Sophora server's grpc port
+    grpcPort: 2026
     ## @param clusterServerLb.service.jmsPort the Sophora server's jms port
     jmsPort: 1197
     ## @param clusterServerLb.service.publishNotReadyAddresses whether the service should publish not ready addresses

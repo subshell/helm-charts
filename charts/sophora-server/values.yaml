@@ -85,9 +85,12 @@ extraVolumes: []
 extraVolumeMounts: []
 
 sophora:
+  grpcApi:
+    enabled: false
   server:
     ports:
       http: 1196
+      grpc: 2026
       jms: 1197
       rmiService: 1198
       rmiRegistry: 1199
@@ -278,6 +281,7 @@ sophora:
       # # Ingress specific
       # sophora.replication.slaveHostname=
       # sophora.remote.api.http.port=1196
+      # sophora.remote.api.grpc.port=2026
       # sophora.remote.jmsbroker.host=
       # sophora.remote.jmsbroker.port=1197
       # sophora.rmi.servicePort=1198
@@ -377,6 +381,7 @@ service:
   headlessAnnotations: {}
   type:
   httpPort: 1196
+  grpcPort: 2026
   jmsPort: 1197
   # -- (boolean) defaults to sophora.server.isClusterServer
   enableSessionAffinity:

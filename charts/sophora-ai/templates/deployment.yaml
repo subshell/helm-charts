@@ -22,6 +22,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      serviceAccountName: {{ include "sophora-ai.serviceAccountName" . }}
       {{- if .Values.extraInitContainers }}
       initContainers:
         {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
@@ -34,10 +35,8 @@ spec:
             - name: config
               mountPath: /app/config
               readOnly: true
-            {{- if .Values.sophora.gcpCredentials }}
-            - name: gcp-credentials
-              mountPath: /app/gcp-credentials
-              readOnly: true
+            {{- with .Values.extraVolumeMounts}}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
           ports:
             - name: http
@@ -144,8 +143,6 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-ai.fullname" . }}
-        {{- if .Values.sophora.gcpCredentials }}
-        - name: gcp-credentials
-          secret:
-            secretName: {{ required "A valid secret name must be provided in .Values.sophora.gcpCredentials.secret.name" .Values.sophora.gcpCredentials.secret.name | quote }}
+        {{- with .Values.extraVolumes}}
+        {{- toYaml . | nindent 8 }}
         {{- end }}

@@ -29,12 +29,10 @@ sophora:
           # GCP project ID
           project-id: my-project
 
-          credentials:
-            # path to GCP credentials file - do not change
-            location: file:/gcp-credentials/credentials.json
-
 imageAI:
   extraEnv:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /gcp-credentials/credentials.json
 
 podAnnotations: {}
 
@@ -44,3 +42,19 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar
+
+extraVolumes:
+  - name: gcp-credentials
+    secret:
+      secretName: sophora-image-ai-gcp-credentials
+
+extraVolumeMounts:
+  - name: gcp-credentials
+    mountPath: /gcp-credentials
+    readOnly: true
