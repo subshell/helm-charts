@@ -8,15 +8,13 @@ metadata:
 spec:
   type: {{ .Values.service.type | quote }}
   {{ if .Values.service.clusterIP -}}
-  clusterIP: {{.Values.service.clusterIP}}
+  clusterIP: {{ .Values.service.clusterIP }}
   {{- end }}
   selector: {{- include "access-service.selectorLabels" . | nindent 4 }}
   ports:
-    - protocol: TCP
+    - name: http
       port: {{ .Values.service.httpPort }}
-      targetPort: http
-      name: http
-    - port: {{ .Values.service.metricsPort }}
-      targetPort: {{ .Values.service.metricsPort }}
       protocol: TCP
-      name: metrics
+    - name: metrics
+      port: {{ .Values.service.metricsPort }}
+      protocol: TCP
