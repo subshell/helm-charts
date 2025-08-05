@@ -54,7 +54,7 @@ s3:
 service:
   annotations: {}
   type: ClusterIP
-  ClusterIP:
+  clusterIP:
   httpPort: 8080
   metricsPort: 8081
 
