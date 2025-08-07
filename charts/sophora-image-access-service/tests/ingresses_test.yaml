@@ -17,7 +17,7 @@ tests:
           of: Ingress
       - equal:
           path: metadata.name
-          value: sophora-image-access-service-0
+          value: sophora-image-access-service
       - equal:
           path: metadata.annotations.ingress
           value: true

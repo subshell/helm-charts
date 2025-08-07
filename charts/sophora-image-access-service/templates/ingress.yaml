@@ -8,7 +8,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-{{ $index }}
+  name: {{ $fullName }}{{ eq $index 0 | ternary "" (printf "-%d" $index) }}
   labels:
   {{- include "access-service.labels" $ | nindent 4 }}
   {{- with $ingress.annotations }}
