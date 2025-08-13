@@ -122,7 +122,7 @@ spec:
               mountPath: /root/.oauth-credentials/
             {{- if .Values.sophora.youtubeconnector.preprocessor.enabled }}
             - name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
-              mountPath: /app/{{ .Values.sophora.youtubeconnector.preprocessor.filename }}
+              mountPath: /app/groovy/{{ .Values.sophora.youtubeconnector.preprocessor.filename }}
               subPath: {{ .Values.sophora.youtubeconnector.preprocessor.filename }}
             {{- end }}
             {{- with .Values.extraVolumeMounts}}
