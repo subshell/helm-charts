@@ -2191,6 +2191,25 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.0.0/sophora-webclient-1.0.0.tgz
     version: 1.0.0
   sophora-youtube-connector:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: Changes the mountPath of the preprocessor script to `/app/groovy/\<FILENAME\>`.
+        - kind: added
+          description: Adds the possibility to enable a service account for the av tool and a configmap for the preprocessor script.
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2025-08-13T13:33:47.822487385Z"
+    description: A Helm chart for Kubernetes
+    digest: 6b7df214cd8ca69263cc2de3224756d01dd2dcfe5099d1b13fc50ed79662b576
+    name: sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.2.1/sophora-youtube-connector-1.2.1.tgz
+    version: 1.2.1
   - apiVersion: v2
     appVersion: 4.6.5
     created: "2025-07-04T09:48:29.326062661Z"
@@ -2221,4 +2240,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-07T09:44:00.902375176Z"
+generated: "2025-08-13T13:33:47.823404782Z"
