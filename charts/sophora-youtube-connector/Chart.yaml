@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.2.0
+version: 1.2.1
 
 
 # This is the version number of the application being deployed. This version number should be
@@ -23,3 +23,13 @@ version: 1.2.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: '4.6.5'
+
+annotations:
+    artifacthub.io/changes: |
+        - kind: fixed
+          description: Changes the mountPath of the preprocessor script to `/app/groovy/\<FILENAME\>`.
+        - kind: added
+          description: Adds the possibility to enable a service account for the av tool and a configmap for the preprocessor script.
+    artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
