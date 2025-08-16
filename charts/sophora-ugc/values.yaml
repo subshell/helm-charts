@@ -99,6 +99,16 @@ ugc:
       host: 
     database:
       url:
+    logging:
+      config: /config/logback/logback.xml
+    spring:
+      main:
+        banner-mode: off
+      security:
+        user:
+          name: user
+    server:
+      port: 9080
 
   extraContainers: []
   extraInitContainers: []
