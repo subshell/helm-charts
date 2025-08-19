@@ -14,7 +14,7 @@ This Helm Chart provides a general setup for Sophora Image **Access** Service.
   cluster
 * [config.yaml](templates/config.yaml) helps mounting the spring application config files
   into to container
-
+* [hpa.yaml](templates/hpa.yaml) provides horizontal autoscaling for deployment pods 
 ## Configuration notes
 
 When configuring, be aware that Access- and Update Service *must* connect to the same S3 storage.
