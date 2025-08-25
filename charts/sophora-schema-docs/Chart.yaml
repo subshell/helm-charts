@@ -3,11 +3,12 @@ name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
 version: 2.1.4
-appVersion: 5.0.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "added Artifacthub changelog annotation"
+
+appVersion: 5.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
 home: https://subshell.com/sophora/modules/sophora-schema-docs100.html

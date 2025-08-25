@@ -16,6 +16,13 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 version: 2.0.12
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+  artifacthub.io/links: |
+    - name: Documentation for Sophora UGC 
+      url: https://subshell.com/docs/ugc/
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -31,11 +38,3 @@ sources:
 home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
 # A URL to an SVG or PNG image to be used as an icon
 icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
-
-annotations:
-  artifacthub.io/changes: |
-    - kind: added
-      description: "link to sources at GitHub"
-  artifacthub.io/links: |
-    - name: Documentation for Sophora UGC 
-      url: https://subshell.com/docs/ugc/

@@ -3,6 +3,11 @@ name: o-neko
 description: A Helm chart for O-Neko
 type: application
 version: 1.6.2
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
+
 appVersion: "1.8.0"
 sources:
   - https://github.com/subshell/o-neko/
@@ -12,8 +17,3 @@ dependencies:
     version: 15.1.7
     repository: https://charts.bitnami.com/bitnami
     condition: mongodb.enabled
-
-annotations:
-  artifacthub.io/changes: |
-    - kind: added
-      description: "added Artifacthub changelog annotation"
