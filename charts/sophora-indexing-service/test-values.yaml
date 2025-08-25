@@ -38,6 +38,8 @@ sisi:
 
 podAnnotations: {}
 
+podLabels: {}
+
 ingress:
   enabled: true
   ingressClassName: nginx
