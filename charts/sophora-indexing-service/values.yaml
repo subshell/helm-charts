@@ -72,6 +72,8 @@ livenessProbe:
 
 podAnnotations: {}
 
+podLabels: {}
+
 service:
   type: ClusterIP
   port: 1837

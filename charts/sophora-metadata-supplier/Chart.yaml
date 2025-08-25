@@ -2,5 +2,10 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.1.1
+version: 1.3.3
 appVersion: '4.14.0'
+
+annotations:
+  artifacthub.io/changes: |
+    - kind: changed
+      description: If nameOverride is set, this will be used instead of .Chart.Name. If nameOverride is not set, the .Chart.Name is used as before.

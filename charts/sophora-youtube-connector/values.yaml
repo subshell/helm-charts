@@ -47,6 +47,10 @@ ingress:
   hosts:
   tls: []
 
+serviceAccount:
+  create:
+  annotations:
+
 resources:
   requests:
     cpu: 100m
@@ -134,6 +138,11 @@ sophora:
       </configuration>
 
     mediaconfig:
+
+    preprocessor:
+      enabled:
+      content:
+      filename:
 
     config:
     # can be either 'properties' or 'yml'

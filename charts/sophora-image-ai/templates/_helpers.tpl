@@ -62,3 +62,14 @@ Usage:
         {{- tpl (.value | toYaml) .context }}
     {{- end }}
 {{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "sophora-image-ai.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "sophora-image-ai.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}

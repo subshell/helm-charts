@@ -47,6 +47,18 @@ service:
 # -- (string) k8s storage class name for generated dashboard files
 storageClassName: ""
 
+storage:
+  persistence:
+    # -- (object) resources of persistence volume claim
+    resources:
+      requests:
+        storage: 1Mi
+  rrd:
+    # -- (object) resources of rrd volume claim
+    resources:
+      requests:
+        storage: 200Mi
+
 sophora:
   # -- (string) Sophora server hostname
   serverHostname: ""
