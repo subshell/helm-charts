@@ -28,6 +28,11 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        {{- if .Values.ugc.extraInitContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraInitContainers "context" $) | nindent 8 }}
+        {{- end }}
+      serviceAccountName: {{ include "sophora-ugc.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.ugc.image.repository }}:{{ .Values.ugc.image.tag | default .Chart.AppVersion }}"
@@ -35,31 +40,55 @@ spec:
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
+            {{- if .Values.authentication.secret.server.usernameKey }}
             - name: SOPHORA-SERVER_USERNAME
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.usernameKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+            {{- end }}
+            {{- if .Values.authentication.secret.server.passwordKey }}
             - name: SOPHORA-SERVER_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.passwordKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+            {{- end }}
+            {{- if .Values.authentication.secret.database.usernameKey }}
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.usernameKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+            {{- end }}
+            {{- if .Values.authentication.secret.database.passwordKey }}
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.database.passwordKey }}
                   name: {{ .Values.authentication.secret.database.name }}
+            {{- end }}
+            {{- if .Values.authentication.secret.s3bucket.accessKeyKey }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.s3bucket.accessKeyKey }}
+                  name: {{ .Values.authentication.secret.s3bucket.name }}
+                  optional: true
+            {{- end }}
+            {{- if .Values.authentication.secret.s3bucket.secretIdKey }}
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.s3bucket.secretIdKey }}
+                  name: {{ .Values.authentication.secret.s3bucket.name }}
+                  optional: true
+            {{- end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: 8080
+            - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
               name: webapp
             - containerPort: 1694
               name: jolokia
@@ -70,6 +99,9 @@ spec:
               mountPath: /config/application
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.ugc.extraContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraContainers "context" $) | nindent 8 }}
+        {{- end }}
       volumes:
         - name: application-yml
           configMap:

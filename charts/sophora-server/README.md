@@ -4,27 +4,64 @@ The required secrets must be present before you install the server.
 
 ## Archive repository persistence
 
-Starting with Sophora 5 the archive repository is no longer available.
-To disable all archive related storage options, set `sophora.server.persistence.archiveType` to `none`.
+Starting with Sophora 5, the archive repository is no longer available.
+To disable all archive-related storage options, set `sophora.server.persistence.archiveType` to `none`.
 In later chart versions this will be the default.
 
 ## Postgres connection
 
 Starting with Sophora 5, the installation requires postgres. 
 You can provide credentials via a secret: `sophora.server.persistence.postgres.secret`. 
-To enable the postgres version store set `sophora.server.persistence.postgres.versionStoreEnabled` to `true`. 
+To enable postgres support set `sophora.server.persistence.postgres.enabled` to `true`. 
 For all other configuration options use `sophora.server.properties`. 
 
 It's also possible to use postgres as your jcr repository. To use postgres with jcr set `sophora.server.persistence.repositoryType` to `postgres`.
 
-## gRPC API (Sophora v6+)
-Sophora 6 introduces a gRPC API. gRPC is basically HTTP/2 but requires specific non-default settings in most HTTP proxies, including Ingress Controllers.
+## Multi Postgres support
+
+Starting with Sophora 6, staging servers require postgres.
+Typically, Sophora staging servers use statefulset scaling, but they still need a unique postgres database per instance. You can achieve this by doing the following:
+
+* Set `sophora.server.persistence.multiPostgres.enabled` to `true`.
+* Configure all postgres connections under `sophora.server.persistence.multiPostgres.byPodIndex`. Each config entry belongs to a pod at the index.
+
+### Example
+
+```yaml
+sophora:
+  server:
+    persistence:
+      multiPostgres:
+        enabled: true
+        byPodIndex:
+        # config for pod 0
+        - hostname: db.host
+          port: "5432"
+          database: "sophora-0"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+        # config for pod 1
+        - hostname: db.host
+          port: "5432"
+          database: "sophora-1"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+```
+
+See also: [Postgres Native Sidecar](#postgres-native-sidecar-k8s-129)
+
+## Sophora RPC (Sophora v6+)
+Sophora 6 introduces a completely new API for client-server communication called Sophora RPC (short srpc). Srpc is based on gRPC which in return is essentially HTTP/2 but requires specific non-default settings in most HTTP proxies, including Ingress Controllers.
 To deal with this, the chart now supports deploying a second Ingress for the gRPC API, which can be configured differently from the main Ingress.
 
 This is not enabled by default.
 To enable it, set `grpcIngress.enabled` to `true` and configure it as needed.
 The example configuration contains the required
-settings for the Nginx Ingress Controller.
+settings for the Nginx Ingress Controller (all paths starting with `/sophora.srpc.` need to be forwarded as gRPC traffic).
 
 ## Tips for productive installations
 
@@ -107,12 +144,27 @@ For the sidecar to work, the server requires a service account with the permissi
 in the namespace the server runs in. The SA, Role and Role Binding are created automatically by this chart.
 The creation of these resources can be controlled with the `serviceAccount:` section in the values file.
 
+#### Ingress with Ingress NGINX Controller
+
+When using `ingress-nginx` you can set the following annotations. The `proxy-*-timeout` allows long running server requests like complex queries to run. The [default timeout of nginx](http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_read_timeout) is 60 seconds which may not work for all cases and repository sizes. The `client-body-buffer-size` allows larger responses to be handled in memory.
+
+```yaml
+ingress:
+  ingressClassName: "nginx"
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/client-body-buffer-size: 2m
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+```
+
 ### Postgres native sidecar (k8s 1.29+)
 
-All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database.
-However, Sophora staging server support replica scaling, but still require one unique postgres database per instance. 
-The simplest way to accommodate these requirements is to add native sidecar containers into the mix.
-Each Sophora server now has its own postgres instance that it can easily connect to. 
+**All Sophora cluster server since version 5 and all Sophora staging server since version 6 require a postgres database**
+
+However, while the Sophora staging server supports replica scaling, each instance still requires a dedicated PostgreSQL database.
+The simplest way to meet these requirements is by introducing native sidecar containers.
+With this setup, each Sophora server now includes its own PostgreSQL instance.
 Read more about native sidecar containers [here](https://kubernetes.io/docs/concepts/workloads/pods/sidecar-containers/).
 
 Add a native sidecar container using the following configuration: 
@@ -120,7 +172,7 @@ Add a native sidecar container using the following configuration:
 ```yaml
 extraInitContainers:
   - name: "postgres"
-    image: "postgres:16.2-alpine3.19"
+    image: "postgres:17.5-alpine3.21"
     imagePullPolicy: "IfNotPresent"
     restartPolicy: Always
     ports:
@@ -152,7 +204,7 @@ If you want to use your own volume, configure one in `extraVolumeClaimTemplates`
 To complete the setup, add the following properties to `sophora.server.properties` to configure the postgres connection to the sidecar container.
 
 ```properties
-# connection to postgres nativ sidecar container
+# connection to postgres native sidecar container
 sophora.persistence.postgres.database=sophora
 sophora.persistence.postgres.username=postgres
 sophora.persistence.postgres.password=postgres
@@ -164,20 +216,33 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
-## 2.5.1
+### 2.10.0
+
+This version changes the configuration of the gRPC API since the latest pre-release versions of Sophora now run it on a separate port. The most notable change may be that
+the configuration `grpcIngress.enabled` was removed in favor of `sophora.grpcApi.enabled`.
+
+### 2.9.0
+
+* The configuration `sophora.server.persistence.postgres.versionStoreEnabled` has been deprecated. Use `sophora.server.persistence.postgres.enabled` instead.
+* New configuration `sophora.server.persistence.multiPostgres`. [Read more](#multi-postgres-support)
+
+### 2.5.2
+This version changes the paths for the gRPC-controller from the technology-driven name sophora.grpc to the product driven name sophora.srpc. This only affects server in version 6 or newer.
+
+### 2.5.1
 This version updates the pre-stop hook to version 2.1.0 which is required when using Sophora 6. It is still compatible with previous versions of Sophora.
 
-## 2.5.0
+### 2.5.0
 
 This version of the Chart now supports deploying a second Ingress with the purpose to host the gRPC API, which is coming in Sophora 6.
 
-## 2.1.0
+### 2.1.0
 Updates the pre-stop hook to version 2.0.0 and configures it accordingly.
 Please note that this now involves the creation of another Role and RoleBinding for this specific use-case, so that
 the hook can get information through the Kubernetes API. If you don't manage the Service Account through this Helm
 chart, you may need to configure it manually to provide the required permissions.
 
-## 2.0.0 (Breaking changes)
+### 2.0.0 (Breaking changes)
 > [!WARNING]
 > Please read this information carefully before updating!
 

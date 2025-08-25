@@ -189,8 +189,7 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}
         resources:
-          requests:
-            storage: 1Mi
+        {{- toYaml .Values.storage.persistence.resources | nindent 10 }}
     - metadata:
         name: rrd
         labels: {{- include "sophora-admin-dashboard.selectorLabels" . | nindent 10 }}
@@ -198,5 +197,4 @@ spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName: {{ .Values.storageClassName }}
         resources:
-          requests:
-            storage: 200Mi
+        {{- toYaml .Values.storage.rrd.resources | nindent 10 }}

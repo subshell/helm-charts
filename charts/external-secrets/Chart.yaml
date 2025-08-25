@@ -2,5 +2,11 @@ apiVersion: v2
 name: external-secrets
 description: A Helm chart for creating multiple external secrets
 type: application
-version: 1.0.1
-appVersion: 0.8.1
+version: 2.0.0
+annotations:
+  artifacthub.io/changes: |
+    - kind: changed
+      description: Since chart version 2.0.0 requires external-secrets >= v0.16.0 (released April 2025) to use the `v1` apis instead of `v1beta1`. Upgrade existing releases to use this version of the chart prior to using external-secrets-operator >= v0.17.0.
+      links:
+        - name: GitHub Issue
+          url: https://github.com/subshell/helm-charts/pull/164

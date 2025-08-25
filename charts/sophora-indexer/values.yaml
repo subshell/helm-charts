@@ -56,3 +56,7 @@ data:
   size: 1G
   storageClass: ssd
   path: /data
+  # dataSource:
+  #  apiGroup: snapshot.storage.k8s.io
+  #  kind: VolumeSnapshot
+  #  name: sophora-indexer

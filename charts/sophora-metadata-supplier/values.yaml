@@ -95,6 +95,16 @@ ingress:
   hosts:
   tls: []
 
+prometheusRule:
+  enabled: false
+  defaultRules:
+    enabled: true
+    jobQueue:
+      maxQueueSize: 1000
+      maxQueueTime: 10m
+      maxQueueSeverity: high
+  rules: []
+
 resources:
   requests:
     cpu: 200m
@@ -105,6 +115,11 @@ resources:
 storage:
   storageClass: ssd
   size: 10Gi
+  # dataSource:
+  #  apiGroup: snapshot.storage.k8s.io
+  #  kind: VolumeSnapshot
+  #  name: sophora-metadata-supplier
+
 
 serviceAccount:
   create: false

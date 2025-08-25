@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.1
+version: 2.0.9
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -26,9 +26,7 @@ appVersion: '4.8.0'
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: UGC Multimedia Service can now be deployed along with UGC
-    - kind: changed
-      description: Configuration options in the values.yaml were restructured. An example configuration with the new structure can be found in the README.md.
+      description: Add S3 connection for UGC
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

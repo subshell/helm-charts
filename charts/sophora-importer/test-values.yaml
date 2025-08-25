@@ -37,14 +37,13 @@ sophora:
       - name: BBB
         value: b-value
     s3Bucket:
-      name: "sophora-test-importer"
+      name: "my-bucket"
       url: "https://storage.googleapis.com"
+      region: "eu-west-3"
       secret:
         name: "sophora-importer-bucket-credentials"
         secretAccessKeyKey: "secretAccessKey"
         accessKeyIdKey: "accessKeyId"
-    instances:
-      - common
     configuration:
       sophora:
         client:
@@ -80,10 +79,10 @@ sophora:
             key: common
             transform: skipTransform
             folders:
-              watch: /import/common/incoming
+              watch: s3://common/incoming
               temp: /import-local/common/temp
-              success: /import-local/common/success
-              failure: /import/common/failure
+              success: s3://common/success
+              failure: s3://common/failure
               xsl: /xsl
             defaultStructureNode: /import
 

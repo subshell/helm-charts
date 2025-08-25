@@ -1,0 +1,19 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    ingress: true
+  hosts:
+  tls: []
+
+extraIngress:
+  - ingressClassName: nginx
+    annotations:
+      extraIngress: first
+    hosts:
+    tls: []
+  - ingressClassName: nginx
+    annotations:
+      extraIngress: second
+    hosts:
+    tls: []

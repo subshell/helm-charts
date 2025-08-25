@@ -1,0 +1,156 @@
+nameOverride: ai
+
+image:
+  repository: docker.subshell.com/sophora/ai
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: latest
+
+imagePullSecrets:
+  - name: docker-subshell
+
+sophora:
+  authentication:
+    secret:
+      name: sophora-secret
+
+  postgresCredentials:
+    secret:
+      name: postgres-credentials
+      loginKey: login
+      passwordKey: password
+
+  llmProviderCredentials:
+    openai:
+      secret:
+        name: openai-credentials
+        apiKeyKey: apiKey
+
+  googleSearchCredentials:
+    secret:
+      name: google-search-credentials
+      searchEngineIDKey: searchEngineID
+      apiKeyKey: apiKey
+
+  ardRecommenderCredentials:
+    secret:
+      name: ard-recommender-credentials
+      authKeyKey: authKey
+
+  configuration:
+    application:
+      sophora:
+        client:
+          server-connection:
+            urls:
+              - https://sophora-server.example.com:1196
+            username: # in secret
+            password: # in secret
+
+    database:
+      sophora-ai:
+        database:
+          postgres:
+            host: postgres.example.com
+            port: 5432
+            login: # in secret
+            password: # in secret
+            database: sophoraai
+            schema: public
+
+    altText:
+      testing: true
+    caption:
+      testing: true
+    categorize:
+      testing: true
+    checkClaims:
+      testing: true
+    checkScript:
+      testing: true
+    correct:
+      testing: true
+    cropHints:
+      testing: true
+    elaborate:
+      testing: true
+    embedding:
+      testing: true
+    embeddingARDRecommender:
+      testing: true
+    google:
+      testing: true
+    keyPoints:
+      testing: true
+    keywords:
+      testing: true
+    llm:
+      testing: true
+    namedEntities:
+      testing: true
+    proofread:
+      testing: true
+    questions:
+      testing: true
+    quotations:
+      testing: true
+    recommendDocuments:
+      testing: true
+    recommendLinks:
+      testing: true
+    rephrase:
+      testing: true
+    sentiment:
+      testing: true
+    shorten:
+      testing: true
+    shortenTeletext:
+      testing: true
+    shortenInfoscreen:
+      testing: true
+    summarize:
+      testing: true
+    teaser:
+      testing: true
+    title:
+      testing: true
+    translate:
+      testing: true
+
+ai:
+  extraEnv:
+    - name: GOOGLE_APPLICATION_CREDENTIALS
+      value: /gcp-credentials/credentials.json
+
+resources:
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+
+podAnnotations: {}
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations:
+    foo: bar
+
+extraVolumes:
+  - name: gcp-credentials
+    secret:
+      secretName: sophora-image-ai-gcp-credentials
+
+extraVolumeMounts:
+  - name: gcp-credentials
+    mountPath: /gcp-credentials
+    readOnly: true

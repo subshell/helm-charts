@@ -91,10 +91,6 @@ Create the name of the service account to use
   value: {{ .Values.s3.name }}
 - name: S3_FILE_PATH_WITHOUT_EXTENSION
   value: {{ include "sophora-export-job.utils.fileNameWithoutZipExtension" . | quote }}
-- name: ZIP_FILE_NAME_DATE_FORMAT
-  value: {{ .Values.job.zipFileNameDateFormat | quote }}
-- name: CRON_JOB
-  value: {{ .Values.job.cron.enabled | quote }}
 - name: PUSHGATEWAY_BASE_URL
   value: {{ .Values.metrics.pushgatewayUrl | quote }}
 - name: JOB_NAME

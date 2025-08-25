@@ -140,3 +140,18 @@ Usage:
     {{- $suffix := index . 1 -}}
     {{- printf "%s-%s" (include "sophora-server.fullname" $ctx | trunc (sub 62 (len $suffix) | int)) $suffix }}
 {{- end -}}
+
+{{/*
+Hash the rendered content of all ConfigMaps
+Usage: include "common.configMapHash" .
+*/}}
+{{- define "common.configMapHash" -}}
+{{- $allContent := dict }}
+{{- range $name, $content := .Files.Glob "templates/*-configmap.yaml" }}
+  {{- $allContent = merge $allContent (dict $name ($content | toString)) }}
+{{- end }}
+{{- range $key, $value := .Values }}
+  {{- $allContent = merge $allContent (dict $key ($value | toString)) }}
+{{- end }}
+{{- toYaml $allContent | sha256sum }}
+{{- end }}

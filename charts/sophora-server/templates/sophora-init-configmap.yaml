@@ -6,12 +6,16 @@ metadata:
   {{- include "sophora-server.labels" . | nindent 4 }}
 data:
   sophora.properties: |-
-    {{- if .Values.sophora.server.persistence.postgres.versionStoreEnabled }}
+    {{- if or (or .Values.sophora.server.persistence.postgres.enabled .Values.sophora.server.persistence.postgres.versionStoreEnabled) .Values.sophora.server.persistence.multiPostgres.enabled }}
     # postgres authentication
     sophora.persistence.postgres.username=${SOPHORA_PERSISTENCE_POSTGRES_USERNAME}
     sophora.persistence.postgres.password=${SOPHORA_PERSISTENCE_POSTGRES_PASSWORD}
     sophora.persistence.postgres.hostname=${SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME}
     sophora.persistence.postgres.port=${SOPHORA_PERSISTENCE_POSTGRES_PORT}
+    {{- end }}
+
+    {{- if or .Values.sophora.server.persistence.multiPostgres.enabled }}
+    sophora.persistence.postgres.database=${SOPHORA_PERSISTENCE_POSTGRES_DATABASE}
     {{- end }}
 
     # custom config
@@ -23,6 +27,14 @@ data:
 
     # sophora.properties
     ##############
+    {{- /* For multi postgres support we need to read the correct config at runtime */}}
+    {{- if .Values.sophora.server.persistence.multiPostgres.enabled }}
+    eval "export SOPHORA_PERSISTENCE_POSTGRES_USERNAME=\${SOPHORA_PERSISTENCE_POSTGRES_USERNAME_${PODID}}"
+    eval "export SOPHORA_PERSISTENCE_POSTGRES_PASSWORD=\${SOPHORA_PERSISTENCE_POSTGRES_PASSWORD_${PODID}}"
+    eval "export SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME=\${SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME_${PODID}}"
+    eval "export SOPHORA_PERSISTENCE_POSTGRES_PORT=\${SOPHORA_PERSISTENCE_POSTGRES_PORT_${PODID}}"
+    eval "export SOPHORA_PERSISTENCE_POSTGRES_DATABASE=\${SOPHORA_PERSISTENCE_POSTGRES_DATABASE_${PODID}}"
+    {{- end }}
 
     envsubst < /configs/sophora.properties > /sophora-properties/sophora.properties
     echo "Generated sophora.properties from ENV"
@@ -37,7 +49,6 @@ data:
 
     # https://stackoverflow.com/a/12873723
     SED_XML_ESCAPE='s/&/\&amp;/g; s/</\&lt;/g; s/>/\&gt;/g; s/"/\&quot;/g; s/'"'"'/\&#39;/g'
-
     # repository.xml
     {{- if eq .Values.sophora.server.persistence.repositoryType "mysql" }}
     eval "export REPOSITORY_MYSQL_HOST=\${REPOSITORY_MYSQL_HOST_${PODID}}"
@@ -46,7 +57,14 @@ data:
     export REPOSITORY_MYSQL_PASSWORD=$(echo $REPOSITORY_MYSQL_PASSWORD | sed "$SED_XML_ESCAPE")
     {{- end }}
     {{- if eq .Values.sophora.server.persistence.repositoryType "postgres" }}
+    {{- if .Values.sophora.server.persistence.multiPostgres.enabled }}
+    eval "export JCR_REPOSITORY_DEFAULT_POSTGRES_DB=\${JCR_REPOSITORY_DEFAULT_POSTGRES_DB_${PODID}}"
+    eval "export JCR_REPOSITORY_LIVE_POSTGRES_DB=\${JCR_REPOSITORY_LIVE_POSTGRES_DB_${PODID}}"
+    eval "export JCR_REPOSITORY_VERSIONS_POSTGRES_DB=\${JCR_REPOSITORY_VERSIONS_POSTGRES_DB_${PODID}}"
+    export SOPHORA_PERSISTENCE_POSTGRES_PASSWORD=$(echo $SOPHORA_PERSISTENCE_POSTGRES_PASSWORD_${PODID} | sed "$SED_XML_ESCAPE")
+    {{- else  }}
     export SOPHORA_PERSISTENCE_POSTGRES_PASSWORD=$(echo $SOPHORA_PERSISTENCE_POSTGRES_PASSWORD | sed "$SED_XML_ESCAPE")
+    {{- end }}
     {{- end }}
     envsubst < /sophora-repository-template/repository.xml > /sophora-repository/repository.xml
     envsubst < /sophora-repository-template/workspace.default.xml > /sophora-repository/workspace.default.xml
@@ -66,7 +84,7 @@ data:
     echo "Generated repository.xml and workspace.default.xml for archive from ENV"
     {{- end }}
 
-  {{- if .Values.sophora.acs.url }}
+    {{- if .Values.sophora.acs.url }}
   acs.properties: |-
     sophora.acs.addon.serviceUrl={{ .Values.sophora.acs.url }}
   {{- end }}

@@ -10,6 +10,6 @@ spec:
         matchLabels: {{- include "access-service.selectorLabels" . | nindent 12 }}
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
-          port: http
+          port: metrics
           path: {{ .Values.serviceMonitor.path }}
 {{- end }}

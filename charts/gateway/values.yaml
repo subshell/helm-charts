@@ -1,0 +1,36 @@
+# Default values for gateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+gateway:
+  # default: GKE layer 7 regional internal application load balancer
+  className: "gke-l7-rilb"
+  annotations: {}
+  # Addresses requested for this Gateway.
+  addresses: []
+#  - type: NamedAddress
+#    value: chart-example-address
+#  - value: "1.2.3.4"
+  # HTTPS hosts listening on default port 443
+  https: []
+#    - host: chart-example.local
+#      allowedRoutes:
+#        namespaces:
+#          from: Same
+#      tls:
+#        mode: Passthrough
+#        # optional when using cert-manager!
+#        certRef: chart-example-tls
+  # own custom listeners
+  listeners: []
+#  infrastructure:
+#    annotations:
+#    labels:
+#    parametersRef:
+
+certManager:
+#  cluster-issuer: acme-issuer
+#  issuer: acme-issuer

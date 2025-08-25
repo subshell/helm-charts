@@ -7,6 +7,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  {{ if .Values.storage.dataSource -}}
+  dataSource: {{ toYaml .Values.storage.dataSource | nindent 4 }}
+  {{- end }}
   resources:
     requests:
       storage: {{ .Values.storage.size }}

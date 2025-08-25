@@ -12,16 +12,21 @@ spec:
       {{- include "sophora-youtube-connector.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
       annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+        checksum/logbackconfig: {{ toString .Values.sophora.youtubeconnector.logback | sha256sum }}
+        checksum/mediaconfig: {{ toString .Values.sophora.youtubeconnector.mediaconfig | sha256sum }}
+        {{- with .Values.podAnnotations }}
+          {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "sophora-youtube-connector.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccount.create }}
+      serviceAccountName: {{ include "sophora-youtube-connector.serviceAccountName" . }}
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -61,6 +66,11 @@ spec:
         - name: logback
           configMap:
             name: {{ include "sophora-youtube-connector.fullname" . }}-logback
+        {{- if .Values.sophora.youtubeconnector.preprocessor.enabled }}
+        - name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+          configMap:
+            name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+        {{- end }}
         {{- with .Values.extraVolumes}}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -110,6 +120,11 @@ spec:
               mountPath: /app/jobstore/
             - name: yt-oauth
               mountPath: /root/.oauth-credentials/
+            {{- if .Values.sophora.youtubeconnector.preprocessor.enabled }}
+            - name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
+              mountPath: /app/groovy/{{ .Values.sophora.youtubeconnector.preprocessor.filename }}
+              subPath: {{ .Values.sophora.youtubeconnector.preprocessor.filename }}
+            {{- end }}
             {{- with .Values.extraVolumeMounts}}
             {{- toYaml . | nindent 12 }}
             {{- end }}

@@ -1,0 +1,12 @@
+apiVersion: v2
+name: sophora-ai
+description: Sophora AI
+type: application
+version: 2.0.1
+appVersion: 1.0.0
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+annotations:
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: The deployment descriptor now correctly uses the configured service account name.
