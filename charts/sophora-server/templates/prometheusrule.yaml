@@ -15,24 +15,27 @@ spec:
           expr: 'up{container="sophora-server", job="{{ include "sophora-server.fullname" . }}"} != 1'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server offline.
             description: The server "{{`{{ $labels.service }}`}}" is offline for more than 10 minutes.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         - alert: SophoraServerAPISlow
           for: 15m
-          expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.3'
+          expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.5'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server API is slow
-            description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 300ms for more than 15 minutes at the 95th percentile.
+            description: The API of the server "{{`{{ $labels.pod }}`}}" exhibits a response time exceeding 500ms for more than 15 minutes at the 95th percentile.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-server/alerting-runbook.md'
         - alert: SophoraServerAsyncEventQueueBlocked
           for: 10m
           expr: 'sophora_server_events_number_of_asyc_events_waiting_to_be_processed{job="{{ include "sophora-server.fullname" . }}"} > 10000'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server event processing is slow or blocked
             description: The internal event queue of the server "{{`{{ $labels.pod }}`}}" exceeds a size of 10,000 for more than 10m.
@@ -43,6 +46,7 @@ spec:
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == -1'
           labels:
             severity: medium
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: State of Sophora server is unknown
             description: State of Sophora server "{{`{{ $labels.pod }}`}}" is unknown
@@ -52,6 +56,7 @@ spec:
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 3'
           labels:
             severity: medium
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server's synchronization is delayed
             description: The synchronization to the server server "{{`{{ $labels.pod }}`}}" is delayed.
@@ -61,6 +66,7 @@ spec:
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 4'
           labels:
             severity: medium
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server's queue is too long
             description: The server "{{`{{ $labels.pod }}`}}" is not up-to-date due to a too long queue.
@@ -70,6 +76,7 @@ spec:
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 5'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server unavailable
             description: The server "{{`{{ $labels.pod }}`}}" unavailable and the cause should be investigated
@@ -79,6 +86,7 @@ spec:
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 6'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server lost connection to primary
             description: The server "{{`{{ $labels.pod }}`}}" is disconnected from its primary server

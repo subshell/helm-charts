@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-ai.fullname" . }}
+  labels:
+  {{- include "sophora-ai.labels" . | nindent 4 }}
+data:
+  application.yaml: |- {{ toYaml (required "sophora.configuration.application is required in values" .Values.sophora.configuration.application) | nindent 4 }}
+  application-database.yaml: |- {{ toYaml (required "sophora.configuration.database is required in values" .Values.sophora.configuration.database) | nindent 4 }}
+  application-alt-text.yaml: |- {{ toYaml (required "sophora.configuration.altText is required in values" .Values.sophora.configuration.altText) | nindent 4 }}
+  application-caption.yaml: |- {{ toYaml (required "sophora.configuration.caption is required in values" .Values.sophora.configuration.caption) | nindent 4 }}
+  application-categorize.yaml: |- {{ toYaml (required "sophora.configuration.categorize is required in values" .Values.sophora.configuration.categorize) | nindent 4 }}
+  application-check-claims.yaml: |- {{ toYaml (required "sophora.configuration.checkClaims is required in values" .Values.sophora.configuration.checkClaims) | nindent 4 }}
+  application-check-script.yaml: |- {{ toYaml (required "sophora.configuration.checkScript is required in values" .Values.sophora.configuration.checkScript) | nindent 4 }}
+  application-correct.yaml: |- {{ toYaml (required "sophora.configuration.correct is required in values" .Values.sophora.configuration.correct) | nindent 4 }}
+  application-crop-hints.yaml: |- {{ toYaml (required "sophora.configuration.cropHints is required in values" .Values.sophora.configuration.cropHints) | nindent 4 }}
+  application-elaborate.yaml: |- {{ toYaml (required "sophora.configuration.elaborate is required in values" .Values.sophora.configuration.elaborate) | nindent 4 }}
+  application-embedding.yaml: |- {{ toYaml (required "sophora.configuration.embedding is required in values" .Values.sophora.configuration.embedding) | nindent 4 }}
+  {{- if .Values.sophora.configuration.embeddingARDRecommender }}
+  application-embedding-ard-recommender.yaml: |- {{ toYaml .Values.sophora.configuration.embeddingARDRecommender | nindent 4 }}
+  {{- end }}
+  {{- if .Values.sophora.configuration.google }}
+  application-google.yaml: |- {{ toYaml .Values.sophora.configuration.google | nindent 4 }}
+  {{- end }}
+  application-key-points.yaml: |- {{ toYaml (required "sophora.configuration.keyPoints is required in values" .Values.sophora.configuration.keyPoints) | nindent 4 }}
+  application-keywords.yaml: |- {{ toYaml (required "sophora.configuration.keywords is required in values" .Values.sophora.configuration.keywords) | nindent 4 }}
+  application-llm.yaml: |- {{ toYaml (required "sophora.configuration.llm is required in values" .Values.sophora.configuration.llm) | nindent 4 }}
+  application-named-entities.yaml: |- {{ toYaml (required "sophora.configuration.namedEntities is required in values" .Values.sophora.configuration.namedEntities) | nindent 4 }}
+  {{- if .Values.sophora.configuration.proofread }}
+  application-proofread.yaml: |- {{ toYaml .Values.sophora.configuration.proofread | nindent 4 }}
+  {{- end }}
+  application-questions.yaml: |- {{ toYaml (required "sophora.configuration.questions is required in values" .Values.sophora.configuration.questions) | nindent 4 }}
+  application-quotations.yaml: |- {{ toYaml (required "sophora.configuration.quotations is required in values" .Values.sophora.configuration.quotations) | nindent 4 }}
+  application-recommend-documents.yaml: |- {{ toYaml (required "sophora.configuration.recommendDocuments is required in values" .Values.sophora.configuration.recommendDocuments) | nindent 4 }}
+  application-recommend-links.yaml: |- {{ toYaml (required "sophora.configuration.recommendLinks is required in values" .Values.sophora.configuration.recommendLinks) | nindent 4 }}
+  application-rephrase.yaml: |- {{ toYaml (required "sophora.configuration.rephrase is required in values" .Values.sophora.configuration.rephrase) | nindent 4 }}
+  application-sentiment.yaml: |- {{ toYaml (required "sophora.configuration.sentiment is required in values" .Values.sophora.configuration.sentiment) | nindent 4 }}
+  application-shorten.yaml: |- {{ toYaml (required "sophora.configuration.shorten is required in values" .Values.sophora.configuration.shorten) | nindent 4 }}
+  application-shorten-teletext.yaml: |- {{ toYaml (required "sophora.configuration.shortenTeletext is required in values" .Values.sophora.configuration.shortenTeletext) | nindent 4 }}
+  {{- if .Values.sophora.configuration.shortenInfoscreen }}
+  application-shorten-infoscreen.yaml: |- {{ toYaml .Values.sophora.configuration.shortenInfoscreen | nindent 4 }}
+  {{- end }}
+  application-summarize.yaml: |- {{ toYaml (required "sophora.configuration.summarize is required in values" .Values.sophora.configuration.summarize) | nindent 4 }}
+  application-teaser.yaml: |- {{ toYaml (required "sophora.configuration.teaser is required in values" .Values.sophora.configuration.teaser) | nindent 4 }}
+  application-title.yaml: |- {{ toYaml (required "sophora.configuration.title is required in values" .Values.sophora.configuration.title) | nindent 4 }}
+  application-translate.yaml: |- {{ toYaml (required "sophora.configuration.translate is required in values" .Values.sophora.configuration.translate) | nindent 4 }}

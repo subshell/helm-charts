@@ -12,27 +12,30 @@ spec:
         {{- if $defaultRulesEnabled }}
         - alert: NoPrimarySophoraServer
           for: 1m
-          expr: 'absent(sophora_server_replication_mode == 1)'
+          expr: 'absent(sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 1)'
           labels:
             severity: critical
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: The Sophora Cluster has no primary.
             description: No primary server elected in the cluster.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: SophoraServerNotInSync
           for: 2m
-          expr: 'max(sophora_server_source_time and sophora_server_is_primary_server == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state == 2) > 60000'
+          expr: 'max(sophora_server_source_time and sophora_server_is_primary_server{namespace="{{ .Release.Namespace }}"} == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state{namespace="{{ .Release.Namespace }}"} == 2) > 60000'
           labels:
             severity: high
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Server is not in sync
             description: The server  "{{`{{ $labels.pod }}`}}" is not in sync.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: MultiplePrimarySophoraServers
           for: 1m
-          expr: 'count(sophora_server_replication_mode == 1) > 1'
+          expr: 'count(sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 1) > 1'
           labels:
             severity: critical
+            namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: The Sophora Cluster has more than one server claiming to be the primary.
             description: There are two primary servers in the cluster.

@@ -1,0 +1,247 @@
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: docker.subshell.com/sophora/ai
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "1.0.0"
+
+imagePullSecrets: []
+
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
+
+sophora:
+  authentication:
+    secret:
+      name: ""
+      usernameKey: username
+      passwordKey: password
+
+  postgresCredentials:
+    username:
+    secret:
+      name: ""
+      loginKey: login
+      passwordKey: password
+
+  # LLM provider credentials secrets (optional)
+  #llmProviderCredentials:
+  #  openai:
+  #    secret:
+  #      name: ""
+  #      apiKeyKey: apiKey
+
+  # Google Search credentials secret (optional)
+  #googleSearchCredentials:
+  #  secret:
+  #    name: ""
+  #    searchEngineIDKey: searchEngineID
+  #    apiKeyKey: apiKey
+
+  # ARD Recommender credentials secret (optional)
+  #ardRecommenderCredentials:
+  #  secret:
+  #    name: ""
+  #    authKeyKey: authKey
+
+  configuration:
+    # contents of application.yaml
+    application:
+      sophora:
+        client:
+          server-connection:
+            urls:
+              - https://sophora-server.example.com:1196
+            username: # in secret
+            password: # in secret
+
+    # contents of application-database.yaml
+    database:
+      sophora-ai:
+        database:
+          postgres:
+            host: postgres.example.com
+            port: 5432
+            login: # in secret
+            password: # in secret
+            database: sophoraai
+            schema: public
+
+    # contents of application-alt-text.yaml
+    altText:
+
+    # contents of application-caption.yaml
+    caption:
+
+    # contents of application-categorize.yaml
+    categorize:
+
+    # contents of application-check-claims.yaml
+    checkClaims:
+
+    # contents of application-check-script.yaml
+    checkScript:
+
+    # contents of application-correct.yaml
+    correct:
+
+    # contents of application-crop-hints.yaml
+    cropHints:
+
+    # contents of application-elaborate.yaml
+    elaborate:
+
+    # contents of application-embedding.yaml
+    embedding:
+
+    # contents of application-embedding-ard-recommender.yaml (optional)
+    #embeddingARDRecommender:
+    #  sophora-ai:
+    #    embedding:
+    #      ard-recommender:
+    #        base-uri: https://ard-recommender.example.com
+    #        auth-key: # in secret
+    #        client: client
+
+    # contents of application-google.yaml (optional)
+    #google:
+    #  sophora-ai:
+    #    google:
+    #      search:
+    #        search-engine-id: # in secret
+    #        api-key: # in secret
+
+    # contents of application-key-points.yaml
+    keyPoints:
+
+    # contents of application-keywords.yaml
+    keywords:
+
+    # contents of application-llm.yaml
+    llm:
+
+    # contents of application-named-entities.yaml
+    namedEntities:
+
+    # contents of application-proofread.yaml (actually required, but optional to support older app versions)
+    #proofread:
+
+    # contents of application-questions.yaml
+    questions:
+
+    # contents of application-quotations.yaml
+    quotations:
+
+    # contents of application-recommend-documents.yaml
+    recommendDocuments:
+
+    # contents of application-recommend-links.yaml
+    recommendLinks:
+
+    # contents of application-rephrase.yaml
+    rephrase:
+
+    # contents of application-sentiment.yaml
+    sentiment:
+
+    # contents of application-shorten.yaml
+    shorten:
+
+    # contents of application-shorten-teletext.yaml
+    shortenTeletext:
+
+    # contents of application-shorten-infoscreen.yaml (actually required, but optional to support older app versions)
+    #shortenInfoscreen:
+
+    # contents of application-summarize.yaml
+    summarize:
+
+    # contents of application-teaser.yaml
+    teaser:
+
+    # contents of application-title.yaml
+    title:
+
+    # contents of application-translate.yaml
+    translate:
+
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
+  limits:
+    memory: 1Gi
+
+ai:
+  # Extra environment variables.
+  #
+  # Example extra environment variable to use a GCP credentials file from a secret.
+  # Use this in combination with extraVolumes and extraVolumeMounts.
+  #
+  # - name: GOOGLE_APPLICATION_CREDENTIALS
+  #   value: /gcp-credentials/credentials.json
+  extraEnv:
+
+service:
+  type: ClusterIP
+  port: 8080
+  annotations: {}
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+extraDeploy: []
+
+# Extra volumes.
+#
+# Example extra volume to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   secret:
+#     secretName: sophora-image-ai-gcp-credentials
+extraVolumes: []
+
+# Extra volume mounts.
+#
+# Example extra volume mount to use a GCP credentials file from a secret:
+#
+# - name: gcp-credentials
+#   mountPath: /gcp-credentials
+#   readOnly: true
+extraVolumeMounts: []
+
+podAnnotations: {}
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

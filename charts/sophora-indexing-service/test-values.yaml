@@ -38,6 +38,9 @@ sisi:
 
 podAnnotations: {}
 
+podLabels:
+  test.example.org/key: value
+
 ingress:
   enabled: true
   ingressClassName: nginx

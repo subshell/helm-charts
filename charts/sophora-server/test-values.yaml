@@ -12,6 +12,11 @@ imagePullSecrets:
 podLabels:
   istio/inject: true
 
+podAnnotations:
+  some-app: "app-value"
+
+addChecksumAnnotation: true
+
 additionalSelectorLabels:
   sophora.cloud/app: cluster-server
 
@@ -31,6 +36,8 @@ affinity:
                 - cluster-server
 
 sophora:
+  grpcApi:
+    enabled: true
   server:
     logback: |
       <?xml version="1.0" encoding="UTF-8"?>
@@ -44,24 +51,31 @@ sophora:
         requests:
           storage: 200Gi
     persistence:
-      repositoryType: postgres
+      repositoryType: localdb
       archiveType: none
       mysql:
         repositories:
           - secretName: repository-secret01
             hostnameKey: new-hostname
-      postgres:
-        versionStoreEnabled: true
-        hostname: my-host
-        port: 5432
-        secret:
-          name: postgres-auth
-          usernameKey: user1
-          passwordKey: pass1
-        repository:
-          defaultWorkspaceDB: "repository"
-          liveWorkspaceDB: "repository"
-          jcrVersionsDB: "repository"
+      multiPostgres:
+        enabled: true
+        byPodIndex:
+        - hostname: otherhost
+          port: "5432"
+          database: "sophora-1"
+          secret:
+            name: secret-1
+            usernameKey: username
+            passwordKey: password
+        - hostname: secondhost
+          port: "5432"
+          database: "sophora-2"
+          secret:
+            name: secret-2
+            usernameKey: username
+            passwordKey: password
+          repository:
+            defaultWorkspaceDB: "my-repo"
 
     binaryStore:
       s3:
@@ -112,14 +126,13 @@ ingress:
     - host: "sophora.domain.de"
 
 grpcIngress:
-  enabled: true
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
   hosts:
     - host: "sophora.domain.de"
-      path: /sophora\.grpc.*
+      path: /sophora\.srpc.*
 
 extraDeploy:
   - |

@@ -27,9 +27,14 @@ spec:
   {{- end }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
+      {{- if or (.Values.podAnnotations) (.Values.addChecksumAnnotation) }}
       annotations:
-        {{- toYaml . | nindent 8 }}
+        {{- if .Values.addChecksumAnnotation }}
+        checksum/config: {{ include "common.configMapHash" . }}
+        {{- end }}
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
+        {{- end }}
       {{- end }}
       labels:
         {{- include "sophora-server.selectorLabels" . | nindent 8 }}
@@ -69,35 +74,11 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             {{ include "sophora-server.mysqlEnv" . | trim | nindent 12 }}
-            {{- if (or (eq .Values.sophora.server.persistence.repositoryType "postgres") .Values.sophora.server.persistence.postgres.versionStoreEnabled) }}
-            - name: SOPHORA_PERSISTENCE_POSTGRES_HOSTNAME
-              value: {{ .Values.sophora.server.persistence.postgres.hostname }}
-            - name: SOPHORA_PERSISTENCE_POSTGRES_PORT
-              value: {{ .Values.sophora.server.persistence.postgres.port | quote }}
-            {{- if .Values.sophora.server.persistence.postgres.username }}
-            - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
-              value: {{ .Values.sophora.server.persistence.postgres.username | quote }}
+            {{- if or (or (eq .Values.sophora.server.persistence.repositoryType "postgres") .Values.sophora.server.persistence.postgres.versionStoreEnabled) .Values.sophora.server.persistence.postgres.enabled }}
+            {{ include "sophora-server.postgresSingleEnv" . | trim | nindent 12 }}
             {{- end }}
-            {{- if .Values.sophora.server.persistence.postgres.secret.name }}
-            - name: SOPHORA_PERSISTENCE_POSTGRES_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.postgres.secret.usernameKey }}
-                  name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
-                  optional: false
-            - name: SOPHORA_PERSISTENCE_POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: {{ .Values.sophora.server.persistence.postgres.secret.passwordKey }}
-                  name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
-                  optional: false
-            {{- end }}
-            - name: JCR_REPOSITORY_DEFAULT_POSTGRES_DB
-              value: {{ .Values.sophora.server.persistence.postgres.repository.defaultWorkspaceDB }}
-            - name: JCR_REPOSITORY_LIVE_POSTGRES_DB
-              value: {{ .Values.sophora.server.persistence.postgres.repository.liveWorkspaceDB }}
-            - name: JCR_REPOSITORY_VERSIONS_POSTGRES_DB
-              value: {{ .Values.sophora.server.persistence.postgres.repository.jcrVersionsDB }}
+            {{- if .Values.sophora.server.persistence.multiPostgres.enabled }}
+            {{ include "sophora-server.postgresMutliEnv" . | trim | nindent 12 }}
             {{- end }}
             {{ if .Values.configInitializer.env -}}
             {{- toYaml .Values.configInitializer.env | nindent 12 }}
@@ -127,7 +108,7 @@ spec:
         {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ include "sophora-server.name" . }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -280,6 +261,10 @@ spec:
               name: http
             - containerPort: {{ .Values.sophora.server.ports.jms }}
               name: jms
+          {{- if eq .Values.sophora.grpcApi.enabled true }}
+            - containerPort: {{ .Values.sophora.server.ports.grpc }}
+              name: grpc
+          {{- end }}
           {{- if eq .Values.enableRMIPortForwarding true }}
             - containerPort: {{ .Values.sophora.server.ports.rmiService }}
               name: rmi-service

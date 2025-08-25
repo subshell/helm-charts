@@ -1,0 +1,3 @@
+storage:
+  size: 4Gi
+  storageClass:

@@ -1,5 +1,8 @@
 fullnameOverride: "test-webclient"
 
+image:
+  tag: "latest"
+
 sophora:
   authentication:
     secret:
@@ -15,6 +18,12 @@ webclient:
     abc: test
     a:
       b: test2
+
+extraEnv:
+  - name: FOO
+    value: bar
+  - name: EXTRA_ENV
+    value: extra-spicy-value
 
 extraDeploy:
   - |

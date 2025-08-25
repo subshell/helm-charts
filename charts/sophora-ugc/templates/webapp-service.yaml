@@ -13,7 +13,7 @@ spec:
   loadBalancerIP: {{ .Values.service.webapp.loadBalancerIP }}
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: {{ default 8080 (.Values.ugc.config.server).port }}
       protocol: TCP
   selector:
     {{- include "sophora-ugc.selectorLabels" . | nindent 4 }}

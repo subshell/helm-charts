@@ -3,13 +3,16 @@ fullnameOverride: ""
 
 image:
   name: docker.subshell.com/sophora/sophora-webclient
-  version: 4
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
   pullPolicy: IfNotPresent
 
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file.
 hostAliases:
 
 imagePullSecrets: []
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 podAnnotations: {}
 
@@ -51,6 +54,8 @@ service:
   port: 8080
 
 extraDeploy: []
+
+extraEnv:
 
 serviceMonitor:
   enabled: false

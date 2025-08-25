@@ -14,7 +14,7 @@ preStop:
   image:
     repository: docker.subshell.com/tools/sophora-prestop
     pullPolicy: IfNotPresent
-    tag: "2.0.0"
+    tag: "2.1.0"
 
 serverModeLabeler:
   image:
@@ -85,9 +85,12 @@ extraVolumes: []
 extraVolumeMounts: []
 
 sophora:
+  grpcApi:
+    enabled: false
   server:
     ports:
       http: 1196
+      grpc: 2026
       jms: 1197
       rmiService: 1198
       rmiRegistry: 1199
@@ -218,6 +221,9 @@ sophora:
 
       ## @param sophora.server.persistence.postgres postgres configuration. Required for Sophora Server >5.0.0.
       postgres:
+        ## @param sophora.server.persistence.postgres.enabled Must be true for Sophora Server >6.0.0.
+        enabled: false
+        ## @param sophora.server.persistence.postgres.versionStoreEnabled is deprecated. Use enabled instead.
         versionStoreEnabled: false
         hostname:
         port: "5432"
@@ -230,6 +236,23 @@ sophora:
           defaultWorkspaceDB: "repository"
           liveWorkspaceDB: "repository"
           jcrVersionsDB: "repository"
+
+      ## @param sophora.server.persistence.multiPostgres Allows any statefulset pod to connect a uniquely configured postgres.
+      multiPostgres:
+        enabled: false
+        byPodIndex:
+        #- hostname:
+        #  port: "5432"
+        #  username:
+        #  database: "sophora"
+        #  secret:
+        #    name:
+        #    usernameKey: username
+        #    passwordKey: password
+        #  repository:
+        #    defaultWorkspaceDB: "repository"
+        #    liveWorkspaceDB: "repository"
+        #    jcrVersionsDB: "repository"
 
     binaryStore:
       s3:
@@ -258,6 +281,7 @@ sophora:
       # # Ingress specific
       # sophora.replication.slaveHostname=
       # sophora.remote.api.http.port=1196
+      # sophora.remote.api.grpc.port=2026
       # sophora.remote.jmsbroker.host=
       # sophora.remote.jmsbroker.port=1197
       # sophora.rmi.servicePort=1198
@@ -302,6 +326,9 @@ livenessProbe:
 
 podAnnotations: {}
 
+# set to true to add a checksum annotation to the pod so that configmap changes trigger a redeployment
+addChecksumAnnotation: false
+
 podLabels: {}
 
 podSecurityContext: {}
@@ -329,8 +356,9 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# This can be used to configure a different ingress for the gRPC service as gRPC may require different settings,
-# e.g. nginx needs to be explicitly informed that the backend protocol is gRPC and that the path should be regex-matched.
+# This can be used to configure a different ingress for the SRPC service as it might require different settings.
+# The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
+# The paths can be regex-matched since all SRPC-calls have the root-path sophora.srpc
 grpcIngress:
   enabled: false
   # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
@@ -342,7 +370,7 @@ grpcIngress:
   # nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
   hosts:
   # - host: chart-example.local
-  #   path: /sophora\.grpc.*
+  #   path: /sophora\.srpc.*
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
@@ -353,6 +381,7 @@ service:
   headlessAnnotations: {}
   type:
   httpPort: 1196
+  grpcPort: 2026
   jmsPort: 1197
   # -- (boolean) defaults to sophora.server.isClusterServer
   enableSessionAffinity:

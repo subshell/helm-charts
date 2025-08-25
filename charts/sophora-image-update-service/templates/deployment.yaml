@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "update-service.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
       {{- include "update-service.selectorLabels" . | nindent 6 }}
@@ -63,17 +63,7 @@ spec:
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
-              path: /actuator/health
-              port: http
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
-          {{- end }}
-          {{- with .Values.readinessProbe }}
-          readinessProbe:
-            httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -83,7 +73,7 @@ spec:
           {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/liveness
               port: http
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}

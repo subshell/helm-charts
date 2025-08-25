@@ -29,16 +29,20 @@ authentication:
   secret:
     server:
       name: secret-name
-      usernameKey: username
-      passwordKey: password
+      usernameKey:
+      passwordKey:
     database:
       name: secret-name
-      usernameKey: database-user
-      passwordKey: database-password
+      usernameKey:
+      passwordKey:
     binarystore:
       name: secret-name
       accessKeyKey: binarystore-access-key
       secretIdKey: binarystore-secret-id
+    s3bucket:
+      name: s3bucket-secret
+      accessKeyKey: s3bucket-access-key
+      secretIdKey: s3bucket-secret-id
 
 ugc:
   image:
@@ -91,6 +95,24 @@ ugc:
         </root>
     </configuration>
   config:
+    sophora-server:
+      host: 
+    database:
+      url:
+
+  extraContainers: []
+  extraInitContainers: []
+
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: false
+    # Automatically mount a ServiceAccount's API credentials?
+    automount: true
+    # Annotations to add to the service account
+    annotations: {}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
 
 ugcMultimedia:
   enabled: false
@@ -154,6 +176,10 @@ ugcMultimedia:
     </root>
     </configuration>
   config:
+    storage:
+      type: fs
+      fs:
+        baseDir: /binaries/
 
 # Additional environment variables can be defined here
 env:
