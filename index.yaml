@@ -92,8 +92,7 @@ entries:
           description: "'allowedRoutes' in `https` config allows all namespaces"
     apiVersion: v2
     created: "2025-07-21T17:21:57.570352133Z"
-    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
-      fetch Let's Encrypt certificates.
+    description: "A Helm chart to deploy a Gateway. Optionally use cert-manager to fetch Let's Encrypt certificates."
     digest: 91e9a7758086a6229bd5e4062f8c1dc44692e44ad38d627661306a4189032a65
     name: gateway
     type: application
