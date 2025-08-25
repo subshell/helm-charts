@@ -7,5 +7,5 @@ appVersion: '4.14.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: fixed description of alert
+    - kind: changed
+      description: If nameOverride is set, this will be used instead of .Chart.Name. If nameOverride is not set, the .Chart.Name is used as before.
