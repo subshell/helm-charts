@@ -4,9 +4,10 @@ description: Sophora SEO Check
 type: application
 version: 1.0.3
 appVersion: 4.12.0
-
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
 home: https://subshell.com/sophora/modules/sophora-seo-check104.html

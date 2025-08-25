@@ -24,6 +24,8 @@ appVersion: 4.26.0
 
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
 
 # A list of URLs to source code for this project
 sources:

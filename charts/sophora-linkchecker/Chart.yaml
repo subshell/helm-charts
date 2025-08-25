@@ -2,11 +2,12 @@ apiVersion: v2
 name: sophora-linkchecker
 description: Sophora Link Checker
 type: application
-version: 0.1.3
+version: 0.1.4
 appVersion: 6.0.0
-
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
 home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
