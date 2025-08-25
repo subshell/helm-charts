@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.12
+- link to sources at GitHub
+
+## 2.0.11
+- fix changelog YAML
+
+## 2.0.10
+- corrected the environment-variables for the ugc-multimedia statefulset: database-credentials and s3-credentials
+
+## 2.0.9
+- Add S3 connection for UGC
+
 ## 2.0.8
 - Add service account name to pod. 
 

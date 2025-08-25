@@ -2,8 +2,15 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.2.1
+version: 0.2.3
 appVersion: "5.x"
 
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+home: https://subshell.com/sophora/modules/sophora-smf100.html
+icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png

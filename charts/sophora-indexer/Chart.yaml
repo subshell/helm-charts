@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.0
+version: 1.1.1
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -25,3 +25,9 @@ appVersion: '4.2.2'
 
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexer

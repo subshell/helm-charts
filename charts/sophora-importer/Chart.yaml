@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.1
+version: 2.0.3
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -24,3 +24,14 @@ appVersion: 5.0.0
 
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-importer102.html
+# A URL to an SVG or PNG image to be used as an icon
+icon: https://subshell.com/logos/importer114~1x1.1683632365796.png

@@ -5,11 +5,15 @@ type: application
 maintainers:
 - name: Team Weasel
   email: weasel@subshell.com
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
 
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.3.0
+version: 1.3.3
 
 annotations:
   artifacthub.io/changes: |

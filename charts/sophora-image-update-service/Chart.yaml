@@ -15,7 +15,7 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.3
+version: 1.0.4
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
@@ -24,3 +24,12 @@ appVersion: 4.4.8
 
 annotations:
   artifacthub.io/changes: |
+
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-update-service
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-image-service102.html
+# A URL to an SVG or PNG image to be used as an icon
+icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png

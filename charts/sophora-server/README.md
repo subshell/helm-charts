@@ -216,28 +216,33 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
-## 2.9.0
+### 2.10.0
+
+This version changes the configuration of the gRPC API since the latest pre-release versions of Sophora now run it on a separate port. The most notable change may be that
+the configuration `grpcIngress.enabled` was removed in favor of `sophora.grpcApi.enabled`.
+
+### 2.9.0
 
 * The configuration `sophora.server.persistence.postgres.versionStoreEnabled` has been deprecated. Use `sophora.server.persistence.postgres.enabled` instead.
 * New configuration `sophora.server.persistence.multiPostgres`. [Read more](#multi-postgres-support)
 
-## 2.5.2
+### 2.5.2
 This version changes the paths for the gRPC-controller from the technology-driven name sophora.grpc to the product driven name sophora.srpc. This only affects server in version 6 or newer.
 
-## 2.5.1
+### 2.5.1
 This version updates the pre-stop hook to version 2.1.0 which is required when using Sophora 6. It is still compatible with previous versions of Sophora.
 
-## 2.5.0
+### 2.5.0
 
 This version of the Chart now supports deploying a second Ingress with the purpose to host the gRPC API, which is coming in Sophora 6.
 
-## 2.1.0
+### 2.1.0
 Updates the pre-stop hook to version 2.0.0 and configures it accordingly.
 Please note that this now involves the creation of another Role and RoleBinding for this specific use-case, so that
 the hook can get information through the Kubernetes API. If you don't manage the Service Account through this Helm
 chart, you may need to configure it manually to provide the required permissions.
 
-## 2.0.0 (Breaking changes)
+### 2.0.0 (Breaking changes)
 > [!WARNING]
 > Please read this information carefully before updating!
 

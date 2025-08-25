@@ -26,6 +26,9 @@ data:
   application-keywords.yaml: |- {{ toYaml (required "sophora.configuration.keywords is required in values" .Values.sophora.configuration.keywords) | nindent 4 }}
   application-llm.yaml: |- {{ toYaml (required "sophora.configuration.llm is required in values" .Values.sophora.configuration.llm) | nindent 4 }}
   application-named-entities.yaml: |- {{ toYaml (required "sophora.configuration.namedEntities is required in values" .Values.sophora.configuration.namedEntities) | nindent 4 }}
+  {{- if .Values.sophora.configuration.proofread }}
+  application-proofread.yaml: |- {{ toYaml .Values.sophora.configuration.proofread | nindent 4 }}
+  {{- end }}
   application-questions.yaml: |- {{ toYaml (required "sophora.configuration.questions is required in values" .Values.sophora.configuration.questions) | nindent 4 }}
   application-quotations.yaml: |- {{ toYaml (required "sophora.configuration.quotations is required in values" .Values.sophora.configuration.quotations) | nindent 4 }}
   application-recommend-documents.yaml: |- {{ toYaml (required "sophora.configuration.recommendDocuments is required in values" .Values.sophora.configuration.recommendDocuments) | nindent 4 }}
@@ -34,6 +37,9 @@ data:
   application-sentiment.yaml: |- {{ toYaml (required "sophora.configuration.sentiment is required in values" .Values.sophora.configuration.sentiment) | nindent 4 }}
   application-shorten.yaml: |- {{ toYaml (required "sophora.configuration.shorten is required in values" .Values.sophora.configuration.shorten) | nindent 4 }}
   application-shorten-teletext.yaml: |- {{ toYaml (required "sophora.configuration.shortenTeletext is required in values" .Values.sophora.configuration.shortenTeletext) | nindent 4 }}
+  {{- if .Values.sophora.configuration.shortenInfoscreen }}
+  application-shorten-infoscreen.yaml: |- {{ toYaml .Values.sophora.configuration.shortenInfoscreen | nindent 4 }}
+  {{- end }}
   application-summarize.yaml: |- {{ toYaml (required "sophora.configuration.summarize is required in values" .Values.sophora.configuration.summarize) | nindent 4 }}
   application-teaser.yaml: |- {{ toYaml (required "sophora.configuration.teaser is required in values" .Values.sophora.configuration.teaser) | nindent 4 }}
   application-title.yaml: |- {{ toYaml (required "sophora.configuration.title is required in values" .Values.sophora.configuration.title) | nindent 4 }}

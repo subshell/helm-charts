@@ -2,8 +2,12 @@ apiVersion: v2
 name: sophora-seo-check
 description: Sophora SEO Check
 type: application
-version: 1.0.1
+version: 1.0.3
 appVersion: 4.12.0
 
 annotations:
   artifacthub.io/changes: |
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png

@@ -7,12 +7,14 @@ metadata:
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
   type: {{ .Values.service.type | quote }}
-  {{ if .Values.service.clusterIP -}}
-  clusterIP: {{.Values.service.clusterIP}}
+  {{- if .Values.service.clusterIP }}
+  clusterIP: {{ .Values.service.clusterIP }}
   {{- end }}
   selector: {{- include "access-service.selectorLabels" . | nindent 4 }}
   ports:
-    - protocol: TCP
+    - name: http
       port: {{ .Values.service.httpPort }}
-      targetPort: http
-      name: http
+      protocol: TCP
+    - name: metrics
+      port: {{ .Values.service.metricsPort }}
+      protocol: TCP

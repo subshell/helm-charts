@@ -12,7 +12,7 @@ This chart requires the following already present in the target namespace:
 
 ## Configuration
 
-The application configuration is located underneath `mediafinder.configuration` and is documented at https://subshell.com/docs/mediafinder/5/mediafinder100.html and located at
+The application configuration is located underneath `mediafinder.configuration` and is documented at https://subshell.com/docs/mediafinder/5/mediafinder100.html
 
 ## Plugin Implementation
 

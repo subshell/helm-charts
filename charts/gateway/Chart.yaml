@@ -1,0 +1,15 @@
+apiVersion: v2
+name: gateway
+description: A Helm chart to deploy a Gateway. Optionally use cert-manager to fetch Let's Encrypt certificates.
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 1.0.5
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/gateway

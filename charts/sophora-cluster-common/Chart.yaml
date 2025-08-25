@@ -2,8 +2,12 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.3.0
+version: 1.4.2
 appVersion: "4"
-
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+home: https://subshell.com/sophora/modules/sophora-server102.html
