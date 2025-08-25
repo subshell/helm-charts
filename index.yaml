@@ -105,8 +105,7 @@ entries:
           description: initial release
     apiVersion: v2
     created: "2025-07-21T12:21:38.068404917Z"
-    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
-      fetch Let's Encrypt certificates.
+    description: "A Helm chart to deploy a Gateway. Optionally use cert-manager to fetch Let's Encrypt certificates."
     digest: 4c146286808bc484e8ab493f5ad589950ab55bbfe9ef2248c21ba42db76f9341
     name: gateway
     type: application
