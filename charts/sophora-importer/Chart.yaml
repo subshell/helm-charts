@@ -25,9 +25,7 @@ appVersion: 5.0.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Service type configuration
-    - kind: fixed
-      description: The configuration of the fullNameOverride
+      description: "link to sources at GitHub"
 
 # A list of URLs to source code for this project
 sources:

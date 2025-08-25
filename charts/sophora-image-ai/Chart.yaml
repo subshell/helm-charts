@@ -7,7 +7,7 @@ appVersion: 5.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Enabled the use of a service account.
+      description: "link to sources at GitHub"
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
 home: https://subshell.com/sophora/modules/sophora-image-ai100.html

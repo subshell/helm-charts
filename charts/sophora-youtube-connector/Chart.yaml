@@ -25,14 +25,12 @@ version: 1.2.2
 appVersion: '4.6.5'
 
 annotations:
-    artifacthub.io/changes: |
-        - kind: fixed
-          description: Changes the mountPath of the preprocessor script to `/app/groovy/\<FILENAME\>`.
-        - kind: added
-          description: Adds the possibility to enable a service account for the av tool and a configmap for the preprocessor script.
-    artifacthub.io/links: |
-        - name: Documentation for the AV Tool
-          url: https://subshell.com/docs/avtool/
+  artifacthub.io/changes: |
+    - kind: added
+      description: "link to sources at GitHub"
+  artifacthub.io/links: |
+    - name: Documentation for the AV Tool
+      url: https://subshell.com/docs/avtool/
 
 # A list of URLs to source code for this project
 sources:

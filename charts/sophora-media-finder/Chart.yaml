@@ -8,4 +8,4 @@ appVersion: "5.x"
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Add option to set CORS origin for the application
+      description: "link to sources at GitHub"

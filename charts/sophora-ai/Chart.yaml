@@ -8,5 +8,5 @@ sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: The deployment descriptor now correctly uses the configured service account name.
+    - kind: added
+      description: "link to sources at GitHub"
