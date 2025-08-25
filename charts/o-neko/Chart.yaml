@@ -2,7 +2,12 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 1.6.1
+version: 1.6.2
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
+
 appVersion: "1.8.0"
 sources:
   - https://github.com/subshell/o-neko/

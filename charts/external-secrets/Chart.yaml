@@ -7,5 +7,6 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "link to sources at GitHub"
+
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/external-secrets

@@ -3,11 +3,12 @@ name: sophora-image-ai
 description: Sophora Image AI
 type: application
 version: 2.1.1
-appVersion: 5.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "link to subshell website"
+
+appVersion: 5.1.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
 home: https://subshell.com/sophora/modules/sophora-image-ai100.html

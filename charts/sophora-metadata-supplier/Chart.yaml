@@ -3,13 +3,12 @@ name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
 version: 1.3.4
-appVersion: '4.14.0'
-
 annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "link to sources at GitHub"
 
+appVersion: '4.14.0'
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
 home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html

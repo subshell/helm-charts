@@ -2,7 +2,12 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.0.1
+version: 1.0.2
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "added Artifacthub changelog annotation"
+
 appVersion: 6.0.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
