@@ -2,11 +2,13 @@ apiVersion: v2
 name: sophora-image-ai
 description: Sophora Image AI
 type: application
-version: 2.1.0
+version: 2.1.1
 appVersion: 5.1.0
-sources:
-  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: Enabled the use of a service account.
+      description: "link to subshell website"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png

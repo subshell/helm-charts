@@ -2,10 +2,15 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.3.3
+version: 1.3.4
 appVersion: '4.14.0'
 
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: If nameOverride is set, this will be used instead of .Chart.Name. If nameOverride is not set, the .Chart.Name is used as before.
+    - kind: added
+      description: "link to sources at GitHub"
+
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png

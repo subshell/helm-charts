@@ -15,9 +15,18 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.2.1
+version: 1.2.2
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 appVersion: '5.4.0'
+
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-importer102.html
+# A URL to an SVG or PNG image to be used as an icon
+icon: https://subshell.com/logos/importer114~1x1.1683632365796.png

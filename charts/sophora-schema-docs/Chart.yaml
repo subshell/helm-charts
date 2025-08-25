@@ -2,5 +2,9 @@ apiVersion: v2
 name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
-version: 2.1.2
+version: 2.1.3
 appVersion: 5.0.0
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png

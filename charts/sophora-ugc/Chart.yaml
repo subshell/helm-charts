@@ -23,10 +23,19 @@ version: 2.0.11
 # It is recommended to use it with quotes.
 appVersion: '4.8.0'
 
+# A list of URLs to source code for this project
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+
+# The URL of this projects home page
+home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+# A URL to an SVG or PNG image to be used as an icon
+icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "corrected the environment-variables for the ugc-multimedia statefulset: database-credentials and s3-credentials"
+    - kind: added
+      description: "link to sources at GitHub"
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

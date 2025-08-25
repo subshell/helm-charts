@@ -2,9 +2,12 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.4.1
+version: 1.4.2
 appVersion: "4"
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: Prometheus alerts check for Sophora Servers in a single namespace only.
+    - kind: added
+      description: "link to sources at GitHub"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+home: https://subshell.com/sophora/modules/sophora-server102.html

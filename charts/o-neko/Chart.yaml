@@ -2,10 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 1.6.0
+version: 1.6.1
 appVersion: "1.8.0"
 sources:
-- https://github.com/subshell/o-neko/
+  - https://github.com/subshell/o-neko/
+  - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
 dependencies:
   - name: mongodb
     version: 15.1.7

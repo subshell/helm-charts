@@ -2,5 +2,7 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: 6.0.0
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
