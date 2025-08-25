@@ -38,7 +38,8 @@ sisi:
 
 podAnnotations: {}
 
-podLabels: {}
+podLabels:
+  test.example.org/key: value
 
 ingress:
   enabled: true
