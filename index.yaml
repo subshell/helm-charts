@@ -92,8 +92,8 @@ entries:
           description: "'allowedRoutes' in `https` config allows all namespaces"
     apiVersion: v2
     created: "2025-07-21T17:21:57.570352133Z"
-    description: "A Helm chart to deploy a Gateway. Optionally use cert-manager to
-      fetch Let's Encrypt certificates."
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
     digest: 91e9a7758086a6229bd5e4062f8c1dc44692e44ad38d627661306a4189032a65
     name: gateway
     type: application
@@ -1949,6 +1949,21 @@ entries:
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
     apiVersion: v2
     appVersion: 4.8.0
+    created: "2025-08-25T15:46:42.026985163Z"
+    description: A Helm chart for Kubernetes
+    digest: ef83b1d1c7af03d1f5d03148075333bcc251ca53850839924386025f907dd9ca
+    name: sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.11/sophora-ugc-2.0.11.tgz
+    version: 2.0.11
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "corrected the environment-variables for the ugc-multimedia statefulset: database-credentials and s3-credentials"
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
     created: "2025-08-25T14:13:51.450234049Z"
     description: A Helm chart for Kubernetes
     digest: c75ac130669a8f6e01b13db771152b7ba8bf4dc58fab8ed3d50bc82700af961d
@@ -2308,4 +2323,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-25T14:13:51.450738748Z"
+generated: "2025-08-25T15:46:42.027348056Z"
