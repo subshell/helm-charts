@@ -1206,6 +1206,20 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Adds the possibility to set podLabels
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2025-08-25T13:55:47.66146272Z"
+    description: Sophora Indexing Service (SISI)
+    digest: c20c653fe8cbce618124a5c3c07c28d51ec63dd0669ac74388c95e37f618ca17
+    name: sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.3.0/sophora-indexing-service-1.3.0.tgz
+    version: 1.3.0
   - apiVersion: v2
     appVersion: 4.6.0
     created: "2023-06-09T06:53:10.240881735Z"
@@ -2255,4 +2269,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-14T08:19:17.213715257Z"
+generated: "2025-08-25T13:55:47.661776958Z"
