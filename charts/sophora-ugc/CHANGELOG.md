@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.12
+- link to sources at GitHub
+
 ## 2.0.11
 - fix changelog YAML
 
