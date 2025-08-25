@@ -22,7 +22,16 @@ This git repository uses [Github Pages](https://helm.sh/docs/topics/chart_reposi
 
 ## Changelogs
 
-Add a [Changelog](https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations) for the new chart version. 
+Add a [Changelog](https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations) for the new chart version. Example:
+
+version: 1.2.3
+annotations:
+  artifacthub.io/changes: | 
+    - kind: changed
+      description: We now include a changelog in each helm chart.
+      links:
+        - name: GitHub Issue
+          url: https://github.com/subshell/helm-charts/pull/171
 
 
 * * *
