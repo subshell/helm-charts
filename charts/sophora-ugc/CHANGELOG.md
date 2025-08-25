@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.11
+- fix changelog YAML
+
 ## 2.0.10
 - corrected the environment-variables for the ugc-multimedia statefulset: database-credentials and s3-credentials
 
