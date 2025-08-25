@@ -2,11 +2,11 @@ apiVersion: v2
 name: external-secrets
 description: A Helm chart for creating multiple external secrets
 type: application
-version: 2.0.1
+version: 2.0.2
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "link to sources at GitHub"
+    - kind: fixed
+      description: "chart formatting"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/external-secrets

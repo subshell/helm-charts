@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.12
+version: 2.0.13
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "link to sources at GitHub"
+    - kind: fixed
+      description: "chart formatting"
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

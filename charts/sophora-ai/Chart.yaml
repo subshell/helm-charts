@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.0.2
+version: 2.0.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "link to subshell website and icon"
+    - kind: fixed
+      description: "chart formatting"
 
 appVersion: 1.0.0
 sources:
