@@ -3,7 +3,7 @@ name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
 version: 1.3.0
-appVersion: '4.6.0'
+appVersion: '5.4.1'
 
 annotations:
     artifacthub.io/changes: |
