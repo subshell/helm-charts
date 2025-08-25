@@ -106,7 +106,8 @@ entries:
           description: initial release
     apiVersion: v2
     created: "2025-07-21T12:21:38.068404917Z"
-    description: "A Helm chart to deploy a Gateway. Optionally use cert-manager to fetch Let's Encrypt certificates."
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
     digest: 4c146286808bc484e8ab493f5ad589950ab55bbfe9ef2248c21ba42db76f9341
     name: gateway
     type: application
@@ -1943,6 +1944,25 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "link to sources at GitHub"
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2025-08-25T16:17:04.373145286Z"
+    description: A Helm chart for Kubernetes
+    digest: 978ae7e07ff4ab7ff3adac7bf45f15cae834842887f68d38730139bc994ddf4a
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.12/sophora-ugc-2.0.12.tgz
+    version: 2.0.12
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "corrected the environment-variables for the ugc-multimedia statefulset: database-credentials and s3-credentials"
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
@@ -2322,4 +2342,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-25T15:46:42.027348056Z"
+generated: "2025-08-25T16:17:04.373557708Z"
