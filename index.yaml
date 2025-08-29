@@ -988,6 +988,24 @@ entries:
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 4.13.0
+    created: "2025-08-29T13:25:47.030961701Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: b961fd13fcf63ffb7eaf03992e488de6f46d63a7f0b2dd9e95969bf01b3e6217
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.4.0/sophora-image-access-service-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "added Artifacthub changelog annotation"
+    apiVersion: v2
+    appVersion: 4.13.0
     created: "2025-08-25T17:14:59.938676153Z"
     description: A Helm chart for the Sophora Image Access Service
     digest: bfedd28da9051c5e2a6f757d16912004db1d12e349b0c5fad5952472b3feea03
@@ -2823,4 +2841,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-25T17:15:03.431524743Z"
+generated: "2025-08-29T13:25:47.031760081Z"
