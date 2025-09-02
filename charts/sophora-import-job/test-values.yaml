@@ -69,7 +69,15 @@ job:
   cron:
     expression: "0 */7 * * 0"
     suspend: false
+  postStartCommand:
+    - "/bin/sh"
+    - "-c"
+    - "kubectl scale --replicas=0 -n sophora deployment/indexing-service && kubectl scale --replicas=0 -n sophora statefulset/redis-node"
 
+  preStopCommand:
+    - "/bin/sh"
+    - "-c"
+    - "kubectl scale --replicas=3 -n sophora deployment/indexing-service && kubectl scale --replicas=3 -n sophora statefulset/redis-node"
 
 prometheusRule:
   enabled: true
