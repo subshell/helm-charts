@@ -1081,6 +1081,24 @@ entries:
   sophora-image-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "allow configuration of resources"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2025-09-02T10:46:35.990566653Z"
+    description: Sophora Image AI
+    digest: c659b3c56817eceba511271629c005cb0fca4f4fd45b9e451ec00b68095852c9
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.1.3/sophora-image-ai-2.1.3.tgz
+    version: 2.1.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -2841,4 +2859,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-08-29T13:25:47.031760081Z"
+generated: "2025-09-02T10:46:35.990922079Z"
