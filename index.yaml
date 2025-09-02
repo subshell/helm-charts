@@ -1664,6 +1664,24 @@ entries:
   sophora-media-finder:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "allow resource configuration and provide default requests"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2025-09-02T16:39:12.99586724Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: 7205de4f2f87e1cfa38cdbe84c1fb6c69732371156e2a1ddf085e30aab04a7e3
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.2.5/sophora-media-finder-0.2.5.tgz
+    version: 0.2.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -2877,4 +2895,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-02T12:31:33.069148294Z"
+generated: "2025-09-02T16:39:12.996299861Z"
