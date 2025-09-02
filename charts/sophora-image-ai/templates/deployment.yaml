@@ -80,6 +80,7 @@ spec:
             httpGet:
               port: http
               path: /actuator/health/readiness
+          resources: {{- toYaml .Values.resources | nindent 12 }}
       volumes:
         - name: config
           configMap:
