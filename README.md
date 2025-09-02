@@ -23,7 +23,7 @@ This git repository uses [Github Pages](https://helm.sh/docs/topics/chart_reposi
 ## Changelogs
 
 Add a [Changelog](https://artifacthub.io/docs/topics/annotations/helm/#supported-annotations) for the new chart version. Example:
-
+```yaml
 version: 1.2.3
 annotations:
   artifacthub.io/changes: | 
@@ -32,7 +32,7 @@ annotations:
       links:
         - name: GitHub Issue
           url: https://github.com/subshell/helm-charts/pull/171
-
+```
 * * *
 
 Take a look at this project from the [subshell](https://subshell.com) team. We make [Sophora](https://subshell.com/sophora/): a content management software for content creation, curation, and distribution. [Join our team!](https://subshell.com/jobs/) | [Imprint](https://subshell.com/about/imprint/)
