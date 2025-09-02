@@ -16,6 +16,13 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+resources:
+  requests:
+    cpu: 200m
+    memory: 1Gi
+  limits:
+    memory: 2Gi
+
 service:
   type: ClusterIP
   port: 8080
