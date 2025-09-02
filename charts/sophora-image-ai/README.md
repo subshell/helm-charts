@@ -1,6 +1,6 @@
 # Sophora Image AI
 
-The [Image AI] module supports the editorial team in creating image variants in image documents.
+The [Image AI][Image AI] module supports the editorial team in creating image variants in image documents.
 Instead of manually selecting clips for each image variant, the clips are calculated automatically
 using Google Cloud Vision.
 

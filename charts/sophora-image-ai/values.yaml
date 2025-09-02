@@ -44,6 +44,13 @@ imageAI:
   #   value: /gcp-credentials/credentials.json
   extraEnv:
 
+resources:
+  requests:
+    cpu: 10m
+    memory: 1Gi
+  limits:
+    memory: 2Gi
+
 service:
   type: ClusterIP
   port: 8080
