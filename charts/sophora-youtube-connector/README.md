@@ -24,7 +24,7 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPre
 configGenerator:
   image:
     repository: "docker.subshell.com/misc/alpine-toolkit"
-    tag: "0.0.1"
+    tag: "0.2.0"
     pullPolicy: IfNotPresent
 
 resources:
