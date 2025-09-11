@@ -27,8 +27,10 @@ configHelper:
     tag: "0.1.0"
 
 upload:
-  # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise
+  # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise, if useZip is true
   absoluteFilePath: "/export.zip"
+  # whether to upload as a zip file or as individual files
+  useZip: true
   image:
     repository: docker.subshell.com/misc/aws-cli-tools
     pullPolicy: IfNotPresent
@@ -83,17 +85,17 @@ prometheusRule:
         namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not export any documents'
-        summary: 'The job did not export any documents'
-        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+        summary: "The job did not export any documents"
+        runbook_url: "https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md"
     - alert: SophoraExportJobFailed
       expr: max(vector(0) or sophora_export_job_end{success="false", job="{{ include "sophora-export-job.fullname" . }}"}) > max(vector(0) or sophora_export_job_end{success="true", job="{{ include "sophora-export-job.fullname" . }}"})
       labels:
         severity: critical
         namespace: "{{ .Release.Namespace }}"
       annotations:
-        description: 'Sophora export job failed.'
+        description: "Sophora export job failed."
         summary: 'The export job ({{ include "sophora-export-job.fullname" . }}) did not complete successfully.'
-        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+        runbook_url: "https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md"
     - alert: SophoraExportJobDidNotUpdate
       expr: (time() - push_time_seconds{job="{{ include "sophora-export-job.fullname" . }}"}) / (60 * 60) > 24
       labels:
@@ -101,8 +103,8 @@ prometheusRule:
         namespace: "{{ .Release.Namespace }}"
       annotations:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not update metrics in the last 24 hours'
-        summary: 'The job did not update metrics in the last 24 hours.'
-        runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md'
+        summary: "The job did not update metrics in the last 24 hours."
+        runbook_url: "https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md"
 
 podAnnotations: {}
 
