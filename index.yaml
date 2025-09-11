@@ -908,6 +908,22 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added option to configure whether the upload should be done as a .zip file or as individual files"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2025-09-11T14:45:43.329036299Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 3e6ab34e016d02b6bb75ba14514c244028e199ba4e37469d22ef6a10d0064648
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.1.0/sophora-export-job-2.1.0.tgz
+    version: 2.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: "4"
@@ -2895,4 +2911,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-02T16:39:12.996299861Z"
+generated: "2025-09-11T14:45:43.329416623Z"
