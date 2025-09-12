@@ -36,6 +36,12 @@ upload:
     pullPolicy: IfNotPresent
     tag: "0.0.2"
 
+deltaExport:
+  pvc:
+    accessMode:
+    storageClass:
+    size:
+
 metrics:
   pushgatewayUrl:
   authentication:

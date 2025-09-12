@@ -1,0 +1,17 @@
+{{- if .Values.exporter.config.deltaExport }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "sophora-export-job.fullname" . }}-delta-export
+  labels:
+    {{- include "sophora-export-job.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.deltaExport.pvc.accessMode | default "ReadWriteOnce" }}
+  {{- if .Values.deltaExport.pvc.storageClass }}
+  storageClassName: {{ .Values.deltaExport.pvc.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.deltaExport.pvc.size | default "1Gi" }}
+{{- end }}

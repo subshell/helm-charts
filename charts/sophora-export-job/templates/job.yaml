@@ -45,11 +45,19 @@ spec:
             - |
               envsubst < /exporter-configmap/exporter-config-template.json > /output/exporter.json
               echo "Generated exporter-config.json from ENV"
+              {{- if .Values.exporter.config.deltaExport }}
+              touch /delta-export/exporter_lastExecutionDate
+              echo "Created exporter_lastExecutionDate file"
+              {{- end }}
           volumeMounts:
             - name: exporter-configmap
               mountPath: /exporter-configmap
             - name: exporter-config
               mountPath: /output
+            {{- if .Values.exporter.config.deltaExport }}
+            - name: delta-export
+              mountPath: /delta-export
+            {{- end }}
       containers:
         - name: exporter
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -64,6 +72,11 @@ spec:
               subPath: exporter.json
             - name: data-export
               mountPath: /data-export
+            {{- if .Values.exporter.config.deltaExport }}
+            - name: delta-export
+              mountPath: /exporter/config/exporter_lastExecutionDate
+              subPath: exporter_lastExecutionDate
+            {{- end }}
         - {{- include "sophora-export-job.utils.upload-to-s3-container" . | nindent 10 }}
       volumes:
         - name: exporter-configmap
@@ -75,4 +88,10 @@ spec:
           emptyDir: {}
         - name: metrics
           emptyDir: {}
+        {{- if .Values.exporter.config.deltaExport }}
+        - name: delta-export
+          persistentVolumeClaim:
+            claimName: {{ include "sophora-export-job.fullname" . }}-delta-export
+            readOnly: false
+        {{- end }}
 {{- end -}}

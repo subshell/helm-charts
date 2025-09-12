@@ -41,6 +41,12 @@ exporter:
         - "vision"
         - "hamburg"
 
+deltaExport:
+  pvc:
+    accessMode:
+    storageClass:
+    size:
+
 job:
   cron:
     enabled: true
