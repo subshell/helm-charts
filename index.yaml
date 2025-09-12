@@ -470,6 +470,26 @@ entries:
   sophora-admin-dashboard:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    created: "2025-09-12T11:07:33.370382232Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 9627e386e6467c38a962fbda7182a157f23f8393cbeaba4f6d06c8b172568774
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.3.4/sophora-admin-dashboard-1.3.4.tgz
+    version: 1.3.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
@@ -907,6 +927,22 @@ entries:
   sophora-export-job:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2025-09-12T11:07:33.647332825Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 0e1c3581a6800f736ba850585642058e412da5a6c730ca6cdb4b4d864c713754
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.1.1/sophora-export-job-2.1.1.tgz
+    version: 2.1.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added option to configure whether the upload should be done as a .zip file or as individual files"
     apiVersion: v2
@@ -1255,6 +1291,24 @@ entries:
   sophora-import-job:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2025-09-12T11:07:33.86650555Z"
+    description: A Helm chart for the repository import
+    digest: d3a6807e1dd282c39242ed8512b7d86e88b8c7a2c48e8a74ca12555860ba4d1e
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.3.1/sophora-import-job-1.3.1.tgz
+    version: 1.3.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Make postStart and preStop hook configurable"
     apiVersion: v2
@@ -1350,6 +1404,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.0/sophora-import-job-1.0.0.tgz
     version: 1.0.0
   sophora-importer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2025-09-12T11:07:34.090073081Z"
+    description: A Helm chart for the Sophora importer
+    digest: e523854679a45df9c44a99dce3c9ac80d0cd284bce738e9a074434dfd68d3be6
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.0.5/sophora-importer-2.0.5.tgz
+    version: 2.0.5
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1515,6 +1587,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-importer-1.0.0/sophora-importer-1.0.0.tgz
     version: 1.0.0
   sophora-indexer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    appVersion: 4.2.2
+    created: "2025-09-12T11:07:34.315979338Z"
+    description: A Helm chart for Kubernetes
+    digest: cc44b2b143c2841f7ac69b705d649bca654fb87d0548755b2802ff8d5b1806ed
+    name: sophora-indexer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.1.3/sophora-indexer-1.1.3.tgz
+    version: 1.1.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2036,6 +2124,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+    apiVersion: v2
+    appVersion: 4.26.0
+    created: "2025-09-12T11:07:34.538768096Z"
+    description: A Helm chart for the Sophora Server
+    digest: ed0177cae71f91489cedb3ff87316846c040d41d3ea7d15ebe912b39dc67a77b
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.10.4/sophora-server-2.10.4.tgz
+    version: 2.10.4
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2843,6 +2949,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2025-09-12T11:07:34.798976332Z"
+    description: A Helm chart for Kubernetes
+    digest: dc9b9ddd33eb25c01cd6c24bc20feca5a283bc741f195e29d60db3423c12c1f7
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.2.4/sophora-youtube-connector-1.2.4.tgz
+    version: 1.2.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "link to sources at GitHub"
       artifacthub.io/links: |
@@ -2911,4 +3038,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-11T14:45:43.329416623Z"
+generated: "2025-09-12T11:07:34.799617836Z"
