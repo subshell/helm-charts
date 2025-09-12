@@ -24,7 +24,7 @@ configHelper:
   image:
     repository: docker.subshell.com/misc/alpine-toolkit
     pullPolicy: IfNotPresent
-    tag: "0.1.0"
+    tag: "0.2.0"
 
 upload:
   # absolute file path in the s3 storage. The file will be uploaded to this location. the .zip extension is optional and will be added otherwise, if useZip is true
