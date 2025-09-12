@@ -18,8 +18,8 @@ type: application
 version: 1.2.4
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "link to sources at GitHub"
+    - kind: changed
+      description: "bump alpine-toolkit image version to 0.2.0 to update curl"
   artifacthub.io/links: |
     - name: Documentation for the AV Tool
       url: https://subshell.com/docs/avtool/

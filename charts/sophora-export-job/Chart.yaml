@@ -18,8 +18,8 @@ type: application
 version: 2.1.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "added option to configure whether the upload should be done as a .zip file or as individual files"
+    - kind: changed
+      description: "bump alpine-toolkit image version to 0.2.0 to update curl"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
