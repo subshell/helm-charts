@@ -928,6 +928,22 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "create a pvc when delta-export is enabled to store the last execution date"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2025-09-12T12:53:43.419063528Z"
+    description: A Helm chart for a generic one-time export job
+    digest: ca46cff557bf65e038f45c63f8615527699f231276b5497340720912699407d8
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.1.2/sophora-export-job-2.1.2.tgz
+    version: 2.1.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
     apiVersion: v2
     appVersion: "4"
@@ -3038,4 +3054,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-12T11:07:34.799617836Z"
+generated: "2025-09-12T12:53:43.419491717Z"
