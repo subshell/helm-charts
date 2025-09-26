@@ -95,6 +95,11 @@ transformation:
     xslPath: xsl
     transformXslSubDir: .
 
+preprocessing:
+  enabled: false
+  className:
+  scriptFolder:
+
 importFailureFilesUpload:
   enabled: false
   uploadPath: "/"
@@ -153,6 +158,8 @@ prometheusRule:
 ## @param extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
 extraDeploy: []
+extraVolumes: []
+extraVolumeMounts: []
 
 job:
   ## @param job.ttlSecondsAfterFinished k8s job config, defaults to 7 days in seconds

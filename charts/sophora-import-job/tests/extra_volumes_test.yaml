@@ -1,0 +1,30 @@
+suite: test volumes
+templates:
+  - cronjob.yaml
+tests:
+  - it: should add volumes
+    set:
+      extraVolumes:
+        - name: my-volume
+          secret:
+            secretName: my-secret
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.volumes
+          content:
+            name: my-volume
+            secret:
+              secretName: my-secret
+  - it: should add volume mounts
+    set:
+      extraVolumeMounts:
+        - name: my-mount
+          mountPath: /abc
+          readOnly: true
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
+          content:
+            name: my-mount
+            mountPath: /abc
+            readOnly: true
