@@ -166,13 +166,19 @@ spec:
             - name: importer
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- if or .Values.job.postStartCommand .Values.job.preStopCommand }}
               lifecycle:
+                {{- if .Values.job.postStartCommand }}
                 postStart:
                   exec:
                     command: {{ .Values.job.postStartCommand | toYaml | nindent 22 }}
+                {{- end }}
+                {{- if .Values.job.preStopCommand }}
                 preStop:
                   exec:
                     command: {{ .Values.job.preStopCommand | toYaml | nindent 22 }}
+                {{- end }}
+              {{- end }}
               command: ["/bin/sh"]
               args:
                 - "-c"
