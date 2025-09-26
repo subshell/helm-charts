@@ -52,4 +52,9 @@ data:
           failure: /import/failure
           xsl: {{ include "sophora-import-job.transformationXslPath" . }}/{{ .Values.transformation.data.transformXslSubDir }}
         defaultStructureNode: /import
+        {{- if .Values.preprocessing.enabled }}
+        preprocessing:
+          className: {{ .Values.preprocessing.className }}
+          scriptFolder: {{ .Values.preprocessing.scriptFolder }}
+        {{- end }}
   logback-spring.xml: |- {{ .Values.logbackXml | nindent 4 }}
