@@ -18,6 +18,7 @@ spec:
       backoffLimit: {{ .Values.job.backoffLimit }}
       template:
         spec:
+          serviceAccountName: {{ include "sophora-import-job.serviceAccountName" . }}
           restartPolicy: Never
           shareProcessNamespace: true
           {{- with .Values.imagePullSecrets }}

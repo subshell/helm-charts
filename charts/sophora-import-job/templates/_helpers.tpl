@@ -99,3 +99,14 @@ cat <<EOT >> /metrics/metrics.txt
 sophora_import_job_download_duration_seconds{type="transformations"} $downloadDurationSeconds
 EOT
 {{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "sophora-import-job.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create }}
+{{- default (include "sophora-import-job.fullname" .) .Values.serviceAccount.name }}
+{{- else }}
+{{- default "default" .Values.serviceAccount.name }}
+{{- end }}
+{{- end }}
