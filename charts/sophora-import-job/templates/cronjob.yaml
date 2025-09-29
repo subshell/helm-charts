@@ -166,13 +166,19 @@ spec:
             - name: importer
               image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
               imagePullPolicy: {{ .Values.image.pullPolicy }}
+              {{- if or .Values.job.postStartCommand .Values.job.preStopCommand }}
               lifecycle:
+                {{- if .Values.job.postStartCommand }}
                 postStart:
                   exec:
                     command: {{ .Values.job.postStartCommand | toYaml | nindent 22 }}
+                {{- end }}
+                {{- if .Values.job.preStopCommand }}
                 preStop:
                   exec:
                     command: {{ .Values.job.preStopCommand | toYaml | nindent 22 }}
+                {{- end }}
+              {{- end }}
               command: ["/bin/sh"]
               args:
                 - "-c"
@@ -219,6 +225,9 @@ spec:
                   mountPath: {{ include "sophora-import-job.transformationLibsPath" . }}
                 - mountPath: /metrics
                   name: metrics
+                {{- with .Values.extraVolumeMounts}}
+                {{- toYaml . | nindent 16 }}
+                {{- end }}
             - name: process-watcher
               image: "{{ .Values.s3CliImage.repository }}:{{ .Values.s3CliImage.tag }}"
               imagePullPolicy: {{ .Values.s3CliImage.pullPolicy }}
@@ -292,3 +301,6 @@ spec:
                 name: {{ include "sophora-import-job.fullname" . }}
             - name: metrics
               emptyDir: {}
+            {{- with .Values.extraVolumes}}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
