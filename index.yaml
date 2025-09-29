@@ -1308,6 +1308,26 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "add extra volumes and volume mounts"
+        - kind: added
+          description: "add support for preprocessing configuration"
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2025-09-29T09:30:32.978774437Z"
+    description: A Helm chart for the repository import
+    digest: 4cba91e438a45ba8bc49a329a214af3f7a9218444d6e93f991933bb83c8e5ca7
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.5.0/sophora-import-job-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "add serviceaccount"
     apiVersion: v2
     appVersion: 5.4.0
@@ -3072,4 +3092,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-26T12:30:37.713805635Z"
+generated: "2025-09-29T09:30:32.979322501Z"
