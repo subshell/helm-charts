@@ -2181,6 +2181,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "The statefulset now uses multiple checksum fields"
+    apiVersion: v2
+    appVersion: 4.26.0
+    created: "2025-09-30T10:03:53.752292391Z"
+    description: A Helm chart for the Sophora Server
+    digest: 61bad15058506160a3f24e9cc9a64b19a32540d418c80e23dea5a21398406bd2
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.11.0/sophora-server-2.11.0.tgz
+    version: 2.11.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
     apiVersion: v2
     appVersion: 4.26.0
@@ -3092,4 +3110,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-29T09:30:32.979322501Z"
+generated: "2025-09-30T10:03:53.753095761Z"
