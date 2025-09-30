@@ -1,0 +1,24 @@
+suite: test checksums
+tests:
+  - it: should set checksums
+    set:
+      addChecksumAnnotation: true
+    template: statefulset.yaml
+    asserts:
+      - exists:
+          path: spec.template.metadata.annotations.checksum/sophora-init-configmap
+      - exists:
+          path: spec.template.metadata.annotations.checksum/logback-configmap
+      - exists:
+          path: spec.template.metadata.annotations.checksum/sophora-repository-localdb-configmap
+  - it: should not set checksums
+    set:
+      addChecksumAnnotation: false
+    template: statefulset.yaml
+    asserts:
+      - notExists:
+          path: spec.template.metadata.annotations.checksum/sophora-init-configmap
+      - notExists:
+          path: spec.template.metadata.annotations.checksum/logback-configmap
+      - notExists:
+          path: spec.template.metadata.annotations.checksum/sophora-repository-localdb-configmap
