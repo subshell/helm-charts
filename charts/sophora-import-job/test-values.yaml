@@ -78,6 +78,11 @@ job:
     - "/bin/sh"
     - "-c"
     - "kubectl scale --replicas=3 -n sophora deployment/indexing-service && kubectl scale --replicas=3 -n sophora statefulset/redis-node"
+  beforeScript: |
+    kubectl scale --replicas=0 -n sophora deployment/indexing-service && kubectl scale --replicas=0 -n sophora statefulset/redis-node
+  afterScript: |
+    kubectl scale --replicas=3 -n sophora deployment/indexing-service && kubectl scale --replicas=3 -n sophora statefulset/redis-node
+    
 
 prometheusRule:
   enabled: true

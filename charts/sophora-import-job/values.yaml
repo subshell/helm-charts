@@ -187,6 +187,12 @@ job:
   ## @param job.cron.preStop Sets the command executed when the container is stopped. Defaults to []
   ##
   preStopCommand: []
+  ## @param job.beforeScript Appends code to be executed before wait-for-empty-dir.sh. Defaults to ""
+  ##
+  beforeScript: ""
+  ## @param job.afterScript Appends code to be executed after wait-for-empty-dir.sh. Defaults to ""
+  ##
+  afterScript: ""
 
 serviceAccount:
   # Specifies whether a service account should be created

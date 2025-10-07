@@ -42,5 +42,3 @@ sophora_import_job_import_duration_seconds $importDurationSeconds
 # TYPE sophora_import_job_duration_seconds gauge
 sophora_import_job_duration_seconds{success="$jobSuccessful"} $jobDuration
 EOT
-
-exit 0
