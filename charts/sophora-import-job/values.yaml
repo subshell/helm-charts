@@ -11,7 +11,7 @@ downloadViaHttpImage:
 
 s3CliImage:
   repository: "docker.subshell.com/misc/aws-cli-tools"
-  tag: "0.0.2"
+  tag: "0.1.0"
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -181,12 +181,18 @@ job:
     ## @param job.cron.suspend Suspends the cron job. Defaults to true
     ##
     suspend: true
-  ## @param job.cron.postStart Sets the command executed when the container is started Defaults to []
+  ## @param job.postStart Sets the command executed when the container is started Defaults to []
   ##
   postStartCommand: []
-  ## @param job.cron.preStop Sets the command executed when the container is stopped. Defaults to []
+  ## @param job.preStop Sets the command executed when the container is stopped. Defaults to []
   ##
   preStopCommand: []
+  ## @param job.beforeScript Appends code to be executed before wait-for-empty-dir.sh. Defaults to ""
+  ##
+  beforeScript: ""
+  ## @param job.afterScript Appends code to be executed after wait-for-empty-dir.sh. Defaults to ""
+  ##
+  afterScript: ""
 
 serviceAccount:
   # Specifies whether a service account should be created

@@ -50,5 +50,3 @@ if [ "$failure" -gt 0 ]; then
 else
   echo "import was successful"
 fi
-
-exit 0

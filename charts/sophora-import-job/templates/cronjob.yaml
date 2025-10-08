@@ -234,7 +234,14 @@ spec:
               command: ["/bin/sh"]
               args:
                 - "-c"
-                - |- {{ .Files.Get "scripts/wait-for-empty-dir.sh" | nindent 18 }}
+                - |-
+                  {{- if .Values.job.beforeScript}}
+                    {{- .Values.job.beforeScript | nindent 18}}
+                  {{- end}}
+                  {{ .Files.Get "scripts/wait-for-empty-dir.sh" | nindent 18 }}
+                  {{- if .Values.job.afterScript }}
+                    {{- .Values.job.afterScript | nindent 18}}
+                  {{- end}}
               volumeMounts:
                 - mountPath: /import
                   name: import

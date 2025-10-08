@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.5.0
+version: 1.6.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "add extra volumes and volume mounts"
+      description: "add possibility to execute commands before and after run-importer.sh script"
     - kind: added
-      description: "add support for preprocessing configuration"
+      description: "upgrade aws-cli to a version with kubectl installed"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
