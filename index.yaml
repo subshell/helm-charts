@@ -1308,6 +1308,26 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "add possibility to execute commands before and after run-importer.sh script"
+        - kind: added
+          description: "upgrade aws-cli to a version with kubectl installed"
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2025-10-08T11:11:00.921711319Z"
+    description: A Helm chart for the repository import
+    digest: 9766b252aa30be53c0c6a2989c5d597c73a627913a6fa2c597ae139abce77cb1
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.6.0/sophora-import-job-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "add extra volumes and volume mounts"
         - kind: added
           description: "add support for preprocessing configuration"
@@ -3110,4 +3130,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-30T10:03:53.753095761Z"
+generated: "2025-10-08T11:11:00.922072083Z"
