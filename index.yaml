@@ -927,6 +927,22 @@ entries:
   sophora-export-job:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "add prometheusRule.extraRules"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2025-10-09T07:04:23.745268509Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 6e036a54965909f502b37d72e0ef1c4d1059403340f1ad389f456548d4234491
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.2.0/sophora-export-job-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "create a pvc when delta-export is enabled to store the last execution date"
     apiVersion: v2
@@ -3130,4 +3146,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-08T11:11:00.922072083Z"
+generated: "2025-10-09T07:04:23.745805574Z"
