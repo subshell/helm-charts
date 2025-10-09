@@ -111,6 +111,8 @@ prometheusRule:
         description: 'Sophora export job ({{ "{{ $labels.job }}" }}) did not update metrics in the last 24 hours'
         summary: "The job did not update metrics in the last 24 hours."
         runbook_url: "https://github.com/subshell/helm-charts/charts/sophora-export-job/alerting-runbook.md"
+  extraRules:
+    rules: []
 
 podAnnotations: {}
 

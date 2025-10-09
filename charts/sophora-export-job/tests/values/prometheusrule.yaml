@@ -1,0 +1,13 @@
+prometheusRule:
+  enabled: true
+  extraRules:
+    rules:
+      - alert: Foo
+        expr: foo()
+        labels:
+          severity: warning
+          namespace: "{{ .Release.Namespace }}"
+        annotations:
+          description: foo
+          summary: foo
+          runbook_url: "https://example.com"
