@@ -18,8 +18,8 @@ type: application
 version: 2.2.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "create a pvc when delta-export is enabled to store the last execution date"
+    - kind: added
+      description: "add prometheusRule.extraRules"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
