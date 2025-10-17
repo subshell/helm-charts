@@ -1324,6 +1324,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "multiple Server URLs can be provided as sophora.serverUrls"
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2025-10-17T08:59:06.118903615Z"
+    description: A Helm chart for the repository import
+    digest: 75fe1c4d6a0d865bbe3733e841d210f5856b7c90ae6a2f4714dc56949200c48f
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.7.0/sophora-import-job-1.7.0.tgz
+    version: 1.7.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "add possibility to execute commands before and after run-importer.sh script"
         - kind: added
           description: "upgrade aws-cli to a version with kubectl installed"
@@ -3146,4 +3164,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-09T07:04:23.745805574Z"
+generated: "2025-10-17T08:59:06.119408005Z"
