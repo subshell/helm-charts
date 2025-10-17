@@ -10,7 +10,9 @@ sophoraDocumentsDownload:
       - "https://software.subshell.com/two.zip"
 
 sophora:
-  serverUrl: http://sophora-server:1196
+  serverUrls:
+    - http://sophora-server1:1196
+    - http://sophora-server2:1196
   internalConnection: true
   useMigrationMode: true
   authentication:

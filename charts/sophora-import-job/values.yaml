@@ -32,7 +32,9 @@ metrics:
       passwordKey: "password"
 
 sophora:
-  serverUrl:
+  serverUrls:
+  # deprecated for removal in future versions
+  #serverUrl:
   internalConnection: true
   useMigrationMode: false
   authentication:

@@ -9,7 +9,9 @@ data:
     sophora:
       client:
         server-connection:
-          urls: {{.Values.sophora.serverUrl}}
+          {{- /* TODO deprecated backwards compatibility with `sophora.serverUrl` will be removed in the future */}}
+          {{- $sophoraUrls := coalesce .Values.sophora.serverUrls (list .Values.sophora.serverUrl) }}
+          urls: {{ $sophoraUrls | toYaml | nindent 12 }}
           username: # in secret
           password: # in secret
           retries: 15
