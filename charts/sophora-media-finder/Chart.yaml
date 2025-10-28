@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.2.5
+version: 0.2.6
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "allow resource configuration and provide default requests"
+    - kind: changed
+      description: "make apiKey configuration optional"
 
 appVersion: "5.x"
 sources:
