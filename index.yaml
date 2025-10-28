@@ -1876,6 +1876,24 @@ entries:
   sophora-media-finder:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "make apiKey configuration optional"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2025-10-28T15:42:49.585876954Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: e7ff688eb19012471df115faeb0a7334fe3ebf5d1ea79c3fcebb309a46204f83
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.2.6/sophora-media-finder-0.2.6.tgz
+    version: 0.2.6
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "allow resource configuration and provide default requests"
     apiVersion: v2
@@ -3164,4 +3182,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-17T08:59:06.119408005Z"
+generated: "2025-10-28T15:42:49.586321626Z"
