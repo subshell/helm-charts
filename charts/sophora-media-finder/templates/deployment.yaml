@@ -79,12 +79,14 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            {{- if .Values.apiKey.secretName }}
             - name: API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ required "A valid secret name must be provided in .Values.apiKey.secretName" .Values.apiKey.secretName | quote }}
+                  name: {{ .Values.apiKey.secretName | quote }}
                   key: {{ .Values.apiKey.secretFieldName }}
-                  optional: false
+                  optional: true
+            {{- end }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
               valueFrom:
                 secretKeyRef:
