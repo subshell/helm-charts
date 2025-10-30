@@ -68,6 +68,8 @@ sophora:
   jolokiaPath: "/jolokia"
   # -- (string) URL or path to solr
   solrUrl: "/solr"
+  # -- (string) URL or path to the management API (for Sophora 6 use /v1/management)
+  contentApiPath: "/content-api"
   # -- (bool) set to true if the ibf filter is enabled
   ibfEnabled: false
   # -- (bool) set to false if using SolrCloud

@@ -18,7 +18,7 @@ data:
           sophoraPassword: "${SERVER_SOPHORAPASSWORD}",
           masterHostname: "{{.Values.sophora.serverHostname}}",
           masterHttpPort: {{.Values.sophora.serverPort}},
-          contentApiPath: "/content-api",
+          contentApiPath: "{{.Values.sophora.contentApiPath}}",
           jolokiaUsername: "${SERVER_JOLOKIAUSERNAME}",
           jolokiaPassword: "${SERVER_JOLOKIAPASSWORD}",
           jolokiaPath: "{{.Values.sophora.jolokiaPath}}",
