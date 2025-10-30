@@ -470,6 +470,26 @@ entries:
   sophora-admin-dashboard:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "It's now possible to configure the content api path."
+    apiVersion: v2
+    created: "2025-10-30T08:22:06.915953095Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 692e61abd7f3014aff9628ebd4d4fd61b7851ec8c10ef4ac3567d8d4495f78d3
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.4.0/sophora-admin-dashboard-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
     apiVersion: v2
@@ -3182,4 +3202,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-28T15:42:49.586321626Z"
+generated: "2025-10-30T08:22:06.916366218Z"
