@@ -38,9 +38,8 @@ data:
 
       filenamesAddTimestamp: true
 
-      cleanupFoldersCron: "0 0 9 ? * * *" # every day at 9AM
-      cleanupFoldersSuccessfulMaxAge: 1 # in days
-      cleanupFoldersFailureMaxAge: 7 # in days
+      cleanupFoldersSuccessfulMaxAge: 0
+      cleanupFoldersFailureMaxAge: 0
 
       # Configuration of the importer instances
       instances:
