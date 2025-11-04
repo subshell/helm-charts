@@ -1343,6 +1343,24 @@ entries:
   sophora-import-job:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Remove directory cleanup job"
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2025-11-04T14:35:22.219832307Z"
+    description: A Helm chart for the repository import
+    digest: 80c2c823e68077f9a7c419bfe37e91c8a82fe76b5c488c9cc59c862ce6e3585a
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.7.1/sophora-import-job-1.7.1.tgz
+    version: 1.7.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "multiple Server URLs can be provided as sophora.serverUrls"
     apiVersion: v2
@@ -3202,4 +3220,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-10-30T08:22:06.916366218Z"
+generated: "2025-11-04T14:35:22.220196827Z"
