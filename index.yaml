@@ -2741,6 +2741,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "always redeploy the UGC deployment if the config changes"
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2025-11-05T14:27:15.358300373Z"
+    description: A Helm chart for Kubernetes
+    digest: f5e0967d0443369e19e9c352178f7e9cf2084aa6b622fda1eaacf6e42c6b49a9
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.14/sophora-ugc-2.0.14.tgz
+    version: 2.0.14
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "chart formatting"
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
     apiVersion: v2
@@ -3220,4 +3239,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-04T14:35:22.220196827Z"
+generated: "2025-11-05T14:27:15.358715398Z"
