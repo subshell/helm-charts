@@ -4,6 +4,17 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+extraDeploy:
+  - |
+    apiVersion: v1
+    data:
+      auth: Zm9vOiRhcHIxJE9GRzNYeWJwJGNrTDBGSERBa29YWUlsSDkuY3lzVDAK
+    kind: Secret
+    metadata:
+      name: basic-auth
+      namespace: default
+    type: Opaque
+
 metadataSupplier:
   configuration:
     sophora:
@@ -78,7 +89,7 @@ livenessProbe:
   initialDelaySeconds: 5
   timeoutSeconds: 1
   periodSeconds: 10
-  
+
 prometheusRule:
   enabled: true
   defaultRules:
