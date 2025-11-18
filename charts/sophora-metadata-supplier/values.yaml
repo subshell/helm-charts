@@ -13,6 +13,10 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
+## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+##
+extraDeploy: []
+
 # - (object) k8s Pod host aliases which will be used to generate the /etc/hosts file
 hostAliases:
 
