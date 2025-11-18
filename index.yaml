@@ -2023,6 +2023,24 @@ entries:
   sophora-metadata-supplier:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "add extraDeploy as new value to allow extra resources to be deployed"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2025-11-18T15:24:10.618988727Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 112a14feb5c8db067d51f24725961842722ba218f8bcb06763bcf839b0afb1bc
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.3.6/sophora-metadata-supplier-1.3.6.tgz
+    version: 1.3.6
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -3239,4 +3257,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-05T14:27:15.358715398Z"
+generated: "2025-11-18T15:24:10.619428506Z"
