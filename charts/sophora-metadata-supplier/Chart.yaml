@@ -5,7 +5,7 @@ type: application
 version: 1.3.6
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
+    - kind: added
       description: "add extraDeploy as new value to allow extra resources to be deployed"
 
 appVersion: '4.14.0'
