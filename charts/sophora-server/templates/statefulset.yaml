@@ -30,20 +30,20 @@ spec:
       {{- if or (.Values.podAnnotations) (.Values.addChecksumAnnotation) }}
       annotations:
         {{- if .Values.addChecksumAnnotation }}
-        checksum/sophora-init-configmap: {{ include (print $.Template.BasePath "/sophora-init-configmap.yaml") . | sha256sum }}
-        checksum/logback-configmap: {{ include (print $.Template.BasePath "/logback-configmap.yaml") . | sha256sum }}
+        checksum/sophora-init-configmap: {{ get (include (print $.Template.BasePath "/sophora-init-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
+        checksum/logback-configmap: {{ get (include (print $.Template.BasePath "/logback-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- if ne .Values.sophora.server.persistence.archiveType "none" }}
-        checksum/sophora-archive-localdb-configmap: {{ include (print $.Template.BasePath "/sophora-archive-localdb-configmap.yaml") . | sha256sum }}
-        checksum/sophora-archive-mysql-configmap: {{ include (print $.Template.BasePath "/sophora-archive-mysql-configmap.yaml") . | sha256sum }}
+        checksum/sophora-archive-localdb-configmap: {{ get (include (print $.Template.BasePath "/sophora-archive-localdb-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
+        checksum/sophora-archive-mysql-configmap: {{ get (include (print $.Template.BasePath "/sophora-archive-mysql-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- end }}
         {{- if eq .Values.sophora.server.persistence.repositoryType "localdb" }}
-        checksum/sophora-repository-localdb-configmap: {{ include (print $.Template.BasePath "/sophora-repository-localdb-configmap.yaml") . | sha256sum }}
+        checksum/sophora-repository-localdb-configmap: {{ get (include (print $.Template.BasePath "/sophora-repository-localdb-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- end }}
         {{- if eq .Values.sophora.server.persistence.repositoryType "mysql" }}
-        checksum/sophora-repository-mysql-configmap: {{ include (print $.Template.BasePath "/sophora-repository-mysql-configmap.yaml") . | sha256sum }}
+        checksum/sophora-repository-mysql-configmap: {{ get (include (print $.Template.BasePath "/sophora-repository-mysql-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- end }}
         {{- if eq .Values.sophora.server.persistence.repositoryType "postgres" }}
-        checksum/sophora-repository-postgres-configmap: {{ include (print $.Template.BasePath "/sophora-repository-postgres-configmap.yaml") . | sha256sum }}
+        checksum/sophora-repository-postgres-configmap: {{ get (include (print $.Template.BasePath "/sophora-repository-postgres-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- end }}
         {{- end }}
         {{- range $key, $value := .Values.podAnnotations }}

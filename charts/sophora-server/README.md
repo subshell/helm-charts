@@ -216,6 +216,11 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
+### 2.11.1
+
+This version modifies how the `checksum/*` annotations in the StatefulSet's pod template are computed. Previously, the `sha256sum` was based on the _whole_ rendered ConfigMap, leading to changes in a hash whenever merely a ConfigMap label changed (like the `.Chart.AppVersion` or any user-provided `additionalSelectorLabels`). This did not affect the volume-mounted content seen by the pod, but still resulted in an update of the pod template and termination and restart of the StatefulSet's pods.
+This change only includes the `.data` portion of the ConfigMaps into the hash computation, such that changes to `.metadata` (like labels) don't affect the checksum.
+
 ### 2.10.0
 
 This version changes the configuration of the gRPC API since the latest pre-release versions of Sophora now run it on a separate port. The most notable change may be that
