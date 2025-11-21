@@ -5,8 +5,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ $ingressName }}
-  labels:
-  {{- include "sophora-server.labels" . | nindent 4 }}
+  labels: {{ include "sophora-server.topLevelLabels" . | nindent 4 }}
   {{- with .Values.grpcIngress.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}

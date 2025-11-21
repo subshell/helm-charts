@@ -51,6 +51,12 @@ hostAliases:
 # - (object) additional selector labels that will be added to all resources
 additionalSelectorLabels:
 
+# - (object) additional labels that will be added to all top level resources (i.e., not pods), but not to selector labels
+topLevelLabels:
+
+# - (object) additional labels that will be added to the statefulset of the Sophora Server resource, but not to selector labels
+statefulsetLabels:
+
 # - (object) affinity of the stateful set. Can be used together with the additionalSelectorLabels to prevent the scheduling of servers on the same node
 affinity: {}
 

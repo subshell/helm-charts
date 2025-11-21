@@ -1,0 +1,41 @@
+suite: test labels
+tests:
+  - it: should set top level labels
+    set:
+      topLevelLabels:
+        foo: bar
+    template: statefulset.yaml
+    asserts:
+      - equal:
+          path: metadata.labels.foo
+          value: bar
+      - notExists:
+          path: spec.volumeClaimTemplates[0].metadata.labels.foo
+  - it: should set statefulset labels
+    set:
+      statefulsetLabels:
+        foo: bar
+    template: statefulset.yaml
+    asserts:
+      - equal:
+          path: metadata.labels.foo
+          value: bar
+  - it: all label definitions should be merged
+    set:
+      statefulsetLabels:
+        a: b
+      topLevelLabels:
+        c: d
+      additionalSelectorLabels:
+        e: f
+    template: statefulset.yaml
+    asserts:
+      - equal:
+          path: metadata.labels.a
+          value: b
+      - equal:
+          path: metadata.labels.c
+          value: d
+      - equal:
+          path: metadata.labels.e
+          value: f
