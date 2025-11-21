@@ -2309,6 +2309,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "ConfigMap checksums now only change if .data content changes."
+    apiVersion: v2
+    appVersion: 4.26.0
+    created: "2025-11-21T07:55:42.593795907Z"
+    description: A Helm chart for the Sophora Server
+    digest: e401f0b824a87b1e5bb8eea88182f99f41df7a7872062862d73d7e676520d12e
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.11.1/sophora-server-2.11.1.tgz
+    version: 2.11.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "The statefulset now uses multiple checksum fields"
     apiVersion: v2
     appVersion: 4.26.0
@@ -3257,4 +3275,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-18T15:24:10.619428506Z"
+generated: "2025-11-21T07:55:42.594277846Z"
