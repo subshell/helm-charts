@@ -113,4 +113,16 @@ resources:
     memory: "2G"
 
 ingress:
+  enabled: true
   ingressClassName: nginx
+  annotations:
+    foo: bar
+  hosts:
+  tls: []
+
+extraIngress:
+  - ingressClassName: nginx
+    annotations:
+      foo: baz
+    hosts:
+    tls: []

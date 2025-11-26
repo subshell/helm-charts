@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.0.5
+version: 2.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "bump alpine-toolkit image version to 0.2.0 to update curl"
+      description: "add optional extraIngress"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
