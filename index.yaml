@@ -1553,6 +1553,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "add optional extraIngress"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2025-11-26T12:37:29.359907351Z"
+    description: A Helm chart for the Sophora importer
+    digest: 43ceabe62bbad22c9ac6da70d36880d691ba793c0b03a619abe69a06c8b2624c
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.1.0/sophora-importer-2.1.0.tgz
+    version: 2.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
     apiVersion: v2
     appVersion: 5.0.0
@@ -3275,4 +3293,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-21T07:55:42.594277846Z"
+generated: "2025-11-26T12:37:29.360455697Z"
