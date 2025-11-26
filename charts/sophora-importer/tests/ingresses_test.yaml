@@ -17,7 +17,7 @@ tests:
           of: Ingress
       - equal:
           path: metadata.name
-          value: sophora-importer-service
+          value: RELEASE-NAME-sophora-importer
       - equal:
           path: metadata.annotations.ingress
           value: true
@@ -30,7 +30,7 @@ tests:
           of: Ingress
       - equal:
           path: metadata.name
-          value: sophora-importer-service-1
+          value: RELEASE-NAME-sophora-importer-1
       - equal:
           path: metadata.annotations.extraIngress
           value: first
@@ -43,7 +43,7 @@ tests:
           of: Ingress
       - equal:
           path: metadata.name
-          value: sophora-importer-service-2
+          value: RELEASE-NAME-sophora-importer-2
       - equal:
           path: metadata.annotations.extraIngress
           value: second
