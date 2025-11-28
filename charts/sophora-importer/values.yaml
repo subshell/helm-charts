@@ -103,7 +103,7 @@ resources:
 
 service:
   annotations: {}
-  clusterIP: None
+  type: ClusterIP
   httpPort: 80
 
 ingress:
