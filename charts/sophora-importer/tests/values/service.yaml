@@ -1,3 +1,5 @@
+fullNameOverride: foobar
+
 service:
   annotations:
     foo: bar
