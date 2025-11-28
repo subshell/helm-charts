@@ -1,0 +1,5 @@
+service:
+  annotations:
+    foo: bar
+  type: foo
+  httpPort: 81

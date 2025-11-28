@@ -3,12 +3,8 @@ templates:
   - service.yaml
 tests:
   - it: service should be created correctly
-    set:
-      service:
-        annotations:
-          foo: bar
-        type: foo
-        httpPort: 81
+    values:
+      - ./values/service.yaml
     asserts:
       - hasDocuments:
           count: 1
