@@ -1552,6 +1552,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fix
+          description: "fix type in service, remove clusterIP"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2025-11-28T08:57:57.395086683Z"
+    description: A Helm chart for the Sophora importer
+    digest: 983fda249ab3a32f7fdff969b05be4c2853ecb682ffdecd33a3380d44e361605
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.2.0/sophora-importer-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "add optional extraIngress"
     apiVersion: v2
@@ -3293,4 +3311,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-26T12:37:29.360455697Z"
+generated: "2025-11-28T08:57:57.395636461Z"
