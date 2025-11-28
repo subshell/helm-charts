@@ -10,6 +10,10 @@ tests:
           path: metadata.labels.foo
           value: bar
       - notExists:
+          path: spec.selector.matchLabels.foo
+      - notExists:
+          path: spec.template.metadata.labels.foo
+      - notExists:
           path: spec.volumeClaimTemplates[0].metadata.labels.foo
   - it: should set statefulset labels
     set:
@@ -20,22 +24,50 @@ tests:
       - equal:
           path: metadata.labels.foo
           value: bar
+      - notExists:
+          path: spec.selector.matchLabels.foo
+      - notExists:
+          path: spec.template.metadata.labels.foo
+      - notExists:
+          path: spec.volumeClaimTemplates[0].metadata.labels.foo
   - it: all label definitions should be merged
     set:
       statefulsetLabels:
-        a: b
+        label-a: a
       topLevelLabels:
-        c: d
+        label-b: b
       additionalSelectorLabels:
-        e: f
+        label-c: c
     template: statefulset.yaml
     asserts:
       - equal:
-          path: metadata.labels.a
+          path: metadata.labels.label-a
+          value: a
+      - equal:
+          path: metadata.labels.label-b
           value: b
       - equal:
-          path: metadata.labels.c
-          value: d
+          path: metadata.labels.label-c
+          value: c
+      - notExists:
+          path: spec.selector.matchLabels.label-a
+      - notExists:
+          path: spec.template.metadata.labels.label-a
+      - notExists:
+          path: spec.volumeClaimTemplates[0].metadata.labels.label-a
+      - notExists:
+          path: spec.selector.matchLabels.label-b
+      - notExists:
+          path: spec.template.metadata.labels.label-b
+      - notExists:
+          path: spec.volumeClaimTemplates[0].metadata.labels.label-b
+
       - equal:
-          path: metadata.labels.e
-          value: f
+          path: spec.selector.matchLabels.label-c
+          value: c
+      - equal:
+          path: spec.template.metadata.labels.label-c
+          value: c
+      - equal:
+          path: spec.volumeClaimTemplates[0].metadata.labels.label-c
+          value: c
