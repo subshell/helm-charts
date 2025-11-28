@@ -1,23 +1,26 @@
-{{- if .Values.ingress.enabled -}}
-  {{- $fullName := include "sophora-importer.fullname" . -}}
-
+{{ $allIngresses := .Values.extraIngress -}}
+{{ if .Values.ingress.enabled -}}
+  {{ $allIngresses = prepend $allIngresses .Values.ingress -}}
+{{ end -}}
+{{ $fullName := include "sophora-importer.fullname" $ -}}
+{{ range $index, $ingress := $allIngresses -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}{{ eq $index 0 | ternary "" (printf "-%d" $index) }}
   labels:
-  {{- include "sophora-importer.labels" . | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
+  {{- include "sophora-importer.labels" $ | nindent 4 }}
+  {{- with $ingress.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- if .Values.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- if $ingress.ingressClassName }}
+  ingressClassName: {{ $ingress.ingressClassName }}
   {{- end -}}
-  {{- if .Values.ingress.tls }}
+  {{- if $ingress.tls }}
   tls:
-    {{- range .Values.ingress.tls }}
+    {{- range $ingress.tls }}
     - hosts:
         {{- range .hosts }}
         - {{ . | quote }}
@@ -26,7 +29,7 @@ spec:
   {{- end }}
   {{- end }}
   rules:
-    {{- range .Values.ingress.hosts }}
+    {{- range $ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
@@ -37,5 +40,6 @@ spec:
                 name: {{ $fullName }}
                 port:
                   number: 8082
-  {{- end }}
-  {{- end }}
+    {{- end }}
+---
+{{ end }}

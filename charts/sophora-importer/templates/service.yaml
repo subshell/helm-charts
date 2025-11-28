@@ -6,10 +6,7 @@ metadata:
     {{- include "sophora-importer.labels" . | nindent 4 }}
   annotations: {{- toYaml .Values.service.annotations | nindent 4 }}
 spec:
-  type: {{ .Values.service.type | quote }}
-  {{ if .Values.service.clusterIP -}}
-  clusterIP: {{.Values.service.clusterIP}}
-  {{- end }}
+  type: {{ .Values.service.type }}
   ports:
     - protocol: TCP
       port: {{ .Values.service.httpPort }}

@@ -103,7 +103,7 @@ resources:
 
 service:
   annotations: {}
-  clusterIP: None
+  type: ClusterIP
   httpPort: 80
 
 ingress:
@@ -115,6 +115,12 @@ ingress:
   hosts:
   tls: []
 
+extraIngress: []
+  #- ingressClassName: nginx
+  #  annotations:
+  #    foo: baz
+  #  hosts:
+  #  tls: []
 
 # There is the option of setting up the importer container with additionalVolumes and additionalVolumeMounts.
 # In this case the volumeMount and the volume must be used together and be configured in the same way (e.g. have the same name).
