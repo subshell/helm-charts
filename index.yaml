@@ -120,7 +120,7 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
-          description: "'allowedRoutes' in `https` config allows all namespaces"
+          description: "`allowedRoutes` in `https` config allows all namespaces"
     apiVersion: v2
     created: "2025-07-21T17:21:57.570352133Z"
     description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
@@ -134,7 +134,7 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
-          description: initial release
+          description: "initial release"
     apiVersion: v2
     created: "2025-07-21T12:21:38.068404917Z"
     description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
@@ -1552,7 +1552,7 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
-        - kind: fix
+        - kind: fixed
           description: "reimplement clusterIP"
     apiVersion: v2
     appVersion: 5.0.0
@@ -1570,7 +1570,7 @@ entries:
     version: 2.2.1
   - annotations:
       artifacthub.io/changes: |
-        - kind: fix
+        - kind: fixed
           description: "fix type in service, remove clusterIP"
     apiVersion: v2
     appVersion: 5.0.0
