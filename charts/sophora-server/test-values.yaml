@@ -12,6 +12,12 @@ imagePullSecrets:
 podLabels:
   istio/inject: true
 
+topLevelLabels:
+  topLevel: general-abc
+
+statefulsetLabels:
+  statefulset: general-abc
+
 podAnnotations:
   some-app: "app-value"
 

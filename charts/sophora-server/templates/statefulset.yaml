@@ -3,7 +3,10 @@ kind: StatefulSet
 metadata:
   name: {{ include "sophora-server.fullname" . }}
   labels:
-    {{- include "sophora-server.labels" . | nindent 4 }}
+    {{- include "sophora-server.topLevelLabels" . | nindent 4 }}
+    {{- if .Values.statefulsetLabels }}
+    {{- (toYaml .Values.statefulsetLabels) | nindent 4 }}
+    {{- end }}
 spec:
   {{ if (eq .Values.sophora.server.isClusterServer true) -}}
   replicas: {{ min 1 .Values.replicaCount }}

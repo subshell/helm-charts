@@ -43,6 +43,16 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}
 
 {{/*
+Common Top-Level labels
+*/}}
+{{- define "sophora-server.topLevelLabels" -}}
+{{ include "sophora-server.labels" . }}
+{{- if .Values.topLevelLabels }}
+{{ toYaml .Values.topLevelLabels }}
+{{- end }}
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "sophora-server.selectorLabels" -}}

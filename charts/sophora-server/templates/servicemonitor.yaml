@@ -3,14 +3,15 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-    name: {{ $fullName }}
-    labels: {{- include "sophora-server.labels" . | nindent 8 }}
+  name: {{ $fullName }}
+  labels: {{ include "sophora-server.topLevelLabels" . | nindent 4 }}
 spec:
-    selector:
-        matchLabels: {{- include "sophora-server.selectorLabels" . | nindent 12 }}
-          {{- include "sophora-server.loadBalancerLabels" . | nindent 12 }}
-    endpoints:
-        - interval: {{ .Values.serviceMonitor.interval }}
-          port: http
-          path: /prometheus
+  selector:
+    matchLabels:
+      {{- include "sophora-server.selectorLabels" . | nindent 6 }}
+      {{- include "sophora-server.loadBalancerLabels" . | nindent 6 }}
+  endpoints:
+    - interval: {{ .Values.serviceMonitor.interval }}
+      port: http
+      path: /prometheus
 {{- end }}
