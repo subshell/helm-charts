@@ -2,6 +2,24 @@ suite: test service
 templates:
   - service.yaml
 tests:
+  - it: service should be created correctly with defaults
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+      - equal:
+          path: metadata.annotations
+          value: {}
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-sophora-importer
+      - equal:
+          path: spec.type
+          value: ClusterIP
+      - equal:
+          path: spec.ports[0].port
+          value: 80
   - it: service should be created correctly
     values:
       - ./values/service.yaml
