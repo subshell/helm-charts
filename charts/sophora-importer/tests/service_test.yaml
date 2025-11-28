@@ -17,6 +17,8 @@ tests:
       - equal:
           path: spec.type
           value: ClusterIP
+      - notExists:
+          path: spec.type.clusterIP
       - equal:
           path: spec.ports[0].port
           value: 80
@@ -38,6 +40,9 @@ tests:
       - equal:
           path: spec.type
           value: foo
+      - equal:
+          path: spec.clusterIP
+          value: None
       - equal:
           path: spec.ports[0].port
           value: 81
