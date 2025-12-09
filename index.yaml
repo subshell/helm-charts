@@ -2366,6 +2366,24 @@ entries:
           description: "Added new topLevelLabels and statefulsetLabels to allow customization of labels on specific or all resources"
     apiVersion: v2
     appVersion: 4.26.0
+    created: "2025-12-09T11:11:23.482774478Z"
+    description: A Helm chart for the Sophora Server
+    digest: b5601277b0f5b9cda96a4504849dbbc67df867207f53f924221213e8cf4a4812
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-2.12.1/sophora-server-2.12.1.tgz
+    version: 2.12.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added new topLevelLabels and statefulsetLabels to allow customization of labels on specific or all resources"
+    apiVersion: v2
+    appVersion: 4.26.0
     created: "2025-11-28T09:41:28.068744606Z"
     description: A Helm chart for the Sophora Server
     digest: 89231d5eb85946803b7f985d17c4335bbe641408fa3834a2039aaefbcbdf2dfd
@@ -3347,4 +3365,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-11-28T12:52:36.171590697Z"
+generated: "2025-12-09T11:11:23.483652253Z"
