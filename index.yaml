@@ -1846,6 +1846,24 @@ entries:
   sophora-indexing-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "added option to enable/disable Redis authentication"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2025-12-10T14:56:04.96145708Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 175c8142eb43fad3dd9b5ac667216b0cd7bbc49a71268dbaf6fa0b307836c92d
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.3.4/sophora-indexing-service-1.3.4.tgz
+    version: 1.3.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "error message for missing Redis secret"
     apiVersion: v2
@@ -3404,4 +3422,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-10T14:52:01.626909169Z"
+generated: "2025-12-10T14:56:04.961885813Z"
