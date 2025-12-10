@@ -30,6 +30,7 @@ sophora:
 
 redis:
   authentication:
+    enabled: true
     # use this env variable in sisi.configuration.spring.redis.redisson.config to set the password
     # with ${REDIS_AUTHENTICATION_PASSWORD}
     envName: "REDIS_AUTHENTICATION_PASSWORD"
