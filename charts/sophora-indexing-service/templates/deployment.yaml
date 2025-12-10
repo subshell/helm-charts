@@ -61,7 +61,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.redis.authentication.secret.passwordKey | quote }}
-                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.redis.authentication.secret.name | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.redis.authentication.secret.name" .Values.redis.authentication.secret.name | quote }}
             {{- end }}
             {{- if .Values.solr.basicAuth.enabled }}
             - name: SOPHORA_SOLR_USERNAME
