@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.3.2
+version: 1.3.3
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "chart formatting"
+      description: "error message for missing Redis secret"
 
 appVersion: '5.4.1'
 sources:
