@@ -1847,6 +1847,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "error message for missing Redis secret"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2025-12-10T14:52:01.626448929Z"
+    description: Sophora Indexing Service (SISI)
+    digest: f4dd9f565cba892a4a81c673098f29a1fe84383e6e364ad4a01046e109707890
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.3.3/sophora-indexing-service-1.3.3.tgz
+    version: 1.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "chart formatting"
     apiVersion: v2
     appVersion: 5.4.1
@@ -3386,4 +3404,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-10T14:49:21.613981918Z"
+generated: "2025-12-10T14:52:01.626909169Z"
