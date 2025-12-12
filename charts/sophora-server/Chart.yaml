@@ -15,19 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.0.0
+version: 3.0.1
 annotations:
   artifacthub.io/changes: |
-    - kind: "added"
-      description: "Added option to disable JCR support."     
-    - kind: "added"
-      description: "Added options to edit persistent volume access modes"   
-    - kind: "removed"
-      description: "Removed support for Sophora ACS."
-    - kind: "removed"
-      description: "Removed support for the internal Solr (Sophora 4)."
-    - kind: "removed"
-      description: "Removed support for the File System Binary Store."
+    - kind: "fixed"
+      description: "Fixed Typo in sophora-server.repositoryConfigTemplateName."     
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

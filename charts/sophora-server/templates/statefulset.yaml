@@ -106,7 +106,7 @@ spec:
           {{- end }}
           volumeMounts:
             {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
-            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}ddd
+            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
               mountPath: /sophora-repository-template
             - name: {{ include "sophora-server.repositoryConfigName" . }}
               mountPath: /sophora-repository
