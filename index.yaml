@@ -2397,6 +2397,27 @@ entries:
     version: 1.0.0
   sophora-server:
   - annotations:
+      artifacthub.io/changes: "- kind: \"added\"\n  description: \"Added option to
+        disable JCR support.\"     \n- kind: \"added\"\n  description: \"Added options
+        to edit persistent volume access modes\"   \n- kind: \"removed\"\n  description:
+        \"Removed support for Sophora ACS.\"\n- kind: \"removed\"\n  description:
+        \"Removed support for the internal Solr (Sophora 4).\"\n- kind: \"removed\"\n
+        \ description: \"Removed support for the File System Binary Store.\"\n"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2025-12-12T13:53:37.511799011Z"
+    description: A Helm chart for the Sophora Server
+    digest: f8d149d47d2c49fe74749620ddebdafd157177801c8084283e7fdd3e2d155ef4
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.0.0/sophora-server-3.0.0.tgz
+    version: 3.0.0
+  - annotations:
       artifacthub.io/changes: |
         - kind: added
           description: "Added new topLevelLabels and statefulsetLabels to allow customization of labels on specific or all resources"
@@ -3422,4 +3443,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-10T14:56:04.961885813Z"
+generated: "2025-12-12T13:53:37.512316246Z"
