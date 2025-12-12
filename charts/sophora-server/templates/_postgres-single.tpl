@@ -21,10 +21,12 @@
       name: {{ .Values.sophora.server.persistence.postgres.secret.name }}
       optional: false
 {{- end }}
+{{- if not (eq .Values.sophora.server.persistence.repositoryType "none") }}
 - name: JCR_REPOSITORY_DEFAULT_POSTGRES_DB
   value: {{ .Values.sophora.server.persistence.postgres.repository.defaultWorkspaceDB }}
 - name: JCR_REPOSITORY_LIVE_POSTGRES_DB
   value: {{ .Values.sophora.server.persistence.postgres.repository.liveWorkspaceDB }}
 - name: JCR_REPOSITORY_VERSIONS_POSTGRES_DB
   value: {{ .Values.sophora.server.persistence.postgres.repository.jcrVersionsDB }}
+{{- end }}
 {{- end }}

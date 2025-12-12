@@ -137,11 +137,6 @@ spec:
             - name: {{ include "sophora-server.propertiesName" . }}
               mountPath: /sophora/config/sophora.properties
               subPath: sophora.properties
-            {{ if .Values.sophora.acs.url }}
-            - name: {{ include "sophora-server.configs" . }}
-              mountPath: /sophora/config/acs.properties
-              subPath: acs.properties
-            {{- end }}
             - name: sophora-server-storage
               mountPath: /sophora/config
               subPath: config
@@ -152,6 +147,7 @@ spec:
               mountPath: /sophora/solr
               subPath: solr
 
+            {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
             # Repository Folder Structure
             - name: sophora-server-storage
               mountPath: /sophora/repository/repository
@@ -183,6 +179,7 @@ spec:
             - name: sophora-server-storage
               mountPath: /sophora/repository/workspaces/live/db
               subPath: repository.workspaces.live.db
+            {{- end }}
 
             {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
             # Repository Archive Structure
@@ -370,26 +367,28 @@ spec:
             name: {{ include "sophora-server.configs" . }}
         - name: {{ include "sophora-server.propertiesName" . }}
           emptyDir: {}
+        - name: logback-xml-config
+          configMap:
+            name: {{ include "sophora-server.logbackConfigName" . }}
+        - name: sophora-server-storage
+          persistentVolumeClaim:
+            claimName: sophora-server-storage
+
+        {{- if not (eq .Values.sophora.server.persistence.repositoryType "none") }}
         - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
           configMap:
             name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
         - name: {{ include "sophora-server.repositoryConfigName" . }}
           emptyDir: {}
-        - name: logback-xml-config
+        - name: sophora-server-repository
           configMap:
-            name: {{ include "sophora-server.logbackConfigName" . }}
+            name: {{ include "sophora-server.repositoryConfigName" . }}
+        {{- end }}
 
         {{ if eq .Values.sophora.server.isClusterServer true -}}
         - name: tools
           emptyDir: {}
         {{- end }}
-
-        - name: sophora-server-storage
-          persistentVolumeClaim:
-            claimName: sophora-server-storage
-        - name: sophora-server-repository
-          configMap:
-            name: {{ include "sophora-server.repositoryConfigName" . }}
 
         {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
           # archive
