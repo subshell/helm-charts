@@ -2397,6 +2397,23 @@ entries:
     version: 1.0.0
   sophora-server:
   - annotations:
+      artifacthub.io/changes: "- kind: \"fixed\"\n  description: \"Fixed Typo in sophora-server.repositoryConfigTemplateName.\"
+        \    \n"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2025-12-12T14:45:51.090326984Z"
+    description: A Helm chart for the Sophora Server
+    digest: 9213e22294b2044165b208278f89a5cc3b980c5a4e77d3751fe50b1d2afb96ee
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.0.1/sophora-server-3.0.1.tgz
+    version: 3.0.1
+  - annotations:
       artifacthub.io/changes: "- kind: \"added\"\n  description: \"Added option to
         disable JCR support.\"     \n- kind: \"added\"\n  description: \"Added options
         to edit persistent volume access modes\"   \n- kind: \"removed\"\n  description:
@@ -3443,4 +3460,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-12T13:53:37.512316246Z"
+generated: "2025-12-12T14:45:51.090884187Z"
