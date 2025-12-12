@@ -216,6 +216,29 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
+### 3.0.0
+
+* Added the option do disable JCR support. Set `sophora.server.persistence.repositoryType` to `none`, if you use Sophora 6.1.0 or later and completed the postgres migration.
+* Added `sophora.server.storage.accessModes` and `sophora.server.storage.dataDirAccessModes`. Defaults to `ReadWriteOnce` for both.
+* Removed support for Sophora ACS.
+* Removed support for File System Binary Store. In case you still need it, add the following volume mount:
+```yaml
+extraVolumeMounts:
+    - name: sophora-server-storage
+      mountPath: /sophora/repository/binaries
+      subPath: repository.binaries
+    - name: sophora-server-storage
+      mountPath: /sophora/repository/binarystore
+      subPath: repository.binarystore
+```
+* Removed support for the internal Solr (Sophora 4). In case you still need it, add the following volume mount:
+```yaml
+extraVolumeMounts:
+    - name: sophora-server-storage
+      mountPath: /sophora/solr
+      subPath: solr
+```
+
 ### 2.11.1
 
 This version modifies how the `checksum/*` annotations in the StatefulSet's pod template are computed. Previously, the `sha256sum` was based on the _whole_ rendered ConfigMap, leading to changes in a hash whenever merely a ConfigMap label changed (like the `.Chart.AppVersion` or any user-provided `additionalSelectorLabels`). This did not affect the volume-mounted content seen by the pod, but still resulted in an update of the pod template and termination and restart of the StatefulSet's pods.

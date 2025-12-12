@@ -85,8 +85,8 @@ terminationGracePeriodSecondsPerServerMode:
 
 extraContainers: []
 extraInitContainers: []
-extraVolumeClaimTemplates: []
 
+extraVolumeClaimTemplates: []
 extraVolumes: []
 extraVolumeMounts: []
 
@@ -198,10 +198,12 @@ sophora:
       dataDirResources:
         requests:
           storage: 2Gi
+      accessModes: ["ReadWriteOnce"]
+      dataDirAccessModes: ["ReadWriteOnce"]
     persistence:
-      ## @param sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb or mysql, or postgres)
+      ## @param sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb, mysql, postgres, or none)
       repositoryType: localdb
-      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql or none)
+      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql, or none)
       archiveType: localdb
 
       derby:
@@ -299,9 +301,6 @@ sophora:
       # sophora.binarystore.s3.host=
       # sophora.binarystore.s3.bucketName=
       # sophora.ibf.enabled = true
-
-  acs:
-    url:
 
 configInitializer:
   # Additional environment variables passed to the config initializer can be defined here
