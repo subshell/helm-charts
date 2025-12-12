@@ -140,30 +140,22 @@ spec:
             - name: sophora-server-storage
               mountPath: /sophora/config
               subPath: config
+
             - name: sophora-server-data
               mountPath: /sophora/data
               subPath: data
-            - name: sophora-server-storage
-              mountPath: /sophora/solr
-              subPath: solr
-
-            {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
-            # Repository Folder Structure
-            - name: sophora-server-storage
-              mountPath: /sophora/repository/repository
-              subPath: repository.repository
-            - name: sophora-server-storage
-              mountPath: /sophora/repository/binaries
-              subPath: repository.binaries
-            - name: sophora-server-storage
-              mountPath: /sophora/repository/binarystore
-              subPath: repository.binarystore
             - name: sophora-server-storage
               mountPath: /sophora/repository/changeregistry
               subPath: repository.changeregistry
             - name: sophora-server-storage
               mountPath: /sophora/repository/syncRequest
               subPath: repository.syncRequest
+
+            {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
+            # Repository Folder Structure
+            - name: sophora-server-storage
+              mountPath: /sophora/repository/repository
+              subPath: repository.repository
             - name: sophora-server-storage
               mountPath: /sophora/repository/version
               subPath: repository.version
@@ -179,6 +171,17 @@ spec:
             - name: sophora-server-storage
               mountPath: /sophora/repository/workspaces/live/db
               subPath: repository.workspaces.live.db
+
+            # Main Repo
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: repository.xml
+              mountPath: /sophora/repository/repository.xml
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: workspace.default.xml
+              mountPath: /sophora/repository/workspaces/default/workspace.xml
+            - name: {{ include "sophora-server.repositoryConfigName" . }}
+              subPath: workspace.live.xml
+              mountPath: /sophora/repository/workspaces/live/workspace.xml
             {{- end }}
 
             {{- if not (eq .Values.sophora.server.persistence.archiveType "none") }}
@@ -204,17 +207,6 @@ spec:
               subPath: workspace.default.xml
               mountPath: /sophora/repository_archive/workspaces/default/workspace.xml
             {{- end }}
-
-            # Main Repo
-            - name: {{ include "sophora-server.repositoryConfigName" . }}
-              subPath: repository.xml
-              mountPath: /sophora/repository/repository.xml
-            - name: {{ include "sophora-server.repositoryConfigName" . }}
-              subPath: workspace.default.xml
-              mountPath: /sophora/repository/workspaces/default/workspace.xml
-            - name: {{ include "sophora-server.repositoryConfigName" . }}
-              subPath: workspace.live.xml
-              mountPath: /sophora/repository/workspaces/live/workspace.xml
 
             {{ if eq .Values.sophora.server.isClusterServer true -}}
             # Shutdown-Hook

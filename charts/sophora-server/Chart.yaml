@@ -22,6 +22,10 @@ annotations:
       description: "Added option to disable JCR support."   
     - kind: "removed"
       description: "Removed support for Sophora ACS."
+    - kind: "removed"
+      description: "Removed support for the internal Solr (Sophora 4)."
+    - kind: "removed"
+      description: "Removed support for the File System Binary Store."
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

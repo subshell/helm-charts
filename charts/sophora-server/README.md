@@ -220,6 +220,23 @@ sophora.persistence.postgres.port=5432
 
 * Added the option do disable JCR support. Set `sophora.server.persistence.repositoryType` to `none`, if you use Sophora 6.1.0 or later and completed the postgres migration.
 * Removed support for Sophora ACS.
+* Removed support for File System Binary Store. In case you still need it, add the following volume mount:
+```yaml
+extraVolumeMounts:
+    - name: sophora-server-storage
+      mountPath: /sophora/repository/binaries
+      subPath: repository.binaries
+    - name: sophora-server-storage
+      mountPath: /sophora/repository/binarystore
+      subPath: repository.binarystore
+```
+* Removed support for the internal Solr (Sophora 4). In case you still need it, add the following volume mount:
+```yaml
+extraVolumeMounts:
+    - name: sophora-server-storage
+      mountPath: /sophora/solr
+      subPath: solr
+```
 
 ### 2.11.1
 
