@@ -85,8 +85,8 @@ terminationGracePeriodSecondsPerServerMode:
 
 extraContainers: []
 extraInitContainers: []
-extraVolumeClaimTemplates: []
 
+extraVolumeClaimTemplates: []
 extraVolumes: []
 extraVolumeMounts: []
 
@@ -198,6 +198,8 @@ sophora:
       dataDirResources:
         requests:
           storage: 2Gi
+      accessModes: ["ReadWriteOnce"]
+      dataDirAccessModes: ["ReadWriteOnce"]
     persistence:
       ## @param sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb, mysql, postgres, or none)
       repositoryType: localdb

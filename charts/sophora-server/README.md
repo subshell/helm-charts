@@ -219,6 +219,7 @@ sophora.persistence.postgres.port=5432
 ### 3.0.0
 
 * Added the option do disable JCR support. Set `sophora.server.persistence.repositoryType` to `none`, if you use Sophora 6.1.0 or later and completed the postgres migration.
+* Added `sophora.server.storage.accessModes` and `sophora.server.storage.dataDirAccessModes`. Defaults to `ReadWriteOnce` for both.
 * Removed support for Sophora ACS.
 * Removed support for File System Binary Store. In case you still need it, add the following volume mount:
 ```yaml

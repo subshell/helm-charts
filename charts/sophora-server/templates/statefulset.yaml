@@ -105,10 +105,12 @@ spec:
           {{- toYaml .Values.configInitializer.envFrom | nindent 12 }}
           {{- end }}
           volumeMounts:
-            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}
+            {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
+            - name: {{ include "sophora-server.repositoryConfigTemplateName" . }}ddd
               mountPath: /sophora-repository-template
             - name: {{ include "sophora-server.repositoryConfigName" . }}
               mountPath: /sophora-repository
+            {{- end }}
             - name: {{ include "sophora-server.configs" . }}
               mountPath: /configs
             - name: {{ include "sophora-server.propertiesName" . }}
@@ -137,19 +139,17 @@ spec:
             - name: {{ include "sophora-server.propertiesName" . }}
               mountPath: /sophora/config/sophora.properties
               subPath: sophora.properties
-            - name: sophora-server-storage
-              mountPath: /sophora/config
-              subPath: config
 
-            - name: sophora-server-data
-              mountPath: /sophora/data
-              subPath: data
             - name: sophora-server-storage
               mountPath: /sophora/repository/changeregistry
               subPath: repository.changeregistry
             - name: sophora-server-storage
               mountPath: /sophora/repository/syncRequest
               subPath: repository.syncRequest
+
+            - name: sophora-server-data
+              mountPath: /sophora/data
+              subPath: data
 
             {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
             # Repository Folder Structure
@@ -402,7 +402,7 @@ spec:
         name: sophora-server-storage
         labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: {{ .Values.sophora.server.storage.accessModes }}
         {{ if .Values.sophora.server.storage.dataSource -}}
         dataSource: {{ toYaml .Values.sophora.server.storage.dataSource | nindent 10 }}
         {{- end }}
@@ -413,7 +413,7 @@ spec:
         name: sophora-server-data
         labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
       spec:
-        accessModes: ["ReadWriteOnce"]
+        accessModes: {{ .Values.sophora.server.storage.dataDirAccessModes }}
         resources:
         {{- toYaml .Values.sophora.server.storage.dataDirResources | nindent 10 }}
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}

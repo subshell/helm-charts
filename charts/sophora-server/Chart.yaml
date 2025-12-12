@@ -19,7 +19,9 @@ version: 3.0.0
 annotations:
   artifacthub.io/changes: |
     - kind: "added"
-      description: "Added option to disable JCR support."   
+      description: "Added option to disable JCR support."     
+    - kind: "added"
+      description: "Added options to edit persistent volume access modes"   
     - kind: "removed"
       description: "Removed support for Sophora ACS."
     - kind: "removed"
