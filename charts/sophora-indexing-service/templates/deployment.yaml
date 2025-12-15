@@ -34,9 +34,7 @@ spec:
       serviceAccountName: {{ include "sophora-indexing-service.serviceAccountName" . }}
       {{- with .Values.initContainers }}
       initContainers:
-        {{- range . }}
-          {{- toYaml . | nindent 8 }}
-        {{- end }}
+        {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
         - name: {{ .Chart.Name }}
