@@ -37,7 +37,7 @@ configGenerator:
     pullPolicy: IfNotPresent
 
 # Default Java options. Additional Java options (like -XX:+UseLargePages) should be added via `extraJavaOptions`.
-javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+UseG1GC -XX:+ExitOnOutOfMemoryError -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+ParallelRefProcEnabled -XX:G1HeapRegionSize=8m -XX:MaxGCPauseMillis=250 -XX:InitiatingHeapOccupancyPercent=75"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+UseG1GC -XX:+CrashOnOutOfMemoryError -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:+ParallelRefProcEnabled -XX:G1HeapRegionSize=8m -XX:MaxGCPauseMillis=250 -XX:InitiatingHeapOccupancyPercent=75"
 # Extra Java options in addition to `javaOptions`. Use this if you don't want to override `javaOptions`.
 extraJavaOptions:
 

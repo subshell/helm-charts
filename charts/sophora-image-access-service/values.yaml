@@ -7,7 +7,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: sophora-image-access-service
 
-javaOptions: "-XX:InitialRAMPercentage=40.0 -XX:MaxRAMPercentage=60.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem -XX:+UnlockDiagnosticVMOptions -XX:GCLockerRetryAllocationCount=20"
+javaOptions: "-XX:InitialRAMPercentage=40.0 -XX:MaxRAMPercentage=60.0 -XX:+CrashOnOutOfMemoryError -XX:+PerfDisableSharedMem -XX:+UnlockDiagnosticVMOptions -XX:GCLockerRetryAllocationCount=20"
 
 timeZone: "Europe/Berlin"
 

@@ -11,7 +11,7 @@ fullnameOverride: ""
 imagePullSecrets: []
 
 ## @param javaOptions String with Java VM Options passed to the application
-javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+CrashOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 ## @param hostAliases Host aliases available to the application
 hostAliases:
