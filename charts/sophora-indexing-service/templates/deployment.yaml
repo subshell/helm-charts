@@ -43,6 +43,9 @@ spec:
           volumeMounts:
             - mountPath: /app/config
               name: config
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 1837
@@ -119,6 +122,9 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-indexing-service.name" . }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
