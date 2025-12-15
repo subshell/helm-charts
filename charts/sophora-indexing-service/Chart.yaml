@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.4.0
+version: 1.5.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added potential initContainers configuration"
+      description: "added extra volumes and extra volume mounts"
 
 appVersion: '5.4.1'
 sources:

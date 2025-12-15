@@ -47,6 +47,9 @@ javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitO
 
 initContainers: []
 
+extraVolumes: []
+extraVolumeMounts: []
+
 serviceMonitor:
   enabled: false
   interval: 10s
