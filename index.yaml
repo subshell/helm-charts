@@ -1847,6 +1847,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added extra volumes and extra volume mounts"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2025-12-15T13:25:26.260971126Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 05025b7181dbd8c5e4bb791a510d81b449e70a059962bdfba28425e03a4acd31
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.5.0/sophora-indexing-service-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added potential initContainers configuration"
     apiVersion: v2
     appVersion: 5.4.1
@@ -3478,4 +3496,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-15T11:02:41.103372214Z"
+generated: "2025-12-15T13:25:26.261338844Z"
