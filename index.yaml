@@ -1847,6 +1847,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added potential initContainers configuration"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2025-12-15T11:02:41.102929707Z"
+    description: Sophora Indexing Service (SISI)
+    digest: dd53e4c9bed390e0c8cbed3fb4076fc61164b49d8b413740c849f9b33262250f
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.4.0/sophora-indexing-service-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added option to enable/disable Redis authentication"
     apiVersion: v2
     appVersion: 5.4.1
@@ -3460,4 +3478,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-12T14:45:51.090884187Z"
+generated: "2025-12-15T11:02:41.103372214Z"
