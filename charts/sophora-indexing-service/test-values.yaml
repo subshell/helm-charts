@@ -76,4 +76,4 @@ livenessProbe:
 initContainers:
   - name: init-myservice
     image: busybox
-    command: ['sh', '-c', 'echo The init container is running! && sleep 5']
+    command: ['sh', '-c', 'echo "The init container is running!" && sleep 5']
