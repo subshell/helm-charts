@@ -94,6 +94,8 @@ transformation:
 
 podAnnotations: {}
 
+podLabels: {}
+
 resources:
   requests:
     cpu: 200m
