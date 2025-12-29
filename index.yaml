@@ -1552,6 +1552,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "enable custom pod labels"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2025-12-29T08:25:39.714288118Z"
+    description: A Helm chart for the Sophora importer
+    digest: 53afe7264fd348429aba23edc1f21b4f0bf539a603355056f3d2f14d27664d54
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.3.0/sophora-importer-2.3.0.tgz
+    version: 2.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "reimplement clusterIP"
     apiVersion: v2
@@ -3496,4 +3514,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-15T13:25:26.261338844Z"
+generated: "2025-12-29T08:25:39.714745561Z"
