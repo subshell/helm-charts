@@ -2995,6 +2995,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "removed oracle from readme and test-values"
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-01-02T06:39:16.372114862Z"
+    description: A Helm chart for Kubernetes
+    digest: 6bf702b3fe1554ab9fbca6f576e36fe014807762b0d763a3638c790f561748ba
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.0.15/sophora-ugc-2.0.15.tgz
+    version: 2.0.15
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "always redeploy the UGC deployment if the config changes"
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
     apiVersion: v2
@@ -3514,4 +3533,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-12-29T08:25:39.714745561Z"
+generated: "2026-01-02T06:39:16.372552902Z"
