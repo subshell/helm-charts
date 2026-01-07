@@ -603,6 +603,24 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: added configuration for new Reader Copy feature
+    apiVersion: v2
+    appVersion: 1.5.5
+    created: "2026-01-07T12:37:58.418976537Z"
+    description: Sophora AI
+    digest: d58e4799c63c09c704f34a2558c77d857d80e6281df3d3aa629c1e5d9633b40b
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.0.4/sophora-ai-2.0.4.tgz
+    version: 2.0.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -3533,4 +3551,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-02T06:39:16.372552902Z"
+generated: "2026-01-07T12:37:58.419396834Z"
