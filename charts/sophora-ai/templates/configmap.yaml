@@ -31,6 +31,9 @@ data:
   {{- end }}
   application-questions.yaml: |- {{ toYaml (required "sophora.configuration.questions is required in values" .Values.sophora.configuration.questions) | nindent 4 }}
   application-quotations.yaml: |- {{ toYaml (required "sophora.configuration.quotations is required in values" .Values.sophora.configuration.quotations) | nindent 4 }}
+  {{- if .Values.sophora.configuration.readerCopy }}
+  application-reader-copy.yaml: |- {{ toYaml .Values.sophora.configuration.readerCopy | nindent 4 }}
+  {{- end }}
   application-recommend-documents.yaml: |- {{ toYaml (required "sophora.configuration.recommendDocuments is required in values" .Values.sophora.configuration.recommendDocuments) | nindent 4 }}
   application-recommend-links.yaml: |- {{ toYaml (required "sophora.configuration.recommendLinks is required in values" .Values.sophora.configuration.recommendLinks) | nindent 4 }}
   application-rephrase.yaml: |- {{ toYaml (required "sophora.configuration.rephrase is required in values" .Values.sophora.configuration.rephrase) | nindent 4 }}
