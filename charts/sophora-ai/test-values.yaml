@@ -94,6 +94,8 @@ sophora:
       testing: true
     quotations:
       testing: true
+    readerCopy:
+      testing: true
     recommendDocuments:
       testing: true
     recommendLinks:
