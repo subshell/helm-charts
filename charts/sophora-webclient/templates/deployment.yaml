@@ -9,10 +9,7 @@ spec:
     matchLabels: {{- include "webclient.selectorLabels" . | nindent 6 }}
   minReadySeconds: 5
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+    type: Recreate
   revisionHistoryLimit: 10
   template:
     metadata:
