@@ -6,11 +6,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.4.4
+version: 1.4.5
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "changed update strategy to Recreate, since RollingUpdates are not fully supported by Sophora Web yet"
+    - kind: added
+      description: "allow to configure service annotations"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
