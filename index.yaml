@@ -3315,6 +3315,27 @@ entries:
   sophora-webclient:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "allow to configure service annotations"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-01-13T15:56:14.158431302Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 21a2089cdd6885c1e3652775ecbdcd936c986b0b91cdff3cbbb51de5d8748314
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.4.5/sophora-webclient-1.4.5.tgz
+    version: 1.4.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "changed update strategy to Recreate, since RollingUpdates are not fully supported by Sophora Web yet"
     apiVersion: v2
@@ -3572,4 +3593,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-09T11:11:11.455392135Z"
+generated: "2026-01-13T15:56:14.158804807Z"
