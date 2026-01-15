@@ -6,7 +6,7 @@ version: 1.7.0
 annotations:
   artifacthub.io/changes: |
     - kind: removed
-      description: "mongodb bitnami helm chart dependency"
+      description: "mongodb bitnami helm chart dependency. You need to provide MongoDB yourself."
 
 appVersion: "1.8.0"
 sources:
