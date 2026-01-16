@@ -148,6 +148,23 @@ entries:
   o-neko:
   - annotations:
       artifacthub.io/changes: |
+        - kind: removed
+          description: "Removed mongodb Bitnami helm chart dependency. You need to provide MongoDB yourself. Consider using the Helm chart mongodb by groundhog2k. All values `mongodb.*` are obsolete now."
+    apiVersion: v2
+    appVersion: 1.8.0
+    created: "2026-01-16T12:37:26.559360744Z"
+    description: A Helm chart for O-Neko
+    digest: 06adeb08b31d3af9faa9c55b7abc90906604ffc64cfd57a715d6d89576f5ff05
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.0.0/o-neko-2.0.0.tgz
+    version: 2.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
@@ -3593,4 +3610,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-13T15:56:14.158804807Z"
+generated: "2026-01-16T12:37:26.559783511Z"
