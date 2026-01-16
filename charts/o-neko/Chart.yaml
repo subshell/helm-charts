@@ -2,7 +2,7 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 1.7.0
+version: 2.0.0
 annotations:
   artifacthub.io/changes: |
     - kind: removed
