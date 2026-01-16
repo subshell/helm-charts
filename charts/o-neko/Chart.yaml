@@ -6,7 +6,7 @@ version: 1.7.0
 annotations:
   artifacthub.io/changes: |
     - kind: removed
-      description: "mongodb bitnami helm chart dependency. You need to provide MongoDB yourself."
+      description: "Removed mongodb Bitnami helm chart dependency. You need to provide MongoDB yourself. Consider using the Helm chart mongodb by groundhog2k. All values `mongodb.*` are obsolete now."
 
 appVersion: "1.8.0"
 sources:
