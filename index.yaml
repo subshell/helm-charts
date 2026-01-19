@@ -488,6 +488,26 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "add configs useExternalUrl and usesV2Api."
+    apiVersion: v2
+    created: "2026-01-19T09:12:50.422351827Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 2eb16f69271234a132be58e3ffa19acae0d6056007bc6f6ce65d405cb8fb9bc5
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.5.0/sophora-admin-dashboard-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "It's now possible to configure the content api path."
     apiVersion: v2
     created: "2025-10-30T08:22:06.915953095Z"
@@ -3610,4 +3630,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-16T12:37:26.559783511Z"
+generated: "2026-01-19T09:12:50.422759986Z"
