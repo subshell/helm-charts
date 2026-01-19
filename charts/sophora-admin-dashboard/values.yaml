@@ -73,7 +73,7 @@ sophora:
   # -- (bool) defines whether to skip polling of /metricAdmin endpoints (when set to true). Used for newer API versions.
   usesV2Api: false
   # -- (bool) defines whether to use the external URL (hostname and port) of the Server to poll it
-  usesExternalUrl: false
+  useExternalUrl: false
   # -- (bool) set to true if the ibf filter is enabled
   ibfEnabled: false
   # -- (bool) set to false if using SolrCloud
