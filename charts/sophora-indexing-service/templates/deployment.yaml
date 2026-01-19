@@ -32,6 +32,10 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "sophora-indexing-service.serviceAccountName" . }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -39,6 +43,9 @@ spec:
           volumeMounts:
             - mountPath: /app/config
               name: config
+            {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           ports:
             - name: http
               containerPort: 1837
@@ -56,11 +63,13 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.sophora.authentication.secret.passwordKey | quote }}
                   name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.sophora.authentication.secret.name | quote }}
+            {{- if .Values.redis.authentication.enabled }}
             - name: {{ .Values.redis.authentication.envName | quote }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .Values.redis.authentication.secret.passwordKey | quote }}
-                  name: {{ required "A valid secret name must be provided in .Values.sophora.authentication.secret.name" .Values.redis.authentication.secret.name | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.redis.authentication.secret.name" .Values.redis.authentication.secret.name | quote }}
+            {{- end }}
             {{- if .Values.solr.basicAuth.enabled }}
             - name: SOPHORA_SOLR_USERNAME
               valueFrom:
@@ -113,6 +122,9 @@ spec:
         - name: config
           configMap:
             name: {{ include "sophora-indexing-service.name" . }}
+        {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

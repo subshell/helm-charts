@@ -36,8 +36,8 @@ Common labels
 {{- define "sophora-server.labels" -}}
 helm.sh/chart: {{ include "sophora-server.chart" . }}
 {{ include "sophora-server.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- if .Values.image.tag }}
+app.kubernetes.io/version: {{ .Values.image.tag | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end }}

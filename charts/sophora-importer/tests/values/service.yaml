@@ -5,3 +5,4 @@ service:
     foo: bar
   type: foo
   httpPort: 81
+  clusterIP: None

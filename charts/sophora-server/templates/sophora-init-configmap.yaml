@@ -38,6 +38,7 @@ data:
     envsubst < /configs/sophora.properties > /sophora-properties/sophora.properties
     echo "Generated sophora.properties from ENV"
 
+    {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
     # xml configs
     ##############
 
@@ -82,8 +83,4 @@ data:
     envsubst < /sophora-archive-template/workspace.default.xml > /sophora-archive/workspace.default.xml
     echo "Generated repository.xml and workspace.default.xml for archive from ENV"
     {{- end }}
-
-    {{- if .Values.sophora.acs.url }}
-  acs.properties: |-
-    sophora.acs.addon.serviceUrl={{ .Values.sophora.acs.url }}
-  {{- end }}
+    {{- end }}

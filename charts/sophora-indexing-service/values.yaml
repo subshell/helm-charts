@@ -30,6 +30,7 @@ sophora:
 
 redis:
   authentication:
+    enabled: true
     # use this env variable in sisi.configuration.spring.redis.redisson.config to set the password
     # with ${REDIS_AUTHENTICATION_PASSWORD}
     envName: "REDIS_AUTHENTICATION_PASSWORD"
@@ -43,6 +44,11 @@ sisi:
   configuration:
 
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+initContainers: []
+
+extraVolumes: []
+extraVolumeMounts: []
 
 serviceMonitor:
   enabled: false

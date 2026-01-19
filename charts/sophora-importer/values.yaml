@@ -94,6 +94,8 @@ transformation:
 
 podAnnotations: {}
 
+podLabels: {}
+
 resources:
   requests:
     cpu: 200m
@@ -103,6 +105,7 @@ resources:
 
 service:
   annotations: {}
+  clusterIP:
   type: ClusterIP
   httpPort: 80
 

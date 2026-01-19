@@ -57,12 +57,8 @@ sophora:
         requests:
           storage: 200Gi
     persistence:
-      repositoryType: localdb
+      repositoryType: none
       archiveType: none
-      mysql:
-        repositories:
-          - secretName: repository-secret01
-            hostnameKey: new-hostname
       multiPostgres:
         enabled: true
         byPodIndex:
@@ -80,8 +76,6 @@ sophora:
             name: secret-2
             usernameKey: username
             passwordKey: password
-          repository:
-            defaultWorkspaceDB: "my-repo"
 
     binaryStore:
       s3:

@@ -2,13 +2,13 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.0.3
+version: 2.0.4
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "chart formatting"
+    - kind: added
+      description: added configuration for new Reader Copy feature
 
-appVersion: 1.0.0
+appVersion: 1.5.5
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 home: https://subshell.com/sophora/modules/sophora-ai100.html
