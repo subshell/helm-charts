@@ -32,7 +32,7 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- range .Values.gateway.https }}
-    - name: "https-{{ .host }}"
+    - name: "https-{{ .host | replace "*" "wildcard" | replace "_" "" }}"
       hostname: "{{ .host }}"
       port: 443
       protocol: HTTPS
