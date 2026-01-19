@@ -70,6 +70,10 @@ sophora:
   solrUrl: "/solr"
   # -- (string) URL or path to the management API (for Sophora 6 use /v1/management)
   contentApiPath: "/content-api"
+  # -- (bool) defines whether to skip polling of /metricAdmin endpoints (when set to true). Used for newer API versions.
+  usesV2Api: false
+  # -- (bool) defines whether to use the external URL (hostname and port) of the Server to poll it
+  usesExternalUrl: false
   # -- (bool) set to true if the ibf filter is enabled
   ibfEnabled: false
   # -- (bool) set to false if using SolrCloud
