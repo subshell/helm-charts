@@ -2506,6 +2506,23 @@ entries:
     version: 1.0.0
   sophora-server:
   - annotations:
+      artifacthub.io/changes: "- kind: \"added\"\n  description: \"Add additional
+        service selector label config\"     \n"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-01-21T13:01:55.636536873Z"
+    description: A Helm chart for the Sophora Server
+    digest: ce6eed7266b532570c07568f117c01e297a5ab6bce15e02795274cf76e306206
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.1.0/sophora-server-3.1.0.tgz
+    version: 3.1.0
+  - annotations:
       artifacthub.io/changes: "- kind: \"fixed\"\n  description: \"Fixed Typo in sophora-server.repositoryConfigTemplateName.\"
         \    \n"
     apiVersion: v2
@@ -3630,4 +3647,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-19T09:12:50.422759986Z"
+generated: "2026-01-21T13:01:55.637084264Z"
