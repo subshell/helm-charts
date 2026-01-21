@@ -104,6 +104,8 @@ configInitializer:
         name: sophora-server-post-restore-vars
 
 service:
+  additionalSelectorLabels:
+    test: "true"
   annotations:
     networking.gke.io/load-balancer-type: "Internal"
     networking.gke.io/internal-load-balancer-subnet: "gke-sophora-services"
