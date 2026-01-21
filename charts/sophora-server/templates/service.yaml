@@ -15,6 +15,9 @@ spec:
   loadBalancerIP: {{ .Values.service.loadBalancerIP | quote }}
   {{- end }}
   selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  {{- if .Values.service.additionalSelectorLabels }}
+  {{ .Values.service.additionalSelectorLabels | toYaml | nindent 4 }}
+  {{- end }}
   {{ if $enableSessionAffinity -}}
   sessionAffinity: {{ .Values.service.sessionAffinity | quote }}
   sessionAffinityConfig: {{- toYaml .Values.service.sessionAffinityConfig | nindent 4 }}

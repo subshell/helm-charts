@@ -9,6 +9,9 @@ spec:
   type: ClusterIP
   clusterIP: None
   selector: {{- include "sophora-server.selectorLabels" . | nindent 4 }}
+  {{- if .Values.service.additionalSelectorLabels }}
+  {{ .Values.service.additionalSelectorLabels | toYaml | nindent 4 }}
+  {{- end }}
   ports:
     - port: {{ .Values.service.httpPort }}
       targetPort: http
