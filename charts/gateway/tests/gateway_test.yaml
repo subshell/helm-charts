@@ -10,7 +10,7 @@ tests:
       name: basic-test-release
     values:
       - ./values/basic.yaml
-    assert:
+    asserts:
       - containsDocument:
           kind: Gateway
           apiVersion: gateway.networking.k8s.io/v1beta1
@@ -49,7 +49,7 @@ tests:
     capabilities:
       apiVersions:
         - gateway.networking.k8s.io/v1
-    assert:
+    asserts:
       - equal:
           path: spec.type
           value: gateway.networking.k8s.io/v1
