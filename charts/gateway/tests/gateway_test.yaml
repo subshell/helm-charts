@@ -50,6 +50,5 @@ tests:
       apiVersions:
         - gateway.networking.k8s.io/v1
     asserts:
-      - equal:
-          path: spec.type
-          value: gateway.networking.k8s.io/v1
+      - isAPIVersion:
+          of: gateway.networking.k8s.io/v1
