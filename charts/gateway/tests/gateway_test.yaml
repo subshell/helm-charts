@@ -41,6 +41,7 @@ tests:
                 namespaces:
                   from: All
       - notFailedTemplate: {}
+
   - it: should use v1 api version if available
     release:
       name: basic-test-release
@@ -52,3 +53,81 @@ tests:
     asserts:
       - isAPIVersion:
           of: gateway.networking.k8s.io/v1
+
+  - it: should render with all values
+    release:
+      name: full-test-release
+    values:
+      - ./values/full.yaml
+    asserts:
+      - containsDocument:
+          kind: Gateway
+          apiVersion: gateway.networking.k8s.io/v1beta1
+          name: basic-test-release-testgateway
+      - equal:
+          path: metadata.annotations
+          value:
+            cert-manager.io/cluster-issuer: "acme-issuer"
+            example.com/some.more: 1234
+            example.com/template-value: This is a test
+      - equal:
+          path: spec
+          value:
+            gatewayClassName: "gke-l7-global-external-managed-mc"
+            addresses:
+              - type: NamedAddress
+                value: chart-example-address
+              - value: 1.2.3.4
+            listeners:
+              - hostname: other.example.com
+                name: other-port
+                port: 12345
+                protocol: example.com/bar
+                tls:
+                  certificateRefs:
+                  - group: foo.example.com
+                    kind: SpecialSecret
+                    name: other-certificate
+                    namspace: secret-ns
+                  mode: Terminate
+              - name: http
+                port: 80
+                protocol: HTTP
+              - name: "https-simple.example.com"
+                hostname: "simple.example.com"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: Terminate
+                  certificateRefs:
+                    - name: "gw-cert-simple.example.com"
+                allowedRoutes:
+                  namespaces:
+                    from: All
+              - name: "https-chart-example.local"
+                hostname: "chart-example.local"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: "Passthrough"
+                  certificateRefs:
+                    - name: "chart-example-tls"
+                allowedRoutes:
+                kinds:
+                - group: gateway.example.com
+                  kind: ExampleRoute
+                namespaces:
+                  from: Selector
+                  selector:
+                    matchLabels:
+                      example: use-gateway
+            infrastructure:
+              annotations:
+                foo: bar
+              labels:
+                bar: foo
+              parametersRef:
+                group: settings.example.com
+                kind: ExampleSettings
+                name: example-settings
+      - notFailedTemplate: {}
