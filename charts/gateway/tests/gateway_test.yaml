@@ -63,7 +63,14 @@ tests:
       - containsDocument:
           kind: Gateway
           apiVersion: gateway.networking.k8s.io/v1beta1
-          name: basic-test-release-testgateway
+          name: full-test-release-testgateway
+      - equal:
+          path: metadata.labels
+          value:
+            helm.sh/chart: gateway-0.9.8
+            app.kubernetes.io/name: testgateway
+            app.kubernetes.io/instance: full-test-release
+            app.kubernetes.io/managed-by: Helm
       - equal:
           path: metadata.annotations
           value:
