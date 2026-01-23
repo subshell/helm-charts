@@ -26,20 +26,19 @@ tests:
           path: metadata.annotations
           count: 0
       - equal:
-          path: spec.gatewayClassName
-          value: "gke-l7-rilb"
-      - equal:
-          path: spec.listeners
+          path: spec
           value:
-            - name: "https-simple.example.com"
-              hostname: "simple.example.com"
-              port: 443
-              protocol: HTTPS
-              tls:
-                mode: Terminate
-              allowedRoutes:
-                namespaces:
-                  from: All
+            gatewayClassName: "gke-l7-rilb"
+            listeners:
+              - name: "https-simple.example.com"
+                hostname: "simple.example.com"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: Terminate
+                allowedRoutes:
+                  namespaces:
+                    from: All
       - notFailedTemplate: {}
 
   - it: should use v1 api version if available
