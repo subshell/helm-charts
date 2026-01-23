@@ -1,0 +1,55 @@
+---
+suite: test gateway
+templates:
+  - templates/gateway.yaml
+chart:
+  version: 0.9.8
+tests:
+  - it: should render with basic values
+    release:
+      name: basic-test-release
+    values:
+      - ./values/basic.yaml
+    assert:
+      - containsDocument:
+          kind: Gateway
+          apiVersion: gateway.networking.k8s.io/v1beta1
+          name: basic-test-release-gateway
+      - equal:
+          path: metadata.labels
+          value:
+            helm.sh/chart: gateway-0.9.8
+            app.kubernetes.io/name: gateway
+            app.kubernetes.io/instance: basic-test-release
+            app.kubernetes.io/managed-by: Helm
+      - lengthEqual:
+          path: metadata.annotations
+          count: 0
+      - equal:
+          path: spec.gatewayClassName
+          value: "gke-l7-rilb"
+      - equal:
+          path: spec.listeners
+          value:
+            - name: "https-simple.example.com"
+              hostname: "simple.example.com"
+              port: 443
+              protocol: HTTPS
+              tls:
+                mode: Terminate
+              allowedRoutes:
+                namespaces:
+                  from: All
+      - notFailedTemplate: {}
+  - it: should use v1 api version if available
+    release:
+      name: basic-test-release
+    values:
+      - ./values/basic.yaml
+    capabilities:
+      apiVersions:
+        - gateway.networking.k8s.io/v1
+    assert:
+      - equal:
+          path: spec.type
+          value: gateway.networking.k8s.io/v1

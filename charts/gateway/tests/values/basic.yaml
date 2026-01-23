@@ -1,0 +1,3 @@
+gateway:
+  https:
+  - host: simple.example.com
