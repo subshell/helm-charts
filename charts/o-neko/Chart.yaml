@@ -2,13 +2,13 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.0.0
+version: 2.0.1
 annotations:
   artifacthub.io/changes: |
-    - kind: removed
-      description: "Removed mongodb Bitnami helm chart dependency. You need to provide MongoDB yourself. Consider using the Helm chart mongodb by groundhog2k. All values `mongodb.*` are obsolete now."
+    - kind: changed
+      description: "Updated O-Neko to 1.8.2"
 
-appVersion: "1.8.0"
+appVersion: "1.8.2"
 sources:
   - https://github.com/subshell/o-neko/
   - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
