@@ -2523,6 +2523,24 @@ entries:
     version: 1.0.0
   sophora-server:
   - annotations:
+      artifacthub.io/changes: "- kind: \"changed\"\n  description: \"The Sophora server
+        uses -XX:+CrashOnOutOfMemoryError instead of -XX:+ExitOnOutOfMemoryError\"
+        \     \n"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-01-30T14:05:42.211611928Z"
+    description: A Helm chart for the Sophora Server
+    digest: 8195bdb38442ad2e0b206eb2f6f1346e8f3b308116003983c770327ef01b4ca1
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.1.1/sophora-server-3.1.1.tgz
+    version: 3.1.1
+  - annotations:
       artifacthub.io/changes: "- kind: \"added\"\n  description: \"Add additional
         service selector label config\"     \n"
     apiVersion: v2
@@ -3664,4 +3682,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-29T11:43:26.026192099Z"
+generated: "2026-01-30T14:05:42.212219889Z"
