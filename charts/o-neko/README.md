@@ -48,7 +48,7 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `nameOverride`       | String to partially override the name                 | `""`                                                                                                            |
 | `fullnameOverride`   | String to fully override the release name             | `""`                                                                                                            |
 | `imagePullSecrets`   | Docker registry secret names as an array              | `[]`                                                                                                            |
-| `javaOptions`        | String with Java VM Options passed to the application | `-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+CrashOnOutOfMemoryError -XX:+PerfDisableSharedMem` |
+| `javaOptions`        | String with Java VM Options passed to the application | `-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem` |
 | `hostAliases`        | Host aliases available to the application             | `nil`                                                                                                           |
 | `resources.limits`   | The resource limits for the container                 | `{}`                                                                                                            |
 | `resources.requests` | The resource requests for the container               | `{}`                                                                                                            |

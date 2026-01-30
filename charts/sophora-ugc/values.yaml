@@ -2,7 +2,7 @@ replicaCount: 1
 
 imagePullSecrets: []
 
-javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+CrashOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
 podAnnotations: {}
 

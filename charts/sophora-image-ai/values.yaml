@@ -9,7 +9,7 @@ image:
 
 imagePullSecrets: []
 
-javaOptions: -XX:+CrashOnOutOfMemoryError -XX:+PerfDisableSharedMem
+javaOptions: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
 
 sophora:
   authentication:
