@@ -33,7 +33,7 @@ oneko:
   ## @param oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko
-    tag: 1.8.0
+    tag: 1.8.2
     imagePullPolicy: IfNotPresent
 
   ## @extra oneko.env array of environment variables passed to the container
@@ -159,52 +159,3 @@ serviceMonitor:
   enabled: false
   interval: 10s
   path: "/actuator/prometheus"
-
-## @section MongoDB
-##
-## MongoDB configuration
-##
-## @descriptionStart
-## Refer to the Bitnami MongoDB Chart for all configuration options: https://artifacthub.io/packages/helm/bitnami/mongodb
-## @descriptionEnd
-##
-
-## @extra mongodb.enabled Whether a MongoDB should be deployed or not
-## @skip mongodb
-mongodb:
-  enabled: true
-  architecture: "replicaset"
-  auth:
-    enabled: true
-    existingSecret: #mongodb-credentials
-    username: o-neko
-    database: o-neko
-
-  replicaCount: 3
-
-  #persistence:
-  #  storageClass:
-
-  arbiter:
-    enabled: false
-
-  #affinity:
-  #  podAntiAffinity:
-  #    preferredDuringSchedulingIgnoredDuringExecution:
-  #      - weight: 100
-  #        podAffinityTerm:
-  #          labelSelector:
-  #            matchExpressions:
-  #              - key: app.kubernetes.io/name
-  #                operator: In
-  #                values:
-  #                  - mongodb
-  #          topologyKey: "kubernetes.io/hostname"
-
-  resources:
-    requests:
-      memory: "0.5G"
-      cpu: "0.05"
-    limits:
-      memory: "1G"
-      cpu: "0.15"

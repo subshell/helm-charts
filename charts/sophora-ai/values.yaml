@@ -133,6 +133,9 @@ sophora:
     # contents of application-quotations.yaml
     quotations:
 
+    # contents of application-reader-copy.yaml (actually required, but optional to support older app versions)
+    #readerCopy:
+
     # contents of application-recommend-documents.yaml
     recommendDocuments:
 

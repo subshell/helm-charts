@@ -13,24 +13,28 @@ $ helm install my-release subshell-public/o-neko
 
 ## Introduction
 
-This chart installs O-Neko in Kubernetes using Helm. Optionally this chart will also install a MongoDB cluster using
-the [Bitnami MongoDB Helm chart](https://artifacthub.io/packages/helm/bitnami/mongodb).
+This chart installs O-Neko in Kubernetes using Helm.
 
 ## Requirements
 
+For O-Neko to work properly you will need a running MongoDB instance.
+
 To install O-Neko using this Helm chart you will need to create three secrets using your favorite method of doing it:
 
-A secret containing the MongoDB credentials, e.g.: 
+A secret containing the MongoDB credentials, e.g.:
+
 ```
 kubectl create secret generic mongodb-credentials --from-literal=mongodb-password="SECRET" --from-literal=mongodb-root-password="SECRET" --from-literal=mongodb-replica-set-key="SECRET"
 ```
 
 A "credentialsCoderKey" secret used for symmetrical encryption of sensitive data in the database, e.g.:
+
 ```
 kubectl create secret generic o-neko-credentials-coder-key --from-literal=key="SECRET"
 ```
 
 A secret containing the MongoDB URI (incl. the MongoDB password), e.g.:
+
 ```
 kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-neko:SECRET@o-neko-db-mongodb-0.mongodb-headless:27017,o-neko-db-mongodb-1.mongodb-headless:27017,o-neko-db-mongodb-2.mongodb-headless:27017/o-neko?"
 ```
@@ -48,7 +52,6 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `hostAliases`        | Host aliases available to the application             | `nil`                                                                                                           |
 | `resources.limits`   | The resource limits for the container                 | `{}`                                                                                                            |
 | `resources.requests` | The resource requests for the container               | `{}`                                                                                                            |
-
 
 ### O-Neko parameters
 
@@ -68,7 +71,6 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `oneko.credentialsCoderKeySecret.fieldName` | Name of the field in the secret                                       | `key`                    |
 | `oneko.config`                              | The application.yaml containing the O-Neko application configuration  |                          |
 
-
 ### Probes
 
 | Name                                 | Description                              | Value |
@@ -86,7 +88,6 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `livenessProbe.timeoutSeconds`       | Timeout seconds for livenessProbe        | `10`  |
 | `livenessProbe.periodSeconds`        | Period seconds for livenessProbe         | `60`  |
 
-
 ### Traffic Exposure parameters
 
 | Name                            | Description                                   | Value  |
@@ -102,7 +103,6 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `ingress.tls`                   | TLS configuration of the ingress as an array  | `nil`  |
 | `ingress.annotations`           | annotations for the ingress                   | `{}`   |
 
-
 ### Metrics
 
 | Name                      | Description                                                         | Value                  |
@@ -110,13 +110,3 @@ kubectl create secret generic oneko-mongodb-uri --from-literal=uri="mongodb://o-
 | `serviceMonitor.enabled`  | Whether the serviceMonitor resource should be deployed              | `false`                |
 | `serviceMonitor.interval` | Prometheus scrape interval                                          | `10s`                  |
 | `serviceMonitor.path`     | HTTP path prometheus should use to scrape the application's metrics | `/actuator/prometheus` |
-
-
-### MongoDB
-
-Refer to the Bitnami MongoDB Chart for all configuration options: https://artifacthub.io/packages/helm/bitnami/mongodb
-
-| Name              | Description                                 | Value |
-| ----------------- | ------------------------------------------- | ----- |
-| `mongodb.enabled` | Whether a MongoDB should be deployed or not |       |
-

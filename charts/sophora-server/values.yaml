@@ -384,6 +384,7 @@ grpcIngress:
 service:
   annotations: {}
   headlessAnnotations: {}
+  additionalSelectorLabels: {}
   type:
   httpPort: 1196
   grpcPort: 2026

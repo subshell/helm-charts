@@ -72,3 +72,17 @@ livenessProbe:
   initialDelaySeconds: 5
   timeoutSeconds: 1
   periodSeconds: 10
+
+initContainers:
+  - name: init-myservice
+    image: busybox
+    command: ['sh', '-c', 'echo "The init container is running!" && sleep 5']
+
+extraVolumes:
+  - name: extra-config
+    configMap:
+      name: extra-config-map
+
+extraVolumeMounts:
+  - name: extra-config
+    mountPath: /app/extra-config

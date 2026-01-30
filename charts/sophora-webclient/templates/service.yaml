@@ -4,6 +4,9 @@ metadata:
   name: {{ include "webclient.fullname" . }}
   labels:
     {{- include "webclient.labels" . | nindent 4 }}
+  {{- with .Values.service.annotations }}
+  annotations: {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   type: {{ .Values.service.type }}
   {{ if .Values.service.loadBalancerIP }}

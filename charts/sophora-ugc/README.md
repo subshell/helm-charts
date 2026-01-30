@@ -185,13 +185,13 @@ ugcMultimedia:
       jpa:
         hibernate:
           ddl-auto: update
-        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect # org.hibernate.dialect.Oracle12cDialect
-        database: mysql # oracle
+        database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+        database: mysql
       datasource:
         url: jdbc:mysql://host.docker.internal:3306/ugc-multimedia
         username: ${DATABASE_USER}
         password: ${DATABASE_PASSWORD}
-        driver-class-name: com.mysql.cj.jdbc.Driver # oracle.jdbc.OracleDriver
+        driver-class-name: com.mysql.cj.jdbc.Driver
       servlet:
         multipart:
           max-file-size: 20MB
