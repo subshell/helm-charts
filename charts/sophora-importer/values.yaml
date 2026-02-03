@@ -145,8 +145,8 @@ httpRoute:
       #sectionName: http
       # namespace: default
   # Hostnames matching HTTP header.
-  hostnames:
-    - chart-example.local
+  hostnames: []
+    #- chart-example.local
   # List of rules and filters applied.
   rules: []
     #- matches:
