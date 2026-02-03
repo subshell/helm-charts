@@ -1625,6 +1625,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added optional HTTPRoute for Gateway API"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-02-03T14:48:08.001009717Z"
+    description: A Helm chart for the Sophora importer
+    digest: 8b0f00dadb1b1145750b2ce27cc6b66dccc05d2e64b47ef54a0f10358624d0f2
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.4.0/sophora-importer-2.4.0.tgz
+    version: 2.4.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "enable custom pod labels"
     apiVersion: v2
     appVersion: 5.0.0
@@ -3682,4 +3700,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-01-30T14:05:42.212219889Z"
+generated: "2026-02-03T14:48:08.001642145Z"
