@@ -24,4 +24,5 @@ jobs:
       - name: validate every Chart.yaml
         run: |-
           allCharts=$(find charts/ -name Chart.yaml -printf '%p ')
+          echo "validating with schema chart-schema.json files: ${allCharts}"
           jsonschema validate chart-schema.json ${allCharts} --http
