@@ -7,9 +7,9 @@ metadata:
 spec:
   clusterIP: {{ .Values.service.jolokia.clusterIP }}
   ports:
-    - port: 1694
-      targetPort: 1694
+    - name: webapp-jolokia
+      port: 1694
+      targetPort: webapp-jolokia
       protocol: TCP
-      name: jolokia
   selector:
     {{- include "sophora-ugc.selectorLabels" . | nindent 4 }}
