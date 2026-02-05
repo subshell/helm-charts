@@ -18,7 +18,11 @@ jobs:
 
       - name: collect Chart.yamls
         run: |
-          echo "INPUT_DATA='$(find charts -name Chart.yaml)'" >> "$GITHUB_ENV"
+          {
+            echo 'INPUT_DATA<<EOF'
+            find charts -name Chart.yaml
+            echo EOF
+          } >> "$GITHUB_ENV"
 
       - name: validate all Chart.yaml
         uses: RomanosTrechlis/actions-validate-yaml@v1.0
