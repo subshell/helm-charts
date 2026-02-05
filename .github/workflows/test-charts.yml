@@ -1,6 +1,8 @@
 name: Test Charts
 
-on: ["push", "pull_request"]
+on:
+  - push
+  - pull_request
 
 jobs:
   test:
@@ -10,7 +12,16 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
       - name: Test Chart
-        uses: d3adb5/helm-unittest-action@v2
+        uses: d3adb5/helm-unittest-action@v2.5.0
         with:
-          helm-version: 'v3.11.2'
+          helm-version: v4.1.0
+
+      # validate YAML files with JSON schema
+      - name: Install the JSON Schema CLI
+        uses: sourcemeta/jsonschema@v14.7.0
+      - name: validate every Chart.yaml
+        run: |-
+          allCharts=$(find charts/ -name Chart.yaml -printf '%p ')
+          jsonschema validate chart-schema.json ${allCharts} --http
