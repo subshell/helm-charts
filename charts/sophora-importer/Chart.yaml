@@ -19,7 +19,7 @@ version: 2.4.1
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "fix service port of httproute"
+      description: "fix service Port of httproute"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

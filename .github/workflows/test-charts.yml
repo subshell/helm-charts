@@ -16,7 +16,7 @@ jobs:
       - name: Test Chart
         uses: d3adb5/helm-unittest-action@v2.5.0
         with:
-          helm-version: v4.1.0
+          helm-version: v3.20.0
 
       # validate YAML files with JSON schema
       - name: Install the JSON Schema CLI
