@@ -1624,7 +1624,7 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
-        - kind: fix
+        - kind: fixed
           description: "fix service Port of httproute"
     apiVersion: v2
     appVersion: 5.0.0
