@@ -10,22 +10,14 @@ jobs:
   validate-yaml:
     name: Validate Helm Chart
     runs-on: ubuntu-latest
+    container:
+      image: weibeld/ajv-cli:5.0.0
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: collect Chart.yamls
-        run: |
-          {
-            echo 'YAML_CHARTS<<EOF'
-            find charts -name Chart.yaml
-            echo EOF
-          } >> "$GITHUB_ENV"
-
       - name: validate all Chart.yaml
-        uses: RomanosTrechlis/actions-validate-yaml@v1.0
-        with:
-          schema: chart-schema.json
-          data: ${{ env.YAML_CHARTS }}
+        run: |
+          find charts -name Chart.yaml --exec ajv --spec draft2020 -c ajv-formats -s chart-schema.json -d {} \;
