@@ -1,0 +1,139 @@
+---
+suite: test gateway
+templates:
+  - templates/gateway.yaml
+chart:
+  version: 0.9.8
+tests:
+  - it: should render with basic values
+    release:
+      name: basic-test-release
+    values:
+      - ./values/basic.yaml
+    asserts:
+      - containsDocument:
+          kind: Gateway
+          apiVersion: gateway.networking.k8s.io/v1beta1
+          name: basic-test-release-gateway
+      - equal:
+          path: metadata.labels
+          value:
+            helm.sh/chart: gateway-0.9.8
+            app.kubernetes.io/name: gateway
+            app.kubernetes.io/instance: basic-test-release
+            app.kubernetes.io/managed-by: Helm
+      - lengthEqual:
+          path: metadata.annotations
+          count: 0
+      - equal:
+          path: spec
+          value:
+            gatewayClassName: "gke-l7-rilb"
+            listeners:
+              - name: "https-simple.example.com"
+                hostname: "simple.example.com"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: Terminate
+                allowedRoutes:
+                  namespaces:
+                    from: All
+      - notFailedTemplate: {}
+
+  - it: should use v1 api version if available
+    release:
+      name: basic-test-release
+    values:
+      - ./values/basic.yaml
+    capabilities:
+      apiVersions:
+        - gateway.networking.k8s.io/v1
+    asserts:
+      - isAPIVersion:
+          of: gateway.networking.k8s.io/v1
+
+  - it: should render with all values
+    release:
+      name: full-test-release
+    values:
+      - ./values/full.yaml
+    asserts:
+      - containsDocument:
+          kind: Gateway
+          apiVersion: gateway.networking.k8s.io/v1beta1
+          name: full-test-release-testgateway
+      - equal:
+          path: metadata.labels
+          value:
+            helm.sh/chart: gateway-0.9.8
+            app.kubernetes.io/name: testgateway
+            app.kubernetes.io/instance: full-test-release
+            app.kubernetes.io/managed-by: Helm
+      - equal:
+          path: metadata.annotations
+          value:
+            cert-manager.io/cluster-issuer: "acme-issuer"
+            example.com/some.more: 1234
+            example.com/template-value: This is a test
+      - equal:
+          path: spec
+          value:
+            gatewayClassName: "gke-l7-global-external-managed-mc"
+            addresses:
+              - type: NamedAddress
+                value: chart-example-address
+              - value: 1.2.3.4
+            listeners:
+              - hostname: other.example.com
+                name: other-port
+                port: 12345
+                protocol: example.com/bar
+                tls:
+                  certificateRefs:
+                  - group: foo.example.com
+                    kind: SpecialSecret
+                    name: other-certificate
+                    namspace: secret-ns
+                  mode: Terminate
+              - name: http
+                port: 80
+                protocol: HTTP
+              - name: "https-simple.example.com"
+                hostname: "simple.example.com"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: Terminate
+                  certificateRefs:
+                    - name: "gw-cert-simple.example.com"
+                allowedRoutes:
+                  namespaces:
+                    from: All
+              - name: "https-chart-example.local"
+                hostname: "chart-example.local"
+                port: 443
+                protocol: HTTPS
+                tls:
+                  mode: "Passthrough"
+                  certificateRefs:
+                    - name: "chart-example-tls"
+                allowedRoutes:
+                kinds:
+                - group: gateway.example.com
+                  kind: ExampleRoute
+                namespaces:
+                  from: Selector
+                  selector:
+                    matchLabels:
+                      example: use-gateway
+            infrastructure:
+              annotations:
+                foo: bar
+              labels:
+                bar: foo
+              parametersRef:
+                group: settings.example.com
+                kind: ExampleSettings
+                name: example-settings
+      - notFailedTemplate: {}
