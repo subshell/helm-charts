@@ -22,4 +22,4 @@ jobs:
     - name: validate every Chart.yaml
       run: |
         allCharts=$(find charts/ -name Chart.yaml -printf '%p ')
-        jsonschema validate chart-schema.json ${allCharts} --http --verbose
+        jsonschema validate chart-schema.json ${allCharts} --http
