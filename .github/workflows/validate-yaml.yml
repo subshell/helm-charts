@@ -21,4 +21,5 @@ jobs:
 
     - name: validate every Chart.yaml
       run: |
-        jsonschema validate chart-schema.json charts/sophora-importer/Chart.yaml --http --verbose --debug
+        allCharts=$(find charts/ -name Chart.yaml -printf '%p ')
+        jsonschema validate chart-schema.json ${allCharts} --http --verbose
