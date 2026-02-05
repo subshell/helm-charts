@@ -20,4 +20,4 @@ jobs:
 
       - name: validate all Chart.yaml
         run: |
-          find charts -name Chart.yaml --exec ajv --spec draft2020 -c ajv-formats -s chart-schema.json -d {} \;
+          find charts -name Chart.yaml -exec ajv --spec draft2020 -c ajv-formats -s chart-schema.json -d {} \;
