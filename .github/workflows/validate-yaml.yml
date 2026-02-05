@@ -10,41 +10,20 @@ jobs:
   validate-yaml:
     name: Validate Helm Chart
     runs-on: ubuntu-latest
+    outputs:
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
+      - name: collect Chart.yamls
+        id: collect-charts
+        run: |
+          echo "INPUT_DATA='$(find charts -name Chart.yaml)'" >> "$GITHUB_ENV"
+
       - name: validate all Chart.yaml
         uses: RomanosTrechlis/actions-validate-yaml@v1.0
         with:
           schema: chart-schema.json
-          data: |-
-            charts/external-secrets/Chart.yaml
-            charts/gateway/Chart.yaml
-            charts/o-neko/Chart.yaml
-            charts/o-neko-catnip/Chart.yaml
-            charts/sophora-admin-dashboard/Chart.yaml
-            charts/sophora-ai/Chart.yaml
-            charts/sophora-cluster-common/Chart.yaml
-            charts/sophora-contentapi/Chart.yaml
-            charts/sophora-courier/Chart.yaml
-            charts/sophora-export-job/Chart.yaml
-            charts/sophora-image-access-service/Chart.yaml
-            charts/sophora-image-ai/Chart.yaml
-            charts/sophora-image-update-service/Chart.yaml
-            charts/sophora-importer/Chart.yaml
-            charts/sophora-import-job/Chart.yaml
-            charts/sophora-indexer/Chart.yaml
-            charts/sophora-indexing-service/Chart.yaml
-            charts/sophora-linkchecker/Chart.yaml
-            charts/sophora-media-finder/Chart.yaml
-            charts/sophora-metadata-supplier/Chart.yaml
-            charts/sophora-schema-docs/Chart.yaml
-            charts/sophora-seo-check/Chart.yaml
-            charts/sophora-server/Chart.yaml
-            charts/sophora-tablestar-controller/Chart.yaml
-            charts/sophora-ugc/Chart.yaml
-            charts/sophora-webclient/Chart.yaml
-            charts/sophora-youtube-connector/Chart.yaml
