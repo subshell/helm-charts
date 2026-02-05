@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$ref": "https://json.schemastore.org/chart.json",
+	"properties": {
+		"annotations": {
+			"properties": {
+				"artifacthub.io/changes": {
+					"description": "check kind of changes (first change only)",
+					"pattern": "kind: \"?(added|changed|deprecated|removed|fixed|security)\"?\\s*?description:"
+				}
+			}
+		}
+	}
+}
