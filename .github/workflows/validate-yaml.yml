@@ -1,0 +1,20 @@
+on:
+  push:
+    paths:
+      - '**.yml'
+      - '**.yaml'
+release:
+  types: [created]
+
+name: Validate YAML
+jobs:
+  releases-matrix:
+    name: Validate YAML
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: RomanosTrechlis/actions-validate-yaml@v1.0
+        with:
+          schema: chart-schema.json
+          data: |-
+            charts/*/Chart.yaml
