@@ -17,7 +17,7 @@ jobs:
         fetch-depth: 0
 
     - name: Install the JSON Schema CLI
-      uses: sourcemeta/jsonschema@v14.7.9
+      uses: sourcemeta/jsonschema@v14.7.0
 
     - name: validate every Chart.yaml
       run: |
