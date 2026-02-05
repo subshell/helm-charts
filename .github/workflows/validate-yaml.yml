@@ -3,29 +3,22 @@ name: Validate YAML
 on:
   push:
     paths:
-      - '**.yml'
-      - '**.yaml'
+    - '**.yml'
+    - '**.yaml'
 
 jobs:
   validate-yaml:
     name: Validate Helm Chart
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
-      - name: collect Chart.yamls
-        run: |
-          {
-            echo 'YAML_CHARTS<<EOF'
-            find charts -name Chart.yaml
-            echo EOF
-          } >> "$GITHUB_ENV"
+    - name: Install the JSON Schema CLI
+      uses: sourcemeta/jsonschema@v14.7.9
 
-      - name: validate all Chart.yaml
-        uses: RomanosTrechlis/actions-validate-yaml@v1.0
-        with:
-          schema: chart-schema.json
-          data: ${{ env.YAML_CHARTS }}
+    - name: validate every Chart.yaml
+      run: |
+        jsonschema validate chart-schema.json $(find charts -name Chart.yaml) --http --benchmark
