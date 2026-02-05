@@ -6,7 +6,7 @@
 			"properties": {
 				"artifacthub.io/changes": {
 					"description": "check kind of changes (first change only)",
-					"pattern": "kind: \"?(added|changed|deprecated|removed|fixed|security)\"?(.|\\r?\\n)*description:"
+					"pattern": "kind: \"?(added|changed|deprecated|removed|fixed|security)\"?\\s*?description:"
 				}
 			}
 		}
