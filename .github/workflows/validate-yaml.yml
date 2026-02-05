@@ -3,7 +3,7 @@ name: Validate YAML
 on:
   push:
     paths:
-    - 'charts/*/Chart.yml'
+    - 'charts/*/Chart.yaml'
 
 jobs:
   validate-yaml:
