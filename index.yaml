@@ -1019,6 +1019,22 @@ entries:
   sophora-export-job:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "changed appVersion in chart to string"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-02-06T07:30:38.320940101Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 8fc03e6dee82d6db5164458a4b420ad6f9248764a12f4cec72359620a9a3748d
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.2.1/sophora-export-job-2.2.1.tgz
+    version: 2.2.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "add prometheusRule.extraRules"
     apiVersion: v2
@@ -3718,4 +3734,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-05T13:01:15.710677285Z"
+generated: "2026-02-06T07:30:38.321368158Z"
