@@ -94,7 +94,7 @@ tests:
                   - group: foo.example.com
                     kind: SpecialSecret
                     name: other-certificate
-                    namspace: secret-ns
+                    namespace: secret-ns
                   mode: Terminate
               - name: http
                 port: 80
