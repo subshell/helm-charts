@@ -6,11 +6,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.7
+version: 1.0.8
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "unit tests for expected result"
+    - kind: fixed
+      description: "fixed typo in test-values"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/gateway

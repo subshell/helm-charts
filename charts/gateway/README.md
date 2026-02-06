@@ -85,7 +85,7 @@ gateway:
       mode: Terminate
       certificateRefs:
       - name: other-certificate
-        namspace: secret-ns
+        namespace: secret-ns
         kind: SpecialSecret
         group: foo.example.com
   - name: http
