@@ -210,7 +210,11 @@ sophora:
         ## @param sophora.server.persistence.derby.driver string that specifies the java derby driver. Defaults to "org.apache.derby.jdbc.EmbeddedDriver".
         ## For Sophora versions newer than 5.4 use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
         driver: "org.apache.derby.jdbc.EmbeddedDriver"
-
+        ## @param sophora.server.persistence.derby.searchIndexCacheSize id resolver cache size.
+        searchIndexCacheSize: 10000
+        ## @param sophora.server.persistence.derby.derbyStoragePageCacheSize Defines the size, in number of pages, of the database's data page cache
+        # (data pages kept in memory). The actual amount of memory the page cache
+        derbyStoragePageCacheSize: 1024
       mysql:
         ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
         ## e.g.

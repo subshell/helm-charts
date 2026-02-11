@@ -206,7 +206,7 @@ data:
                 <param name="errorHandling" value="" />
                 <param name="derbyStorageInitialPages" value="16" />
                 <param name="derbyStorageMinimumRecordSize" value="256" />
-                <param name="derbyStoragePageCacheSize" value="1024" />
+                <param name="derbyStoragePageCacheSize" value="{{ .Values.sophora.server.persistence.derby.derbyStoragePageCacheSize }}" />
                 <param name="derbyStoragePageReservedSpace" value="20" />
                 <param name="derbyStoragePageSize" value="16384" />
                 <param name="schemaObjectPrefix" value="${wsp.name}_" />
@@ -221,7 +221,7 @@ data:
                 <param name="respectDocumentOrder" value="false" />
                 <param name="minMergeDocs" value="10000" />
                 <param name="mergeFactor" value="5" />
-                <param name="cacheSize" value="10000" />
+                <param name="cacheSize" value="{{ .Values.sophora.server.persistence.derby.searchIndexCacheSize }}" />
                 <param name="initializeHierarchyCache" value="false" />
             </SearchIndex>
         </Workspace>
@@ -261,7 +261,7 @@ data:
                 <param name="errorHandling" value="" />
                 <param name="derbyStorageInitialPages" value="16" />
                 <param name="derbyStorageMinimumRecordSize" value="256" />
-                <param name="derbyStoragePageCacheSize" value="1024" />
+                <param name="derbyStoragePageCacheSize" value="{{ .Values.sophora.server.persistence.derby.derbyStoragePageCacheSize }}" />
                 <param name="derbyStoragePageReservedSpace" value="20" />
                 <param name="derbyStoragePageSize" value="16384" />
                 <param name="schemaObjectPrefix" value="version_" />
@@ -279,7 +279,7 @@ data:
             <param name="respectDocumentOrder" value="false" />
             <param name="minMergeDocs" value="10000" />
             <param name="mergeFactor" value="5" />
-            <param name="cacheSize" value="10000" />
+            <param name="cacheSize" value="{{ .Values.sophora.server.persistence.derby.searchIndexCacheSize }}" />
             <param name="initializeHierarchyCache" value="false" />
         </SearchIndex>
     </Repository>
@@ -312,7 +312,7 @@ data:
                 <param name="errorHandling" value=""/>
                 <param name="derbyStorageInitialPages" value="16"/>
                 <param name="derbyStorageMinimumRecordSize" value="256"/>
-                <param name="derbyStoragePageCacheSize" value="1024"/>
+                <param name="derbyStoragePageCacheSize" value="{{ .Values.sophora.server.persistence.derby.derbyStoragePageCacheSize }}"/>
                 <param name="derbyStoragePageReservedSpace" value="20"/>
                 <param name="derbyStoragePageSize" value="16384"/>
                 <param name="schemaObjectPrefix" value="${wsp.name}_"/>
@@ -326,7 +326,7 @@ data:
                 <param name="respectDocumentOrder" value="false"/>
                 <param name="minMergeDocs" value="10000" />
                 <param name="mergeFactor" value="5" />
-                <param name="cacheSize" value="10000" />
+                <param name="cacheSize" value="{{ .Values.sophora.server.persistence.derby.searchIndexCacheSize }}" />
                 <param name="initializeHierarchyCache" value="false" />
             </SearchIndex>
         </Workspace>
@@ -359,7 +359,7 @@ data:
                 <param name="errorHandling" value=""/>
                 <param name="derbyStorageInitialPages" value="16"/>
                 <param name="derbyStorageMinimumRecordSize" value="256"/>
-                <param name="derbyStoragePageCacheSize" value="1024"/>
+                <param name="derbyStoragePageCacheSize" value="{{ .Values.sophora.server.persistence.derby.derbyStoragePageCacheSize }}"/>
                 <param name="derbyStoragePageReservedSpace" value="20"/>
                 <param name="derbyStoragePageSize" value="16384"/>
                 <param name="schemaObjectPrefix" value="${wsp.name}_"/>
@@ -373,7 +373,7 @@ data:
                 <param name="respectDocumentOrder" value="false"/>
                 <param name="minMergeDocs" value="10000" />
                 <param name="mergeFactor" value="5" />
-                <param name="cacheSize" value="10000" />
+                <param name="cacheSize" value="{{ .Values.sophora.server.persistence.derby.searchIndexCacheSize }}" />
                 <param name="initializeHierarchyCache" value="false" />
             </SearchIndex>
         </Workspace>
