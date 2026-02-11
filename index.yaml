@@ -2575,6 +2575,26 @@ entries:
     version: 1.0.0
   sophora-server:
   - annotations:
+      artifacthub.io/changes: |
+        - kind: "added"
+          description: "New derby configuration sophora.server.persistence.derby.derbyStoragePageCacheSize"
+        - kind: "added"
+          description: "New derby configuration sophora.server.persistence.derby.searchIndexCacheSize"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-02-11T13:17:27.549886439Z"
+    description: A Helm chart for the Sophora Server
+    digest: efe6d66b7487ccae0e22c075751e9c57014ed0f4f87c2f7ad11fc87bd27e2552
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.1.2/sophora-server-3.1.2.tgz
+    version: 3.1.2
+  - annotations:
       artifacthub.io/changes: "- kind: \"changed\"\n  description: \"The Sophora server
         uses -XX:+CrashOnOutOfMemoryError instead of -XX:+ExitOnOutOfMemoryError\"
         \     \n"
@@ -3734,4 +3754,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-06T07:30:38.321368158Z"
+generated: "2026-02-11T13:17:27.550861219Z"
