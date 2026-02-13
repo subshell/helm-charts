@@ -14,9 +14,11 @@ spec:
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- range .Values.httpRoute.hostnames }}
+  {{- if .Values.httpRoute.hostnames }}
   hostnames:
+  {{- range .Values.httpRoute.hostnames }}
     - {{ required "A hostname for the HTTPRoute must be provided in .Values.httpRoute.hostnames" . | quote }}
+  {{- end }}
   {{- end }}
   rules:
     - backendRefs:

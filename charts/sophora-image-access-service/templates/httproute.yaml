@@ -30,11 +30,11 @@ spec:
     - backendRefs:
         - name: {{ $fullName }}
           port: {{ $svcPort }}
-      {{- with .Values.httpRoute.matches }}
+      {{- with $httpRoute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.httpRoute.filters }}
+      {{- with $httpRoute.filters }}
       filters:
       {{- toYaml . | nindent 8 }}
       {{- end }}
