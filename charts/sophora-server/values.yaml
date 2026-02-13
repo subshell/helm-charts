@@ -365,19 +365,6 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-httproute:
-  enabled: false
-  # parentRefs:
-  #   - name: my-gateway
-  #     namespace: gateway-namespace
-  parentRefs: []
-  # hostnames:
-  #   - "server.example.com"
-  hostnames: []
-  pathMatchType: PathPrefix
-  pathValue: /
-  annotations: {}
-
 # This can be used to configure a different ingress for the SRPC service as it might require different settings.
 # The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
 # The paths can be regex-matched since all SRPC-calls have the root-path sophora.srpc
@@ -397,6 +384,35 @@ grpcIngress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+httproute:
+  enabled: false
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # hostnames:
+  #   - "server.example.com"
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
+# This can be used to configure a different HttpRoute for the SRPC service as it might require different settings.
+# The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
+# The paths can be regex-matched since all SRPC-calls have the root-path sophora.srpc
+grpcHttproute:
+  enabled: false
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # hostnames:
+  #   - "server.example.com"
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /sophora.srpc
+  annotations: {}
 
 service:
   annotations: {}
