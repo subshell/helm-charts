@@ -19,7 +19,7 @@ version: 2.5.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "Updated HTTPRoute configuration for consistency"
+      description: "Updated HTTPRoute configuration for consistency with httpRoute.matches and httpRoute.filters. Deprecated httpRoute.rules in favor of httpRoute.matches, Breaking: only first rule of httpRoute.rules is used!"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

@@ -148,7 +148,23 @@ httpRoute:
   # hostnames:
   #   - "my-service.example.com"
   hostnames: []
-  # httpRoute.rules List of rules and filters applied.
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.rules !DEPRECATED use matches and filters instead! This will override matches/filters. List of rules and filters applied.
   # e.g.
   # rules:
   #   - matches:

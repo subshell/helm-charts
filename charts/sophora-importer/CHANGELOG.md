@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.5.0
+
+- Updated HTTPRoute configuration for consistency with `httpRoute.matches` and `httpRoute.filters`. Deprecated `httpRoute.rules` in favor of new properties. Breaking: only first rule of `httpRoute.rules` is used!
+
+## 2.4.0
+
+- added optional HTTPRoute for Gateway API
+
 ## 2.3.0
 
 - enable custom pod labels
