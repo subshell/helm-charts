@@ -127,6 +127,14 @@ ingress:
   hosts:
     - host: "sophora.domain.de"
 
+httproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "sophora-server.test.example.com"
+
 grpcIngress:
   ingressClassName: nginx
   annotations:

@@ -141,6 +141,14 @@ ingress:
   hosts:
   tls: []
 
+httproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "ai.test.example.com"
+
 serviceAccount:
   create: true
   automount: true

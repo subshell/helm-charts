@@ -10,6 +10,14 @@ ingress:
   hosts:
     - host: "my-site.com"
 
+httproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "ugc.test.example.com"
+
 authentication:
   secret:
     server:

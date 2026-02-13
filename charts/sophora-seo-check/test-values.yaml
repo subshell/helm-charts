@@ -44,6 +44,14 @@ ingress:
   hosts:
   tls: []
 
+httproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "seo-check.test.example.com"
+
 extraDeploy: []
 
 podAnnotations: {}

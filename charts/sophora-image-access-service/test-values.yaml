@@ -46,5 +46,20 @@ extraIngress:
     hosts:
     tls: []
 
+httproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "image-access.test.example.com"
+
+extraHTTPRoute:
+  - parentRefs:
+      - name: test-gateway-2
+        namespace: gateway-system
+    hostnames:
+      - "image-access-2.test.example.com"
+
 extraDeploy:
   - apiVersion: subshell/v2
