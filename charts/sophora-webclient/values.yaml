@@ -50,6 +50,14 @@ ingress:
   hosts:
   annotations: {}
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
 service:
   type: ClusterIP
   port: 8080

@@ -99,6 +99,14 @@ ingress:
   hosts:
   tls: []
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
 prometheusRule:
   enabled: false
   defaultRules:

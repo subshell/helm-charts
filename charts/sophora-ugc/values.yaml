@@ -24,6 +24,14 @@ ingress:
   hosts:
   annotations: {}
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
 
 authentication:
   secret:

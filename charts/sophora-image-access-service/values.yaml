@@ -79,6 +79,23 @@ extraIngress: []
   #  hosts:
   #  tls: []
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
+extraHTTPRoute: []
+  #- parentRefs:
+  #    - name: my-gateway
+  #  hostnames:
+  #    - example.com
+  #  pathMatchType: PathPrefix
+  #  pathValue: /
+  #  annotations: {}
+
 serviceAccount:
   create: false
 

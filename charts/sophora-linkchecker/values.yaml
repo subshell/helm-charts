@@ -70,6 +70,14 @@ ingress:
   hosts:
   tls: []
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
 extraDeploy: []
 
 podAnnotations: {}

@@ -93,6 +93,14 @@ ingress:
   hosts:
   tls: []
 
+httproute:
+  enabled: false
+  parentRefs: []
+  hostnames: []
+  pathMatchType: PathPrefix
+  pathValue: /
+  annotations: {}
+
 resources:
   requests:
     cpu: 1
