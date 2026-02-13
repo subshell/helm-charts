@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-linkchecker
 description: Sophora Link Checker
 type: application
-version: 0.1.4
+version: 0.2.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added Artifacthub changelog annotation"
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 6.0.0
 sources:

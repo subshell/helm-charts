@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.0.4
+version: 2.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: added configuration for new Reader Copy feature
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 1.5.5
 sources:

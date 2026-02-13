@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.0.2
+version: 1.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added Artifacthub changelog annotation"
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 6.0.0
 sources:

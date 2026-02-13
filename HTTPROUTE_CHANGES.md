@@ -2,30 +2,30 @@
 
 ## Summary
 
-All Helm charts in the `helm-charts` repository that contain Kubernetes Ingress resources have been extended to also provide optional HTTPRoute resources for the Gateway API.
+All Helm charts in the `helm-charts` repository that contain Kubernetes Ingress resources have been extended to also provide optional HTTPRoute resources for the Gateway API. Chart versions have been incremented to new minor versions to reflect these changes.
 
 ## Charts Updated
 
 The following 18 charts now support HTTPRoute (Gateway API) in addition to Ingress:
 
-1. **o-neko** - Added httproute.yaml template and values
-2. **o-neko-catnip** - Added httproute.yaml template and values
-3. **sophora-admin-dashboard** - Added httproute.yaml template and values
-4. **sophora-ai** - Added httproute.yaml template and values
-5. **sophora-contentapi** - Added httproute.yaml template and values
-6. **sophora-image-access-service** - Added httproute.yaml template and values (with support for multiple routes)
-7. **sophora-image-ai** - Added httproute.yaml template and values
-8. **sophora-importer** - HTTPRoute support already existed (no changes needed)
-9. **sophora-indexing-service** - Added httproute.yaml template and values
-10. **sophora-linkchecker** - Added httproute.yaml template and values
-11. **sophora-media-finder** - Added httproute.yaml template and values
-12. **sophora-metadata-supplier** - Added httproute.yaml template and values
-13. **sophora-schema-docs** - Added httproute.yaml template and values
-14. **sophora-seo-check** - Added httproute.yaml template and values
-15. **sophora-server** - Added httproute.yaml template and values
-16. **sophora-ugc** - Added httproute.yaml template and values
-17. **sophora-webclient** - Added httproute.yaml template and values
-18. **sophora-youtube-connector** - Added httproute.yaml template and values
+1. **o-neko** - v2.0.1 → v2.1.0
+2. **o-neko-catnip** - v1.3.4 → v1.4.0
+3. **sophora-admin-dashboard** - v1.5.0 → v1.6.0
+4. **sophora-ai** - v2.0.4 → v2.1.0
+5. **sophora-contentapi** - v1.0.2 → v1.1.0
+6. **sophora-image-access-service** - v1.4.0 → v1.5.0
+7. **sophora-image-ai** - v2.1.3 → v2.2.0
+8. **sophora-importer** - v2.4.1 → v2.5.0 (HTTPRoute support already existed, updated for consistency)
+9. **sophora-indexing-service** - v1.5.0 → v1.6.0
+10. **sophora-linkchecker** - v0.1.4 → v0.2.0
+11. **sophora-media-finder** - v0.2.6 → v0.3.0
+12. **sophora-metadata-supplier** - v1.3.6 → v1.4.0
+13. **sophora-schema-docs** - v2.1.4 → v2.2.0
+14. **sophora-seo-check** - v1.0.3 → v1.1.0
+15. **sophora-server** - v3.1.2 → v3.2.0
+16. **sophora-ugc** - v2.0.15 → v2.1.0
+17. **sophora-webclient** - v1.4.5 → v1.5.0
+18. **sophora-youtube-connector** - v1.2.4 → v1.3.0
 
 ## Implementation Details
 
