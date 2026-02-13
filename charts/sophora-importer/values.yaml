@@ -171,11 +171,6 @@ httpRoute:
   #       - path:
   #           type: PathPrefix
   #           value: /headers
-  #     filters:
-  #       - type: RequestHeaderModifier
-  #         requestHeaderModifier:
-  #           remove:
-  #             - X-my-header
   rules: []
   # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
