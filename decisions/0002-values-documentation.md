@@ -15,7 +15,7 @@ The purpose and format of a property in the charts values.yaml must be communica
 
 ## Considered Options
 
-* Write an extensive ReadMe file that desribes all aspects of the values.yaml.
+* Write an extensive ReadMe file that describes all aspects of the values.yaml.
 * Add comments directly inside the values.yaml file.
 
 ## Decision Outcome
