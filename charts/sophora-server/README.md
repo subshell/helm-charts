@@ -56,12 +56,11 @@ See also: [Postgres Native Sidecar](#postgres-native-sidecar-k8s-129)
 
 ## Sophora RPC (Sophora v6+)
 Sophora 6 introduces a completely new API for client-server communication called Sophora RPC (short srpc). Srpc is based on gRPC which in return is essentially HTTP/2 but requires specific non-default settings in most HTTP proxies, including Ingress Controllers.
-To deal with this, the chart now supports deploying a second Ingress for the gRPC API, which can be configured differently from the main Ingress.
+To deal with this, the chart now supports deploying a second Ingress or HTTPRoute for the gRPC API, which can be configured differently from the main Ingress/HTTPRoute.
 
 This is not enabled by default.
-To enable it, set `grpcIngress.enabled` to `true` and configure it as needed.
-The example configuration contains the required
-settings for the Nginx Ingress Controller (all paths starting with `/sophora.srpc.` need to be forwarded as gRPC traffic).
+To enable it, set `grpcIngress.enabled`, `grpcRoute.enabled` or `grpcHttproute` to `true` and configure it as needed.
+The example configuration contains the required settings for the Nginx Ingress Controller (all paths starting with `/sophora.srpc.` need to be forwarded as gRPC traffic). Use `grpcHttproute` instead of `grpcRoute` if the same hostname is used as for the `httpRoute` (see [Cross Serving](https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving)).
 
 ## Tips for productive installations
 
@@ -215,6 +214,10 @@ sophora.persistence.postgres.port=5432
 **Note**: For cluster servers we still recommend a separate postgres deployment, like Google Cloud SQL.
 
 ## Notable Changes
+
+### 3.2.0
+
+* Added HTTPRoute support for Gateway API. This adds the properties `httpRoute`, `grpcHttproute` and `grpcRoute` to the values. These are similar to the `ingress` and `grpcIngress` options.
 
 ### 3.0.0
 
