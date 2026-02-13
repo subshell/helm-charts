@@ -32,7 +32,7 @@ The following 18 charts now support HTTPRoute (Gateway API) in addition to Ingre
 ### HTTPRoute Templates
 
 Each chart now includes a `templates/httproute.yaml` file that:
-- Is conditionally created based on `httproute.enabled` value
+- Is conditionally created based on `httpRoute.enabled` value
 - Uses the Gateway API v1 specification
 - Supports parentRefs for Gateway attachment
 - Supports hostname filtering
@@ -42,10 +42,10 @@ Each chart now includes a `templates/httproute.yaml` file that:
 
 ### Values.yaml Configuration
 
-Each chart's `values.yaml` file now includes an `httproute` section with the following configuration options:
+Each chart's `values.yaml` file now includes an `httpRoute` section with the following configuration options:
 
 ```yaml
-httproute:
+httpRoute:
   enabled: false                # Whether to create HTTPRoute (disabled by default)
   parentRefs: []                # Gateway references
   hostnames: []                 # Hostnames for routing
@@ -56,7 +56,7 @@ httproute:
 
 ### Special Cases
 
-1. **sophora-image-access-service**: Supports multiple HTTPRoutes via `extraHTTPRoute` array, similar to its `extraIngress` support.
+1. **sophora-image-access-service**: Supports multiple HTTPRoutes via `extraHttpRoutes` array, similar to its `extraIngress` support.
 
 2. **sophora-importer**: Already had HTTPRoute support with a more advanced configuration including custom rules and filters.
 
@@ -67,7 +67,7 @@ httproute:
 To enable HTTPRoute for a chart deployment:
 
 ```yaml
-httproute:
+httpRoute:
   enabled: true
   parentRefs:
     - name: my-gateway
