@@ -22,7 +22,7 @@ spec:
   rules:
     - backendRefs:
         - name: {{ $fullName }}
-          port: 8080
+          port: {{ .Values.service.port }}
       matches:
         - path:
             type: {{ .Values.httproute.pathMatchType | default "PathPrefix" }}
