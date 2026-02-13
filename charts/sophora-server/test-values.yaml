@@ -137,7 +137,7 @@ grpcIngress:
     - host: "sophora.domain.de"
       path: /sophora\.srpc.*
 
-httproute:
+httpRoute:
   enabled: true
   parentRefs:
     - name: test-gateway

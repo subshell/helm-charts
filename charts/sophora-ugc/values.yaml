@@ -24,7 +24,7 @@ ingress:
   hosts:
   annotations: {}
 
-httproute:
+httpRoute:
   enabled: false
   parentRefs: []
   hostnames: []

@@ -385,7 +385,7 @@ grpcIngress:
   #    hosts:
   #      - chart-example.local
 
-httproute:
+httpRoute:
   enabled: false
   # parentRefs:
   #   - name: my-gateway

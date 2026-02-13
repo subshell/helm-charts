@@ -1,6 +1,6 @@
 {{ $allHTTPRoutes := .Values.extraHTTPRoute -}}
-{{ if .Values.httproute.enabled -}}
-  {{ $allHTTPRoutes = prepend $allHTTPRoutes .Values.httproute -}}
+{{ if .Values.httpRoute.enabled -}}
+  {{ $allHTTPRoutes = prepend $allHTTPRoutes .Values.httpRoute -}}
 {{ end -}}
 {{ $fullName := include "access-service.fullname" $ -}}
 {{ $svcPort := $.Values.service.httpPort -}}

@@ -1,22 +1,22 @@
-{{- if .Values.httproute.enabled -}}
+{{- if .Values.httpRoute.enabled -}}
 {{- $fullName := include "o-neko-catnip.fullname" . -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   labels: {{- include "o-neko-catnip.labels" . | nindent 4 }}
   name: {{ $fullName }}
-  {{- with .Values.httproute.annotations }}
+  {{- with .Values.httpRoute.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.httproute.parentRefs }}
+  {{- with .Values.httpRoute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- range .Values.httproute.hostnames }}
+  {{- range .Values.httpRoute.hostnames }}
   hostnames:
-    - {{ required "A hostname for the HTTPRoute must be provided in .Values.httproute.hostnames" . | quote }}
+    - {{ required "A hostname for the HTTPRoute must be provided in .Values.httpRoute.hostnames" . | quote }}
   {{- end }}
   rules:
     - backendRefs:
@@ -24,6 +24,6 @@ spec:
           port: 8080
       matches:
         - path:
-            type: {{ .Values.httproute.pathMatchType | default "PathPrefix" }}
-            value: {{ .Values.httproute.pathValue | default "/" }}
+            type: {{ .Values.httpRoute.pathMatchType | default "PathPrefix" }}
+            value: {{ .Values.httpRoute.pathValue | default "/" }}
 {{- end }}

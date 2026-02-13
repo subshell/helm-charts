@@ -43,7 +43,7 @@ ingress:
   hosts:
   tls: []
 
-httproute:
+httpRoute:
   enabled: true
   parentRefs:
     - name: test-gateway

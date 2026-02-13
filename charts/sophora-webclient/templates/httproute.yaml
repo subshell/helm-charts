@@ -1,21 +1,21 @@
-{{- if .Values.httproute.enabled -}}
+{{- if .Values.httpRoute.enabled -}}
 {{- $fullName := include "webclient.fullname" . -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: {{ $fullName }}
-  {{- with .Values.httproute.annotations }}
+  {{- with .Values.httpRoute.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.httproute.parentRefs }}
+  {{- with .Values.httpRoute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.httproute.hostnames }}
+  {{- if .Values.httpRoute.hostnames }}
   hostnames:
-  {{- range .Values.httproute.hostnames }}
+  {{- range .Values.httpRoute.hostnames }}
     - {{ . | quote }}
   {{- end }}
   {{- end }}
@@ -25,6 +25,6 @@ spec:
           port: {{ .Values.service.port }}
       matches:
         - path:
-            type: {{ .Values.httproute.pathMatchType | default "PathPrefix" }}
-            value: {{ .Values.httproute.pathValue | default "/" }}
+            type: {{ .Values.httpRoute.pathMatchType | default "PathPrefix" }}
+            value: {{ .Values.httpRoute.pathValue | default "/" }}
 {{- end }}

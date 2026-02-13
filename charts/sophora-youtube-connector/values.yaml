@@ -47,7 +47,7 @@ ingress:
   hosts:
   tls: []
 
-httproute:
+httpRoute:
   enabled: false
   parentRefs: []
   hostnames: []

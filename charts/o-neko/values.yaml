@@ -148,25 +148,25 @@ ingress:
   ## @param ingress.annotations annotations for the ingress
   annotations: {}
 
-httproute:
-  ## @param httproute.enabled Whether to create an HTTPRoute resource (Gateway API)
+httpRoute:
+  ## @param httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
   enabled: false
-  ## @param httproute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  ## @param httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
   ## e.g.
   ## parentRefs:
   ##   - name: my-gateway
   ##     namespace: gateway-namespace
   parentRefs: []
-  ## @param httproute.hostnames Array with hostnames used for the HTTPRoute
+  ## @param httpRoute.hostnames Array with hostnames used for the HTTPRoute
   ## e.g.
   ## hostnames:
   ##   - "oneko.my-company.com"
   hostnames: []
-  ## @param httproute.pathMatchType Path match type for the HTTPRoute (PathPrefix, Exact, or RegularExpression)
+  ## @param httpRoute.pathMatchType Path match type for the HTTPRoute (PathPrefix, Exact, or RegularExpression)
   pathMatchType: PathPrefix
-  ## @param httproute.pathValue Path value for the HTTPRoute
+  ## @param httpRoute.pathValue Path value for the HTTPRoute
   pathValue: /
-  ## @param httproute.annotations annotations for the HTTPRoute
+  ## @param httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 
 ## @section Metrics

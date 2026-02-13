@@ -10,7 +10,7 @@ ingress:
   hosts:
     - host: "my-site.com"
 
-httproute:
+httpRoute:
   enabled: true
   parentRefs:
     - name: test-gateway
