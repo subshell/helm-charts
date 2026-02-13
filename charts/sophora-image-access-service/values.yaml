@@ -87,7 +87,7 @@ httpRoute:
   pathValue: /
   annotations: {}
 
-extraHTTPRoute: []
+extraHttpRoutes: []
   #- parentRefs:
   #    - name: my-gateway
   #  hostnames:

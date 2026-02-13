@@ -54,7 +54,7 @@ httpRoute:
   hostnames:
     - "image-access.test.example.com"
 
-extraHTTPRoute:
+extraHttpRoutes:
   - parentRefs:
       - name: test-gateway-2
         namespace: gateway-system

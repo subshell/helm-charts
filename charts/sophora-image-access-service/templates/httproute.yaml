@@ -1,28 +1,28 @@
-{{ $allHTTPRoutes := .Values.extraHTTPRoute -}}
+{{ $allHTTPRoutes := .Values.extraHttpRoutes -}}
 {{ if .Values.httpRoute.enabled -}}
   {{ $allHTTPRoutes = prepend $allHTTPRoutes .Values.httpRoute -}}
 {{ end -}}
 {{ $fullName := include "access-service.fullname" $ -}}
 {{ $svcPort := $.Values.service.httpPort -}}
-{{ range $index, $httproute := $allHTTPRoutes -}}
+{{ range $index, $httpRoute := $allHTTPRoutes -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: {{ $fullName }}{{ eq $index 0 | ternary "" (printf "-%d" $index) }}
   labels:
   {{- include "access-service.labels" $ | nindent 4 }}
-  {{- with $httproute.annotations }}
+  {{- with $httpRoute.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with $httproute.parentRefs }}
+  {{- with $httpRoute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if $httproute.hostnames }}
+  {{- if $httpRoute.hostnames }}
   hostnames:
-  {{- range $httproute.hostnames }}
+  {{- range $httpRoute.hostnames }}
     - {{ . | quote }}
   {{- end }}
   {{- end }}
@@ -32,7 +32,7 @@ spec:
           port: {{ $svcPort }}
       matches:
         - path:
-            type: {{ $httproute.pathMatchType | default "PathPrefix" }}
-            value: {{ $httproute.pathValue | default "/" }}
+            type: {{ $httpRoute.pathMatchType | default "PathPrefix" }}
+            value: {{ $httpRoute.pathValue | default "/" }}
 ---
 {{ end }}
