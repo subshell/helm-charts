@@ -1,20 +1,20 @@
 ## @section Common parameters
 ##
 
-## @param nameOverride String to partially override the name
+# nameOverride String to partially override the name
 nameOverride: ""
 
-## @param fullnameOverride String to fully override the release name
+# fullnameOverride String to fully override the release name
 fullnameOverride: ""
 
-## @param imagePullSecrets Docker registry secret names as an array
+# imagePullSecrets Docker registry secret names as an array
 imagePullSecrets: []
 
-## @param hostAliases Host aliases available to the application
+# hostAliases Host aliases available to the application
 hostAliases:
 
-## @param resources.limits The resource limits for the container
-## @param resources.requests The resource requests for the container
+# resources.limits The resource limits for the container
+# resources.requests The resource requests for the container
 resources:
   limits: {}
   requests: {}
@@ -25,54 +25,54 @@ resources:
 
 oneko:
 
-  ## @param oneko.image.name O-Neko Catnip image repository
-  ## @param oneko.image.tag O-Neko Catnip image tag
-  ## @param oneko.image.imagePullPolicy Image Pull Policy
+  # oneko.image.name O-Neko Catnip image repository
+  # oneko.image.tag O-Neko Catnip image tag
+  # oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko-catnip
     tag: 1.3.2
     imagePullPolicy: IfNotPresent
 
-  ## @param oneko.api.baseUrl The base URL of the O-Neko installation, e.g. my.oneko.com
-  ## @param oneko.api.auth.secretName The name of the secret which contains the O-Neko credentials
+  # oneko.api.baseUrl The base URL of the O-Neko installation, e.g. my.oneko.com
+  # oneko.api.auth.secretName The name of the secret which contains the O-Neko credentials
   api:
     baseUrl:
     auth:
       secretName:
 
-  ## @param oneko.catnipUrl The base URL of the O-Neko Catnip installation, e.g. catnip.oneko.com
+  # oneko.catnipUrl The base URL of the O-Neko Catnip installation, e.g. catnip.oneko.com
   catnipUrl:
 
-  ## @param oneko.useSeparateMetricsPort Whether to host metrics on a different port
+  # oneko.useSeparateMetricsPort Whether to host metrics on a different port
   useSeparateMetricsPort: true
 
 ## @section Probes
 ##
 
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
+# startupProbe.failureThreshold Failure threshold for startupProbe
+# startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+# startupProbe.timeoutSeconds Timeout seconds for startupProbe
+# startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
   failureThreshold: 10
   initialDelaySeconds: 0
   timeoutSeconds: 1
   periodSeconds: 2
 
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+# readinessProbe.failureThreshold Failure threshold for readinessProbe
+# readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+# readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+# readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   failureThreshold: 3
   initialDelaySeconds: 0
   timeoutSeconds: 5
   periodSeconds: 1
 
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+# livenessProbe.failureThreshold Failure threshold for livenessProbe
+# livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+# livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+# livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 0
@@ -83,76 +83,76 @@ livenessProbe:
 ##
 
 service:
-  ## @param service.annotations annotations for the service
+  # service.annotations annotations for the service
   annotations: {}
-  ## @param service.type Kubernetes service type
+  # service.type Kubernetes service type
   type:
-  ## @param service.sessionAffinity the service's sessionAffinity
+  # service.sessionAffinity the service's sessionAffinity
   sessionAffinity: None
-  ## @param service.sessionAffinityConfig additional sessionAffinity configuration
+  # service.sessionAffinityConfig additional sessionAffinity configuration
   sessionAffinityConfig: {}
-  ## @param service.loadBalancerIP A loadBalancerIP configuration
+  # service.loadBalancerIP A loadBalancerIP configuration
   loadBalancerIP:
-  ## @param service.clusterIP The service's clusterIP
+  # service.clusterIP The service's clusterIP
   clusterIP:
 
 
 
 ingress:
-  ## @param ingress.ingressClassName name of the ingressClass used for the ingress
+  # ingress.ingressClassName name of the ingressClass used for the ingress
   ingressClassName:
-  ## @param ingress.hosts Array with hostnames used for the ingress
-  ## e.g.
-  ## hosts:
-  ##   - host: "catnip.oneko.com"
+  # ingress.hosts Array with hostnames used for the ingress
+  # e.g.
+  # hosts:
+  #   - host: "catnip.oneko.com"
   hosts:
-  ## @param ingress.tls TLS configuration of the ingress as an array
-  ## e.g.
-  ## tls:
-  ##   - hosts:
-  ##     - "catnip.oneko.com"
-  ##     secretName: catnip-tls
+  # ingress.tls TLS configuration of the ingress as an array
+  # e.g.
+  # tls:
+  #   - hosts:
+  #     - "catnip.oneko.com"
+  #     secretName: catnip-tls
   tls:
-  ## @param ingress.annotations annotations for the ingress
+  # ingress.annotations annotations for the ingress
   annotations: {}
-  ## @param ingress.defaultBackend.enabled Whether the default backend should be enabled or not
+  # ingress.defaultBackend.enabled Whether the default backend should be enabled or not
   defaultBackend:
     enabled: false
 
 httpRoute:
-  ## @param httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
   enabled: false
-  ## @param httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
-  ## e.g.
-  ## parentRefs:
-  ##   - name: my-gateway
-  ##     namespace: gateway-namespace
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
   parentRefs: []
-  ## @param httpRoute.hostnames Array with hostnames used for the HTTPRoute
-  ## e.g.
-  ## hostnames:
-  ##   - "catnip.oneko.com"
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "catnip.oneko.com"
   hostnames: []
-  ## @param httpRoute.pathMatchType Path match type for the HTTPRoute (PathPrefix, Exact, or RegularExpression)
+  # httpRoute.pathMatchType Type specifies how to match against the HTTP request path. (PathPrefix, Exact or RegularExpression)
   pathMatchType: PathPrefix
-  ## @param httpRoute.pathValue Path value for the HTTPRoute
+  # httpRoute.pathValue Value of the HTTP request path to match against.
   pathValue: /
-  ## @param httpRoute.annotations annotations for the HTTPRoute
+  # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 
 ## @section Metrics and Alerting
 ##
 ## Specific for the use with the kube-prometheus-stack
 
-## @param serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
-## @param serviceMonitor.interval Prometheus scrape interval
+# serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+# serviceMonitor.interval Prometheus scrape interval
 serviceMonitor:
   enabled: false
   interval: 10s
 
-## @param prometheusRule.enabled Whether the prometheusRule resource should be deployed
-## @param prometheusRule.defaultRulesEnabled Whether the default alerting rules should be enabled or not
-## @param prometheusRule.rules Custom alerting rules which can be deployed
+# prometheusRule.enabled Whether the prometheusRule resource should be deployed
+# prometheusRule.defaultRulesEnabled Whether the default alerting rules should be enabled or not
+# prometheusRule.rules Custom alerting rules which can be deployed
 prometheusRule:
   enabled: false
   defaultRulesEnabled: true

@@ -19,7 +19,7 @@ imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
 
-## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+# extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
 extraDeploy: []
 
@@ -135,21 +135,31 @@ additionalVolumeMounts:
 importPvcSpec:
 
 httpRoute:
-  # HTTPRoute enabled.
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
   enabled: false
-  # HTTPRoute annotations.
-  annotations: {}
-  # Which Gateways this Route is attached to.
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
   parentRefs: []
-    #- name: gateway
-      #sectionName: http
-      # namespace: default
-  # Hostnames matching HTTP header.
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "oneko.my-company.com"
   hostnames: []
-    #- chart-example.local
-  # List of rules and filters applied.
+  # httpRoute.rules List of rules and filters applied.
+  # e.g.
+  # rules:
+  #   - matches:
+  #       - path:
+  #           type: PathPrefix
+  #           value: /headers
+  #     filters:
+  #       - type: RequestHeaderModifier
+  #         requestHeaderModifier:
+  #           remove:
+  #             - X-my-header
   rules: []
-    #- matches:
-        #- path:
-            #type: PathPrefix
-            #value: /headers
+  # httpRoute.annotations annotations for the HTTPRoute
+  annotations: {}
