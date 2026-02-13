@@ -60,7 +60,7 @@ httproute:
 
 2. **sophora-importer**: Already had HTTPRoute support with a more advanced configuration including custom rules and filters.
 
-3. **sophora-server**: Uses the server's HTTP port from `sophora.server.ports.http` configuration.
+3. **sophora-server**: Supports additional HTTPRoute for gRPC serivce via `grpcHttproute`, similar to its `grpcIngress` support.
 
 ## Usage Example
 
