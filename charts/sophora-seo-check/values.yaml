@@ -66,7 +66,7 @@ httpRoute:
   # httpRoute.hostnames Array with hostnames used for the HTTPRoute
   # e.g.
   # hostnames:
-  #   - "oneko.my-company.com"
+  #   - "my-service.example.com"
   hostnames: []
   # httpRoute.pathMatchType Type specifies how to match against the HTTP request path. (PathPrefix, Exact or RegularExpression)
   pathMatchType: PathPrefix

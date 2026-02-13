@@ -146,7 +146,7 @@ httpRoute:
   # httpRoute.hostnames Array with hostnames used for the HTTPRoute
   # e.g.
   # hostnames:
-  #   - "oneko.my-company.com"
+  #   - "my-service.example.com"
   hostnames: []
   # httpRoute.rules List of rules and filters applied.
   # e.g.
