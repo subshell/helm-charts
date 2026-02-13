@@ -153,6 +153,20 @@ grpcHttproute:
   hostnames:
     - "sophora-server.test.example.com"
 
+grpcRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "sophora-server-api.test.example.com"
+  matches:
+    - method:
+        type: RegularExpression
+        service : sophora\.srpc.*
+  annotations:
+    example.com/test: some value
+
 extraDeploy:
   - |
     apiVersion: keda.sh/v1alpha1
