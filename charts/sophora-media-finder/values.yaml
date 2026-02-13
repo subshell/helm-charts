@@ -48,10 +48,22 @@ httpRoute:
   # hostnames:
   #   - "my-service.example.com"
   hostnames: []
-  # httpRoute.pathMatchType Type specifies how to match against the HTTP request path. (PathPrefix, Exact or RegularExpression)
-  pathMatchType: PathPrefix
-  # httpRoute.pathValue Value of the HTTP request path to match against.
-  pathValue: /
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
   # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 

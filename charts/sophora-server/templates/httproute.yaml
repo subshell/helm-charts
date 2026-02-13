@@ -24,8 +24,12 @@ spec:
     - backendRefs:
         - name: {{ $fullName }}
           port: {{ .Values.sophora.server.ports.http }}
+      {{- with .Values.httpRoute.matches }}
       matches:
-        - path:
-            type: {{ .Values.httpRoute.pathMatchType | default "PathPrefix" }}
-            value: {{ .Values.httpRoute.pathValue | default "/" }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.httpRoute.filters }}
+      filters:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
 {{- end }}
