@@ -117,8 +117,8 @@ extraHttpRoutes: []
   #    - name: my-gateway
   #  hostnames:
   #    - example.com
-  #  pathMatchType: PathPrefix
-  #  pathValue: /
+  #  matches: []
+  #  filters: []
   #  annotations: {}
 
 serviceAccount:

@@ -49,8 +49,8 @@ httpRoute:
   enabled: false                # Whether to create HTTPRoute (disabled by default)
   parentRefs: []                # Gateway references
   hostnames: []                 # Hostnames for routing
-  pathMatchType: PathPrefix     # Path match type (PathPrefix, Exact, RegularExpression)
-  pathValue: /                  # Path value for matching
+  matches: []                   # array of HTTPRouteMatch objects for matching HTTP requests
+  filters: []                   # array of HTTPRouteFilter objects for modifying requests/responses
   annotations: {}               # Additional annotations
 ```
 

@@ -37,6 +37,8 @@ ingress:
   annotations:
     foo: bar
   hosts:
+    - host: test.example.com
+      path: /
   tls: []
 
 extraIngress:
@@ -53,6 +55,8 @@ httpRoute:
       namespace: gateway-system
   hostnames:
     - "image-access.test.example.com"
+  annotations:
+    test: httpRoute
 
 extraHttpRoutes:
   - parentRefs:
@@ -60,6 +64,16 @@ extraHttpRoutes:
         namespace: gateway-system
     hostnames:
       - "image-access-2.test.example.com"
+    matches:
+      - path:
+          type: PathPrefix
+          value: /images
 
 extraDeploy:
   - apiVersion: subshell/v2
+    kind: TestData
+    meta:
+      name: an extra resource
+    spec:
+      data: foo
+
