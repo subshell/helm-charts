@@ -1,7 +1,0 @@
-fullnameOverride: custom-contentapi
-
-service:
-  type: LoadBalancer
-  port: 8888
-  annotations:
-    custom: annotation
