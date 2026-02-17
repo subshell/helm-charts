@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
-version: 2.1.4
+version: 2.2.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added Artifacthub changelog annotation"
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 5.0.0
 sources:

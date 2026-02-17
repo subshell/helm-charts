@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.0.1
+version: 2.1.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Updated O-Neko to 1.8.2"
+    - kind: added
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: "1.8.2"
 sources:

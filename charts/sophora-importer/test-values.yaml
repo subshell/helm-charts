@@ -140,9 +140,13 @@ httpRoute:
   # Hostnames matching HTTP header.
   hostnames:
     - chart-example.local
+  matches:
+    - path:
+        type: PathPrefix
+        value: /headers
   # List of rules and filters applied.
-  rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /headers
+  #rules:
+  #  - matches:
+  #      - path:
+  #          type: PathPrefix
+  #          value: /headers

@@ -42,3 +42,11 @@ ingress:
   annotations: {}
   hosts:
   tls: []
+
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "contentapi.test.example.com"
