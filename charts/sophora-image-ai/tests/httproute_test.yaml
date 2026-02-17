@@ -21,14 +21,14 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-ai
+          name: values-test-release-sophora-image-ai
       - equal:
           path: metadata
           value:
-            name: values-test-release-sophora-ai
+            name: values-test-release-sophora-image-ai
             labels:
-              helm.sh/chart: sophora-ai-0.9.8
-              app.kubernetes.io/name: sophora-ai
+              helm.sh/chart: sophora-image-ai-0.9.8
+              app.kubernetes.io/name: sophora-image-ai
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
@@ -46,7 +46,7 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-ai
+                  - name: values-test-release-sophora-image-ai
                     port: 8080
                 filters:
                   - type: RequestHeaderModifier
