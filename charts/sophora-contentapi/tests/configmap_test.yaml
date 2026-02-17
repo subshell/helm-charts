@@ -1,0 +1,86 @@
+suite: test configmap
+templates:
+  - configmap.yaml
+tests:
+  - it: should create configmap with default name
+    set:
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-sophora-contentapi
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^sophora-contentapi-
+
+  - it: should use custom fullnameOverride
+    set:
+      fullnameOverride: my-contentapi
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: metadata.name
+          value: my-contentapi
+
+  - it: should contain application.yaml with sophora configuration
+    set:
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://server:1196
+      sophora.configuration.sophora.client.server-connection.urls[1]: http://server2:1196
+      sophora.configuration.contentapi.somekey: somevalue
+    asserts:
+      - exists:
+          path: data["application.yaml"]
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "sophora:"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "http://server:1196"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "http://server2:1196"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "contentapi:"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "somekey: somevalue"
+
+  - it: should fail without sophora configuration
+    asserts:
+      - failedTemplate:
+          errorMessage: "A valid application.yaml config is required"
+
+  - it: should render complex sophora configuration
+    values:
+      - ./values/configmap-complex.yaml
+    asserts:
+      - exists:
+          path: data["application.yaml"]
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "server-connection:"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "urls:"
+      - matchRegex:
+          path: data["application.yaml"]
+          pattern: "contentapi:"
+
+  - it: should have correct labels
+    set:
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: metadata.labels["app.kubernetes.io/name"]
+          value: sophora-contentapi
+      - equal:
+          path: metadata.labels["app.kubernetes.io/instance"]
+          value: RELEASE-NAME
+      - equal:
+          path: metadata.labels["app.kubernetes.io/managed-by"]
+          value: Helm

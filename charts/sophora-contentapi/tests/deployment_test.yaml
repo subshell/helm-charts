@@ -1,0 +1,313 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: should create deployment with default values
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Deployment
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-sophora-contentapi
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^sophora-contentapi-
+      - equal:
+          path: spec.selector.matchLabels["app.kubernetes.io/name"]
+          value: sophora-contentapi
+      - equal:
+          path: spec.selector.matchLabels["app.kubernetes.io/instance"]
+          value: RELEASE-NAME
+
+  - it: should use custom fullnameOverride
+    set:
+      fullnameOverride: my-custom-name
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: metadata.name
+          value: my-custom-name
+
+  - it: should use custom nameOverride
+    set:
+      nameOverride: custom-contentapi
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-custom-contentapi
+
+  - it: should set correct image configuration
+    set:
+      image.repository: my-repo/contentapi
+      image.tag: 7.0.0
+      image.pullPolicy: Always
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: my-repo/contentapi:7.0.0
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: Always
+
+  - it: should use appVersion when tag is not specified
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: docker.subshell.com/sophora/contentapi:6.0.0
+
+  - it: should set imagePullSecrets
+    set:
+      imagePullSecrets[0].name: my-registry-secret
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.imagePullSecrets[0].name
+          value: my-registry-secret
+
+  - it: should set custom javaOptions
+    set:
+      javaOptions: -Xmx2g -XX:+UseG1GC
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JDK_JAVA_OPTIONS
+            value: -Xmx2g -XX:+UseG1GC
+
+  - it: should set default javaOptions
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JDK_JAVA_OPTIONS
+            value: -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem
+
+  - it: should configure authentication secret
+    set:
+      sophora.authentication.secret.name: my-secret
+      sophora.authentication.secret.usernameKey: myuser
+      sophora.authentication.secret.passwordKey: mypass
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: myuser
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: my-secret
+                key: mypass
+
+  - it: should set extraEnv variables
+    set:
+      contentapi.extraEnv[0].name: CUSTOM_VAR
+      contentapi.extraEnv[0].value: custom-value
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CUSTOM_VAR
+            value: custom-value
+
+  - it: should configure startup probe
+    set:
+      startupProbe.failureThreshold: 20
+      startupProbe.initialDelaySeconds: 10
+      startupProbe.periodSeconds: 5
+      startupProbe.timeoutSeconds: 60
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.failureThreshold
+          value: 20
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.initialDelaySeconds
+          value: 10
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.periodSeconds
+          value: 5
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.timeoutSeconds
+          value: 60
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.httpGet.path
+          value: /actuator/health/liveness
+
+  - it: should configure readiness probe
+    set:
+      readinessProbe.failureThreshold: 10
+      readinessProbe.initialDelaySeconds: 3
+      readinessProbe.periodSeconds: 10
+      readinessProbe.timeoutSeconds: 15
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.failureThreshold
+          value: 10
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.initialDelaySeconds
+          value: 3
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.periodSeconds
+          value: 10
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.timeoutSeconds
+          value: 15
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.path
+          value: /actuator/health/readiness
+
+  - it: should configure liveness probe
+    set:
+      livenessProbe.failureThreshold: 5
+      livenessProbe.initialDelaySeconds: 30
+      livenessProbe.periodSeconds: 120
+      livenessProbe.timeoutSeconds: 20
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.failureThreshold
+          value: 5
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.initialDelaySeconds
+          value: 30
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.periodSeconds
+          value: 120
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.timeoutSeconds
+          value: 20
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.path
+          value: /actuator/health/liveness
+
+  - it: should set resource requests and limits
+    set:
+      resources.requests.cpu: 500m
+      resources.requests.memory: 2Gi
+      resources.limits.memory: 2Gi
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: 500m
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.memory
+          value: 2Gi
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.memory
+          value: 2Gi
+
+  - it: should set default resource requests and limits
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.cpu
+          value: 200m
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.memory
+          value: 1Gi
+      - equal:
+          path: spec.template.spec.containers[0].resources.limits.memory
+          value: 1Gi
+
+  - it: should add pod annotations
+    set:
+      podAnnotations.prometheus.io/scrape: "true"
+      podAnnotations.prometheus.io/port: "8080"
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - equal:
+          path: spec.template.metadata.annotations["prometheus.io/scrape"]
+          value: "true"
+      - equal:
+          path: spec.template.metadata.annotations["prometheus.io/port"]
+          value: "8080"
+
+  - it: should include checksum annotation for configmap
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - exists:
+          path: spec.template.metadata.annotations["checksum/config"]
+
+  - it: should mount config volume
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            name: config
+            mountPath: /app/config
+            readOnly: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: config
+            configMap:
+              name: RELEASE-NAME-sophora-contentapi
+
+  - it: should expose http port
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].ports
+          content:
+            name: http
+            protocol: TCP
+            containerPort: 8080
+
+  - it: should fail without authentication secret name
+    set:
+      sophora.configuration.sophora.client.server-connection.urls[0]: http://localhost:1196
+    asserts:
+      - failedTemplate:
+          errorMessage: "A valid secret name must be provided in .Values.sophora.authentication.secret.name"
+
+  - it: should fail without sophora configuration
+    set:
+      sophora.authentication.secret.name: test-secret
+    asserts:
+      - failedTemplate:
+          errorMessage: "A valid application.yaml config is required"

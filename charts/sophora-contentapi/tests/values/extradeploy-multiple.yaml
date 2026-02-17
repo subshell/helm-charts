@@ -1,0 +1,18 @@
+extraDeploy:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: extra-cm-1
+    data:
+      key1: value1
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: extra-secret
+    type: Opaque
+    stringData:
+      password: secretvalue
+  - apiVersion: v1
+    kind: ServiceAccount
+    metadata:
+      name: extra-sa
