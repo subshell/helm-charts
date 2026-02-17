@@ -3,7 +3,6 @@ templates:
   - httproute.yaml
 chart:
   version: 0.9.8
-  appVersion: 1.2.3
 tests:
   - it: should not create httproute by default
     asserts:
@@ -21,15 +20,15 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-contentapi
+          name: values-test-release-sophora-server
       - equal:
           path: metadata
           value:
-            name: values-test-release-sophora-contentapi
+            name: values-test-release-sophora-server
             labels:
-              helm.sh/chart: sophora-contentapi-0.9.8
-              app.kubernetes.io/name: sophora-contentapi
-              app.kubernetes.io/version: 1.2.3
+              helm.sh/chart: sophora-server-0.9.8
+              app.kubernetes.io/name: sophora-server
+              app.kubernetes.io/version: latest
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
             annotations:
@@ -46,8 +45,8 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-contentapi
-                    port: 8080
+                  - name: values-test-release-sophora-server
+                    port: 1196
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:

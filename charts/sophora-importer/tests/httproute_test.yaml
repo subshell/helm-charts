@@ -21,14 +21,14 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-contentapi
+          name: values-test-release-sophora-importer
       - equal:
           path: metadata
           value:
-            name: values-test-release-sophora-contentapi
+            name: values-test-release-sophora-importer
             labels:
-              helm.sh/chart: sophora-contentapi-0.9.8
-              app.kubernetes.io/name: sophora-contentapi
+              helm.sh/chart: sophora-importer-0.9.8
+              app.kubernetes.io/name: sophora-importer
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
@@ -46,8 +46,8 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-contentapi
-                    port: 8080
+                  - name: values-test-release-sophora-importer
+                    port: 80
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
