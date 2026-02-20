@@ -2,13 +2,17 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.0.4
+version: 2.1.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: added configuration for new Reader Copy feature
+    - kind: changed
+      description: renamed Proofread feature to Check Issues (requires Sophora AI >1.6.0)
+    - kind: changed
+      description: configuration for Reader Copy feature is now required (requires Sophora AI >=1.6.0)
+    - kind: changed
+      description: configuration for Shorten for Infoscreen feature is now required (requires Sophora AI >=1.1.0)
 
-appVersion: 1.5.5
+appVersion: 1.6.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 home: https://subshell.com/sophora/modules/sophora-ai100.html

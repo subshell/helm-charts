@@ -59,65 +59,65 @@ sophora:
             schema: public
 
     altText:
-      testing: true
+      testing: altText
     caption:
-      testing: true
+      testing: caption
     categorize:
-      testing: true
+      testing: categorize
     checkClaims:
-      testing: true
+      testing: checkClaims
+    checkIssues:
+      testing: checkIssues
     checkScript:
-      testing: true
+      testing: checkScript
     correct:
-      testing: true
+      testing: correct
     cropHints:
-      testing: true
+      testing: cropHints
     elaborate:
-      testing: true
+      testing: elaborate
     embedding:
-      testing: true
+      testing: embedding
     embeddingARDRecommender:
-      testing: true
+      testing: embeddingARDRecommender
     google:
-      testing: true
+      testing: google
     keyPoints:
-      testing: true
+      testing: keyPoints
     keywords:
-      testing: true
+      testing: keywords
     llm:
-      testing: true
+      testing: llm
     namedEntities:
-      testing: true
-    proofread:
-      testing: true
+      testing: namedEntities
     questions:
-      testing: true
+      testing: questions
     quotations:
-      testing: true
+      testing: quotations
     readerCopy:
-      testing: true
+      testing: readerCopy
     recommendDocuments:
-      testing: true
+      testing: recommendDocuments
     recommendLinks:
-      testing: true
+      testing: recommendLinks
     rephrase:
-      testing: true
+      testing: rephrase
     sentiment:
-      testing: true
+      testing: sentiment
     shorten:
-      testing: true
+      testing: shorten
     shortenTeletext:
-      testing: true
+      testing: shortenTeletext
     shortenInfoscreen:
-      testing: true
+      testing: shortenInfoscreen
     summarize:
-      testing: true
+      testing: summarize
     teaser:
-      testing: true
+      testing: teaser
     title:
-      testing: true
+      testing: title
     translate:
-      testing: true
+      testing: translate
 
 ai:
   extraEnv:
