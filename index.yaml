@@ -964,6 +964,22 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-02-23T11:27:10.301415959Z"
+    description: Sophora Content API
+    digest: 1c36350e64095872bc01234cec748cd4d55d4f028790a1a69db49209eb7b084f
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.1.0/sophora-contentapi-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 6.0.0
@@ -1195,6 +1211,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-02-23T11:27:10.451779681Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 7b4c27d2d625889351e53064d81f7451d45a007290b659cae0b42d489de2d7cb
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.5.0/sophora-image-access-service-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 4.13.0
@@ -1289,6 +1323,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-02-23T11:27:10.65280413Z"
+    description: Sophora Image AI
+    digest: b5846566a736dc5b7572814060082b3dec0b57431920c5bf3497e08b7a41c9c2
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.2.0/sophora-image-ai-2.2.0.tgz
+    version: 2.2.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -1658,6 +1710,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Updated HTTPRoute configuration for consistency with httpRoute.matches and httpRoute.filters. Deprecated httpRoute.rules in favor of httpRoute.matches. Breaking: only first rule of httpRoute.rules is used!"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-02-23T11:27:10.816321404Z"
+    description: A Helm chart for the Sophora importer
+    digest: 80b0e97ef0f3885b84bbefc1d50d0e90070ba8a80ec5560ab0836d889383e2ba
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.5.0/sophora-importer-2.5.0.tgz
+    version: 2.5.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix service Port of httproute"
     apiVersion: v2
@@ -2007,6 +2077,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-02-23T11:27:10.973485064Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 95ffd2a106001d7d38667b8fc61f046f7e51e7f3b87455e9cf37bc53d7eb3856
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.6.0/sophora-indexing-service-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added extra volumes and extra volume mounts"
     apiVersion: v2
     appVersion: 5.4.1
@@ -2152,6 +2240,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-02-23T11:27:11.128514301Z"
+    description: Sophora Link Checker
+    digest: 47b19b5a6379ac7e527642b283d9aa3b74604374a74cccd5bfe3d2e5b03500b6
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.2.0/sophora-linkchecker-0.2.0.tgz
+    version: 0.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 6.0.0
@@ -2198,6 +2304,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-02-23T11:27:11.302458686Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: bdff3e5d96e54590b6b4b70193b1c13edb03e250bd50f760a2c71a1da5d50024
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.3.0/sophora-media-finder-0.3.0.tgz
+    version: 0.3.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -2307,6 +2431,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-02-23T11:27:11.478148873Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: e4b7f4fa7a41b5f4c8c87728662e4eff8edaf95bd152a93bf250c6cdc501503a
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.4.0/sophora-metadata-supplier-1.4.0.tgz
+    version: 1.4.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2447,6 +2589,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-02-23T11:27:11.633226867Z"
+    description: Sophora Schema Docs
+    digest: 0ca1ff6dae628ef0d618d764a17405025368a4764d856abe523c3895694c6181
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.2.0/sophora-schema-docs-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 5.0.0
@@ -2556,6 +2716,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-02-23T11:27:11.816206186Z"
+    description: Sophora SEO Check
+    digest: e249fc407f212cc37c95d40835ebdc40d5b4432fba035f5d8a495a0fc5de6a29
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.1.0/sophora-seo-check-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
     appVersion: 4.12.0
@@ -2592,6 +2770,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: "added"
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-02-23T11:27:11.951462351Z"
+    description: A Helm chart for the Sophora Server
+    digest: e6f1fdf00a2ad0c9f4a76cd2e0dac3054b7b28a85d1fad0b6041270d2e76979f
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.2.0/sophora-server-3.2.0.tgz
+    version: 3.2.0
   - annotations:
       artifacthub.io/changes: |
         - kind: "added"
@@ -3191,6 +3387,25 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-02-23T11:27:12.109780171Z"
+    description: A Helm chart for Kubernetes
+    digest: f613316422fc664ac99c175cb368ea6a2cb95d5a92c77882c85b881c4f1e5d12
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.1.0/sophora-ugc-2.1.0.tgz
+    version: 2.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "removed oracle from readme and test-values"
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
@@ -3495,6 +3710,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-02-23T11:27:12.265817021Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 8d26376908b9d046e6c1d927da44581cfe2f93590bbfafecc2e247881ae00bca
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.5.0/sophora-webclient-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "allow to configure service annotations"
     apiVersion: v2
     appVersion: 4.14.0
@@ -3683,6 +3919,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added HTTPRoute support for Gateway API."
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-02-23T11:27:12.431676688Z"
+    description: A Helm chart for Kubernetes
+    digest: 6f0fa9009c9e183f99774083725c9567acd12391b47278003c6540ba1d4f8e4d
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.3.0/sophora-youtube-connector-1.3.0.tgz
+    version: 1.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
       artifacthub.io/links: |
@@ -3772,4 +4029,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-23T10:28:29.545234762Z"
+generated: "2026-02-23T11:27:12.433274466Z"
