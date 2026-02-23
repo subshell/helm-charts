@@ -790,6 +790,24 @@ entries:
   sophora-cluster-common:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "updated comment format in values.yaml for properties"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-02-23T10:28:29.544827965Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: b7492ae01cde89c8c5de246922ef3687a35aa48342c697c036a78c34b4cd5826
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.4.4/sophora-cluster-common-1.4.4.tgz
+    version: 1.4.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -3754,4 +3772,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-11T13:17:27.550861219Z"
+generated: "2026-02-23T10:28:29.545234762Z"
