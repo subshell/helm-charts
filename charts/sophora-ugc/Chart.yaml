@@ -19,7 +19,7 @@ version: 2.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added HTTPRoute support for Gateway API"
+      description: "Added HTTPRoute support for Gateway API."
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/

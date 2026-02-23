@@ -6,7 +6,7 @@ version: 0.3.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added HTTPRoute support for Gateway API"
+      description: "Added HTTPRoute support for Gateway API."
 
 appVersion: "5.x"
 sources:

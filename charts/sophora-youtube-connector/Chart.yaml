@@ -19,7 +19,7 @@ version: 1.3.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added HTTPRoute support for Gateway API"
+      description: "Added HTTPRoute support for Gateway API."
   artifacthub.io/links: |
     - name: Documentation for the AV Tool
       url: https://subshell.com/docs/avtool/
