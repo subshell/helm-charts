@@ -65,6 +65,14 @@ ingress:
   hosts:
   tls: []
 
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "metadata-supplier.test.example.com"
+
 serviceMonitor:
   enabled: true
   path: /test/prometheus

@@ -48,6 +48,14 @@ ingress:
   hosts:
   tls: []
 
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "indexing-service.test.example.com"
+
 serviceMonitor:
   enabled: true
   path: /test/prometheus

@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-seo-check
 description: Sophora SEO Check
 type: application
-version: 1.0.3
+version: 1.1.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added Artifacthub changelog annotation"
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 4.12.0
 sources:

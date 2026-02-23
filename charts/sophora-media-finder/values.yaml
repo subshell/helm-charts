@@ -34,6 +34,39 @@ ingress:
   hosts:
   tls: []
 
+httpRoute:
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  enabled: false
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "my-service.example.com"
+  hostnames: []
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.annotations annotations for the HTTPRoute
+  annotations: {}
+
 startupProbe:
   path: /actuator/health
   failureThreshold: 15

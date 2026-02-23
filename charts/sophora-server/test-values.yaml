@@ -128,6 +128,7 @@ ingress:
     - host: "sophora.domain.de"
 
 grpcIngress:
+  enabled: true
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
@@ -135,6 +136,36 @@ grpcIngress:
   hosts:
     - host: "sophora.domain.de"
       path: /sophora\.srpc.*
+
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "sophora-server.test.example.com"
+
+grpcHttproute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "sophora-server.test.example.com"
+
+grpcRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "sophora-server-api.test.example.com"
+  matches:
+    - method:
+        type: RegularExpression
+        service : sophora\.srpc.*
+  annotations:
+    example.com/test: some value
 
 extraDeploy:
   - |

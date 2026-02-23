@@ -1,0 +1,37 @@
+{{- if .Values.httpRoute.enabled -}}
+  {{- $fullName := include "sophora-schema-docs.fullname" . -}}
+  {{- $svcPort := .Values.service.port -}}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}
+  labels:
+  {{- include "sophora-schema-docs.labels" . | nindent 4 }}
+  {{- with .Values.httpRoute.annotations }}
+  annotations:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with .Values.httpRoute.parentRefs }}
+  parentRefs:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if .Values.httpRoute.hostnames }}
+  hostnames:
+  {{- range .Values.httpRoute.hostnames }}
+    - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ $fullName }}
+          port: {{ $svcPort }}
+      {{- with .Values.httpRoute.matches }}
+      matches:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.httpRoute.filters }}
+      filters:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

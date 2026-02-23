@@ -1,4 +1,4 @@
-## @param replicaCount number of replicas. Cluster servers only support values of 0 or 1.
+# replicaCount number of replicas. Cluster servers only support values of 0 or 1.
 replicaCount: 1
 
 nameOverride: ""
@@ -201,41 +201,41 @@ sophora:
       accessModes: ["ReadWriteOnce"]
       dataDirAccessModes: ["ReadWriteOnce"]
     persistence:
-      ## @param sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb, mysql, postgres, or none)
+      # sophora.server.persistence.repositoryType string that identifies the repository persistence technology (localdb, mysql, postgres, or none)
       repositoryType: localdb
-      ## @param sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql, or none)
+      # sophora.server.persistence.archiveType string that identifies the archive persistence technology (localdb, mysql, or none)
       archiveType: localdb
 
       derby:
-        ## @param sophora.server.persistence.derby.driver string that specifies the java derby driver. Defaults to "org.apache.derby.jdbc.EmbeddedDriver".
-        ## For Sophora versions newer than 5.4 use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
+        # sophora.server.persistence.derby.driver string that specifies the java derby driver. Defaults to "org.apache.derby.jdbc.EmbeddedDriver".
+        # For Sophora versions newer than 5.4 use "org.apache.derby.iapi.jdbc.AutoloadedDriver".
         driver: "org.apache.derby.jdbc.EmbeddedDriver"
-        ## @param sophora.server.persistence.derby.searchIndexCacheSize id resolver cache size.
+        # sophora.server.persistence.derby.searchIndexCacheSize id resolver cache size.
         searchIndexCacheSize: 10000
-        ## @param sophora.server.persistence.derby.derbyStoragePageCacheSize Defines the size, in number of pages, of the database's data page cache
+        # sophora.server.persistence.derby.derbyStoragePageCacheSize Defines the size, in number of pages, of the database's data page cache
         # (data pages kept in memory). The actual amount of memory the page cache
         derbyStoragePageCacheSize: 1024
       mysql:
-        ## @param sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
-        ## e.g.
-        ## - secretName:
+        # sophora.server.persistence.mysql.repositories Array of server main repository connection configurations via secrets.
+        # e.g.
+        # - secretName:
         #    hostnameKey:
         #    usernameKey:
         #    passwordKey:
         repositories: []
-        ## @param sophora.server.persistence.mysql.archives Array of server archive connection configurations via secrets.
-        ## e.g.
-        ## - secretName:
-        ##   hostnameKey:
-        ##   usernameKey:
-        ##   passwordKey:
+        # sophora.server.persistence.mysql.archives Array of server archive connection configurations via secrets.
+        # e.g.
+        # - secretName:
+        #   hostnameKey:
+        #   usernameKey:
+        #   passwordKey:
         archives: []
 
-      ## @param sophora.server.persistence.postgres postgres configuration. Required for Sophora Server >5.0.0.
+      # sophora.server.persistence.postgres postgres configuration. Required for Sophora Server >5.0.0.
       postgres:
-        ## @param sophora.server.persistence.postgres.enabled Must be true for Sophora Server >6.0.0.
+        # sophora.server.persistence.postgres.enabled Must be true for Sophora Server >6.0.0.
         enabled: false
-        ## @param sophora.server.persistence.postgres.versionStoreEnabled is deprecated. Use enabled instead.
+        # sophora.server.persistence.postgres.versionStoreEnabled is deprecated. Use enabled instead.
         versionStoreEnabled: false
         hostname:
         port: "5432"
@@ -249,7 +249,7 @@ sophora:
           liveWorkspaceDB: "repository"
           jcrVersionsDB: "repository"
 
-      ## @param sophora.server.persistence.multiPostgres Allows any statefulset pod to connect a uniquely configured postgres.
+      # sophora.server.persistence.multiPostgres Allows any statefulset pod to connect a uniquely configured postgres.
       multiPostgres:
         enabled: false
         byPodIndex:
@@ -385,6 +385,99 @@ grpcIngress:
   #    hosts:
   #      - chart-example.local
 
+httpRoute:
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  enabled: false
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "my-service.example.com"
+  hostnames: []
+  # httpRoute.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /
+  matches: []
+  # httpRoute.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.annotations annotations for the HTTPRoute
+  annotations: {}
+
+# This can be used to configure a different HttpRoute for the SRPC service as it might require different settings. Can be used with the same hostname as httpRoute, see https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving.
+# The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
+# The paths can be regex-matched since all SRPC-calls have the root-path sophora.srpc
+grpcHttproute:
+  enabled: false
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # hostnames:
+  #   - "server.example.com"
+  hostnames: []
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  annotations: {}
+
+# This can be used to configure a GRPCRoute for the SRPC service. This must use another hostname than `httpRoute`. For the same hostname use `grpcHttproute`.
+# The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
+# The service can be matched since all SRPC-calls have the sophora.srpc package
+grpcRoute:
+  enabled: false
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # hostnames:
+  #   - "server.example.com"
+  hostnames: []
+  # matches Optional array of GRPCRouteMatch objects for matching gRPC requests
+  # e.g.
+  # matches:
+  #   - method:
+  #       type: RegularExpression
+  #       service : sophora\.srpc.*
+  matches: []
+  # filters Optional array of GRPCRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  annotations: {}
+
 service:
   annotations: {}
   headlessAnnotations: {}
@@ -423,12 +516,12 @@ resources:
 
 # This PDB should only be used for staging server setups
 podDisruptionBudget:
-  ## @param enabled Whether the pod disruption budget resource should be deployed
+  # enabled Whether the pod disruption budget resource should be deployed
   ##
   enabled: false
-  ## @param podDisruptionBudget.minAvailable Minimum number of pods that must still be available after the eviction
+  # podDisruptionBudget.minAvailable Minimum number of pods that must still be available after the eviction
   ##
   minAvailable: 1
-  ## @param podDisruptionBudget.maxUnavailable Max number of pods that can be unavailable after the eviction
+  # podDisruptionBudget.maxUnavailable Max number of pods that can be unavailable after the eviction
   ##
   maxUnavailable: ""

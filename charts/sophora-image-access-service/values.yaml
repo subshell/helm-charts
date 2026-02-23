@@ -79,6 +79,48 @@ extraIngress: []
   #  hosts:
   #  tls: []
 
+httpRoute:
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  enabled: false
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "my-service.example.com"
+  hostnames: []
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.annotations annotations for the HTTPRoute
+  annotations: {}
+
+extraHttpRoutes: []
+  #- parentRefs:
+  #    - name: my-gateway
+  #  hostnames:
+  #    - example.com
+  #  matches: []
+  #  filters: []
+  #  annotations: {}
+
 serviceAccount:
   create: false
 
@@ -109,9 +151,9 @@ livenessProbe:
   timeoutSeconds: 3
   periodSeconds: 60
 
-## @section Extra Deploy
+# @section Extra Deploy
 ##
-## @param extraDeploy Allows to specify custom resources that should be deployed
+# extraDeploy Allows to specify custom resources that should be deployed
 extraDeploy: []
 
 autoscaling:

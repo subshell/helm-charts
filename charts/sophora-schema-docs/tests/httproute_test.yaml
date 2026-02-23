@@ -1,0 +1,61 @@
+suite: test httproute
+templates:
+  - httproute.yaml
+chart:
+  version: 0.9.8
+  appVersion: 1.2.3
+tests:
+  - it: should not create httproute by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create httproute with values
+    release:
+      name: values-test-release
+    values:
+      - ./values/httproute.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-schema-docs
+      - equal:
+          path: metadata
+          value:
+            name: values-test-release-sophora-schema-docs
+            labels:
+              helm.sh/chart: sophora-schema-docs-0.9.8
+              app.kubernetes.io/name: sophora-schema-docs
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+            annotations:
+              example.com/test: "simple"
+              example.com/text: some text value
+      - equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - my-service.example.com
+              - other.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-schema-docs
+                    port: 8080
+                filters:
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /
+      - notFailedTemplate: {}
