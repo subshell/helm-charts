@@ -3709,6 +3709,27 @@ entries:
   sophora-webclient:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed port of Ingress backend."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-02-26T14:38:12.487442825Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 390b17ab56a644c59248a854b650d8d2a970a11a6072301d52af40066e18a63f
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.5.1/sophora-webclient-1.5.1.tgz
+    version: 1.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -4029,4 +4050,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-23T11:27:12.433274466Z"
+generated: "2026-02-26T14:38:12.487852226Z"
