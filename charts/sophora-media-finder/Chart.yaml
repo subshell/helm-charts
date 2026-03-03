@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.3.0
+version: 0.4.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: changed
+      description: "Added checksum annotation to pod template to trigger pod restarts on ConfigMap changes."
 
 appVersion: "5.x"
 sources:

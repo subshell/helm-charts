@@ -1,0 +1,58 @@
+suite: test checksum annotation
+templates:
+  - deployment.yaml
+  - configmap.yaml
+tests:
+  - it: should set checksum/config annotation on pod template
+    set:
+      oneko.config:
+        server: test
+      oneko.mongodb.secret.name: test-mongodb-secret
+      oneko.credentialsCoderKeySecret.name: test-coder-secret
+      oneko.credentialsCoderKeySecret.fieldName: key
+    asserts:
+      - template: deployment.yaml
+        exists:
+          path: spec.template.metadata.annotations["checksum/config"]
+  - it: checksum should remain the same when release name changes but data does not
+    release:
+      name: release-a
+    set:
+      oneko.config:
+        server: test
+      oneko.mongodb.secret.name: test-mongodb-secret
+      oneko.credentialsCoderKeySecret.name: test-coder-secret
+      oneko.credentialsCoderKeySecret.fieldName: key
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "033967eed51ceff9eab7efa23c999a872d11436b5be0aeca14ab40458133f7f7"
+  - it: checksum should remain the same when release name changes to release-b
+    release:
+      name: release-b
+    set:
+      oneko.config:
+        server: test
+      oneko.mongodb.secret.name: test-mongodb-secret
+      oneko.credentialsCoderKeySecret.name: test-coder-secret
+      oneko.credentialsCoderKeySecret.fieldName: key
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "033967eed51ceff9eab7efa23c999a872d11436b5be0aeca14ab40458133f7f7"
+  - it: checksum should change when config data changes
+    release:
+      name: release-a
+    set:
+      oneko.config:
+        server: other-server
+      oneko.mongodb.secret.name: test-mongodb-secret
+      oneko.credentialsCoderKeySecret.name: test-coder-secret
+      oneko.credentialsCoderKeySecret.fieldName: key
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "95c2cbb1a40531fea8093d4ba977f1a2063cde6a92883362fe6242a5643a392d"
