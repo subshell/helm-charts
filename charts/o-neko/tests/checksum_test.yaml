@@ -1,0 +1,16 @@
+suite: test checksum annotation
+templates:
+  - deployment.yaml
+  - configmap.yaml
+tests:
+  - it: should set checksum/config annotation on pod template
+    set:
+      oneko.config:
+        server: test
+      oneko.mongodb.secret.name: test-mongodb-secret
+      oneko.credentialsCoderKeySecret.name: test-coder-secret
+      oneko.credentialsCoderKeySecret.fieldName: key
+    asserts:
+      - template: deployment.yaml
+        exists:
+          path: spec.template.metadata.annotations["checksum/config"]

@@ -1,0 +1,10 @@
+suite: test checksum annotation
+templates:
+  - deployment.yaml
+  - configmap.yaml
+tests:
+  - it: should set checksum/config annotation on pod template
+    asserts:
+      - template: deployment.yaml
+        exists:
+          path: spec.template.metadata.annotations["checksum/config"]

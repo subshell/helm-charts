@@ -16,6 +16,8 @@ spec:
   revisionHistoryLimit: 10
   template:
     metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels: {{- include "o-neko.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "o-neko.fullname" . }}
