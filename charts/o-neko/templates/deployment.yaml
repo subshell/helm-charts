@@ -17,7 +17,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/config: {{ get (include (print $.Template.BasePath "/configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
       labels: {{- include "o-neko.selectorLabels" . | nindent 8 }}
     spec:
       serviceAccountName: {{ include "o-neko.fullname" . }}
