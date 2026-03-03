@@ -8,3 +8,29 @@ tests:
       - template: deployment.yaml
         exists:
           path: spec.template.metadata.annotations["checksum/config"]
+  - it: checksum should remain the same when release name changes but data does not
+    release:
+      name: release-a
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "a1c53f0240e0d2df333eeb4e5b2767cd314f098933ce69df990660f8e065f0f5"
+  - it: checksum should remain the same when release name changes to release-b
+    release:
+      name: release-b
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "a1c53f0240e0d2df333eeb4e5b2767cd314f098933ce69df990660f8e065f0f5"
+  - it: checksum should change when config data changes
+    release:
+      name: release-a
+    set:
+      mediaFinder.configuration.ard-api.assetResearchServiceUrl: http://changed-url
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "74d2c40066a009d4c3f9d95d939c702119bf437332602fc787301fbd802f68b6"
