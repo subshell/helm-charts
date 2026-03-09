@@ -80,6 +80,9 @@ sophora:
     # contents of application-check-claims.yaml
     checkClaims:
 
+    # contents of application-check-issues.yaml
+    checkIssues:
+
     # contents of application-check-script.yaml
     checkScript:
 
@@ -124,17 +127,14 @@ sophora:
     # contents of application-named-entities.yaml
     namedEntities:
 
-    # contents of application-proofread.yaml (actually required, but optional to support older app versions)
-    #proofread:
-
     # contents of application-questions.yaml
     questions:
 
     # contents of application-quotations.yaml
     quotations:
 
-    # contents of application-reader-copy.yaml (actually required, but optional to support older app versions)
-    #readerCopy:
+    # contents of application-reader-copy.yaml
+    readerCopy:
 
     # contents of application-recommend-documents.yaml
     recommendDocuments:
@@ -154,8 +154,8 @@ sophora:
     # contents of application-shorten-teletext.yaml
     shortenTeletext:
 
-    # contents of application-shorten-infoscreen.yaml (actually required, but optional to support older app versions)
-    #shortenInfoscreen:
+    # contents of application-shorten-infoscreen.yaml
+    shortenInfoscreen:
 
     # contents of application-summarize.yaml
     summarize:
