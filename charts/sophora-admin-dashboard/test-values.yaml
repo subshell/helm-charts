@@ -13,6 +13,14 @@ ingress:
   enabled: true
   ingressClassName: nginx
 
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "dashboard.test.example.com"
+
 storageClassName: "ssd"
 
 sophora:

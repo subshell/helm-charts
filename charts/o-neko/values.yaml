@@ -1,23 +1,23 @@
 ## @section Common parameters
 ##
 
-## @param nameOverride String to partially override the name
+# nameOverride String to partially override the name
 nameOverride: ""
 
-## @param fullnameOverride String to fully override the release name
+# fullnameOverride String to fully override the release name
 fullnameOverride: ""
 
-## @param imagePullSecrets Docker registry secret names as an array
+# imagePullSecrets Docker registry secret names as an array
 imagePullSecrets: []
 
-## @param javaOptions String with Java VM Options passed to the application
+# javaOptions String with Java VM Options passed to the application
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
 
-## @param hostAliases Host aliases available to the application
+# hostAliases Host aliases available to the application
 hostAliases:
 
-## @param resources.limits The resource limits for the container
-## @param resources.requests The resource requests for the container
+# resources.limits The resource limits for the container
+# resources.requests The resource requests for the container
 resources:
   limits: {}
   requests: {}
@@ -28,24 +28,24 @@ resources:
 
 oneko:
 
-  ## @param oneko.image.name O-Neko image repository
-  ## @param oneko.image.tag O-Neko image tag
-  ## @param oneko.image.imagePullPolicy Image Pull Policy
+  # oneko.image.name O-Neko image repository
+  # oneko.image.tag O-Neko image tag
+  # oneko.image.imagePullPolicy Image Pull Policy
   image:
     name: subshellgmbh/o-neko
     tag: 1.8.2
     imagePullPolicy: IfNotPresent
 
   ## @extra oneko.env array of environment variables passed to the container
-  ## @param oneko.env[0].name default environment variable name for activation json logging
-  ## @param oneko.env[0].value name of the Spring profile used to activate json logging
+  # oneko.env[0].name default environment variable name for activation json logging
+  # oneko.env[0].value name of the Spring profile used to activate json logging
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: "json-logs"
 
   ## Helm parameter configuration
-  ## @param oneko.helm.gcs.secret.name The secret name of the Google Service Account used, if using Helm GCS
-  ## @param oneko.helm.gcs.secret.serviceAccountField The field in the secret of the Google Service Account
+  # oneko.helm.gcs.secret.name The secret name of the Google Service Account used, if using Helm GCS
+  # oneko.helm.gcs.secret.serviceAccountField The field in the secret of the Google Service Account
   helm:
     gcs:
       secret:
@@ -53,16 +53,16 @@ oneko:
         serviceAccountField:
 
   ## MongoDB connection parameters
-  ## @param oneko.mongodb.secret.name Name of the secret holding the MongoDB connection URI
-  ## @param oneko.mongodb.secret.uriField Name of the field in the secret containing the MongoDB URI
+  # oneko.mongodb.secret.name Name of the secret holding the MongoDB connection URI
+  # oneko.mongodb.secret.uriField Name of the field in the secret containing the MongoDB URI
   mongodb:
     secret:
       name: #required
       uriField: uri
 
   ## Secret containing the key for symmetrical encryption of sensitive data in the database
-  ## @param oneko.credentialsCoderKeySecret.name Name of the secret
-  ## @param oneko.credentialsCoderKeySecret.fieldName Name of the field in the secret
+  # oneko.credentialsCoderKeySecret.name Name of the secret
+  # oneko.credentialsCoderKeySecret.fieldName Name of the field in the secret
   credentialsCoderKeySecret:
     name: #required
     fieldName: key
@@ -83,30 +83,30 @@ oneko:
 ## @section Probes
 ##
 
-## @param startupProbe.failureThreshold Failure threshold for startupProbe
-## @param startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
-## @param startupProbe.timeoutSeconds Timeout seconds for startupProbe
-## @param startupProbe.periodSeconds Period seconds for startupProbe
+# startupProbe.failureThreshold Failure threshold for startupProbe
+# startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+# startupProbe.timeoutSeconds Timeout seconds for startupProbe
+# startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
   failureThreshold: 10
   initialDelaySeconds: 10
   timeoutSeconds: 1
   periodSeconds: 2
 
-## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
-## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
-## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
-## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+# readinessProbe.failureThreshold Failure threshold for readinessProbe
+# readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+# readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+# readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   failureThreshold: 3
   initialDelaySeconds: 5
   timeoutSeconds: 5
   periodSeconds: 5
 
-## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
-## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
-## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+# livenessProbe.failureThreshold Failure threshold for livenessProbe
+# livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+# livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+# livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 15
@@ -117,44 +117,77 @@ livenessProbe:
 ##
 
 service:
-  ## @param service.annotations annotations for the service
+  # service.annotations annotations for the service
   annotations: {}
-  ## @param service.type Kubernetes service type
+  # service.type Kubernetes service type
   type:
-  ## @param service.sessionAffinity the service's sessionAffinity
+  # service.sessionAffinity the service's sessionAffinity
   sessionAffinity: None
-  ## @param service.sessionAffinityConfig additional sessionAffinity configuration
+  # service.sessionAffinityConfig additional sessionAffinity configuration
   sessionAffinityConfig: {}
-  ## @param service.loadBalancerIP A loadBalancerIP configuration
+  # service.loadBalancerIP A loadBalancerIP configuration
   loadBalancerIP:
-  ## @param service.clusterIP The service's clusterIP
+  # service.clusterIP The service's clusterIP
   clusterIP:
 
 ingress:
-  ## @param ingress.ingressClassName name of the ingressClass used for the ingress
+  # ingress.ingressClassName name of the ingressClass used for the ingress
   ingressClassName:
-  ## @param ingress.hosts Array with hostnames used for the ingress
+  # ingress.hosts Array with hostnames used for the ingress
   ## e.g.
   ## hosts:
   ##   - host: "oneko.my-company.com"
   hosts:
-  ## @param ingress.tls TLS configuration of the ingress as an array
+  # ingress.tls TLS configuration of the ingress as an array
   ## e.g.
   ## tls:
   ##   - hosts:
   ##     - "oneko.my-company.com"
   ##     secretName: oneko-tls
   tls:
-  ## @param ingress.annotations annotations for the ingress
+  # ingress.annotations annotations for the ingress
+  annotations: {}
+
+httpRoute:
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  enabled: false
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  ## e.g.
+  ## parentRefs:
+  ##   - name: my-gateway
+  ##     namespace: gateway-namespace
+  parentRefs: []
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  ## e.g.
+  ## hostnames:
+  ##   - "my-service.example.com"
+  hostnames: []
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 
 ## @section Metrics
 ##
 ## Specific for the use with the kube-prometheus-stack
 
-## @param serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
-## @param serviceMonitor.interval Prometheus scrape interval
-## @param serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+# serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+# serviceMonitor.interval Prometheus scrape interval
+# serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
 serviceMonitor:
   enabled: false
   interval: 10s

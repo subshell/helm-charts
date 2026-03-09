@@ -157,42 +157,42 @@ prometheusRule:
         summary: 'The import job ({{ include "sophora-import-job.fullname" . }}) did not complete successfully.'
         runbook_url: 'https://github.com/subshell/helm-charts/charts/sophora-import-job/alerting-runbook.md'
 
-## @param extraDeploy Extra objects to deploy (value evaluated as a template)
+# extraDeploy Extra objects to deploy (value evaluated as a template)
 ##
 extraDeploy: []
 extraVolumes: []
 extraVolumeMounts: []
 
 job:
-  ## @param job.ttlSecondsAfterFinished k8s job config, defaults to 7 days in seconds
+  # job.ttlSecondsAfterFinished k8s job config, defaults to 7 days in seconds
   ##
   ttlSecondsAfterFinished: 604800
-  ## @param job.backoffLimit k8s job config
+  # job.backoffLimit k8s job config
   ##
   backoffLimit: 1
-  ## @param job.parallelism k8s job config
+  # job.parallelism k8s job config
   ##
   parallelism: 1
-  ## @param job.activeDeadlineSeconds k8s job config, default of 3 hours in seconds
+  # job.activeDeadlineSeconds k8s job config, default of 3 hours in seconds
   ##
   activeDeadlineSeconds: 10800
   cron:
-    ## @param job.cron.expression Cron expression, defaults to every 3rd hour on Sunday
+    # job.cron.expression Cron expression, defaults to every 3rd hour on Sunday
     ##
     expression: "0 */3 * * 0"
-    ## @param job.cron.suspend Suspends the cron job. Defaults to true
+    # job.cron.suspend Suspends the cron job. Defaults to true
     ##
     suspend: true
-  ## @param job.postStart Sets the command executed when the container is started Defaults to []
+  # job.postStart Sets the command executed when the container is started Defaults to []
   ##
   postStartCommand: []
-  ## @param job.preStop Sets the command executed when the container is stopped. Defaults to []
+  # job.preStop Sets the command executed when the container is stopped. Defaults to []
   ##
   preStopCommand: []
-  ## @param job.beforeScript Appends code to be executed before wait-for-empty-dir.sh. Defaults to ""
+  # job.beforeScript Appends code to be executed before wait-for-empty-dir.sh. Defaults to ""
   ##
   beforeScript: ""
-  ## @param job.afterScript Appends code to be executed after wait-for-empty-dir.sh. Defaults to ""
+  # job.afterScript Appends code to be executed after wait-for-empty-dir.sh. Defaults to ""
   ##
   afterScript: ""
 

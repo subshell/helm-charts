@@ -13,6 +13,14 @@ ingress:
   hosts:
     - host: "my-site.com"
 
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "webclient.test.example.com"
+
 webclient:
   configuration:
     abc: test

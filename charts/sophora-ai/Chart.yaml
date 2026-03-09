@@ -11,6 +11,8 @@ annotations:
       description: configuration for Reader Copy feature is now required (requires Sophora AI >=1.6.0)
     - kind: changed
       description: configuration for Shorten for Infoscreen feature is now required (requires Sophora AI >=1.1.0)
+    - kind: added
+      description: "Added HTTPRoute support for Gateway API"
 
 appVersion: 1.6.0
 sources:
