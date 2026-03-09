@@ -657,6 +657,28 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: renamed Proofread feature to Check Issues (requires Sophora AI >1.6.0)
+        - kind: changed
+          description: configuration for Reader Copy feature is now required (requires Sophora AI >=1.6.0)
+        - kind: changed
+          description: configuration for Shorten for Infoscreen feature is now required (requires Sophora AI >=1.1.0)
+    apiVersion: v2
+    appVersion: 1.6.0
+    created: "2026-03-09T18:58:48.78495655Z"
+    description: Sophora AI
+    digest: a77753b036557b751e0a3bdb29aeb3e9323d2f90262a56d8cdd412b49e214055
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.2.0/sophora-ai-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: added configuration for new Reader Copy feature
     apiVersion: v2
@@ -4050,4 +4072,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-02-26T14:38:12.487852226Z"
+generated: "2026-03-09T18:58:48.785334784Z"
