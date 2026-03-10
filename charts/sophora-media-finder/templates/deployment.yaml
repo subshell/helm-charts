@@ -11,6 +11,11 @@ spec:
       {{- include "sophora-media-finder.selectorLabels" . | nindent 6 }}
   template:
     metadata:
+      annotations:
+        checksum/config: {{ get (include (print $.Template.BasePath "/configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
+        {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       labels:
         {{- include "sophora-media-finder.selectorLabels" . | nindent 8 }}
     spec:
