@@ -1233,6 +1233,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added affinity"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-03-25T12:08:21.213566035Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: f7bc32d231791e2b8c6a636a7f8d7fdfb3acacbef0ef8eb418bffd319f449f4e
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.6.0/sophora-image-access-service-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
     appVersion: 4.13.0
@@ -4072,4 +4090,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-03-09T18:58:48.785334784Z"
+generated: "2026-03-25T12:08:21.214034463Z"
