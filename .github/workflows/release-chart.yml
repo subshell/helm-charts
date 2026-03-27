@@ -1,5 +1,9 @@
 name: Release Charts
 
+permissions:
+  contents: read
+  packages: write
+
 on:
   workflow_run:
     workflows:
@@ -30,3 +34,11 @@ jobs:
         uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - name: Run chart-releaser - oci
+        uses: bitdeps/helm-oci-charts-releaser@v0.1.5
+        with:
+          oci_registry: ghcr.io/subshell/helm-charts
+          oci_username: xxx
+          oci_password: '${{ secrets.GITHUB_TOKEN }}'
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
+          skip_gh_release: 'true'
