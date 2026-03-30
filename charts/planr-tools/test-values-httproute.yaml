@@ -1,0 +1,16 @@
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - planr-tools.test.example.com
+  filters:
+    - type: RequestHeaderModifier
+      requestHeaderModifier:
+        set:
+          - name: X-Test
+            value: enabled
+  annotations:
+    example.com/test: "true"
+

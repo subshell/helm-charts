@@ -1,0 +1,59 @@
+suite: test httproute
+templates:
+  - httproute.yaml
+chart:
+  version: 0.1.0
+  appVersion: 6.0.0-SNAPSHOT
+tests:
+  - it: should not create httproute by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create httproute rules for all enabled applications
+    release:
+      name: values-test-release
+    values:
+      - ./values/httproute.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-planr-tools
+      - equal:
+          path: metadata.annotations
+          value:
+            example.com/test: "true"
+      - equal:
+          path: spec.hostnames
+          value:
+            - planr-tools.example.com
+      - equal:
+          path: spec.rules[0].backendRefs[0].name
+          value: values-test-release-planr-tools-newsroom-document-creator
+      - equal:
+          path: spec.rules[1].backendRefs[0].name
+          value: values-test-release-planr-tools-newsroom-feed
+      - equal:
+          path: spec.rules[2].backendRefs[0].name
+          value: values-test-release-planr-tools-newsroom-widget
+      - equal:
+          path: spec.rules[0].matches[0].path.value
+          value: /document-creator
+      - equal:
+          path: spec.rules[1].matches[0].path.value
+          value: /feed
+      - equal:
+          path: spec.rules[2].matches[0].path.value
+          value: /
+      - equal:
+          path: spec.rules[0].filters[0].type
+          value: URLRewrite
+      - equal:
+          path: spec.rules[1].filters[0].type
+          value: URLRewrite
+      - notExists:
+          path: spec.rules[2].filters[0].urlRewrite
+      - notFailedTemplate: {}

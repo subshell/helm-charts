@@ -1,0 +1,16 @@
+{{- $root := . -}}
+{{- range $appKey := (include "planr-tools.app-keys" $root | fromYaml).keys }}
+{{- $component := index $root.Values.applications $appKey }}
+{{- if $component.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "planr-tools.componentConfigName" (dict "root" $root "component" $component) }}
+  labels:
+    {{- include "planr-tools.labels" (dict "root" $root "component" $component) | nindent 4 }}
+data:
+  application.yml: |-
+    {{- include "planr-tools.render" (dict "value" $component.config "context" $root) | nindent 4 }}
+---
+{{- end }}
+{{- end }}

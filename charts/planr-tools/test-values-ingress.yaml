@@ -1,0 +1,52 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: planr-tools.example.com
+
+imagePullSecrets:
+  - name: subshell-registry
+
+commonEnv:
+  - name: SPRING_PROFILES_ACTIVE
+    value: subshell-test-cloud
+  - name: SOPHORA_URL
+    value: "" # e.g. https://cms.stable.test.subshell.io
+  - name: SOPHORA_USERNAME
+    value: "" # in secret
+  - name: SOPHORA_PASSWORD
+    value: "" # in secret
+
+applications:
+  documentCreator:
+    image:
+      tag: master
+    config:
+      sophora:
+        client:
+          server-connection:
+            urls: ${SOPHORA_URL}
+            username: ${SOPHORA_USERNAME}
+            password: ${SOPHORA_PASSWORD}
+
+  feed:
+    image:
+      tag: master
+    config:
+      sophora:
+        client:
+          server-connection:
+            urls: ${SOPHORA_URL}
+            username: ${SOPHORA_USERNAME}
+            password: ${SOPHORA_PASSWORD}
+
+  widget:
+    image:
+      tag: master
+    config:
+      sophora:
+        client:
+          server-connection:
+            urls: ${SOPHORA_URL}
+            username: ${SOPHORA_USERNAME}
+            password: ${SOPHORA_PASSWORD}

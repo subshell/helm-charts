@@ -1,0 +1,13 @@
+apiVersion: v2
+name: planr-tools
+description: A Helm chart for deploying the planr-tools applications
+type: application
+version: 0.1.0
+appVersion: "6.0.0-SNAPSHOT"
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial release of the planr-tools chart.
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+home: https://gitlab.com/subshell/kunden/planr-tools
