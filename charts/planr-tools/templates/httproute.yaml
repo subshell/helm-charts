@@ -21,8 +21,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{/* Keep in sync with deployment.yaml, configmap.yaml, service.yaml, ingress.yaml. */}}
-    {{- range $appKey := list "documentCreator" "feed" "widget" }}
+    {{- range $appKey := (include "planr-tools.appKeys" $ | fromYaml).keys }}
     {{- $component := index $.Values.applications $appKey }}
     {{- if $component.enabled }}
     - matches:

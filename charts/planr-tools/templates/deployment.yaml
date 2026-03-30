@@ -1,6 +1,5 @@
 {{- $root := . -}}
-{{/* Keep in sync with configmap.yaml, service.yaml, ingress.yaml, httproute.yaml. */}}
-{{- range $appKey := list "documentCreator" "feed" "widget" }}
+{{- range $appKey := (include "planr-tools.appKeys" $root | fromYaml).keys }}
 {{- $component := index $root.Values.applications $appKey }}
 {{- if $component.enabled }}
 apiVersion: apps/v1

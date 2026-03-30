@@ -30,8 +30,7 @@ spec:
     - host: {{ required "A hostname for the ingress must be provided in .Values.ingress.hosts[].host" $host.host }}
       http:
         paths:
-          {{/* Keep in sync with deployment.yaml, configmap.yaml, service.yaml, httproute.yaml. */}}
-          {{- range $appKey := list "documentCreator" "feed" "widget" }}
+          {{- range $appKey := (include "planr-tools.appKeys" $ | fromYaml).keys }}
           {{- $component := index $.Values.applications $appKey }}
           {{- if $component.enabled }}
           {{- $path := $component.exposure.path }}
