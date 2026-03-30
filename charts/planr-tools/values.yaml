@@ -93,7 +93,7 @@ applications:
           web:
             base-path: /actuator
             exposure:
-              include: health, info, jolokia, endpoints
+              include: health,info
       sophora:
         client:
           server-connection:
@@ -175,6 +175,12 @@ applications:
         port: 8082
         compression:
           enabled: true
+      management:
+        endpoints:
+          web:
+            base-path: /actuator
+            exposure:
+              include: health,info
       sophora:
         client:
           server-connection:
