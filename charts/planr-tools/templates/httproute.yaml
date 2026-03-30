@@ -32,10 +32,18 @@ spec:
       backendRefs:
         - name: {{ include "planr-tools.componentFullname" (dict "root" $ "component" $component) }}
           port: {{ $component.service.port }}
-      {{- with $.Values.httpRoute.filters }}
       filters:
+        {{- if ne $component.exposure.path "/" }}
+        {{/* Strip the path prefix so apps receive requests at their own root, same as the Ingress rewrite. */}}
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
+        {{- end }}
+        {{- with $.Values.httpRoute.filters }}
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
     {{- end }}
     {{- end }}
 {{- end }}

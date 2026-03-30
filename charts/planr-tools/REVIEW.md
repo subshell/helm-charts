@@ -1,53 +1,68 @@
-# planr-tools Chart Review
+# planr-tools Chart Review — Round 2
 
-Code review of the initial chart implementation. Work through these items top to bottom.
+Feedback from [subshell/helm-charts#267](https://github.com/subshell/helm-charts/pull/267). Remove this file before merging.
 
 ## 🔴 High Severity
 
-- ✅ **#1 — Missing liveness/readiness probes** (`templates/deployment.yaml`)
-  Add `livenessProbe`, `readinessProbe`, and `startupProbe` referencing the Spring Boot actuator
-  endpoints (`/actuator/health/liveness`, `/actuator/health/readiness`) — as done in `sophora-ai`.
-  Without probes, failed pods are never restarted and never removed from load balancing. 💀
+- ✅ **#1 — HTTPRoute does not strip path prefix** (`templates/httproute.yaml`)
+  Like the Ingress, the HTTPRoute currently forwards requests with the external prefix still present
+  (e.g. `/document-creator/api/...`). Add a per-rule `URLRewrite` filter to strip the prefix:
+  ```yaml
+  filters:
+  - type: URLRewrite
+    urlRewrite:
+      path:
+        type: ReplacePrefixMatch
+        replacePrefixMatch: /
+  ```
+  Note: only needed for non-root exposure paths, widget's `/` is fine as-is.
 
-- ✅ **#2 — Default `service.type: LoadBalancer`** (`values.yaml` — all three applications)
-  Will provision three ☁️ cloud load balancers on a default install. Since the chart is designed for
-  path-based routing via Ingress or HTTPRoute, `ClusterIP` should be the default.
-  (`test-values.yaml` already overrides this, confirming the default is wrong.)
+- ⬜ **#2 — Config checksum uses raw (untemplated) values** (`templates/_helpers.tpl`)
+  `planr-tools.componentConfigChecksum` hashes the raw `.component.config` map, but the ConfigMap
+  renders config via `tpl`. If config contains `${...}` placeholders referencing env vars, changing
+  those env vars won't change the checksum and pods won't restart. Compute the checksum from the
+  fully rendered `application.yml` content instead.
 
 ## 🟡 Medium Severity
 
-- ✅ **#3 — `JAVA_OPTS` env var name** (`templates/deployment.yaml`)
-  Verified: all three Dockerfiles use `JAVA_OPTS` directly in their `ENTRYPOINT`. No change needed.
+- ⬜ **#3 — Hardcoded app key list — centralize in `_helpers.tpl`** (`templates/configmap.yaml` et al.)
+  DanielRaapDev suggests declaring the list once in `_helpers.tpl` and including it via
+  `include "planr-tools.app-keys" .` — revisit the `fromYaml` approach discussed earlier.
 
-- ✅ **#4 — Missing `annotations.artifacthub.io/changes`** (`Chart.yaml`)
-  Every other chart in the repo has this annotation; the release workflow likely depends on it 🚀.
-  Add an initial entry, e.g.:
-  ```yaml
-  annotations:
-    artifacthub.io/changes: |
-      - kind: added
-        description: Initial release of the planr-tools chart.
-  ```
+- ⬜ **#4 — Wrap nginx annotations behind `ingressClassName` guard** (`templates/ingress.yaml`)
+  Wrap the `nginx.ingress.kubernetes.io/*` annotations in
+  `{{- if eq "nginx" .Values.ingress.ingressClassName }}` so they're not emitted when using a
+  different ingress controller.
 
-- ✅ **#5 — `sources` URL points to the application repo, not the chart repo** (`Chart.yaml`)
-  All other charts set `sources` to `https://github.com/subshell/helm-charts/tree/main/charts/<name>`.
-  The application GitLab URL belongs in `home`, not `sources`. 🏠
+- ⬜ **#5 — `ingress.pathType` defined in values but never used** (`values.yaml`)
+  The template hardcodes `pathType: ImplementationSpecific`. Either remove `ingress.pathType` from
+  `values.yaml` or wire it back into the template.
 
-- ✅ **#6 — Hardcoded component list repeated across 5 template files** 🔁
-  A shared helper would require a non-obvious `fromYaml` wrapper pattern. Accepted as intentional
-  duplication instead — added a comment to each file explaining the ordering requirement and
-  listing the files that need to stay in sync.
+- ⬜ **#6 — Actuator endpoints too broad by default** (`values.yaml`) 🔓
+  The default config exposes `jolokia` and `endpoints` over HTTP which can become externally
+  reachable via Ingress/HTTPRoute. Restrict defaults to `health, info` and make extras opt-in.
 
 ## 🟢 Low Severity
 
-- ✅ **#7 — Thin test coverage** (`tests/`) 🧪
-  Only the HTTPRoute is tested. The existing test checks backend names by index but not the path
-  values (`/document-creator`, `/feed`, `/`) that are the core routing logic. Consider adding:
-  - Path value assertions to the existing httproute test
-  - At least a smoke test for Deployment and Ingress
+- ⬜ **#7 — README: document required secret and its keys** (`README.md`)
+  Rename the example secret to `planr-tools-sophora-credentials` and document that it is required,
+  listing the expected keys (`username`, `password`).
 
-- ✅ **#8 — `test-values.yaml` enables both `ingress` and `httpRoute` simultaneously** 🤷
-  Replaced with `test-values-ingress.yaml` and `test-values-httproute.yaml`.
+- ⬜ **#8 — README: document Ingress controller requirements** (`README.md`)
+  Note that the Ingress only works with controllers that support regex for
+  `pathType: ImplementationSpecific` and allow `rewrite-target` with capture groups (e.g. nginx).
 
-- ⏭️ **#9 — Missing `icon` field** (`Chart.yaml`) 🖼️
-  Skipped — no icon available for this customer-specific chart.
+- ⬜ **#9 — No unit tests for Ingress template** (`tests/`)
+  Add assertions for the nginx annotations, the three regex paths, and the service backends.
+
+- ⬜ **#10 — HTTPRoute test does not assert path values** (`tests/httproute_test.yaml`)
+  Add assertions for `spec.rules[*].matches[0].path.value` (`/document-creator`, `/feed`, `/`).
+
+- ⬜ **#11 — Empty `value:` fields produce null EnvVars** (`test-values-ingress.yaml`)
+  `value: # in secret` becomes `value: null` which is an invalid Kubernetes EnvVar. Use `value: ""`
+  or switch the examples to `valueFrom.secretKeyRef`.
+
+- ⬜ **#12 — Fix test name grammar** (`tests/deployment_test.yaml`)
+  Rename `should not failedTemplate` → `should render without errors`.
+
+- ⬜ **#13 — Remove `REVIEW.md` before merging** 🗑️
