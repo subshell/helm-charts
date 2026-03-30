@@ -1,0 +1,6 @@
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - host: planr-tools.test.example.com
+

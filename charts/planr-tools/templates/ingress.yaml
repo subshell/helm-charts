@@ -1,0 +1,45 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ include "planr-tools.fullname" . }}
+  labels:
+    {{- include "planr-tools.labels" (dict "root" . "component" (dict "name" "ingress")) | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.ingress.ingressClassName }}
+  {{- end }}
+  {{- with .Values.ingress.tls }}
+  tls:
+    {{- range . }}
+    - hosts:
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- range $host := .Values.ingress.hosts }}
+    - host: {{ required "A hostname for the ingress must be provided in .Values.ingress.hosts[].host" $host.host }}
+      http:
+        paths:
+          {{/* Keep in sync with deployment.yaml, configmap.yaml, service.yaml, httproute.yaml. */}}
+          {{- range $appKey := list "documentCreator" "feed" "widget" }}
+          {{- $component := index $.Values.applications $appKey }}
+          {{- if $component.enabled }}
+          - path: {{ $component.exposure.path | quote }}
+            pathType: {{ default $.Values.ingress.pathType $host.pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ include "planr-tools.componentFullname" (dict "root" $ "component" $component) }}
+                port:
+                  number: {{ $component.service.port }}
+          {{- end }}
+          {{- end }}
+    {{- end }}
+{{- end }}

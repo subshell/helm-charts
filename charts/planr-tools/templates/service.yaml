@@ -1,0 +1,30 @@
+{{- $root := . -}}
+{{/* Keep in sync with deployment.yaml, configmap.yaml, ingress.yaml, httproute.yaml. */}}
+{{- range $appKey := list "documentCreator" "feed" "widget" }}
+{{- $component := index $root.Values.applications $appKey }}
+{{- if $component.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "planr-tools.componentFullname" (dict "root" $root "component" $component) }}
+  labels:
+    {{- include "planr-tools.labels" (dict "root" $root "component" $component) | nindent 4 }}
+  {{- with $component.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ $component.service.type }}
+  {{- if $component.service.loadBalancerIP }}
+  loadBalancerIP: {{ $component.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - name: http
+      port: {{ $component.service.port }}
+      targetPort: {{ $component.service.targetPort }}
+      protocol: TCP
+  selector:
+    {{- include "planr-tools.selectorLabels" (dict "root" $root "component" $component) | nindent 4 }}
+---
+{{- end }}
+{{- end }}

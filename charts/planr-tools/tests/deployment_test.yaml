@@ -1,0 +1,91 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+chart:
+  version: 0.1.0
+  appVersion: 6.0.0-SNAPSHOT
+tests:
+  - it: should create 3 deployments by default
+    asserts:
+      - hasDocuments:
+          count: 3
+
+  - it: should create 1 deployment when two apps are disabled
+    set:
+      applications.feed.enabled: false
+      applications.widget.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 1
+
+  - it: document-creator should have correct name, image and port
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-planr-tools-newsroom-document-creator
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: docker.subshell.com/planr-tools/newsroom-document-creator:6.0.0-SNAPSHOT
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].containerPort
+          value: 8080
+
+  - it: feed should have correct name, image and port
+    documentIndex: 1
+    asserts:
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-planr-tools-newsroom-feed
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: docker.subshell.com/planr-tools/newsroom-feed:6.0.0-SNAPSHOT
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].containerPort
+          value: 8081
+
+  - it: widget should have correct name, image and port
+    documentIndex: 2
+    asserts:
+      - equal:
+          path: metadata.name
+          value: RELEASE-NAME-planr-tools-newsroom-widget
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: docker.subshell.com/planr-tools/newsroom-widget:6.0.0-SNAPSHOT
+      - equal:
+          path: spec.template.spec.containers[0].ports[0].containerPort
+          value: 8082
+
+  - it: all deployments should have liveness and readiness probes
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].livenessProbe.httpGet.path
+          value: /actuator/health/liveness
+      - equal:
+          path: spec.template.spec.containers[0].readinessProbe.httpGet.path
+          value: /actuator/health/readiness
+      - equal:
+          path: spec.template.spec.containers[0].startupProbe.httpGet.path
+          value: /actuator/health/liveness
+
+  - it: should mount the application config
+    documentIndex: 0
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[0].mountPath
+          value: /app/application.yml
+      - equal:
+          path: spec.template.spec.volumes[0].configMap.name
+          value: RELEASE-NAME-planr-tools-newsroom-document-creator-config
+
+  - it: should have a checksum annotation for config-driven restarts
+    documentIndex: 0
+    asserts:
+      - exists:
+          path: spec.template.metadata.annotations.checksum/config
+
+  - it: should not failedTemplate
+    asserts:
+      - notFailedTemplate: {}
