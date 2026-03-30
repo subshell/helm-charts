@@ -44,11 +44,11 @@ Feedback from [subshell/helm-charts#267](https://github.com/subshell/helm-charts
 
 ## 🟢 Low Severity
 
-- ⬜ **#7 — README: document required secret and its keys** (`README.md`)
+- ✅ **#7 — README: document required secret and its keys** (`README.md`)
   Rename the example secret to `planr-tools-sophora-credentials` and document that it is required,
   listing the expected keys (`username`, `password`).
 
-- ⬜ **#8 — README: document Ingress controller requirements** (`README.md`)
+- ✅ **#8 — README: document Ingress controller requirements** (`README.md`)
   Note that the Ingress only works with controllers that support regex for
   `pathType: ImplementationSpecific` and allow `rewrite-target` with capture groups (e.g. nginx).
 
