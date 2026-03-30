@@ -34,7 +34,7 @@ Feedback from [subshell/helm-charts#267](https://github.com/subshell/helm-charts
   `{{- if eq "nginx" .Values.ingress.ingressClassName }}` so they're not emitted when using a
   different ingress controller.
 
-- ⬜ **#5 — `ingress.pathType` defined in values but never used** (`values.yaml`)
+- ✅ **#5 — `ingress.pathType` defined in values but never used** (`values.yaml`)
   The template hardcodes `pathType: ImplementationSpecific`. Either remove `ingress.pathType` from
   `values.yaml` or wire it back into the template.
 

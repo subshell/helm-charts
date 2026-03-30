@@ -49,7 +49,6 @@ commonEnvFrom: []
 ingress:
   enabled: false
   ingressClassName: nginx
-  pathType: Prefix
   tls:
   hosts:
   annotations: {}
