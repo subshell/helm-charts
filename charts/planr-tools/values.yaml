@@ -20,10 +20,10 @@ resources:
   requests: {}
 
 startupProbe:
-  failureThreshold: 15
-  initialDelaySeconds: 5
-  timeoutSeconds: 30
-  periodSeconds: 1
+  failureThreshold: 30
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  periodSeconds: 5
 
 livenessProbe:
   failureThreshold: 3
@@ -98,9 +98,9 @@ applications:
       sophora:
         client:
           server-connection:
-            urls: https://cms.latest.test.subshell.io/
-            username: XXX
-            password: XXX
+            urls: # e.g. https://cms.example.com/
+            username: # in secret
+            password: # in secret
 
   feed:
     enabled: true
@@ -140,9 +140,9 @@ applications:
       sophora:
         client:
           server-connection:
-            urls: https://cms.latest.test.subshell.io/
-            username: XXX
-            password: XXX
+            urls: # e.g. https://cms.example.com/
+            username: # in secret
+            password: # in secret
 
   widget:
     enabled: true
@@ -179,6 +179,6 @@ applications:
       sophora:
         client:
           server-connection:
-            urls: https://cms.latest.test.subshell.io/
-            username: XXX
-            password: XXX
+            urls: # e.g. https://cms.example.com/
+            username: # in secret
+            password: # in secret
