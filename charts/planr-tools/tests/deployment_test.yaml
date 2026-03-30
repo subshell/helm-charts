@@ -86,6 +86,6 @@ tests:
       - exists:
           path: spec.template.metadata.annotations.checksum/config
 
-  - it: should not failedTemplate
+  - it: should not fail template rendering
     asserts:
       - notFailedTemplate: {}
