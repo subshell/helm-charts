@@ -5,10 +5,12 @@ metadata:
   name: {{ include "planr-tools.fullname" . }}
   labels:
     {{- include "planr-tools.labels" (dict "root" . "component" (dict "name" "ingress")) | nindent 4 }}
-  {{- with .Values.ingress.annotations }}
   annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
 spec:
   {{- if .Values.ingress.ingressClassName }}
   ingressClassName: {{ .Values.ingress.ingressClassName }}
@@ -32,8 +34,32 @@ spec:
           {{- range $appKey := list "documentCreator" "feed" "widget" }}
           {{- $component := index $.Values.applications $appKey }}
           {{- if $component.enabled }}
-          - path: {{ $component.exposure.path | quote }}
-            pathType: {{ default $.Values.ingress.pathType $host.pathType | default "Prefix" }}
+          {{- $path := $component.exposure.path }}
+          {{/*
+            All three apps share one hostname with path-based routing:
+              planr-tools.example.com/document-creator/...  →  document-creator pod
+              planr-tools.example.com/feed/...              →  feed pod
+              planr-tools.example.com/...                   →  widget pod
+
+            Without a rewrite, document-creator would receive requests as
+            /document-creator/api/v1/... and return 404 — it only knows about /api/v1/...
+            The nginx rewrite-target annotation above strips the path prefix before forwarding
+            to the backend, so each app receives requests at its own root (e.g. /api/...) and
+            is completely unaware that it is being served under a subpath externally.
+
+            To make this work, paths must be regex with two capture groups ($1, $2), because the
+            rewrite target is "/$2":
+              - Non-root (e.g. /document-creator): "/document-creator(/|$)(.*)"
+                  $1 = the slash after the prefix (or empty at end of string)
+                  $2 = everything after the prefix  →  forwarded as "/$2"
+              - Root (/): "/()(.*)"
+                  $1 = empty (dummy group to keep $2 consistent)
+                  $2 = the full path after the leading slash  →  forwarded as "/$2" unchanged
+
+            pathType must be ImplementationSpecific for nginx to treat the path as a regex.
+          */}}
+          - path: {{ if eq $path "/" }}"/()(.*)"{{ else }}{{ printf "%s(/|$)(.*)" $path | quote }}{{ end }}
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: {{ include "planr-tools.componentFullname" (dict "root" $ "component" $component) }}
