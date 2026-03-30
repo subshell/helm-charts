@@ -88,9 +88,11 @@ Component configmap name.
 
 {{/*
 Config checksum.
+Computed from the fully rendered application.yml (after tpl), not the raw config map,
+so that changes to values referenced inside config templates also trigger pod restarts.
 */}}
 {{- define "planr-tools.componentConfigChecksum" -}}
-{{- toYaml .component.config | sha256sum }}
+{{- include "planr-tools.render" (dict "value" .component.config "context" .root) | sha256sum }}
 {{- end }}
 
 {{/*
