@@ -1,5 +1,5 @@
 {{- $root := . -}}
-{{- range $appKey := (include "planr-tools.appKeys" $root | fromYaml).keys }}
+{{- range $appKey := (include "planr-tools.app-keys" $root | fromYaml).keys }}
 {{- $component := index $root.Values.applications $appKey }}
 {{- if $component.enabled }}
 apiVersion: v1

@@ -63,9 +63,9 @@ Service account name.
 {{/*
 Ordered list of application keys.
 Wrapped in a map because fromYaml requires a top-level map, not a bare list.
-Usage: range $appKey := (include "planr-tools.appKeys" . | fromYaml).keys
+Usage: range $appKey := (include "planr-tools.app-keys" . | fromYaml).keys
 */}}
-{{- define "planr-tools.appKeys" -}}
+{{- define "planr-tools.app-keys" -}}
 keys:
   - documentCreator
   - feed

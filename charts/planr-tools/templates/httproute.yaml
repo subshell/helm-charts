@@ -21,7 +21,7 @@ spec:
     {{- end }}
   {{- end }}
   rules:
-    {{- range $appKey := (include "planr-tools.appKeys" $ | fromYaml).keys }}
+    {{- range $appKey := (include "planr-tools.app-keys" $ | fromYaml).keys }}
     {{- $component := index $.Values.applications $appKey }}
     {{- if $component.enabled }}
     - matches:
