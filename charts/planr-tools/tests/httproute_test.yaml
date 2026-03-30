@@ -39,4 +39,21 @@ tests:
       - equal:
           path: spec.rules[2].backendRefs[0].name
           value: values-test-release-planr-tools-newsroom-widget
+      - equal:
+          path: spec.rules[0].matches[0].path.value
+          value: /document-creator
+      - equal:
+          path: spec.rules[1].matches[0].path.value
+          value: /feed
+      - equal:
+          path: spec.rules[2].matches[0].path.value
+          value: /
+      - equal:
+          path: spec.rules[0].filters[0].type
+          value: URLRewrite
+      - equal:
+          path: spec.rules[1].filters[0].type
+          value: URLRewrite
+      - notExists:
+          path: spec.rules[2].filters[0].urlRewrite
       - notFailedTemplate: {}
