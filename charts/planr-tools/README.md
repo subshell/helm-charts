@@ -63,6 +63,6 @@ commonEnv:
   - name: SOPHORA_PASSWORD
     valueFrom:
       secretKeyRef:
-        name: planr-tools-credentials
+        name: planr-tools-sophora-credentials
         key: password
 ```
