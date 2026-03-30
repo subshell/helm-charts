@@ -11,11 +11,11 @@ commonEnv:
   - name: SPRING_PROFILES_ACTIVE
     value: subshell-test-cloud
   - name: SOPHORA_URL
-    value: # e.g. https://cms.stable.test.subshell.io
+    value: "" # e.g. https://cms.stable.test.subshell.io
   - name: SOPHORA_USERNAME
-    value: # in secret
+    value: "" # in secret
   - name: SOPHORA_PASSWORD
-    value: # in secret
+    value: "" # in secret
 
 applications:
   documentCreator:
