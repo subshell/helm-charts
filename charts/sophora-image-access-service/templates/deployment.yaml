@@ -23,6 +23,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      affinity: {{- toYaml .Values.affinity | nindent 8 }}
       serviceAccountName: {{ include "access-service.serviceAccountName" . }}
       containers:
         - name: image-access-service

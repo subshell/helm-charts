@@ -77,3 +77,13 @@ extraDeploy:
     spec:
       data: foo
 
+affinity:
+  podAntiAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+            - key: app.kubernetes.io/instance
+              operator: In
+              values:
+                - "{{ .Release.Name }}"
+        topologyKey: "kubernetes.io/hostname"
