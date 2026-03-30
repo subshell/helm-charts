@@ -6,8 +6,10 @@ metadata:
   labels:
     {{- include "planr-tools.labels" (dict "root" . "component" (dict "name" "ingress")) | nindent 4 }}
   annotations:
+    {{- if eq .Values.ingress.ingressClassName "nginx" }}
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    {{- end }}
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}

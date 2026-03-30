@@ -29,7 +29,7 @@ Feedback from [subshell/helm-charts#267](https://github.com/subshell/helm-charts
   DanielRaapDev suggests declaring the list once in `_helpers.tpl` and including it via
   `include "planr-tools.app-keys" .` — revisit the `fromYaml` approach discussed earlier.
 
-- ⬜ **#4 — Wrap nginx annotations behind `ingressClassName` guard** (`templates/ingress.yaml`)
+- ✅ **#4 — Wrap nginx annotations behind `ingressClassName` guard** (`templates/ingress.yaml`)
   Wrap the `nginx.ingress.kubernetes.io/*` annotations in
   `{{- if eq "nginx" .Values.ingress.ingressClassName }}` so they're not emitted when using a
   different ingress controller.
