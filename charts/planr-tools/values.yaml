@@ -135,7 +135,7 @@ applications:
           web:
             base-path: /actuator
             exposure:
-              include: health, info, jolokia, endpoints
+              include: health,info
       sophora:
         client:
           server-connection:
