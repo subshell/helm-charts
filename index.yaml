@@ -3999,6 +3999,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added extraInitContainers variable."
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-04-14T15:09:36.364486559Z"
+    description: A Helm chart for Kubernetes
+    digest: 167c2c112768513e5d54ac647d8747f549e2ffc8a482b824d0278c4091699c0c
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.4.0/sophora-youtube-connector-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added HTTPRoute support for Gateway API."
       artifacthub.io/links: |
         - name: Documentation for the AV Tool
@@ -4108,4 +4129,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-14T13:56:57.472829401Z"
+generated: "2026-04-14T15:09:36.364974749Z"
