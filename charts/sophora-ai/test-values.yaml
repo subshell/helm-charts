@@ -110,6 +110,8 @@ sophora:
       testing: shortenTeletext
     shortenInfoscreen:
       testing: shortenInfoscreen
+    spellCheck:
+      testing: spellCheck
     summarize:
       testing: summarize
     teaser:
@@ -126,11 +128,10 @@ ai:
 
 resources:
   requests:
-    cpu: 1000m
-    memory: 2Gi
+    cpu: 200m
+    memory: 1Gi
   limits:
-    cpu: 2000m
-    memory: 2Gi
+    memory: 1Gi
 
 podAnnotations: {}
 
@@ -164,3 +165,6 @@ extraVolumeMounts:
   - name: gcp-credentials
     mountPath: /gcp-credentials
     readOnly: true
+
+languageTool:
+  enabled: true

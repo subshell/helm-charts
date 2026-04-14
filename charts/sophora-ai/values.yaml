@@ -157,6 +157,9 @@ sophora:
     # contents of application-shorten-infoscreen.yaml
     shortenInfoscreen:
 
+    # contents of application-spell-check.yaml (optional)
+    spellCheck:
+
     # contents of application-summarize.yaml
     summarize:
 
@@ -257,7 +260,7 @@ extraDeploy: []
 #
 # - name: gcp-credentials
 #   secret:
-#     secretName: sophora-image-ai-gcp-credentials
+#     secretName: sophora-ai-gcp-credentials
 extraVolumes: []
 
 # Extra volume mounts.
@@ -281,3 +284,37 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
+
+languageTool:
+  # whether to enable LanguageTool sidecar container (required to use Spell Check feature)
+  enabled: false
+
+  image:
+    repository: docker.io/erikvl87/languagetool
+    pullPolicy: IfNotPresent
+    tag: latest
+
+  startupProbe:
+    failureThreshold: 15
+    initialDelaySeconds: 5
+    timeoutSeconds: 30
+    periodSeconds: 1
+
+  readinessProbe:
+    failureThreshold: 5
+    initialDelaySeconds: 5
+    timeoutSeconds: 5
+    periodSeconds: 5
+
+  livenessProbe:
+    failureThreshold: 3
+    initialDelaySeconds: 15
+    timeoutSeconds: 10
+    periodSeconds: 60
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 1Gi
+    limits:
+      memory: 1Gi

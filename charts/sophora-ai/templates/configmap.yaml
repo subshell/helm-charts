@@ -37,6 +37,9 @@ data:
   application-shorten.yaml: |- {{ toYaml (required "sophora.configuration.shorten is required in values" .Values.sophora.configuration.shorten) | nindent 4 }}
   application-shorten-teletext.yaml: |- {{ toYaml (required "sophora.configuration.shortenTeletext is required in values" .Values.sophora.configuration.shortenTeletext) | nindent 4 }}
   application-shorten-infoscreen.yaml: |- {{ toYaml (required "sophora.configuration.shortenInfoscreen is required in values" .Values.sophora.configuration.shortenInfoscreen) | nindent 4 }}
+  {{- if .Values.sophora.configuration.spellCheck }}
+  application-spell-check.yaml: |- {{ toYaml .Values.sophora.configuration.spellCheck | nindent 4 }}
+  {{- end }}
   application-summarize.yaml: |- {{ toYaml (required "sophora.configuration.summarize is required in values" .Values.sophora.configuration.summarize) | nindent 4 }}
   application-teaser.yaml: |- {{ toYaml (required "sophora.configuration.teaser is required in values" .Values.sophora.configuration.teaser) | nindent 4 }}
   application-title.yaml: |- {{ toYaml (required "sophora.configuration.title is required in values" .Values.sophora.configuration.title) | nindent 4 }}
