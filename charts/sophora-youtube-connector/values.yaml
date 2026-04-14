@@ -19,7 +19,6 @@ configGenerator:
   # Additional environment variables can be defined here
   env:
 
-
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -198,6 +197,8 @@ sophora:
     extraEnvVarsSecret:
     # Additional environment variables can be defined here
     env:
+
+extraInitContainers:
 
 extraVolumes:
 
