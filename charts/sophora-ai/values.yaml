@@ -292,7 +292,7 @@ languageTool:
   image:
     repository: docker.io/erikvl87/languagetool
     pullPolicy: IfNotPresent
-    tag: latest
+    tag: 6.7-dockerupdate-3
 
   startupProbe:
     failureThreshold: 15
