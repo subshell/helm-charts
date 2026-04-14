@@ -198,8 +198,6 @@ sophora:
     # Additional environment variables can be defined here
     env:
 
-extraInitContainers:
-
-extraVolumes:
-
-extraVolumeMounts:
+extraInitContainers: []
+extraVolumes: []
+extraVolumeMounts: []
