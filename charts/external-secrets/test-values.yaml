@@ -7,3 +7,6 @@ externalSecrets:
   - key: example-key
     name: example-name
     version: latest
+- name: example-with-dataFrom
+  dataFrom:
+    - key: example-key-with-json-value
