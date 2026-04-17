@@ -9,4 +9,5 @@ externalSecrets:
     version: latest
 - name: example-with-dataFrom
   dataFrom:
-    - key: example-key-with-json-value
+    - extract:
+        key: example-key-with-json-value
