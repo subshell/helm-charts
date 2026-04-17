@@ -3,6 +3,21 @@ entries:
   external-secrets:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "support for 'dataFrom' secret extraction"
+    apiVersion: v2
+    created: "2026-04-17T10:08:28.379573073Z"
+    description: A Helm chart for creating multiple external secrets
+    digest: 282c263660dc43cc2ebab5deb2e78f9182f250f16eacb588739975e2c57640be
+    name: external-secrets
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/external-secrets
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/external-secrets-2.1.0/external-secrets-2.1.0.tgz
+    version: 2.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -4129,4 +4144,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-14T15:09:36.364974749Z"
+generated: "2026-04-17T10:08:28.380031203Z"
