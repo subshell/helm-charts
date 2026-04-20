@@ -52,6 +52,7 @@ sophora:
       </configuration>
     isClusterServer: true
     storage:
+      useSeparateVolumes: false
       storageClass: ssd
       resources:
         requests:
