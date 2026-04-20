@@ -516,6 +516,24 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
+  planr-tools:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: Initial release of the planr-tools chart.
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-04-20T14:06:32.934595228Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 4c9d129d7f92bb84e7942e7b795473045d0ce7942a65779d961f9a36f38e28aa
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
+    version: 1.0.0
   sophora-admin-dashboard:
   - annotations:
       artifacthub.io/changes: |
@@ -4162,4 +4180,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-20T09:06:47.929666645Z"
+generated: "2026-04-20T14:06:32.935280158Z"
