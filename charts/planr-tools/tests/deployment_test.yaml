@@ -2,7 +2,7 @@ suite: test deployment
 templates:
   - deployment.yaml
 chart:
-  version: 0.1.0
+  version: 1.0.0
   appVersion: 5.1.1
 tests:
   - it: should create 3 deployments by default
