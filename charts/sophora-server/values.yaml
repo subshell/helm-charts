@@ -190,6 +190,7 @@ sophora:
       </configuration>
     isClusterServer: true
     storage:
+      useSeparateVolumes: true
       storageClass:
       dataSource:
       resources:
