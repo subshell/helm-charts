@@ -217,7 +217,8 @@ sophora.persistence.postgres.port=5432
 
 ### 3.3.0
 
-Added `sophora.server.storage.useSharedVolume` (default: `false`) to reduce the number of volumes. When enabled, `/sophora/data` is stored on the same persistent volume as the repository content. When disabled, `/sophora/data` uses a separate PVC.
+Added `sophora.server.storage.useSeparateVolumes` (default: `true`) to control the number of volumes. When enabled, `/sophora/data` uses a separate PVC.
+When disabled, `/sophora/data` is stored on the same persistent volume as the repository content.
 To transition to a single volume you have to copy the data over before removing the data PVC.
 
 ### 3.2.0

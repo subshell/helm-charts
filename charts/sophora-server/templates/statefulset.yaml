@@ -146,14 +146,14 @@ spec:
             - name: sophora-server-storage
               mountPath: /sophora/repository/syncRequest
               subPath: repository.syncRequest
-            {{- if .Values.sophora.server.storage.useSharedVolume }}
-            - name: sophora-server-storage
-              mountPath: /sophora/data
-              subPath: repository.data
-            {{- else }}
+            {{- if .Values.sophora.server.storage.useSeparateVolumes }}
             - name: sophora-server-data
               mountPath: /sophora/data
               subPath: data
+            {{- else }}
+            - name: sophora-server-storage
+              mountPath: /sophora/data
+              subPath: repository.data
             {{- end }}
 
             {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
@@ -414,7 +414,7 @@ spec:
         resources:
           {{- toYaml .Values.sophora.server.storage.resources | nindent 10 }}
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}
-    {{- if not .Values.sophora.server.storage.useSharedVolume }}
+    {{- if .Values.sophora.server.storage.useSeparateVolumes }}
     - metadata:
         name: sophora-server-data
         labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
