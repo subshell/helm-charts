@@ -3,7 +3,7 @@ templates:
   - httproute.yaml
 chart:
   version: 0.1.0
-  appVersion: 6.0.0-SNAPSHOT
+  appVersion: 5.1.1
 tests:
   - it: should not create httproute by default
     asserts:

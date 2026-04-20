@@ -3,7 +3,7 @@ templates:
   - deployment.yaml
 chart:
   version: 0.1.0
-  appVersion: 6.0.0-SNAPSHOT
+  appVersion: 5.1.1
 tests:
   - it: should create 3 deployments by default
     asserts:
@@ -26,7 +26,7 @@ tests:
           value: RELEASE-NAME-planr-tools-newsroom-document-creator
       - equal:
           path: spec.template.spec.containers[0].image
-          value: docker.subshell.com/planr-tools/newsroom-document-creator:6.0.0-SNAPSHOT
+          value: docker.subshell.com/planr-tools/newsroom-document-creator:5.1.1
       - equal:
           path: spec.template.spec.containers[0].ports[0].containerPort
           value: 8080
@@ -39,7 +39,7 @@ tests:
           value: RELEASE-NAME-planr-tools-newsroom-feed
       - equal:
           path: spec.template.spec.containers[0].image
-          value: docker.subshell.com/planr-tools/newsroom-feed:6.0.0-SNAPSHOT
+          value: docker.subshell.com/planr-tools/newsroom-feed:5.1.1
       - equal:
           path: spec.template.spec.containers[0].ports[0].containerPort
           value: 8081
@@ -52,7 +52,7 @@ tests:
           value: RELEASE-NAME-planr-tools-newsroom-widget
       - equal:
           path: spec.template.spec.containers[0].image
-          value: docker.subshell.com/planr-tools/newsroom-widget:6.0.0-SNAPSHOT
+          value: docker.subshell.com/planr-tools/newsroom-widget:5.1.1
       - equal:
           path: spec.template.spec.containers[0].ports[0].containerPort
           value: 8082

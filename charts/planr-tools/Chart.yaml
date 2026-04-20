@@ -3,7 +3,7 @@ name: planr-tools
 description: A Helm chart for deploying the planr-tools applications
 type: application
 version: 0.1.0
-appVersion: "6.0.0-SNAPSHOT"
+appVersion: "5.1.1"
 annotations:
   artifacthub.io/changes: |
     - kind: added
