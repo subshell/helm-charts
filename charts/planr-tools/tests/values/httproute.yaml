@@ -1,0 +1,15 @@
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: my-gateway
+      namespace: gateway-namespace
+  hostnames:
+    - planr-tools.example.com
+  filters:
+    - type: RequestHeaderModifier
+      requestHeaderModifier:
+        set:
+          - name: X-Custom-Header
+            value: custom-value
+  annotations:
+    example.com/test: "true"
