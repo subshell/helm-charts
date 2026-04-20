@@ -23,6 +23,8 @@ resources:
   limits:
     memory: 2Gi
 
+podAnnotations: {}
+
 service:
   type: ClusterIP
   port: 8080
