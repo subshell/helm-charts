@@ -215,6 +215,11 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
+### 3.3.0
+
+Added `sophora.server.storage.useSharedPVC` (default: `false`) to reduce the number of volumes. When enabled, `/sophora/data` is stored on the same persistent volume as the repository content. When disabled, `/sophora/data` uses a separate PVC.
+To transition to a single volume you have to copy the data over before removing the data PVC.
+
 ### 3.2.0
 
 * Added HTTPRoute support for Gateway API. This adds the properties `httpRoute`, `grpcHttproute` and `grpcRoute` to the values. These are similar to the `ingress` and `grpcIngress` options.

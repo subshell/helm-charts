@@ -146,10 +146,15 @@ spec:
             - name: sophora-server-storage
               mountPath: /sophora/repository/syncRequest
               subPath: repository.syncRequest
-
+            {{- if .Values.sophora.server.storage.useSharedVolume }}
+            - name: sophora-server-storage
+              mountPath: /sophora/data
+              subPath: repository.data
+            {{- else }}
             - name: sophora-server-data
               mountPath: /sophora/data
               subPath: data
+            {{- end }}
 
             {{- if not (eq .Values.sophora.server.persistence.repositoryType "none")  }}
             # Repository Folder Structure
@@ -409,6 +414,7 @@ spec:
         resources:
           {{- toYaml .Values.sophora.server.storage.resources | nindent 10 }}
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}
+    {{- if not .Values.sophora.server.storage.useSharedVolume }}
     - metadata:
         name: sophora-server-data
         labels: {{- include "sophora-server.selectorLabels" . | nindent 10 }}
@@ -417,6 +423,7 @@ spec:
         resources:
         {{- toYaml .Values.sophora.server.storage.dataDirResources | nindent 10 }}
         storageClassName: {{ .Values.sophora.server.storage.storageClass }}
+    {{- end }}
     {{- if .Values.extraVolumeClaimTemplates }}
     {{ include "common.tplvalues.render" (dict "value" .Values.extraVolumeClaimTemplates "context" $) | nindent 4 }}
     {{- end }}
