@@ -2846,6 +2846,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: "added"
+          description: "Added configuration for single volume support."
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-04-20T09:06:47.929039173Z"
+    description: A Helm chart for the Sophora Server
+    digest: d9d47cfa6e934cbaf658c44faac893bfaa4d3387ff8ed7e3c16bf5fc78f97dbf
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.3.0/sophora-server-3.3.0.tgz
+    version: 3.3.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: "added"
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
     appVersion: 5.12.0
@@ -4144,4 +4162,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-17T10:08:28.380031203Z"
+generated: "2026-04-20T09:06:47.929666645Z"
