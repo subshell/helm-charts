@@ -60,3 +60,10 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Configmap Name
+*/}}
+{{- define "artifactory-cleanup.configName" -}}
+{{- printf "%s-config" (include "artifactory-cleanup.name" .) | trunc 63 | trimSuffix "-" -}}
+{{- end }}

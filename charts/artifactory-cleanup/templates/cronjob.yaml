@@ -96,7 +96,7 @@ spec:
           volumes:
             - name: config-volume
               configMap:
-                name: {{ include "sophora-import-job.fullname" . }}
+                name: {{ include "artifactory-cleanup.fullname" . }}
           {{- with .Values.volumes }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
@@ -128,7 +128,7 @@ spec:
       ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
       {{- end }}
   schedule:
-  {{/* optional /}}
+  {{/* optional */}}
   concurrencyPolicy:
   failedJobsHistoryLimit:
   startingDeadlineSeconds:

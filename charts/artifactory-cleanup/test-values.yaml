@@ -1,0 +1,22 @@
+cleanup:
+  dryMode: true
+  args:
+    - '--output=myfile.txt'
+    - '--output-format=json'
+  config: |
+    artifactory-cleanup:
+      user: $ARTIFACTORY_USERNAME
+      password: $ARTIFACTORY_PASSWORD
+      server: https://repo.example.com/artifactory
+      policies:
+        - name: Remove all files from repo-name-here older than 7 days
+          rules:
+            - rule: Repo
+              name: "reponame"
+            - rule: DeleteOlderThan
+              days: 7
+
+artifactoryCredentials:
+  secretName: test-credentials
+  usernameKey: user
+  passwordKey: pwd
