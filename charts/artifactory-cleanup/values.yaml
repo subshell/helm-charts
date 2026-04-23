@@ -120,8 +120,8 @@ resources:
   #   cpu: 100m
   #   memory: 128Mi
   requests:
-    cpu: 10m
-    memory: 64Mi
+    cpu: 1m
+    memory: 32Mi
 
 # Additional volumes on the output Deployment definition.
 volumes: []
