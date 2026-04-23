@@ -5,4 +5,4 @@ metadata:
   labels:
   {{- include "artifactory-cleanup.labels" . | nindent 4 }}
 data:
-  artifactory-cleanup.yaml: |- {{ toYaml (required "A configuration is required" .Values.cleanup.config) | nindent 4 }}
+  artifactory-cleanup.yaml: | {{ required "A configuration is required" .Values.cleanup.configYaml | toYaml | nindent 4 }}

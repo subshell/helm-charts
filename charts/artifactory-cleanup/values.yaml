@@ -15,8 +15,8 @@ cleanup:
   dryMode: false
   # cleanup.args list of additional arguments to provide to artifactory-cleanup. See artifactory-cleanup --help
   args: []
-  # cleanup.config contains the yaml configuration as string
-  config: |
+  # cleanup.config contains the yaml configuration for artifactory-cleanup
+  configYaml:
     artifactory-cleanup:
       # $VAR is auto populated from environment variables
       user: $ARTIFACTORY_USERNAME

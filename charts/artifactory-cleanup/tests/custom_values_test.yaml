@@ -1,0 +1,315 @@
+suite: artifactory-cleanup test-values
+templates:
+  - configmap.yaml
+  - cronjob.yaml
+  - serviceaccount.yaml
+release:
+  name: test-release
+  namespace: default
+values:
+  - ../test-values.yaml
+tests:
+  - it: should render ConfigMap with test-values config
+    template: configmap.yaml
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - matchRegex:
+          path: data["artifactory-cleanup.yaml"]
+          pattern: "server: https://repo.example.com/artifactory"
+      - matchRegex:
+          path: data["artifactory-cleanup.yaml"]
+          pattern: "DeleteOlderThan"
+
+  - it: should render CronJob with test-values schedule and timeZone
+    template: cronjob.yaml
+    asserts:
+      - isKind:
+          of: CronJob
+      - equal:
+          path: spec.schedule
+          value: "1 2 3 4 *"
+      - equal:
+          path: spec.timeZone
+          value: Europe/Berlin
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.name
+          value: test-credentials
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.key
+          value: user
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[1].valueFrom.secretKeyRef.key
+          value: pwd
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[2].name
+          value: FOO
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[2].value
+          value: bar
+      # note: the template uses .Values.dryRun (not .Values.cleanup.dryMode) to suppress '--destroy'
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].args
+          content: "--destroy"
+
+---
+suite: artifactory-cleanup custom overrides
+templates:
+  - configmap.yaml
+  - cronjob.yaml
+  - serviceaccount.yaml
+release:
+  name: myrelease
+  namespace: mynamespace
+tests:
+  - it: should not add --destroy when dryRun is true
+    template: cronjob.yaml
+    set:
+      dryRun: true
+    asserts:
+      - notContains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].args
+          content: "--destroy"
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].args
+          content: "artifactory-cleanup"
+
+  - it: should use fullnameOverride when set
+    template: cronjob.yaml
+    set:
+      fullnameOverride: my-custom-name
+    asserts:
+      - equal:
+          path: metadata.name
+          value: my-custom-name
+      - equal:
+          path: spec.jobTemplate.metadata.name
+          value: my-custom-name
+
+  - it: should use nameOverride when set
+    template: cronjob.yaml
+    set:
+      nameOverride: my-name
+    asserts:
+      - equal:
+          path: metadata.name
+          value: myrelease-my-name
+
+  - it: should not create ServiceAccount when serviceAccount.create is false
+    template: serviceaccount.yaml
+    set:
+      serviceAccount.create: false
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should use custom serviceAccount name when set
+    template: serviceaccount.yaml
+    set:
+      serviceAccount.name: custom-sa
+    asserts:
+      - equal:
+          path: metadata.name
+          value: custom-sa
+
+  - it: should use existing serviceAccount name in CronJob when serviceAccount.create is false
+    template: cronjob.yaml
+    set:
+      serviceAccount.create: false
+      serviceAccount.name: existing-sa
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.serviceAccountName
+          value: existing-sa
+
+  - it: should render CronJob with custom image tag
+    template: cronjob.yaml
+    set:
+      image.tag: "2.0.0"
+      image.repository: "my.registry/artifactory-cleanup"
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].image
+          value: "my.registry/artifactory-cleanup:2.0.0"
+
+  - it: should render CronJob with imagePullSecrets
+    template: cronjob.yaml
+    set:
+      imagePullSecrets:
+        - name: my-pull-secret
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.imagePullSecrets
+          content:
+            name: my-pull-secret
+
+  - it: should render CronJob with podAnnotations
+    template: cronjob.yaml
+    set:
+      podAnnotations:
+        prometheus.io/scrape: "true"
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.metadata.annotations["prometheus.io/scrape"]
+          value: "true"
+
+  - it: should render CronJob with podLabels
+    template: cronjob.yaml
+    set:
+      podLabels:
+        myapp: myvalue
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.metadata.labels.myapp
+          value: myvalue
+
+  - it: should render CronJob with podSecurityContext
+    template: cronjob.yaml
+    set:
+      podSecurityContext.fsGroup: 2000
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext.fsGroup
+          value: 2000
+
+  - it: should render CronJob with container securityContext
+    template: cronjob.yaml
+    set:
+      securityContext.runAsNonRoot: true
+      securityContext.runAsUser: 1000
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].securityContext.runAsNonRoot
+          value: true
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].securityContext.runAsUser
+          value: 1000
+
+  - it: should render CronJob with nodeSelector
+    template: cronjob.yaml
+    set:
+      nodeSelector:
+        disktype: ssd
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.nodeSelector.disktype
+          value: ssd
+
+  - it: should render CronJob with tolerations
+    template: cronjob.yaml
+    set:
+      tolerations:
+        - key: "key1"
+          operator: "Equal"
+          value: "value1"
+          effect: "NoSchedule"
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.tolerations
+          content:
+            key: key1
+            operator: Equal
+            value: value1
+            effect: NoSchedule
+
+  - it: should render CronJob with affinity
+    template: cronjob.yaml
+    set:
+      affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].key: kubernetes.io/os
+      affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].operator: In
+      affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms[0].matchExpressions[0].values[0]: linux
+    asserts:
+      - exists:
+          path: spec.jobTemplate.spec.template.spec.affinity.nodeAffinity
+
+  - it: should render CronJob with additional volumes and volumeMounts
+    template: cronjob.yaml
+    set:
+      volumes:
+        - name: extra-vol
+          emptyDir: {}
+      volumeMounts:
+        - name: extra-vol
+          mountPath: /extra
+    asserts:
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.volumes
+          content:
+            name: extra-vol
+            emptyDir: {}
+      - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
+          content:
+            name: extra-vol
+            mountPath: /extra
+
+  - it: should render CronJob with concurrencyPolicy Forbid and suspend true
+    template: cronjob.yaml
+    set:
+      concurrencyPolicy: Forbid
+      suspend: true
+      failedJobsHistoryLimit: 3
+      successfulJobsHistoryLimit: 5
+    asserts:
+      - equal:
+          path: spec.concurrencyPolicy
+          value: Forbid
+      - equal:
+          path: spec.suspend
+          value: true
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 3
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 5
+
+  - it: should render CronJob with startingDeadlineSeconds when set
+    template: cronjob.yaml
+    set:
+      startingDeadlineSeconds: 120
+    asserts:
+      - equal:
+          path: spec.startingDeadlineSeconds
+          value: 120
+
+  - it: should render CronJob with serviceAccount annotations
+    template: serviceaccount.yaml
+    set:
+      serviceAccount.annotations:
+        iam.gke.io/gcp-service-account: my-sa@project.iam.gserviceaccount.com
+    asserts:
+      - equal:
+          path: metadata.annotations["iam.gke.io/gcp-service-account"]
+          value: my-sa@project.iam.gserviceaccount.com
+
+  - it: should render CronJob with chart annotations
+    template: cronjob.yaml
+    set:
+      annotations:
+        my-annotation: my-value
+    asserts:
+      - equal:
+          path: metadata.annotations["my-annotation"]
+          value: my-value
+
+  - it: should render CronJob resource requests
+    template: cronjob.yaml
+    set:
+      resources.requests.cpu: 500m
+      resources.requests.memory: 256Mi
+      resources.limits.cpu: "1"
+      resources.limits.memory: 512Mi
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests.cpu
+          value: 500m
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests.memory
+          value: 256Mi
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.limits.cpu
+          value: "1"
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.limits.memory
+          value: 512Mi
