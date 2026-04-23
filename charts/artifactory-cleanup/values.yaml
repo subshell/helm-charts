@@ -1,6 +1,15 @@
 # Default values for artifactory-cleanup.
 # This is a YAML-formatted file.
 
+# schedule in Cron format. Default: '1 0 * * *' (one minute past midnight (00:01) every day) - see https://en.wikipedia.org/wiki/Cron
+schedule: '1 0 * * *'
+          # | | | | |
+          # | | | | day of the week (0–6) (Sunday to Saturday; 7 is also Sunday on some systems)
+          # | | | month (1–12)
+          # | | day of the month (1–31)
+          # | hour (0–23)
+          # minute (0–59)
+
 cleanup:
   # cleanup.dryMode is the default of artifactory-cleanup. When `false` (the default) the flag '--destroy' will be added to the command
   dryMode: false
@@ -46,6 +55,19 @@ job:
   # job.ttlSecondsAfterFinished If set, after the Job finishes, it is eligible to be automatically deleted. Defaults to 7 days in seconds
   ttlSecondsAfterFinished: 604800
 
+# concurrencyPolicy Specifies how to treat concurrent executions of a Job. Valid values are: Allow, Forbid, Replace
+concurrencyPolicy: Allow
+# failedJobsHistoryLimit The number of failed finished jobs to retain.
+failedJobsHistoryLimit: 1
+# startingDeadlineSeconds Optional deadline in seconds for starting the job if it misses scheduled time for any reason.
+#startingDeadlineSeconds: 60
+# successfulJobsHistoryLimit The number of successful finished jobs to retain. Default: 3
+successfulJobsHistoryLimit: 3
+# suspend This flag tells the controller to suspend subsequent executions, it does not apply to already started executions. Default: false
+suspend: false
+# timeZone The time zone name for the given schedule. If not specified, this will default to the time zone of the kube-controller-manager process. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+#timeZone:
+
 # This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: devopshq/artifactory-cleanup
@@ -72,6 +94,9 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template.
   name: ""
 
+# env list of additional environment variables for the container. Default: [] (empty list)
+env: []
+
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
@@ -90,27 +115,13 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+resources:
   # limits:
   #   cpu: 100m
   #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
-
-# This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
+  requests:
+    cpu: 10m
+    memory: 64Mi
 
 # Additional volumes on the output Deployment definition.
 volumes: []

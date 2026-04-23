@@ -72,16 +72,8 @@ spec:
                       key: {{ .Values.artifactoryCredentials.passwordKey | quote }}
                  {{- end }}
                 {{- range .Values.env }}
-                {{- toYaml . | nindent 16 }}
+                - {{ toYaml . | nindent 18 }}
                 {{- end }}
-              {{- with .Values.livenessProbe }}
-              livenessProbe:
-                {{- toYaml . | nindent 16 }}
-              {{- end }}
-              {{- with .Values.readinessProbe }}
-              readinessProbe:
-                {{- toYaml . | nindent 16 }}
-              {{- end }}
               {{- with .Values.resources }}
               resources:
                 {{- toYaml . | nindent 16 }}
@@ -127,11 +119,15 @@ spec:
       {{- if .Values.job.ttlSecondsAfterFinished }}
       ttlSecondsAfterFinished: {{ .Values.job.ttlSecondsAfterFinished }}
       {{- end }}
-  schedule:
-  {{/* optional */}}
-  concurrencyPolicy:
-  failedJobsHistoryLimit:
-  startingDeadlineSeconds:
-  successfulJobsHistoryLimit:
-  suspend:
-  timeZone:
+  schedule: {{ .Values.schedule | quote }}
+{{- /* optional */}}
+  concurrencyPolicy: {{ .Values.concurrencyPolicy | quote }}
+  failedJobsHistoryLimit: {{ .Values.failedJobsHistoryLimit }}
+  {{- if .Values.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{ .Values.startingDeadlineSeconds }}
+  {{- end }}
+  successfulJobsHistoryLimit: {{ .Values.successfulJobsHistoryLimit }}
+  suspend: {{ .Values.suspend }}
+  {{- if .Values.timeZone }}
+  timeZone: {{ .Values.timeZone }}
+  {{- end }}

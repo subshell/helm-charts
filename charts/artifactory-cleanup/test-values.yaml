@@ -20,3 +20,10 @@ artifactoryCredentials:
   secretName: test-credentials
   usernameKey: user
   passwordKey: pwd
+
+schedule: '1 2 3 4 *'
+timeZone: Europe/Berlin
+
+env:
+ - name: FOO
+   value: bar
