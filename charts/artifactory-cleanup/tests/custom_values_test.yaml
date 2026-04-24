@@ -47,12 +47,12 @@ tests:
       - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].env[2].value
           value: bar
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "artifactory-cleanup"
-      - notContains:
-          path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "--destroy"
+          value:
+            - "artifactory-cleanup"
+            - "--output=myfile.txt"
+            - "--output-format=json"
 
 ---
 suite: artifactory-cleanup custom overrides

@@ -111,12 +111,11 @@ tests:
       - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "artifactory-cleanup"
-      - contains:
-          path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "--destroy"
+          value: 
+            - "artifactory-cleanup"
+            - "--destroy"
       - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].env[0].name
           value: ARTIFACTORY_USERNAME

@@ -51,7 +51,7 @@ spec:
                 {{- if not .Values.cleanup.dryMode }}
                 - '--destroy'
                 {{- end }}
-                {{- range .Values.args }}
+                {{- range .Values.cleanup.args }}
                 - {{ . | quote }}
                 {{- end }}
               {{- with .Values.securityContext }}
