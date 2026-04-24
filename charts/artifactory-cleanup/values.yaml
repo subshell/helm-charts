@@ -34,9 +34,9 @@ cleanup:
 artifactoryCredentials:
   # artifactoryCredentials.secretName The name of the secret that contains the credentials to access Artifactory. Default: artifactory-credentials
   secretName: artifactory-credentials
-  # artifactoryCredentials.usernameKey the key in the secret that holds the username for Artifactory. Will be available as environment variabled '$ARTIFACTORY_USERNAME' in the config YAML. Default: username
+  # artifactoryCredentials.usernameKey the key in the secret that holds the username for Artifactory. Will be available as environment variable '$ARTIFACTORY_USERNAME' in the config YAML. Default: username
   usernameKey: username
-  # artifactoryCredentials.passwordKey the key in the secret that holds the password for Artifactory. Will be available as environment variabled '$ARTIFACTORY_PASSWORD' in the config YAML. Default: password
+  # artifactoryCredentials.passwordKey the key in the secret that holds the password for Artifactory. Will be available as environment variable '$ARTIFACTORY_PASSWORD' in the config YAML. Default: password
   passwordKey: password
 
 job:
