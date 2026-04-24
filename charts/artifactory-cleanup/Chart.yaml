@@ -1,0 +1,24 @@
+apiVersion: v2
+name: artifactory-cleanup
+description: A Helm chart for Kubernetes to run Artifactory cleanup periodically
+type: application
+
+# This is the chart version. This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+# Versions are expected to follow Semantic Versioning (https://semver.org/)
+version: 0.1.0
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "Added helm chart for artifactory-cleanup"
+
+
+# This is the version number of the application being deployed. This version number should be
+# incremented each time you make changes to the application. Versions are not expected to
+# follow Semantic Versioning. They should reflect the version the application is using.
+# It is recommended to use it with quotes.
+appVersion: "1.0.18"
+
+sources:
+  - https://github.com/devopshq/artifactory-cleanup
+  - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup

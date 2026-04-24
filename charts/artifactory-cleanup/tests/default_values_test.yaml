@@ -1,0 +1,165 @@
+suite: artifactory-cleanup default values
+templates:
+  - configmap.yaml
+  - cronjob.yaml
+  - serviceaccount.yaml
+chart:
+  version: "0.1.0"
+  appVersion: "1.0.18"
+release:
+  name: test-release
+  namespace: default
+tests:
+  - it: should render a ServiceAccount with default values
+    template: serviceaccount.yaml
+    asserts:
+      - isKind:
+          of: ServiceAccount
+      - equal:
+          path: metadata.name
+          value: test-release-artifactory-cleanup
+      - equal:
+          path: automountServiceAccountToken
+          value: true
+      - equal:
+          path: metadata.labels["helm.sh/chart"]
+          value: artifactory-cleanup-0.1.0
+      - equal:
+          path: metadata.labels["app.kubernetes.io/name"]
+          value: artifactory-cleanup
+      - equal:
+          path: metadata.labels["app.kubernetes.io/instance"]
+          value: test-release
+      - equal:
+          path: metadata.labels["app.kubernetes.io/version"]
+          value: "1.0.18"
+      - equal:
+          path: metadata.labels["app.kubernetes.io/managed-by"]
+          value: Helm
+      - notExists:
+          path: metadata.annotations
+
+  - it: should render a ConfigMap with default values
+    template: configmap.yaml
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.name
+          value: artifactory-cleanup-config
+      - equal:
+          path: metadata.labels["helm.sh/chart"]
+          value: artifactory-cleanup-0.1.0
+      - equal:
+          path: data["artifactory-cleanup.yaml"]
+          value: |
+            artifactory-cleanup:
+              password: $ARTIFACTORY_PASSWORD
+              user: $ARTIFACTORY_USERNAME
+
+  - it: should render a CronJob with default values
+    template: cronjob.yaml
+    asserts:
+      - isKind:
+          of: CronJob
+      - equal:
+          path: metadata.name
+          value: test-release-artifactory-cleanup
+      - equal:
+          path: metadata.labels["app.kubernetes.io/name"]
+          value: artifactory-cleanup
+      - equal:
+          path: spec.schedule
+          value: "1 0 * * *"
+      - equal:
+          path: spec.concurrencyPolicy
+          value: Allow
+      - equal:
+          path: spec.failedJobsHistoryLimit
+          value: 1
+      - equal:
+          path: spec.successfulJobsHistoryLimit
+          value: 3
+      - equal:
+          path: spec.suspend
+          value: false
+      - notExists:
+          path: spec.timeZone
+      - notExists:
+          path: spec.startingDeadlineSeconds
+      - equal:
+          path: spec.jobTemplate.spec.backoffLimit
+          value: 1
+      - equal:
+          path: spec.jobTemplate.spec.parallelism
+          value: 1
+      - equal:
+          path: spec.jobTemplate.spec.podReplacementPolicy
+          value: Failed
+      - equal:
+          path: spec.jobTemplate.spec.ttlSecondsAfterFinished
+          value: 604800
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.serviceAccountName
+          value: test-release-artifactory-cleanup
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].name
+          value: artifactory-cleanup
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].image
+          value: devopshq/artifactory-cleanup:1.0.18
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].imagePullPolicy
+          value: IfNotPresent
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].args
+          value: 
+            - "artifactory-cleanup"
+            - "--destroy"
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[0].name
+          value: ARTIFACTORY_USERNAME
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.name
+          value: artifactory-credentials
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[0].valueFrom.secretKeyRef.key
+          value: username
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[1].name
+          value: ARTIFACTORY_PASSWORD
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[1].valueFrom.secretKeyRef.name
+          value: artifactory-credentials
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].env[1].valueFrom.secretKeyRef.key
+          value: password
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests.cpu
+          value: 1m
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests.memory
+          value: 32Mi
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
+          value:
+            - name: config-volume
+              mountPath: /app/artifactory-cleanup.yaml
+              subPath: artifactory-cleanup.yaml
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.volumes
+          value:
+            - name: config-volume
+              configMap:
+                name: artifactory-cleanup-config
+      - notExists:
+          path: spec.jobTemplate.spec.template.spec.imagePullSecrets
+      - notExists:
+          path: spec.jobTemplate.spec.template.spec.nodeSelector
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.restartPolicy
+          value: Never
+      - notExists:
+          path: spec.jobTemplate.spec.template.spec.affinity
+      - notExists:
+          path: spec.jobTemplate.spec.template.spec.tolerations

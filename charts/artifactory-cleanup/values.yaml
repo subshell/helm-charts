@@ -1,0 +1,149 @@
+# Default values for artifactory-cleanup.
+# This is a YAML-formatted file.
+
+# schedule in Cron format. Default: '1 0 * * *' (one minute past midnight (00:01) every day) - see https://en.wikipedia.org/wiki/Cron
+schedule: '1 0 * * *'
+          # | | | | |
+          # | | | | day of the week (0–6) (Sunday to Saturday; 7 is also Sunday on some systems)
+          # | | | month (1–12)
+          # | | day of the month (1–31)
+          # | hour (0–23)
+          # minute (0–59)
+
+cleanup:
+  # cleanup.dryMode is the default of artifactory-cleanup. When `false` (the default) the flag '--destroy' will be added to the command
+  dryMode: false
+  # cleanup.args list of additional arguments to provide to artifactory-cleanup. See artifactory-cleanup --help
+  args: []
+  # cleanup.config contains the yaml configuration for artifactory-cleanup
+  configYaml:
+    artifactory-cleanup:
+      # $VAR is auto populated from environment variables
+      user: $ARTIFACTORY_USERNAME
+      password: $ARTIFACTORY_PASSWORD
+#      server: https://repo.example.com/artifactory
+#      policies:
+#        - name: Remove all files from repo-name-here older than 7 days
+#          rules:
+#            - rule: Repo
+#              name: "reponame"
+#            - rule: DeleteOlderThan
+#              days: 7
+
+# artifactoryCredentials will be provided as environment variables to be used in the config YAML
+artifactoryCredentials:
+  # artifactoryCredentials.secretName The name of the secret that contains the credentials to access Artifactory. Default: artifactory-credentials
+  secretName: artifactory-credentials
+  # artifactoryCredentials.usernameKey the key in the secret that holds the username for Artifactory. Will be available as environment variable '$ARTIFACTORY_USERNAME' in the config YAML. Default: username
+  usernameKey: username
+  # artifactoryCredentials.passwordKey the key in the secret that holds the password for Artifactory. Will be available as environment variable '$ARTIFACTORY_PASSWORD' in the config YAML. Default: password
+  passwordKey: password
+
+job:
+  # job.activeDeadlineSeconds k8s job config, default of 3 hours in seconds
+  activeDeadlineSeconds: 10800
+  # job.backoffLimit Specifies the number of retries before marking this job failed. Default: 1
+  backoffLimit: 1
+  # completions Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the  success of all pods, and allows parallelism to have any positive value. See https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  completions: null
+  # job.parallelism Specifies the maximum desired number of pods the job should run at any given time. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  parallelism: 1
+  # job.podFailurePolicy Specifies the policy of handling failed pods. If empty, the default behaviour applies - the counter of failed pods, is incremented and it is checked against the backoffLimit. Default: {} (empty)
+  podFailurePolicy: {}
+  # job.podReplacementPolicy specifies when to create replacement Pods. Possible values are: TerminatingOrFailed or Failed
+  podReplacementPolicy: Failed
+  # job.successPolicy specifies the policy when the Job can be declared as succeeded
+  successPolicy: {}
+  # job.suspend specifies whether the Job controller should create Pods or not. Default: false
+  suspend: false
+  # job.ttlSecondsAfterFinished If set, after the Job finishes, it is eligible to be automatically deleted. Defaults to 7 days in seconds
+  ttlSecondsAfterFinished: 604800
+
+# concurrencyPolicy Specifies how to treat concurrent executions of a Job. Valid values are: Allow, Forbid, Replace
+concurrencyPolicy: Allow
+# failedJobsHistoryLimit The number of failed finished jobs to retain.
+failedJobsHistoryLimit: 1
+# startingDeadlineSeconds Optional deadline in seconds for starting the job if it misses scheduled time for any reason.
+#startingDeadlineSeconds: 60
+# successfulJobsHistoryLimit The number of successful finished jobs to retain. Default: 3
+successfulJobsHistoryLimit: 3
+# suspend This flag tells the controller to suspend subsequent executions, it does not apply to already started executions. Default: false
+suspend: false
+# timeZone The time zone name for the given schedule. If not specified, this will default to the time zone of the kube-controller-manager process. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+#timeZone:
+
+# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+image:
+  repository: devopshq/artifactory-cleanup
+  # This sets the pull policy for images.
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+# This is for the secrets for pulling an image from a private repository more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+imagePullSecrets: []
+# This is to override the chart name.
+nameOverride: ""
+fullnameOverride: ""
+
+# This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
+serviceAccount:
+  # Specifies whether a service account should be created.
+  create: true
+  # Automatically mount a ServiceAccount's API credentials?
+  automount: true
+  # Annotations to add to the service account.
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template.
+  name: ""
+
+# env list of additional environment variables for the container. Default: [] (empty list)
+env: []
+
+# This is for setting Kubernetes Annotations to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
+podAnnotations: {}
+# This is for setting Kubernetes Labels to a Pod.
+# For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
+podLabels: {}
+
+restartPolicy: Never
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  requests:
+    cpu: 1m
+    memory: 32Mi
+
+# Additional volumes on the output Deployment definition.
+volumes: []
+  # - name: foo
+  #   secret:
+  #     secretName: mysecret
+  #     optional: false
+
+# Additional volumeMounts on the output Deployment definition.
+volumeMounts: []
+  # - name: foo
+  #   mountPath: "/etc/foo"
+  #   readOnly: true
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
