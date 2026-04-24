@@ -15,7 +15,9 @@ spec:
       labels:
         {{- include "artifactory-cleanup.labels" . | nindent 8 }}
     spec:
+      {{- if .Values.job.completions }}
       completions: {{ .Values.job.completions }}
+      {{- end }}
       parallelism: {{ .Values.job.parallelism }}
       selector:
         matchLabels:
