@@ -108,6 +108,8 @@ podAnnotations: {}
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
 
+restartPolicy: Never
+
 podSecurityContext: {}
   # fsGroup: 2000
 

@@ -156,6 +156,9 @@ tests:
           path: spec.jobTemplate.spec.template.spec.imagePullSecrets
       - notExists:
           path: spec.jobTemplate.spec.template.spec.nodeSelector
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.restartPolicy
+          value: Never
       - notExists:
           path: spec.jobTemplate.spec.template.spec.affinity
       - notExists:

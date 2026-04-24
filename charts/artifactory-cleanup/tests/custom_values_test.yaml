@@ -182,8 +182,18 @@ tests:
         disktype: ssd
     asserts:
       - equal:
-          path: spec.jobTemplate.spec.template.spec.nodeSelector.disktype
-          value: ssd
+          path: spec.jobTemplate.spec.template.spec.nodeSelector
+          value:
+            disktype: ssd
+
+  - it: should render CronJob with restartPolicy
+    template: cronjob.yaml
+    set:
+      restartPolicy: OnFailure
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.restartPolicy
+          value: OnFailure
 
   - it: should render CronJob with tolerations
     template: cronjob.yaml

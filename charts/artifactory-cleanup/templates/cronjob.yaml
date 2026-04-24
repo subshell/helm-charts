@@ -106,6 +106,7 @@ spec:
           tolerations:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          restartPolicy: {{ .Values.restartPolicy }}
       {{- if .Values.job.activeDeadlineSeconds }}
       activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
       {{- end }}
