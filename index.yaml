@@ -1801,6 +1801,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added probes"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-04-24T12:00:13.55196889Z"
+    description: A Helm chart for the Sophora importer
+    digest: 7e7dabc7f51ada3a1ee0011278c73736220c7b2fcf9e5f5e5af306ffdaa9e8e9
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.6.0/sophora-importer-2.6.0.tgz
+    version: 2.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Updated HTTPRoute configuration for consistency with httpRoute.matches and httpRoute.filters. Deprecated httpRoute.rules in favor of httpRoute.matches. Breaking: only first rule of httpRoute.rules is used!"
     apiVersion: v2
@@ -4180,4 +4198,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-20T14:06:32.935280158Z"
+generated: "2026-04-24T12:00:13.552412555Z"
