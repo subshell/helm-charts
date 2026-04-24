@@ -128,10 +128,10 @@ tests:
       imagePullSecrets:
         - name: my-pull-secret
     asserts:
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.imagePullSecrets
-          content:
-            name: my-pull-secret
+          value:
+            - name: my-pull-secret
 
   - it: should render CronJob with podAnnotations
     template: cronjob.yaml
@@ -194,13 +194,13 @@ tests:
           value: "value1"
           effect: "NoSchedule"
     asserts:
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.tolerations
-          content:
-            key: key1
-            operator: Equal
-            value: value1
-            effect: NoSchedule
+          value:
+            - key: key1
+              operator: Equal
+              value: value1
+              effect: NoSchedule
 
   - it: should render CronJob with affinity
     template: cronjob.yaml
@@ -222,16 +222,22 @@ tests:
         - name: extra-vol
           mountPath: /extra
     asserts:
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.volumes
-          content:
-            name: extra-vol
-            emptyDir: {}
-      - contains:
+          value:
+            - configMap:
+                name: myrelease-artifactory-cleanup
+              name: config-volume
+            - name: extra-vol
+              emptyDir: {}
+      - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
-          content:
-            name: extra-vol
-            mountPath: /extra
+          value:
+            - mountPath: /app/artifactory-cleanup.yaml
+              name: config-volume
+              subPath: artifactory-cleanup.yaml
+            - name: extra-vol
+              mountPath: /extra
 
   - it: should render CronJob with concurrencyPolicy Forbid and suspend true
     template: cronjob.yaml

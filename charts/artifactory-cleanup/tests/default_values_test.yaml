@@ -140,18 +140,18 @@ tests:
       - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].resources.requests.memory
           value: 32Mi
-      - contains:
+      - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].volumeMounts
-          content:
-            name: config-volume
-            mountPath: /app/artifactory-cleanup.yaml
-            subPath: artifactory-cleanup.yaml
-      - contains:
+          value:
+            - name: config-volume
+              mountPath: /app/artifactory-cleanup.yaml
+              subPath: artifactory-cleanup.yaml
+      - equal:
           path: spec.jobTemplate.spec.template.spec.volumes
-          content:
-            name: config-volume
-            configMap:
-              name: test-release-artifactory-cleanup
+          value:
+            - name: config-volume
+              configMap:
+                name: test-release-artifactory-cleanup
       - notExists:
           path: spec.jobTemplate.spec.template.spec.imagePullSecrets
       - notExists:
