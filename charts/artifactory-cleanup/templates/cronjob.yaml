@@ -46,7 +46,7 @@ spec:
             - name: {{ .Chart.Name }}
               args:
                 - artifactory-cleanup
-                {{- if not .Values.dryRun }}
+                {{- if not .Values.cleanup.dryMode }}
                 - '--destroy'
                 {{- end }}
                 {{- range .Values.args }}

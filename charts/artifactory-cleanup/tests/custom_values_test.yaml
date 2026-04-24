@@ -47,8 +47,10 @@ tests:
       - equal:
           path: spec.jobTemplate.spec.template.spec.containers[0].env[2].value
           value: bar
-      # note: the template uses .Values.dryRun (not .Values.cleanup.dryMode) to suppress '--destroy'
       - contains:
+          path: spec.jobTemplate.spec.template.spec.containers[0].args
+          content: "artifactory-cleanup"
+      - notContains:
           path: spec.jobTemplate.spec.template.spec.containers[0].args
           content: "--destroy"
 
@@ -62,18 +64,6 @@ release:
   name: myrelease
   namespace: mynamespace
 tests:
-  - it: should not add --destroy when dryRun is true
-    template: cronjob.yaml
-    set:
-      dryRun: true
-    asserts:
-      - notContains:
-          path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "--destroy"
-      - contains:
-          path: spec.jobTemplate.spec.template.spec.containers[0].args
-          content: "artifactory-cleanup"
-
   - it: should use fullnameOverride when set
     template: cronjob.yaml
     set:
