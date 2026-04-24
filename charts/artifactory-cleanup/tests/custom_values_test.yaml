@@ -263,6 +263,68 @@ tests:
           path: spec.startingDeadlineSeconds
           value: 120
 
+  - it: should render CronJob Job template with optional values
+    template: cronjob.yaml
+    set:
+      job:
+        activeDeadlineSeconds: 3654
+        backoffLimit: 3
+        completions: 2
+        parallelism: 8
+        podFailurePolicy:
+          rules:
+            - action: FailJob
+              onExitCodes:
+                operator: In
+                values:
+                  - 2
+                  - 128
+        podReplacementPolicy: TerminatingOrFailed
+        successPolicy:
+          rules:
+            - succeededCount: 2
+              succeededIndexes: "1,3-5,7"
+        suspend: true
+        ttlSecondsAfterFinished: 321
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.activeDeadlineSeconds
+          value: 3654
+      - equal:
+          path: spec.jobTemplate.spec.backoffLimit
+          value: 3
+      - equal:
+          path: spec.jobTemplate.spec.completions
+          value: 2
+      - equal:
+          path: spec.jobTemplate.spec.parallelism
+          value: 8
+      - equal:
+          path: spec.jobTemplate.spec.podFailurePolicy
+          value:
+            rules:
+              - action: FailJob
+                onExitCodes:
+                  operator: In
+                  values:
+                    - 2
+                    - 128
+      - equal:
+          path: spec.jobTemplate.spec.podReplacementPolicy
+          value: TerminatingOrFailed
+      - equal:
+          path: spec.jobTemplate.spec.successPolicy
+          value:
+            rules:
+              - succeededCount: 2
+                succeededIndexes: "1,3-5,7"
+      - equal:
+          path: spec.jobTemplate.spec.suspend
+          value: true
+      - equal:
+          path: spec.jobTemplate.spec.ttlSecondsAfterFinished
+          value: 321
+
   - it: should render CronJob with serviceAccount annotations
     template: serviceaccount.yaml
     set:

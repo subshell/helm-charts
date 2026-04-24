@@ -22,7 +22,7 @@ spec:
       selector:
         matchLabels:
           {{- include "artifactory-cleanup.selectorLabels" . | nindent 6 }}
-      suspend: 
+      suspend: {{ .Values.job.suspend }}
       template:
         metadata:
           {{- with .Values.podAnnotations }}
@@ -106,10 +106,11 @@ spec:
           tolerations:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- if .Values.activeDeadlineSeconds }}
+      {{- if .Values.job.activeDeadlineSeconds }}
       activeDeadlineSeconds: {{ .Values.job.activeDeadlineSeconds }}
       {{- end }}
-      {{- with .Values.podFailurePolicy }}
+      backoffLimit: {{ .Values.job.backoffLimit }}
+      {{- with .Values.job.podFailurePolicy }}
       podFailurePolicy:
         {{- toYaml . | nindent 8 }}
       {{- end }}

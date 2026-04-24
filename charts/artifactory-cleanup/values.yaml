@@ -42,16 +42,20 @@ artifactoryCredentials:
 job:
   # job.activeDeadlineSeconds k8s job config, default of 3 hours in seconds
   activeDeadlineSeconds: 10800
+  # job.backoffLimit Specifies the number of retries before marking this job failed. Default: 1
+  backoffLimit: 1
+  # completions Specifies the desired number of successfully finished pods the job should be run with.  Setting to null means that the success of any pod signals the  success of all pods, and allows parallelism to have any positive value. See https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
+  completions: null
+  # job.parallelism Specifies the maximum desired number of pods the job should run at any given time. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
   parallelism: 1
+  # job.podFailurePolicy Specifies the policy of handling failed pods. If empty, the default behaviour applies - the counter of failed pods, is incremented and it is checked against the backoffLimit. Default: {} (empty)
   podFailurePolicy: {}
   # job.podReplacementPolicy specifies when to create replacement Pods. Possible values are: TerminatingOrFailed or Failed
   podReplacementPolicy: Failed
   # job.successPolicy specifies the policy when the Job can be declared as succeeded
   successPolicy: {}
-  # job.backoffLimit k8s job config
-  backoffLimit: 1
-  # job.parallelism Specifies the maximum desired number of pods the job should run at any given time. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/
-  parallelism: 1
+  # job.suspend specifies whether the Job controller should create Pods or not. Default: false
+  suspend: false
   # job.ttlSecondsAfterFinished If set, after the Job finishes, it is eligible to be automatically deleted. Defaults to 7 days in seconds
   ttlSecondsAfterFinished: 604800
 

@@ -88,6 +88,9 @@ tests:
       - notExists:
           path: spec.startingDeadlineSeconds
       - equal:
+          path: spec.jobTemplate.spec.backoffLimit
+          value: 1
+      - equal:
           path: spec.jobTemplate.spec.parallelism
           value: 1
       - equal:

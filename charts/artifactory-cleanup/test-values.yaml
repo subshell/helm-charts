@@ -24,6 +24,10 @@ artifactoryCredentials:
 schedule: '1 2 3 4 *'
 timeZone: Europe/Berlin
 
+job:
+  parallelism: 2
+  completions: 2
+
 env:
  - name: FOO
    value: bar
