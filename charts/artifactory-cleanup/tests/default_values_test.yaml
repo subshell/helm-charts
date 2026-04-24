@@ -151,7 +151,7 @@ tests:
           value:
             - name: config-volume
               configMap:
-                name: test-release-artifactory-cleanup
+                name: artifactory-cleanup-config
       - notExists:
           path: spec.jobTemplate.spec.template.spec.imagePullSecrets
       - notExists:
