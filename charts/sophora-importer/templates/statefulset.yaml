@@ -81,10 +81,42 @@ spec:
           {{ if .Values.sophora.importer.extraEnv -}}
           {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
           {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end }}
+        {{- with .Values.startupProbe }}
+        startupProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end}}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
-        - containerPort: 8082
+        - name: metrics
+          containerPort: 8082
+          protocol: TCP
         - containerPort: 1496
         volumeMounts:
         - name: importer-config
