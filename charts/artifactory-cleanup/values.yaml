@@ -129,7 +129,7 @@ resources:
     cpu: 1m
     memory: 32Mi
 
-# Additional volumes on the output Deployment definition.
+# Additional volumes on the output Kubernetes Job definition.
 volumes: []
   # - name: foo
   #   secret:
