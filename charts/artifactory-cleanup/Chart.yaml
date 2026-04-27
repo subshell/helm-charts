@@ -1,6 +1,6 @@
 apiVersion: v2
 name: artifactory-cleanup
-description: A Helm chart for Kubernetes to run Artifactory cleanup periodically
+description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup periodically
 type: application
 
 # This is the chart version. This version number should be incremented each time you make changes
