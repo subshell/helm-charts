@@ -1,5 +1,5 @@
 cleanup:
-  dryMode: true
+  destroy: false
   args:
     - '--output=myfile.txt'
     - '--output-format=json'
