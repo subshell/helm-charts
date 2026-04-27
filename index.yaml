@@ -3,6 +3,24 @@ entries:
   artifactory-cleanup:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fix the indentation of the selector.matchLabels"
+    apiVersion: v2
+    appVersion: 1.0.18
+    created: "2026-04-27T16:20:59.767595028Z"
+    description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup
+      periodically
+    digest: cb265101ce20bbafba5fece9ff004f7063569312d7d2150901946454a9e119b6
+    name: artifactory-cleanup
+    sources:
+    - https://github.com/devopshq/artifactory-cleanup
+    - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-0.1.1/artifactory-cleanup-0.1.1.tgz
+    version: 0.1.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added helm chart for artifactory-cleanup"
     apiVersion: v2
@@ -4217,4 +4235,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-27T15:12:17.00487222Z"
+generated: "2026-04-27T16:20:59.768183202Z"
