@@ -1,5 +1,24 @@
 apiVersion: v1
 entries:
+  artifactory-cleanup:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added helm chart for artifactory-cleanup"
+    apiVersion: v2
+    appVersion: 1.0.18
+    created: "2026-04-27T15:12:17.004356116Z"
+    description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup
+      periodically
+    digest: a7080c59b32416f0060aa0d53f33c7c26f4366d9045723923736c26b456aa1e6
+    name: artifactory-cleanup
+    sources:
+    - https://github.com/devopshq/artifactory-cleanup
+    - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-0.1.0/artifactory-cleanup-0.1.0.tgz
+    version: 0.1.0
   external-secrets:
   - annotations:
       artifacthub.io/changes: |
@@ -4198,4 +4217,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-24T12:00:13.552412555Z"
+generated: "2026-04-27T15:12:17.00487222Z"
