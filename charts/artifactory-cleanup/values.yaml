@@ -15,7 +15,7 @@ cleanup:
   destroy: true
   # cleanup.args list of additional arguments to provide to artifactory-cleanup. See artifactory-cleanup --help
   args: []
-  # cleanup.config contains the yaml configuration for artifactory-cleanup
+  # cleanup.config contains the yaml configuration for artifactory-cleanup. For config file format and rules see: https://github.com/devopshq/artifactory-cleanup#usage
   configYaml:
     artifactory-cleanup:
       # $VAR is auto populated from environment variables
