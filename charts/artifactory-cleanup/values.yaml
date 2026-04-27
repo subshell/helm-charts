@@ -11,8 +11,8 @@ schedule: '1 0 * * *'
           # minute (0–59)
 
 cleanup:
-  # cleanup.dryMode is the default of artifactory-cleanup. When `false` (the default) the flag '--destroy' will be added to the command
-  dryMode: false
+  # cleanup.destroy the cronjob deployed by this chart executes the cleanup operation directly with `--destroy` by default. If you want to test the cronjob in dry-run mode set destroy this to false. Default: `true`
+  destroy: true
   # cleanup.args list of additional arguments to provide to artifactory-cleanup. See artifactory-cleanup --help
   args: []
   # cleanup.config contains the yaml configuration for artifactory-cleanup
