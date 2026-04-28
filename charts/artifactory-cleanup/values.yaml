@@ -72,7 +72,7 @@ suspend: false
 # timeZone The time zone name for the given schedule. If not specified, this will default to the time zone of the kube-controller-manager process. See https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 #timeZone:
 
-# This sets the container image more information can be found here: https://kubernetes.io/docs/concepts/containers/images/
+# This sets the container image. More information can be found here: https://kubernetes.io/docs/concepts/containers/images/
 image:
   repository: devopshq/artifactory-cleanup
   # This sets the pull policy for images.
