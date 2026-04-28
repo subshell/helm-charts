@@ -3,6 +3,24 @@ entries:
   artifactory-cleanup:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "release as 1.0.0"
+    apiVersion: v2
+    appVersion: 1.0.18
+    created: "2026-04-28T07:13:39.050008149Z"
+    description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup
+      periodically
+    digest: ff7553f872d96eaec9961604aa1d22052d3c59ea89d44c78e37bb144548a6a03
+    name: artifactory-cleanup
+    sources:
+    - https://github.com/devopshq/artifactory-cleanup
+    - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-1.0.0/artifactory-cleanup-1.0.0.tgz
+    version: 1.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "removed CronJob.spec.jobTemplate.spec.selector as it is auto-generated"
     apiVersion: v2
@@ -4253,4 +4271,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-28T06:55:15.517220028Z"
+generated: "2026-04-28T07:13:39.050594645Z"
