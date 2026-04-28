@@ -4,6 +4,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "removed CronJob.spec.jobTemplate.spec.selector as it is auto-generated"
+    apiVersion: v2
+    appVersion: 1.0.18
+    created: "2026-04-28T06:55:15.516751582Z"
+    description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup
+      periodically
+    digest: 96d503ecb658176b9ba024d02318ede6ad5b2e65e7fda7463aa2bf0f5c988866
+    name: artifactory-cleanup
+    sources:
+    - https://github.com/devopshq/artifactory-cleanup
+    - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-0.1.2/artifactory-cleanup-0.1.2.tgz
+    version: 0.1.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fix the indentation of the selector.matchLabels"
     apiVersion: v2
     appVersion: 1.0.18
@@ -4235,4 +4253,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-27T16:20:59.768183202Z"
+generated: "2026-04-28T06:55:15.517220028Z"
