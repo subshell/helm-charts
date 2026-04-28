@@ -99,12 +99,8 @@ tests:
       - equal:
           path: spec.jobTemplate.spec.ttlSecondsAfterFinished
           value: 604800
-      - equal:
+      - notExists:
           path: spec.jobTemplate.spec.selector
-          value:
-            matchLabels:
-              app.kubernetes.io/name: artifactory-cleanup
-              app.kubernetes.io/instance: test-release
       - equal:
           path: spec.jobTemplate.spec.template.spec.serviceAccountName
           value: test-release-artifactory-cleanup

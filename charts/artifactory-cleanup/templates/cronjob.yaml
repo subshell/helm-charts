@@ -19,9 +19,6 @@ spec:
       completions: {{ .Values.job.completions }}
       {{- end }}
       parallelism: {{ .Values.job.parallelism }}
-      selector:
-        matchLabels:
-          {{- include "artifactory-cleanup.selectorLabels" . | nindent 10 }}
       suspend: {{ .Values.job.suspend }}
       template:
         metadata:
