@@ -122,11 +122,12 @@ securityContext: {}
   # runAsUser: 1000
 
 resources:
-  limits:
-    memory: 2Gi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
   requests:
     cpu: 1m
-    memory: 128Mi
+    memory: 32Mi
 
 # Additional volumes on the output Kubernetes Job definition.
 volumes: []
