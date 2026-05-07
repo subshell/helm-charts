@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
-version: 2.2.0
+version: 2.3.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: changed
+      description: "Added checksum annotation to pod template to trigger pod restarts on ConfigMap changes."
 
 appVersion: 5.0.0
 sources:

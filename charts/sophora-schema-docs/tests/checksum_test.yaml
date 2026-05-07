@@ -1,0 +1,43 @@
+suite: test checksum annotation
+templates:
+  - deployment.yaml
+  - configmap.yaml
+tests:
+  - it: should set checksum/config annotation on pod template
+    set:
+      sophora.authentication.secret.name: test-secret
+    asserts:
+      - template: deployment.yaml
+        exists:
+          path: spec.template.metadata.annotations["checksum/config"]
+  - it: checksum should remain the same when release name changes but data does not
+    release:
+      name: release-a
+    set:
+      sophora.authentication.secret.name: test-secret
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "49b537f0b9ac9f3537ec40861ed69c1b6afacfb42bc6d638faeaf797a02c29c5"
+  - it: checksum should remain the same when release name changes to release-b
+    release:
+      name: release-b
+    set:
+      sophora.authentication.secret.name: test-secret
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "49b537f0b9ac9f3537ec40861ed69c1b6afacfb42bc6d638faeaf797a02c29c5"
+  - it: checksum should change when config data changes
+    release:
+      name: release-a
+    set:
+      sophora.authentication.secret.name: test-secret
+      sophora.configuration.server.port: 9090
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "a186968c70fd33b0c041644ca9c20d996ab28f462083ef4ccfb391b48d82ca71"
