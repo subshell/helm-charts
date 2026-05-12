@@ -3,6 +3,24 @@ entries:
   artifactory-cleanup:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "fix release job"
+    apiVersion: v2
+    appVersion: 1.0.18
+    created: "2026-05-12T07:56:21.877487409Z"
+    description: A Helm chart for Kubernetes to run DevOpsHQs artifactory-cleanup
+      periodically
+    digest: c187513f33832e3444bad3e70600648ac02fe4e7c7b195105be37b65c211013b
+    name: artifactory-cleanup
+    sources:
+    - https://github.com/devopshq/artifactory-cleanup
+    - https://github.com/subshell/helm-charts/tree/main/charts/artifactory-cleanup
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-1.0.1/artifactory-cleanup-1.0.1.tgz
+    version: 1.0.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "release as 1.0.0"
     apiVersion: v2
@@ -3588,6 +3606,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added host aliases support."
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-05-12T07:56:22.116074819Z"
+    description: A Helm chart for Kubernetes
+    digest: 46c98e9f8e0fa5cea457819dc9e97c640e8741315f6ae7ee815236ccfb5813e4
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.2.0/sophora-ugc-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added HTTPRoute support for Gateway API."
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
     apiVersion: v2
@@ -4271,4 +4308,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-04-28T07:13:39.050594645Z"
+generated: "2026-05-12T07:56:22.116488191Z"
