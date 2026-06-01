@@ -11,7 +11,7 @@ spec:
       rules:
         {{- if $defaultRulesEnabled }}
         - alert: MetadataSupplierJobQueueFull
-          expr: metadatasupplier_supplyjob_queue_size_jobs > {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }}
+          expr: metadatasupplier_supplyjob_normal_queue_size_jobs > {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }} or metadatasupplier_supplyjob_high_queue_size_jobs > {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }}
           for: {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueTime }}
           labels:
             severity: {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSeverity }}

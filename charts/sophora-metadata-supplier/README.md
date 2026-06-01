@@ -10,7 +10,7 @@ This Helm Chart supports the installation of additional mappings via s3 or conta
 
 To enable prometheus alerts, set `prometheusRule.enabled: true` in your values.
 
-The default rules include an alert which is triggered if the job queue of the Sophora Metadata Supplier is full over a period of time. It can be configured by setting the following values below `prometheusRule.defaultRules.jobQueue`:
+The default rules include an alert which is triggered if the job queue (priority: normal/high) of the Sophora Metadata Supplier is full over a period of time. It can be configured by setting the following values below `prometheusRule.defaultRules.jobQueue`:
 
 - `maxQueueSize` (default: 1000)
 - `maxQueueTime` (default: 10m)
