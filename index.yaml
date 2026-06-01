@@ -2633,6 +2633,24 @@ entries:
   sophora-metadata-supplier:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Alert for job queue ignores low priority queue."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-06-01T15:01:39.337139725Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 9022aa1ce3b92776360dbcf95a2864c99481b3f8cf7ed2c1768c82f7e5669362
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.4.1/sophora-metadata-supplier-1.4.1.tgz
+    version: 1.4.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -4308,4 +4326,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-05-12T07:56:22.116488191Z"
+generated: "2026-06-01T15:01:39.337505967Z"
