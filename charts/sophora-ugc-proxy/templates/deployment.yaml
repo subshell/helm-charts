@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-ugc-proxy.fullname" . }}
+  labels:
+    {{- include "sophora-ugc-proxy.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/ugc-proxy-config.yaml") . | sha256sum }}
+        {{ if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{ end }}
+      labels:
+        {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.ugcProxy.hostname }}
+      hostname: {{ .Values.ugcProxy.hostname }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        {{- if .Values.ugcProxy.extraInitContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugcProxy.extraInitContainers "context" $) | nindent 8 }}
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.ugcProxy.image.repository }}:{{ .Values.ugcProxy.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.ugcProxy.image.pullPolicy }}
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: {{ .Values.javaOptions }}
+            {{- range .Values.authentication.secret }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID + {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .s3bucket.accessKeyKey }}
+                  name: {{ .s3bucket.name }}
+                  optional: true
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY + {{ .name }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .s3bucket.secretIdKey }}
+                  name: {{ .s3bucket.name }}
+                  optional: true
+            {{- end }}
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: {{ default 8080 (.Values.ugcProxy.config.server).port }}
+              name: proxy
+            - containerPort: 1694
+              name: jolokia
+          volumeMounts:
+            - name: logback-xml
+              mountPath: /config/logback
+            - name: application-yml
+              mountPath: /config/application
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.ugcProxy.extraContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.ugcProxy.extraContainers "context" $) | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: application-yml
+          configMap:
+            name: {{ include "sophora-ugc-proxy.fullname" . }}-config
+        - name: logback-xml
+          configMap:
+            name: {{ include "sophora-ugc-proxy.fullname" . }}-logback
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

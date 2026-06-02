@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "sophora-ugc-proxy.fullname" . }}-config
+  labels:
+    app: {{ include "sophora-ugc-proxy.fullname" . }}
+data:
+  application.yml: |- {{ toYaml ( required "A configuration is required" .Values.ugcProxy.config) | nindent 4 }}
