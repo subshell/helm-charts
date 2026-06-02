@@ -1,6 +1,6 @@
 {{- $fullName := include "o-neko.fullname" . -}}
 {{- $labels := include "o-neko.labels" . -}}
-{{- $svcPort := .Values.service.port -}}
+{{- $svcPort := 8080 -}}
 {{- range $key, $httpRoute := .Values.httpRoutes }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

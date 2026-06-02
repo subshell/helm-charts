@@ -1,5 +1,5 @@
 {{- $fullName := include "sophora-contentapi.fullname" . -}}
-{{- $labels := include "sophora-content-api.labels" . -}}
+{{- $labels := include "sophora-contentapi.labels" . -}}
 {{- $svcPort := .Values.service.port -}}
 {{- range $key, $httpRoute := .Values.httpRoutes }}
 apiVersion: gateway.networking.k8s.io/v1

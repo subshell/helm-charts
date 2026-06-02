@@ -2,8 +2,8 @@ suite: test httproute
 templates:
   - httproute.yaml
 chart:
-  version: 1.0.0
-  appVersion: 5.1.1
+  version: 0.9.8
+  appVersion: 1.2.3
 tests:
   - it: should not create httproute by default
     asserts:
@@ -17,43 +17,146 @@ tests:
       - ./values/httproute.yaml
     asserts:
       - hasDocuments:
-          count: 1
-      - containsDocument:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-planr-tools
-      - equal:
-          path: metadata.annotations
+          name: values-test-release-planr-tools-primary
+      - documentIndex: 1
+        containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-planr-tools-secondary
+      - documentIndex: 0
+        equal:
+          path: metadata
           value:
-            example.com/test: "true"
-      - equal:
-          path: spec.hostnames
+            name: values-test-release-planr-tools-primary
+            labels:
+              helm.sh/chart: planr-tools-0.9.8
+              app.kubernetes.io/name: planr-tools
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/component: gateway
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+            annotations:
+              example.com/test: "simple"
+              example.com/text: some text value
+      - documentIndex: 0
+        equal:
+          path: spec
           value:
-            - planr-tools.example.com
-      - equal:
-          path: spec.rules[0].backendRefs[0].name
-          value: values-test-release-planr-tools-newsroom-document-creator
-      - equal:
-          path: spec.rules[1].backendRefs[0].name
-          value: values-test-release-planr-tools-newsroom-feed
-      - equal:
-          path: spec.rules[2].backendRefs[0].name
-          value: values-test-release-planr-tools-newsroom-widget
-      - equal:
-          path: spec.rules[0].matches[0].path.value
-          value: /document-creator
-      - equal:
-          path: spec.rules[1].matches[0].path.value
-          value: /feed
-      - equal:
-          path: spec.rules[2].matches[0].path.value
-          value: /
-      - equal:
-          path: spec.rules[0].filters[0].type
-          value: URLRewrite
-      - equal:
-          path: spec.rules[1].filters[0].type
-          value: URLRewrite
-      - notExists:
-          path: spec.rules[2].filters[0].urlRewrite
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - my-service.example.com
+              - other.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-document-creator
+                    port: 8080
+                filters:
+                  - type: URLRewrite
+                    urlRewrite:
+                      path:
+                        type: ReplacePrefixMatch
+                        replacePrefixMatch: /
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /document-creator
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-feed
+                    port: 8081
+                filters:
+                  - type: URLRewrite
+                    urlRewrite:
+                      path:
+                        type: ReplacePrefixMatch
+                        replacePrefixMatch: /
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /feed
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-widget
+                    port: 8082
+                filters:
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /
+      - documentIndex: 1
+        equal:
+          path: metadata
+          value:
+            name: values-test-release-planr-tools-secondary
+            labels:
+              helm.sh/chart: planr-tools-0.9.8
+              app.kubernetes.io/name: planr-tools
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/component: gateway
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+      - documentIndex: 1
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - second.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-document-creator
+                    port: 8080
+                filters:
+                  - type: URLRewrite
+                    urlRewrite:
+                      path:
+                        type: ReplacePrefixMatch
+                        replacePrefixMatch: /
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /document-creator
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-feed
+                    port: 8081
+                filters:
+                  - type: URLRewrite
+                    urlRewrite:
+                      path:
+                        type: ReplacePrefixMatch
+                        replacePrefixMatch: /
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /feed
+              - backendRefs:
+                  - name: values-test-release-planr-tools-newsroom-widget
+                    port: 8082
+                filters: null
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /
       - notFailedTemplate: {}

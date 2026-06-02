@@ -64,11 +64,6 @@ httpRoutes: {}
   #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
   #   hostnames:
   #     - "my-service.example.com"
-  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
-  #   matches:
-  #     - path:
-  #         type: PathPrefix
-  #         value: /
   #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
   #   filters:
   #     - type: RequestHeaderModifier
