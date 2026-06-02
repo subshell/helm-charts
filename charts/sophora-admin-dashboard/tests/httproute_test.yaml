@@ -17,16 +17,8 @@ tests:
     asserts:
       - hasDocuments:
           count: 2
-      - containsDocument:
-          kind: HTTPRoute
-          apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-admin-dashboard-primary
-      - containsDocument:
-          kind: HTTPRoute
-          apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-admin-dashboard-secondary
-      - equal:
-          documentIndex: 0
+      - documentIndex: 0
+        equal:
           path: metadata
           value:
             name: values-test-release-sophora-admin-dashboard-primary
@@ -38,8 +30,8 @@ tests:
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
-      - equal:
-          documentIndex: 0
+      - documentIndex: 0
+        equal:
           path: spec
           value:
             parentRefs:
@@ -62,13 +54,21 @@ tests:
                   - path:
                       type: PathPrefix
                       value: /
-      - equal:
-          documentIndex: 1
+      - documentIndex: 1
+        equal:
           path: metadata.name
           value: values-test-release-sophora-admin-dashboard-secondary
-      - equal:
-          documentIndex: 1
-          path: spec.hostnames
+      - documentIndex: 1
+        equal:
+          path: spec
           value:
-            - second.example.com
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - second.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-admin-dashboard
+                    port: 80
       - notFailedTemplate: {}
