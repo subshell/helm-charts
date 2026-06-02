@@ -82,29 +82,29 @@ extraIngress: []
   #  tls: []
 
 # httpRoutes Map of HTTPRoute resources (Gateway API) to create.
-# The map key is used as a suffix for the resource name, e.g. "primary" -> "<fullname>-primary".
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
 httpRoutes: {}
-  # primary:
-  #   # httpRoutes.primary.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
   #   parentRefs:
   #     - name: my-gateway
   #       namespace: gateway-namespace
-  #   # httpRoutes.primary.hostnames Array with hostnames used for the HTTPRoute
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
   #   hostnames:
   #     - "my-service.example.com"
-  #   # httpRoutes.primary.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
   #   matches:
   #     - path:
   #         type: PathPrefix
   #         value: /
-  #   # httpRoutes.primary.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
   #   filters:
   #     - type: RequestHeaderModifier
   #       requestHeaderModifier:
   #         set:
   #           - name: X-Custom-Header
   #             value: custom-value
-  #   # httpRoutes.primary.annotations annotations for the HTTPRoute
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
   #   annotations: {}
 
 serviceAccount:

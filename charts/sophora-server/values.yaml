@@ -386,38 +386,31 @@ grpcIngress:
   #    hosts:
   #      - chart-example.local
 
-httpRoute:
-  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
-  enabled: false
-  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
-  # e.g.
-  # parentRefs:
-  #   - name: my-gateway
-  #     namespace: gateway-namespace
-  parentRefs: []
-  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
-  # e.g.
-  # hostnames:
-  #   - "my-service.example.com"
-  hostnames: []
-  # httpRoute.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
-  # e.g.
-  # matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /
-  matches: []
-  # httpRoute.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
-  # e.g.
-  # filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #         - name: X-Custom-Header
-  #           value: custom-value
-  filters: []
-  # httpRoute.annotations annotations for the HTTPRoute
-  annotations: {}
+# httpRoutes Map of HTTPRoute resources (Gateway API) to create.
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
+httpRoutes: {}
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
+  #   hostnames:
+  #     - "my-service.example.com"
+  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #   matches:
+  #     - path:
+  #         type: PathPrefix
+  #         value: /
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   filters:
+  #     - type: RequestHeaderModifier
+  #       requestHeaderModifier:
+  #         set:
+  #           - name: X-Custom-Header
+  #             value: custom-value
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
+  #   annotations: {}
 
 # This can be used to configure a different HttpRoute for the SRPC service as it might require different settings. Can be used with the same hostname as httpRoute, see https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving.
 # The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC

@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.4.0
+version: 1.5.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraInitContainers variable."
+    - kind: changed
+      description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
   artifacthub.io/links: |
     - name: Documentation for the AV Tool
       url: https://subshell.com/docs/avtool/
