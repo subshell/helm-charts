@@ -10,19 +10,24 @@ tests:
       - hasDocuments:
           count: 0
 
-  - it: should create httproute with values
+  - it: should create multiple httproutes with values
     release:
       name: values-test-release
     values:
       - ./values/httproute.yaml
     asserts:
       - hasDocuments:
-          count: 1
+          count: 2
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
           name: sophora-image-access-service
+      - containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: sophora-image-access-service-1
       - equal:
+          documentIndex: 0
           path: metadata
           value:
             name: sophora-image-access-service
@@ -36,6 +41,7 @@ tests:
               example.com/test: "simple"
               example.com/text: some text value
       - equal:
+          documentIndex: 0
           path: spec
           value:
             parentRefs:
@@ -58,4 +64,13 @@ tests:
                   - path:
                       type: PathPrefix
                       value: /
+      - equal:
+          documentIndex: 1
+          path: metadata.name
+          value: sophora-image-access-service-1
+      - equal:
+          documentIndex: 1
+          path: spec.hostnames
+          value:
+            - second.example.com
       - notFailedTemplate: {}

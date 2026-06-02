@@ -208,38 +208,29 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-httpRoute:
-  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
-  enabled: false
-  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
-  # e.g.
-  # parentRefs:
-  #   - name: my-gateway
-  #     namespace: gateway-namespace
-  parentRefs: []
-  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
-  # e.g.
-  # hostnames:
-  #   - "my-service.example.com"
-  hostnames: []
-  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
-  # e.g.
-  # matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /sophora.srpc
-  matches: []
-  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
-  # e.g.
-  # filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #         - name: X-Custom-Header
-  #           value: custom-value
-  filters: []
-  # httpRoute.annotations annotations for the HTTPRoute
-  annotations: {}
+# httpRoutes List of HTTPRoute resources (Gateway API) to create
+httpRoutes: []
+  # httpRoutes[0].parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #- parentRefs:
+  #    - name: my-gateway
+  #      namespace: gateway-namespace
+  # httpRoutes[0].hostnames Array with hostnames used for the HTTPRoute
+  #  hostnames:
+  #    - "my-service.example.com"
+  # httpRoutes[0].matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #  matches:
+  #    - path:
+  #        type: PathPrefix
+  #        value: /sophora.srpc
+  # httpRoutes[0].filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #  filters:
+  #    - type: RequestHeaderModifier
+  #      requestHeaderModifier:
+  #        set:
+  #          - name: X-Custom-Header
+  #            value: custom-value
+  # httpRoutes[0].annotations annotations for the HTTPRoute
+  #  annotations: {}
 
 resources:
   requests:
