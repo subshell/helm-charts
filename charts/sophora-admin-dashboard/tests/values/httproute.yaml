@@ -1,25 +1,27 @@
 httpRoutes:
-- parentRefs:
-  - name: my-gateway
-    namespace: gateway-namespace
-  hostnames:
-  - my-service.example.com
-  - other.example.com
-  matches:
-  - path:
-      type: PathPrefix
-      value: /
-  filters:
-  - type: RequestHeaderModifier
-    requestHeaderModifier:
-      set:
-      - name: X-Custom-Header
-        value: custom-value
-  annotations:
-    example.com/test: simple
-    example.com/text: some text value
-- parentRefs:
-  - name: my-gateway
-    namespace: gateway-namespace
-  hostnames:
-  - second.example.com
+  primary:
+    parentRefs:
+    - name: my-gateway
+      namespace: gateway-namespace
+    hostnames:
+    - my-service.example.com
+    - other.example.com
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: RequestHeaderModifier
+      requestHeaderModifier:
+        set:
+        - name: X-Custom-Header
+          value: custom-value
+    annotations:
+      example.com/test: simple
+      example.com/text: some text value
+  secondary:
+    parentRefs:
+    - name: my-gateway
+      namespace: gateway-namespace
+    hostnames:
+    - second.example.com

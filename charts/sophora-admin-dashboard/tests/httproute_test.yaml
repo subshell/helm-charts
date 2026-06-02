@@ -20,16 +20,16 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-admin-dashboard
+          name: values-test-release-sophora-admin-dashboard-primary
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-admin-dashboard-1
+          name: values-test-release-sophora-admin-dashboard-secondary
       - equal:
           documentIndex: 0
           path: metadata
           value:
-            name: values-test-release-sophora-admin-dashboard
+            name: values-test-release-sophora-admin-dashboard-primary
             labels:
               helm.sh/chart: sophora-admin-dashboard-0.9.8
               app.kubernetes.io/name: sophora-admin-dashboard
@@ -65,7 +65,7 @@ tests:
       - equal:
           documentIndex: 1
           path: metadata.name
-          value: values-test-release-sophora-admin-dashboard-1
+          value: values-test-release-sophora-admin-dashboard-secondary
       - equal:
           documentIndex: 1
           path: spec.hostnames

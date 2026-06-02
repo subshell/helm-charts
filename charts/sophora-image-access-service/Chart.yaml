@@ -19,7 +19,7 @@ version: 1.7.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "HTTPRoute configuration changed to support a list of routes"
+      description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute and extraHttpRoutes fields have been removed (breaking change)!"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

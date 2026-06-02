@@ -21,16 +21,16 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: sophora-image-access-service
+          name: sophora-image-access-service-primary
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: sophora-image-access-service-1
+          name: sophora-image-access-service-secondary
       - equal:
           documentIndex: 0
           path: metadata
           value:
-            name: sophora-image-access-service
+            name: sophora-image-access-service-primary
             labels:
               helm.sh/chart: sophora-image-access-service-0.9.8
               app.kubernetes.io/name: sophora-image-access-service
@@ -67,7 +67,7 @@ tests:
       - equal:
           documentIndex: 1
           path: metadata.name
-          value: sophora-image-access-service-1
+          value: sophora-image-access-service-secondary
       - equal:
           documentIndex: 1
           path: spec.hostnames
