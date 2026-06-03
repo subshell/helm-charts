@@ -154,7 +154,6 @@ tests:
               - backendRefs:
                   - name: values-test-release-planr-tools-newsroom-widget
                     port: 8082
-                filters: null
                 matches:
                   - path:
                       type: PathPrefix
