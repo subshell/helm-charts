@@ -1,11 +1,12 @@
 {{- $fullName := include "sophora-indexing-service.fullname" . -}}
 {{- $labels := include "sophora-indexing-service.labels" . -}}
 {{- $svcPort := .Values.service.port -}}
-{{- range $key, $httpRoute := .Values.httpRoutes }}
+{{- range $key := (.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.httpRoutes $key }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ $fullName }}-{{ $key }}
+  name: {{ printf "%s-%s" $fullName $key | trunc 63 | trimSuffix "-" }}
   labels:
     {{- $labels | nindent 4 }}
   {{- with $httpRoute.annotations }}
