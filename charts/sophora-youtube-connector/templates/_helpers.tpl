@@ -51,6 +51,13 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
+Create the name of an HTTPRoute resource by combining the fullname and the route key, truncated to 63 chars.
+*/}}
+{{- define "sophora-youtube-connector.httpRouteName" -}}
+{{- printf "%s-%s" (include "sophora-youtube-connector.fullname" .root) .key | trunc 63 | trimSuffix "-" }}
+{{- end }}
+
+{{/*
 Create the name of the service account to use
 */}}
 {{- define "sophora-youtube-connector.serviceAccountName" -}}
