@@ -11,8 +11,6 @@ podSecurityContext: {}
 
 service:
   annotations: {}
-  jolokia:
-    clusterIP: None
   proxy:
     type: LoadBalancer
     loadBalancerIP:

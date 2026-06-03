@@ -62,8 +62,6 @@ spec:
           ports:
             - containerPort: {{ default 8080 (.Values.ugcProxy.config.server).port }}
               name: proxy
-            - containerPort: 1694
-              name: jolokia
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback

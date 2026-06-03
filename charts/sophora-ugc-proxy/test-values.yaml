@@ -1,6 +1,4 @@
 service:
-  jolokia:
-    clusterIP: None
   proxy:
     type: LoadBalancer
 
