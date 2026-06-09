@@ -59,6 +59,22 @@ ugcProxy:
         </root>
     </configuration>
   config:
+    ugc-proxy:
+      tenants:
+        tenant1:
+          s3:
+            access-key-id: "xxx"
+            secret-access-key: "xxx"
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc1-submissions"
+          ugc-url: "ugc1.subshell.com"
+        tenant2:
+          s3:
+            access-key-id: "xxx"
+            secret-access-key: "xxx"
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc2-submissions"
+          ugc-url: "ugc2.subshell.com"
 
   extraContainers: []
 

@@ -11,9 +11,8 @@ podSecurityContext: {}
 
 service:
   annotations: {}
-  proxy:
-    type: LoadBalancer
-    loadBalancerIP:
+  type: ClusterIP
+  port: 8080
 
 authentication:
   secrets:
@@ -79,12 +78,66 @@ ugcProxy:
         </root>
     </configuration>
   config:
+    management:
+      endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
+
+      endpoint:
+        prometheus:
+          enabled: true
+        health:
+          show-details: always
+          show-components: always
+
+      metrics:
+        tags:
+          application: ${spring.application.name}
+
+    spring:
+      application:
+        name: UGC Proxy
+
+    ugc-proxy:
+      tenants:
+        tenant1:
+          s3:
+            access-key-id: "xxx"
+            secret-access-key: "xxx"
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc1-submissions"
+          ugc-url: "ugc1.subshell.com"
+        tenant2:
+          s3:
+            access-key-id: "xxx"
+            secret-access-key: "xxx"
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc2-submissions"
+          ugc-url: "ugc2.subshell.com"
 
   extraContainers: []
   extraInitContainers: []
 
 # Additional environment variables can be defined here
 env:
+
+hostAliases:
+
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
 
 resources:
   requests:
@@ -96,5 +149,45 @@ resources:
 nodeSelector: {}
 
 tolerations: []
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+httpRoute:
+  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
+  enabled: false
+  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  # e.g.
+  # parentRefs:
+  #   - name: my-gateway
+  #     namespace: gateway-namespace
+  parentRefs: []
+  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
+  # e.g.
+  # hostnames:
+  #   - "my-service.example.com"
+  hostnames: []
+  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  # e.g.
+  # matches:
+  #   - path:
+  #       type: PathPrefix
+  #       value: /sophora.srpc
+  matches: []
+  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  # e.g.
+  # filters:
+  #   - type: RequestHeaderModifier
+  #     requestHeaderModifier:
+  #       set:
+  #         - name: X-Custom-Header
+  #           value: custom-value
+  filters: []
+  # httpRoute.annotations annotations for the HTTPRoute
+  annotations: {}
 
 affinity: {}

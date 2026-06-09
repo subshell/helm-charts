@@ -42,7 +42,7 @@ spec:
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
-            {{- range .Values.authentication.secret }}
+            {{- range .Values.authentication.secrets }}
             - name: SUBMISSIONS_S3_ACCESSKEYID + {{ .name }}
               valueFrom:
                 secretKeyRef:
@@ -60,13 +60,46 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: {{ default 8080 (.Values.ugcProxy.config.server).port }}
+            - containerPort: 8080
+              protocol: TCP
               name: proxy
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+           {{- end }}
+           {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/readiness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- end }}
+
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback
             - name: application-yml
               mountPath: /config/application
+
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.ugcProxy.extraContainers }}
