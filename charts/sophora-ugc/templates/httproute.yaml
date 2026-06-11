@@ -1,6 +1,5 @@
 {{- if .Values.httpRoute.enabled -}}
   {{- $fullName := include "sophora-ugc.fullname" . -}}
-  {{- $svcPort := default 8080 ($.Values.ugc.config.server).port -}}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -24,8 +23,8 @@ spec:
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $fullName }}
-          port: {{ $svcPort }}
+        - name: {{ $fullName }}-webapp
+          port: 80
       {{- with .Values.httpRoute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}
