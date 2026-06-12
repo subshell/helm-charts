@@ -15,12 +15,15 @@ service:
   port: 80
 
 authentication:
-  s3buckets:
-    - tenantName: ""
-      secretName: s3bucket-secret
-      accessKeyKey: s3bucket-access-key
-      secretIdKey: s3bucket-secret-id
-    # ... add as many S3 buckets as you need
+  # Secrets containing credentials for accessing the submissions S3 bucket per tenant.
+  # Example:
+  # s3buckets:
+  #    - tenantName: "tenant1"
+  #      secretName: s3bucket-secret-1
+  #      accessKeyKey: s3bucket-access-key-1
+  #      secretIdKey: s3bucket-secret-id-1
+  s3buckets: {}
+
 image:
     repository: docker.subshell.com/ugc/ugc-proxy
     pullPolicy: IfNotPresent
