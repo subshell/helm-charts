@@ -47,7 +47,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   key: {{ $bucketConfig.accessKeyKey}}
-                  name: {{ .secretName }}
+                  name: {{ $bucketConfig.secretName }}
                   optional: false
             - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ $tenantName | upper | replace "-" "_" }}
               valueFrom:
