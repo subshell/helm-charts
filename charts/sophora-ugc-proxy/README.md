@@ -52,11 +52,11 @@ httpRoute:
 # Define the physical Kubernetes secrets that hold the S3 credentials
 authentication:
   s3buckets:
-    - tenantName: "tenant1"
+    tenant1:
       secretName: s3bucket-secret-1
       accessKeyKey: s3bucket-access-key-1
       secretIdKey: s3bucket-secret-id-1
-    - tenantName: "tenant2"
+    tenantName2:
       secretName: s3bucket-secret-2
       accessKeyKey: s3bucket-access-key-2
       secretIdKey: s3bucket-secret-id-2  

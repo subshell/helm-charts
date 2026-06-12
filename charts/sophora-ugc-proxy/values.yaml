@@ -18,10 +18,10 @@ authentication:
   # Secrets containing credentials for accessing the submissions S3 bucket per tenant.
   # Example:
   # s3buckets:
-  #    - tenantName: "tenant1"
-  #      secretName: s3bucket-secret-1
-  #      accessKeyKey: s3bucket-access-key-1
-  #      secretIdKey: s3bucket-secret-id-1
+  #    example-tenant:
+  #      secretName: s3bucket-secret-example
+  #      accessKeyKey: access-key
+  #      secretIdKey: secret-id
   s3buckets: {}
 
 image:

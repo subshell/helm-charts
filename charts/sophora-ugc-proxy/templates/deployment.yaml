@@ -42,18 +42,18 @@ spec:
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
-            {{- range .Values.authentication.s3buckets }}
-            - name: SUBMISSIONS_S3_ACCESSKEYID_{{ .tenantName | upper | replace "-" "_" }}
+            {{- range $tenantName, $bucketConfig := .Values.authentication.s3buckets }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID_{{ $tenantName | upper | replace "-" "_" }}
               valueFrom:
                 secretKeyRef:
-                  key: {{ .accessKeyKey }}
+                  key: {{ $bucketConfig.accessKeyKey}}
                   name: {{ .secretName }}
                   optional: false
-            - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ .tenantName | upper | replace "-" "_" }}
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ $tenantName | upper | replace "-" "_" }}
               valueFrom:
                 secretKeyRef:
-                  key: {{ .secretIdKey }}
-                  name: {{ .secretName }}
+                  key: {{ $bucketConfig.secretIdKey }}
+                  name: {{ $bucketConfig.secretName }}
                   optional: false
 
             {{- end }}
