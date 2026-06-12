@@ -12,7 +12,7 @@ podSecurityContext: {}
 service:
   annotations: {}
   type: ClusterIP
-  port: 8080
+  port: 80
 
 authentication:
   secrets:

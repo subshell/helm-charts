@@ -2,7 +2,7 @@
 Expand the name of the chart.
 */}}
 {{- define "sophora-ugc-proxy.name" -}}
-{{- default .Chart.Name .Values.ugcProxy.nameOverride | trunc 63 | trimSuffix "-" }}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*

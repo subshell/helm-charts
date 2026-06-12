@@ -47,7 +47,7 @@ tests:
             rules:
               - backendRefs:
                   - name: values-test-release-sophora-ugc-proxy
-                    port: 8080
+                    port: 80
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
