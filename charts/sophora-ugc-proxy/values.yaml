@@ -15,12 +15,11 @@ service:
   port: 80
 
 authentication:
-  secrets:
+  s3buckets:
     - name: ""
-      s3bucket:
-        name: s3bucket-secret
-        accessKeyKey: s3bucket-access-key
-        secretIdKey: s3bucket-secret-id
+      secretName: s3bucket-secret
+      accessKeyKey: s3bucket-access-key
+      secretIdKey: s3bucket-secret-id
     - name: ""
       s3bucket:
         name: s3bucket-secret
