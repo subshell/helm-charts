@@ -3980,6 +3980,27 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-1.0.0/sophora-ugc-1.0.0.tgz
     version: 1.0.0
+  sophora-ugc-proxy:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Initial version of chart."
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-06-12T14:34:16.463287194Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 5394f454f1382dfd5368f0e1c70ede16d7505169e8569a92f11a1c56198c9f7a
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
+    version: 1.0.0
   sophora-webclient:
   - annotations:
       artifacthub.io/changes: |
@@ -4345,4 +4366,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-12T07:30:20.009130479Z"
+generated: "2026-06-12T14:34:16.463892612Z"
