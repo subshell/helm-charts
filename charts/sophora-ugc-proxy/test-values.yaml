@@ -1,0 +1,108 @@
+nameOverride: ugc-proxy
+
+service:
+  type: ClusterIP
+
+authentication:
+  s3buckets:
+    tenant1:
+      secretName: s3bucket-secret-1
+      accessKeyKey: s3bucket-access-key-1
+      secretIdKey: s3bucket-secret-id-1
+    tenant2:
+      secretName: s3bucket-secret-2
+      accessKeyKey: s3bucket-access-key-2
+      secretIdKey: s3bucket-secret-id-2
+
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "ugc-proxy.test.example.com"
+
+image:
+  repository: docker.subshell.com/ugc/ugc-proxy
+  pullPolicy: Always
+    # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  
+sophora:
+  logback: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true">
+        <jmxConfigurator />
+        <!-- Propagate level settings to java.util.logging. -->
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+        <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/logs/ugc-proxy.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/ugc-proxy.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.30c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <File>/logs/error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.subshell.sophora.ugc.proxy" level="INFO" />
+        <root level="WARN">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="logfile" />
+            <appender-ref ref="errorLog" />
+        </root>
+    </configuration>
+  configuration:
+
+    ugc-proxy:
+      tenants:
+        tenant1:
+          s3:
+            access-key-id: ${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}
+            secret-access-key: ${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT1}
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc1-submissions"
+          ugc-url: "ugc1.subshell.com"
+        tenant2:
+          s3:
+            access-key-id: ${SUBMISSIONS_S3_ACCESSKEYID_TENANT2}
+            secret-access-key: ${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT2}
+            host: "https://storage.googleapis.com"
+            bucket-name: "ugc2-submissions"
+          ugc-url: "ugc2.subshell.com"
+
+extraContainers: []
+
+extraInitContainers: []
+
+# Additional environment variables can be defined here
+env:
+      - name: AAA
+        value: a-value
+      - name: BBB
+        value: b-value
+
+resources:
+  requests:
+    memory: "3.5G"
+    cpu: "0.5"
+  limits:
+    memory: "3.5G"

@@ -1,0 +1,127 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sophora-ugc-proxy.fullname" . }}
+  labels:
+    {{- include "sophora-ugc-proxy.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/ugc-proxy-config.yaml") . | sha256sum }}
+        {{ if .Values.podAnnotations }}
+        {{- toYaml .Values.podAnnotations | nindent 8 -}}
+        {{ end }}
+      labels:
+        {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.hostname }}
+      hostname: {{ .Values.hostname }}
+      {{- end }}
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
+      initContainers:
+        {{- if .Values.extraInitContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
+        {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JAVA_TOOL_OPTIONS
+              value: {{ .Values.javaOptions }}
+            {{- range $tenantName, $bucketConfig := .Values.authentication.s3buckets }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID_{{ $tenantName | upper | replace "-" "_" }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $bucketConfig.accessKeyKey}}
+                  name: {{ $bucketConfig.secretName }}
+                  optional: false
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ $tenantName | upper | replace "-" "_" }}
+              valueFrom:
+                secretKeyRef:
+                  key: {{ $bucketConfig.secretIdKey }}
+                  name: {{ $bucketConfig.secretName }}
+                  optional: false
+
+            {{- end }}
+            {{ if .Values.env -}}
+            {{- toYaml .Values.env | nindent 12 }}
+            {{- end }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+              name: proxy
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+           {{- end }}
+           {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              port: proxy
+              path: /actuator/health/readiness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- end }}
+
+          volumeMounts:
+            - name: logback-xml
+              mountPath: /config/logback
+            - name: application-yml
+              mountPath: /config/application
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.extraContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
+        {{- end }}
+      volumes:
+        - name: application-yml
+          configMap:
+            name: {{ include "sophora-ugc-proxy.fullname" . }}-config
+        - name: logback-xml
+          configMap:
+            name: {{ include "sophora-ugc-proxy.fullname" . }}-logback
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
