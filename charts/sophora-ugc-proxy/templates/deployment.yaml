@@ -33,28 +33,29 @@ spec:
       {{- end }}
       initContainers:
         {{- if .Values.ugcProxy.extraInitContainers }}
-          {{ include "common.tplvalues.render" (dict "value" .Values.ugcProxy.extraInitContainers "context" $) | nindent 8 }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.ugcProxy.image.repository }}:{{ .Values.ugcProxy.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.ugcProxy.image.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
             {{- range .Values.authentication.secrets }}
-            - name: SUBMISSIONS_S3_ACCESSKEYID + {{ .name }}
+            - name: SUBMISSIONS_S3_ACCESSKEYID_{{ .name | upper | replace "-" "_" }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .s3bucket.accessKeyKey }}
                   name: {{ .s3bucket.name }}
-                  optional: true
-            - name: SUBMISSIONS_S3_SECRETACCESSKEY + {{ .name }}
+                  optional: false
+            - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ .name | upper | replace "-" "_" }}
               valueFrom:
                 secretKeyRef:
                   key: {{ .s3bucket.secretIdKey }}
                   name: {{ .s3bucket.name }}
-                  optional: true
+                  optional: false
+
             {{- end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}

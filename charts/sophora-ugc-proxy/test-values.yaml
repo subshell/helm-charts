@@ -1,22 +1,26 @@
 service:
-  proxy:
-    type: LoadBalancer
+  type: ClusterIP
 
 authentication:
   secrets:
-    - name: "subshell"
+    - name: "tenant1"
       s3bucket:
-        name: s3bucket-secret
-        accessKeyKey: s3bucket-access-key
-        secretIdKey: s3bucket-secret-id
+        name: tenant1-s3-secret
+        accessKeyKey: access-key
+        secretIdKey: secret-key
+    - name: "tenant2"
+      s3bucket:
+        name: tenant2-s3-secret
+        accessKeyKey: access-key
+        secretIdKey: secret-key
 
-ugcProxy:
-  image:
-    repository: docker.subshell.com/ugc/ugc-proxy
-    pullPolicy: IfNotPresent
+image:
+  repository: docker.subshell.com/ugc/ugc-proxy
+  pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
-    tag: "latest"
+  tag: "latest"
   
+sophora:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true">
@@ -58,20 +62,21 @@ ugcProxy:
             <appender-ref ref="errorLog" />
         </root>
     </configuration>
-  config:
+  configuration:
+
     ugc-proxy:
       tenants:
         tenant1:
           s3:
-            access-key-id: "xxx"
-            secret-access-key: "xxx"
+            access-key-id: ${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}
+            secret-access-key: ${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT1}
             host: "https://storage.googleapis.com"
             bucket-name: "ugc1-submissions"
           ugc-url: "ugc1.subshell.com"
         tenant2:
           s3:
-            access-key-id: "xxx"
-            secret-access-key: "xxx"
+            access-key-id: ${SUBMISSIONS_S3_ACCESSKEYID_TENANT2}
+            secret-access-key: ${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT2}
             host: "https://storage.googleapis.com"
             bucket-name: "ugc2-submissions"
           ugc-url: "ugc2.subshell.com"
@@ -82,6 +87,10 @@ ugcProxy:
 
 # Additional environment variables can be defined here
 env:
+      - name: AAA
+        value: a-value
+      - name: BBB
+        value: b-value
 
 resources:
   requests:

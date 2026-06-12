@@ -26,16 +26,17 @@ authentication:
         name: s3bucket-secret
         accessKeyKey: s3bucket-access-key
         secretIdKey: s3bucket-secret-id
-
-ugcProxy:
-  image:
+image:
     repository: docker.subshell.com/ugc/ugc-proxy
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
-  hostname: ""
-  nameOverride: ""
-  fullnameOverride: ""
+
+hostname: ""
+nameOverride: ""
+fullnameOverride: ""
+
+sophora:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true">
@@ -77,9 +78,9 @@ ugcProxy:
             <appender-ref ref="errorLog" />
         </root>
     </configuration>
-  config:
+  configuration:
     management:
-      endpoints.web.exposure.include: sophora, info, health, jolokia, threaddump, prometheus
+      endpoints.web.exposure.include: info, health, prometheus
 
       endpoint:
         prometheus:
@@ -97,24 +98,10 @@ ugcProxy:
         name: UGC Proxy
 
     ugc-proxy:
-      tenants:
-        tenant1:
-          s3:
-            access-key-id: "xxx"
-            secret-access-key: "xxx"
-            host: "https://storage.googleapis.com"
-            bucket-name: "ugc1-submissions"
-          ugc-url: "ugc1.subshell.com"
-        tenant2:
-          s3:
-            access-key-id: "xxx"
-            secret-access-key: "xxx"
-            host: "https://storage.googleapis.com"
-            bucket-name: "ugc2-submissions"
-          ugc-url: "ugc2.subshell.com"
+      tenants: {}
 
-  extraContainers: []
-  extraInitContainers: []
+extraContainers: []
+extraInitContainers: []
 
 # Additional environment variables can be defined here
 env:
@@ -145,10 +132,6 @@ resources:
     memory: "2.5G"
   limits:
     memory: "2.5G"
-
-nodeSelector: {}
-
-tolerations: []
 
 ingress:
   enabled: false
@@ -190,4 +173,9 @@ httpRoute:
   # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 
+
+nodeSelector: {}
+
 affinity: {}
+
+tolerations: []
