@@ -5,5 +5,5 @@ metadata:
   labels:
     app: {{ include "sophora-ugc-proxy.fullname" . }}
 data:
-  application.yml: |- {{ toYaml ( required "A configuration is required" .Values.ugcProxy.config) | nindent 4 }}
-  logback-spring.xml: |- {{ .Values.ugcProxy.logback | nindent 4}}
+  application.yml: |- {{ toYaml ( required "A configuration is required" .Values.sophora.configuration) | nindent 4 }}
+  logback-spring.xml: |- {{ .Values.sophora.logback | nindent 4}}
