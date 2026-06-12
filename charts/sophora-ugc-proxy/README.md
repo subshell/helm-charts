@@ -103,7 +103,7 @@ sophora:
           s3:
             access-key-id: "${SUBMISSIONS_S3_ACCESSKEYID_TENANT2}"
             secret-access-key: "${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT2}"
-            host: ""https://storage.googleapis.com"
+            host: "https://storage.googleapis.com"
             bucket-name: "tenant2-ugc-submissions"
           ugc-url: "ugc2.subshell.com"
           
