@@ -21,7 +21,7 @@ tests:
       - containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-ugc
+          name: values-test-release-sophora-ugc-proxy
       - equal:
           path: metadata
           value:
