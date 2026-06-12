@@ -14,6 +14,14 @@ authentication:
         accessKeyKey: access-key
         secretIdKey: secret-key
 
+httpRoute:
+  enabled: true
+  parentRefs:
+    - name: test-gateway
+      namespace: gateway-system
+  hostnames:
+    - "ugc-proxy.test.example.com"
+
 image:
   repository: docker.subshell.com/ugc/ugc-proxy
   pullPolicy: Always
