@@ -60,6 +60,7 @@ authentication:
       secretName: s3bucket-secret-2
       accessKeyKey: s3bucket-access-key-2
       secretIdKey: s3bucket-secret-id-2  
+    # ... add as many S3 buckets as you need
 
 sophora:
   configuration:
@@ -106,6 +107,9 @@ sophora:
             host: "[https://storage.googleapis.com](https://storage.googleapis.com)"
             bucket-name: "tenant2-ugc-submissions"
           ugc-url: "ugc2.subshell.com"
+          
+          # ... add as many tenants as you need
+
 
 resources:
   requests:
