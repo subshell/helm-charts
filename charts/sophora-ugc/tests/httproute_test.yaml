@@ -46,8 +46,8 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-ugc
-                    port: 8080
+                  - name: values-test-release-sophora-ugc-webapp
+                    port: 80
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
