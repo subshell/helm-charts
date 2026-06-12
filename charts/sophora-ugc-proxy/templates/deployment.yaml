@@ -19,8 +19,8 @@ spec:
       labels:
         {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 8 }}
     spec:
-      {{- if .Values.ugcProxy.hostname }}
-      hostname: {{ .Values.ugcProxy.hostname }}
+      {{- if .Values.hostname }}
+      hostname: {{ .Values.hostname }}
       {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -32,7 +32,7 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       initContainers:
-        {{- if .Values.ugcProxy.extraInitContainers }}
+        {{- if .Values.extraInitContainers }}
           {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
         {{- end }}
       containers:
@@ -103,8 +103,8 @@ spec:
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-        {{- if .Values.ugcProxy.extraContainers }}
-          {{ include "common.tplvalues.render" (dict "value" .Values.ugcProxy.extraContainers "context" $) | nindent 8 }}
+        {{- if .Values.extraContainers }}
+          {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
         {{- end }}
       volumes:
         - name: application-yml

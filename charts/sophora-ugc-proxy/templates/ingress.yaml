@@ -1,6 +1,7 @@
 {{- if .Values.ingress.enabled -}}
   {{- $fullName := include "sophora-ugc-proxy.fullname" . -}}
   {{- $svcPort := .Values.service.port -}}
+  {{- $_ := required "ingress.hosts must be set when ingress.enabled=true" .Values.ingress.hosts -}}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:

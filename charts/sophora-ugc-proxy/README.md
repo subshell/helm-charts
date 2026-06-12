@@ -18,13 +18,12 @@ Always ensure that access to sensitive actuator or management endpoints is prope
 
 ## Example values.yaml
 
-Below is a comprehensive example of how to configure the UGC Proxy for multiple tenants. Notice how the S3 credentials map the dynamically generated environment variables (e.g., `${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}`) to the physical Kubernetes secrets defined under `authentication.secrets`.
-
+Below is a comprehensive example of how to configure the UGC Proxy for multiple tenants. Notice how the S3 credentials map the dynamically generated environment variables (e.g., `${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}`) to the physical Kubernetes secrets defined under `authentication.s3buckets`.
 ```yaml
 replicaCount: 1
 
 image:
-  repository: [docker.subshell.com/ugc/ugc-proxy](https://docker.subshell.com/ugc/ugc-proxy)
+  repository: docker.subshell.com/ugc/ugc-proxy
   pullPolicy: Always
   tag: "latest"
 
@@ -96,7 +95,7 @@ sophora:
           s3:
             access-key-id: "${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}"
             secret-access-key: "${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT1}"
-            host: "[https://storage.googleapis.com](https://storage.googleapis.com)"
+            host: ""https://storage.googleapis.com"
             bucket-name: "tenant1-ugc-submissions"
           ugc-url: "ugc1.subshell.com"
           
@@ -104,7 +103,7 @@ sophora:
           s3:
             access-key-id: "${SUBMISSIONS_S3_ACCESSKEYID_TENANT2}"
             secret-access-key: "${SUBMISSIONS_S3_SECRETACCESSKEY_TENANT2}"
-            host: "[https://storage.googleapis.com](https://storage.googleapis.com)"
+            host: ""https://storage.googleapis.com"
             bucket-name: "tenant2-ugc-submissions"
           ugc-url: "ugc2.subshell.com"
           

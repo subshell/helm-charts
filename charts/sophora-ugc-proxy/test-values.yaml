@@ -89,9 +89,9 @@ sophora:
             bucket-name: "ugc2-submissions"
           ugc-url: "ugc2.subshell.com"
 
-  extraContainers: []
+extraContainers: []
 
-  extraInitContainers: []
+extraInitContainers: []
 
 # Additional environment variables can be defined here
 env:
