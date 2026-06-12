@@ -27,8 +27,8 @@ tests:
           value:
             name: values-test-release-sophora-ugc-proxy
             labels:
-              helm.sh/chart: sophora-ugc-0.9.8
-              app.kubernetes.io/name: sophora-ugc
+              helm.sh/chart: sophora-ugc-proxy-0.9.8
+              app.kubernetes.io/name: sophora-ugc-proxy
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
@@ -47,7 +47,7 @@ tests:
             rules:
               - backendRefs:
                   - name: values-test-release-sophora-ugc-proxy
-                    port: 80
+                    port: 8080
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
