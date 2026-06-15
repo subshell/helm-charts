@@ -229,3 +229,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+healthCheckPolicy:
+  enabled: false
+
