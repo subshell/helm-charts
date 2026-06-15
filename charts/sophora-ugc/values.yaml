@@ -60,7 +60,6 @@ httpRoute:
   # extraDeploy Additional Kubernetes resources to deploy with this release
 extraDeploy: []
 
-
 authentication:
   secret:
     server:
