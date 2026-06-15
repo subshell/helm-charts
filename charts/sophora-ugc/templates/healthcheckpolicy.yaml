@@ -1,0 +1,31 @@
+{{- if .Values.healthCheckPolicy.enabled -}}
+{{- $fullName := include "sophora-ugc.fullname" . -}}
+{{- $healthCheckPolicy := .Values.healthCheckPolicy | default dict -}}
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ default (printf "%s-healthcheck" $fullName) $healthCheckPolicy.name }}
+  labels:
+    {{- include "sophora-ugc.labels" . | nindent 4 }}
+  {{- with $healthCheckPolicy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  default:
+    checkIntervalSec: {{ default 15 $healthCheckPolicy.checkIntervalSec }}
+    timeoutSec: {{ default 5 $healthCheckPolicy.timeoutSec }}
+    healthyThreshold: {{ default 1 $healthCheckPolicy.healthyThreshold }}
+    unhealthyThreshold: {{ default 2 $healthCheckPolicy.unhealthyThreshold }}
+    logConfig:
+      enabled: {{ default true $healthCheckPolicy.logging }}
+    config:
+      type: {{ default "HTTP" $healthCheckPolicy.type }}
+      httpHealthCheck:
+        portSpecification: {{ default "USE_SERVING_PORT" $healthCheckPolicy.portSpecification }}
+        requestPath: {{ default "/health" $healthCheckPolicy.requestPath }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ default (printf "%s-webapp" $fullName) $healthCheckPolicy.serviceName }}
+{{- end }}
