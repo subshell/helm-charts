@@ -3623,6 +3623,25 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added support to deploy extra resources."
+      artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-06-15T10:02:04.855955257Z"
+    description: A Helm chart for Kubernetes
+    digest: 139a12f44155952b1aebf52a2af439223992037f44b98c67098bcaec5cb6f95b
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.3.0/sophora-ugc-2.3.0.tgz
+    version: 2.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed backendRef of httpRoute"
       artifacthub.io/links: "- name: Documentation for Sophora UGC \n  url: https://subshell.com/docs/ugc/\n"
@@ -4385,4 +4404,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-15T09:34:38.025798024Z"
+generated: "2026-06-15T10:02:04.856385156Z"
