@@ -4,14 +4,11 @@ description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected 
 
 type: application
 
-version: 1.0.0
+version: 1.0.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Initial version of chart."
-  artifacthub.io/links: |
-    - name: Documentation for Sophora UGC 
-      url: https://subshell.com/docs/ugc/
+    - kind: fixed
+      description: "Fixed configuration and logback paths"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
