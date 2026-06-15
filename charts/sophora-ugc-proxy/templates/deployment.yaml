@@ -46,7 +46,7 @@ spec:
             - name: SUBMISSIONS_S3_ACCESSKEYID_{{ $tenantName | upper | replace "-" "_" }}
               valueFrom:
                 secretKeyRef:
-                  key: {{ $bucketConfig.accessKeyKey}}
+                  key: {{ $bucketConfig.accessKeyKey }}
                   name: {{ $bucketConfig.secretName }}
                   optional: false
             - name: SUBMISSIONS_S3_SECRETACCESSKEY_{{ $tenantName | upper | replace "-" "_" }}
@@ -110,9 +110,15 @@ spec:
         - name: application-yml
           configMap:
             name: {{ include "sophora-ugc-proxy.fullname" . }}-config
+            items:
+              - key: application.yml
+                path: application.yml
         - name: logback-xml
           configMap:
-            name: {{ include "sophora-ugc-proxy.fullname" . }}-logback
+            name: {{ include "sophora-ugc-proxy.fullname" . }}-config
+            items:
+              - key: logback-spring.xml
+                path: logback-spring.xml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
