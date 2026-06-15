@@ -57,6 +57,9 @@ httpRoute:
   # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
 
+  # extraDeploy Additional Kubernetes resources to deploy with this release
+extraDeploy: []
+
 authentication:
   secret:
     server:
