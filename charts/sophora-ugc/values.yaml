@@ -232,5 +232,3 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-
