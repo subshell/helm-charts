@@ -19,7 +19,7 @@ version: 2.3.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added host aliases support."
+      description: "Added support to deploy extra resources."
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/
