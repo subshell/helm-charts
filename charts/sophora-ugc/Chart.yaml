@@ -18,8 +18,8 @@ type: application
 version: 2.3.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Fixed backendRef of httpRoute"
+    - kind: added
+      description: "Added host aliases support."
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC 
       url: https://subshell.com/docs/ugc/
