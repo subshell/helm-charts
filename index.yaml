@@ -4003,6 +4003,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed volumes mounts of application.yml and logback.xml"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-06-16T06:25:53.804556148Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 6e236815a2296f7cb30328d71503bbaadb446cf1bd6f9b32a30de700d6d7f878
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.2/sophora-ugc-proxy-1.0.2.tgz
+    version: 1.0.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed configuration and logback paths"
     apiVersion: v2
     appVersion: 5.9.0
@@ -4404,4 +4423,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-15T10:02:04.856385156Z"
+generated: "2026-06-16T06:25:53.805042784Z"
