@@ -96,10 +96,8 @@ spec:
             {{- end }}
 
           volumeMounts:
-            - name: logback-xml
-              mountPath: /config/logback
-            - name: application-yml
-              mountPath: /config/application
+            - name: proxy-config
+              mountPath: /app/config
 
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
@@ -107,18 +105,9 @@ spec:
           {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}
         {{- end }}
       volumes:
-        - name: application-yml
+        - name: proxy-config
           configMap:
             name: {{ include "sophora-ugc-proxy.fullname" . }}-config
-            items:
-              - key: application.yml
-                path: application.yml
-        - name: logback-xml
-          configMap:
-            name: {{ include "sophora-ugc-proxy.fullname" . }}-config
-            items:
-              - key: logback-spring.xml
-                path: logback-spring.xml
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
