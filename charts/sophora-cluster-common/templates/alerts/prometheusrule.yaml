@@ -22,7 +22,7 @@ spec:
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: SophoraReplicaServerNotInSync
           for: {{ .Values.prometheusRules.config.SophoraReplicaServerNotInSync.for }}
-          expr: 'max(sophora_server_source_time{namespace="{{ .Release.Namespace }}"} and sophora_server_is_primary_server{namespace="{{ .Release.Namespace }}"} == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state{namespace="{{ .Release.Namespace }}"} == 2 and and sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 2) > 60000'
+          expr: 'max(sophora_server_source_time{namespace="{{ .Release.Namespace }}"} and sophora_server_is_primary_server{namespace="{{ .Release.Namespace }}"} == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time{namespace="{{ .Release.Namespace }}"}  and sophora_server_state{namespace="{{ .Release.Namespace }}"} == 2 and and sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 2) > 60000'
           labels:
             severity: high
             namespace: "{{ .Release.Namespace }}"
