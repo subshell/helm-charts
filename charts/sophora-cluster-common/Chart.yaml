@@ -2,11 +2,15 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.4.4
+version: 1.5.0
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "added rule configuration options"
+    - kind: added
+      description: "added SophoraStagingServerNotInSync"
     - kind: changed
-      description: "updated comment format in values.yaml for properties"
+      description: "The SophoraReplicaServerNotInSync does no longer include staging server"
 
 appVersion: "4"
 sources:

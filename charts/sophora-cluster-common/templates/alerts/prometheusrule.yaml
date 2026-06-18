@@ -11,7 +11,7 @@ spec:
       rules:
         {{- if $defaultRulesEnabled }}
         - alert: NoPrimarySophoraServer
-          for: 1m
+          for: {{ .Values.prometheusRules.config.NoPrimarySophoraServer.for }}
           expr: 'absent(sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 1)'
           labels:
             severity: critical
@@ -20,18 +20,28 @@ spec:
             summary: The Sophora Cluster has no primary.
             description: No primary server elected in the cluster.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
-        - alert: SophoraServerNotInSync
-          for: 2m
-          expr: 'max(sophora_server_source_time and sophora_server_is_primary_server{namespace="{{ .Release.Namespace }}"} == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state{namespace="{{ .Release.Namespace }}"} == 2) > 60000'
+        - alert: SophoraReplicaServerNotInSync
+          for: {{ .Values.prometheusRules.config.SophoraReplicaServerNotInSync.for }}
+          expr: 'max(sophora_server_source_time{namespace="{{ .Release.Namespace }}"} and sophora_server_is_primary_server{namespace="{{ .Release.Namespace }}"} == 1) - ignoring(pod) group_right max by (pod) (sophora_server_source_time and sophora_server_state{namespace="{{ .Release.Namespace }}"} == 2 and and sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 2) > 60000'
           labels:
             severity: high
             namespace: "{{ .Release.Namespace }}"
           annotations:
-            summary: Server is not in sync
+            summary: Replica is not in sync
+            description: The server  "{{`{{ $labels.pod }}`}}" is not in sync.
+            runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
+        - alert: SophoraStagingServerNotInSync
+          for: {{ .Values.prometheusRules.config.SophoraStagingServerNotInSync.for }}
+          expr: 'sophora_server_source_time{namespace="{{ .Release.Namespace }}"} and on(pod) (sophora_server_state{namespace="{{ .Release.Namespace }}"} == 3 or sophora_server_state{namespace="{{ .Release.Namespace }}"} == 4) and on(pod) sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 3 > 0'
+          labels:
+            severity: high
+            namespace: "{{ .Release.Namespace }}"
+          annotations:
+            summary: Staging is not in sync
             description: The server  "{{`{{ $labels.pod }}`}}" is not in sync.
             runbook_url: 'https://github.com/subshell/helm-charts/blob/main/charts/sophora-cluster-common/alerting-runbook.md'
         - alert: MultiplePrimarySophoraServers
-          for: 1m
+          for: {{ .Values.prometheusRules.config.MultiplePrimarySophoraServers.for }}
           expr: 'count(sophora_server_replication_mode{namespace="{{ .Release.Namespace }}"} == 1) > 1'
           labels:
             severity: critical
