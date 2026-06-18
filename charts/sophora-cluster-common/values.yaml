@@ -91,6 +91,15 @@ prometheusRules:
   enabled: false
   # prometheusRules.defaultRulesEnabled Whether the default rules should be installed
   defaultRulesEnabled: true
+  config:
+    NoPrimarySophoraServer:
+      for: 1m
+    SophoraReplicaServerNotInSync:
+      for: 2m
+    SophoraStagingServerNotInSync:
+      for: 10m
+    MultiplePrimarySophoraServers:
+      for: 1m
   # prometheusRules.rules allows to add custom rules
   rules: []
 
