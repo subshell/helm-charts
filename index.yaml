@@ -954,6 +954,28 @@ entries:
   sophora-cluster-common:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "added prometheus alert rule configuration options"
+        - kind: added
+          description: "added prometheus alert rule SophoraStagingServerNotInSync"
+        - kind: changed
+          description: "The prometheus alert rule SophoraReplicaServerNotInSync does no longer include staging servers"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-06-18T14:20:18.235679683Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 4cb84998378a09a194e3922d4ce22b58d64751d897377c051fe0ee556bf57e15
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.5.0/sophora-cluster-common-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "updated comment format in values.yaml for properties"
     apiVersion: v2
@@ -4423,4 +4445,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-16T06:25:53.805042784Z"
+generated: "2026-06-18T14:20:18.236126185Z"
