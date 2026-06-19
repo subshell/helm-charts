@@ -2,15 +2,11 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.5.0
+version: 1.5.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "added prometheus alert rule configuration options"
-    - kind: added
-      description: "added prometheus alert rule SophoraStagingServerNotInSync"
-    - kind: changed
-      description: "The prometheus alert rule SophoraReplicaServerNotInSync does no longer include staging servers"
+    - kind: fixed
+      description: "fixed invalid prometheus rule SophoraReplicaServerNotInSync"
 
 appVersion: "4"
 sources:
