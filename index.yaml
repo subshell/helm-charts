@@ -954,6 +954,24 @@ entries:
   sophora-cluster-common:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed invalid prometheus rule SophoraReplicaServerNotInSync"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-06-19T11:32:14.170039823Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 780ef7dc3439a9baaee1510f701feead555d82f7f616368430042e4a255f4eca
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.5.1/sophora-cluster-common-1.5.1.tgz
+    version: 1.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added prometheus alert rule configuration options"
         - kind: added
@@ -4445,4 +4463,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-18T14:20:18.236126185Z"
+generated: "2026-06-19T11:32:14.17085128Z"
