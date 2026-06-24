@@ -25,7 +25,7 @@ authentication:
   s3buckets: {}
 
 image:
-    repository: docker.subshell.com/ugc/ugc-proxy
+    repository: container.subshell.com/sophora/ugc-proxy
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""

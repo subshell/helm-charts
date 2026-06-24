@@ -1,11 +1,11 @@
 image:
-  repository: docker.subshell.com/metadata-supplier/metadata-supplier
+  repository: container.subshell.com/metadata-supplier/metadata-supplier
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 downloadViaS3Image:
-  repository: "docker.subshell.com/misc/aws-cli-tools"
+  repository: "container.subshell.com/misc/aws-cli-tools"
   tag: "0.0.2"
   pullPolicy: IfNotPresent
 

@@ -1,16 +1,16 @@
 image:
-  repository: docker.subshell.com/sophora/sophora-importer
+  repository: container.subshell.com/sophora/sophora-importer
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
 downloadViaHttpImage:
-  repository: "docker.subshell.com/misc/alpine-toolkit"
+  repository: "container.subshell.com/misc/alpine-toolkit"
   tag: "0.2.0"
   pullPolicy: IfNotPresent
 
 s3CliImage:
-  repository: "docker.subshell.com/misc/aws-cli-tools"
+  repository: "container.subshell.com/misc/aws-cli-tools"
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 

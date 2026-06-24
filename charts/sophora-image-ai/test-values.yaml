@@ -1,13 +1,13 @@
 nameOverride: image-ai
 
 image:
-  repository: docker.subshell.com/sophora/imageai
+  repository: container.subshell.com/sophora/imageai
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 sophora:
   authentication:

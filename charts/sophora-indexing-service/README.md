@@ -10,7 +10,7 @@ They are not included as Chart dependencies, and they need to be installed separ
 * [bitnami/redis](https://bitnami.com/stack/redis/helm)
 * [bitnami/solr](https://bitnami.com/stack/solr/helm)
 
-## Example 
+## Example
 
 ```yaml
 image:
@@ -18,7 +18,7 @@ image:
   tag: "latest"
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 solr:
   basicAuth:

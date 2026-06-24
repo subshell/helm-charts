@@ -26,7 +26,7 @@ spec:
       {{- end }}
       initContainers:
         - name: seo-check-init
-          image: docker.subshell.com/sophora/seocheck-k8s-init:latest
+          image: container.subshell.com/sophora/seocheck-k8s-init:latest
           imagePullPolicy: IfNotPresent
           env:
             - name: GOOGLE_STORAGE_BASE_URI

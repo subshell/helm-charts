@@ -2,7 +2,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  name: docker.subshell.com/sophora/sophora-webclient
+  name: container.subshell.com/sophora/sophora-webclient
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   pullPolicy: IfNotPresent

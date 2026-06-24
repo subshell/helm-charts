@@ -6,8 +6,8 @@ This chart deploys the Sophora UGC Proxy, which acts as a gateway and is connect
 
 This chart requires the following already present in the target namespace:
 
-* An `ImagePullSecret` for the subshell Docker Registry.
-* Kubernetes `Secrets` containing the S3 bucket credentials (Access Key and Secret Key) for **each** configured tenant.
+- An `ImagePullSecret` for the subshell Docker Registry.
+- Kubernetes `Secrets` containing the S3 bucket credentials (Access Key and Secret Key) for **each** configured tenant.
 
 ## Network configuration
 
@@ -19,11 +19,12 @@ Always ensure that access to sensitive actuator or management endpoints is prope
 ## Example values.yaml
 
 Below is a comprehensive example of how to configure the UGC Proxy for multiple tenants. Notice how the S3 credentials map the dynamically generated environment variables (e.g., `${SUBMISSIONS_S3_ACCESSKEYID_TENANT1}`) to the physical Kubernetes secrets defined under `authentication.s3buckets`.
+
 ```yaml
 replicaCount: 1
 
 image:
-  repository: docker.subshell.com/ugc/ugc-proxy
+  repository: container.subshell.com/sophora/ugc-proxy
   pullPolicy: Always
   tag: "latest"
 
@@ -58,7 +59,7 @@ authentication:
     tenantName2:
       secretName: s3bucket-secret-2
       accessKeyKey: s3bucket-access-key-2
-      secretIdKey: s3bucket-secret-id-2  
+      secretIdKey: s3bucket-secret-id-2
     # ... add as many S3 buckets as you need
 
 sophora:
@@ -98,7 +99,7 @@ sophora:
             host: "https://storage.googleapis.com"
             bucket-name: "tenant1-ugc-submissions"
           ugc-url: "ugc1.subshell.com"
-          
+
         tenant2:
           s3:
             access-key-id: "${SUBMISSIONS_S3_ACCESSKEYID_TENANT2}"
@@ -106,9 +107,8 @@ sophora:
             host: "https://storage.googleapis.com"
             bucket-name: "tenant2-ugc-submissions"
           ugc-url: "ugc2.subshell.com"
-          
-          # ... add as many tenants as you need
 
+          # ... add as many tenants as you need
 
 resources:
   requests:
@@ -116,3 +116,4 @@ resources:
     memory: "2.5G"
   limits:
     memory: "2.5G"
+```

@@ -16,7 +16,7 @@ For example, you can create an indexer image with the solr plugin with custom gr
 with the following Dockerfile:
 
 ```
-FROM docker.subshell.com/sophora/sophora-indexer/solr:4
+FROM container.subshell.com/sophora/sophora-indexer/solr:4
 
 COPY <path to your groovy scripts> /indexer/groovy
 ```
