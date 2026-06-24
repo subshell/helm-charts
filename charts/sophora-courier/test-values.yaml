@@ -1,5 +1,5 @@
 image:
-  repository: docker.subshell.com/sophora-courier/base
+  repository: container.subshell.com/sophora-courier/base
   pullPolicy: Always
   tag: # Overrides the image tag whose default is the chart appVersion.
 

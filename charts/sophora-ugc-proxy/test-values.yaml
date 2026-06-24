@@ -23,11 +23,11 @@ httpRoute:
     - "ugc-proxy.test.example.com"
 
 image:
-  repository: docker.subshell.com/ugc/ugc-proxy
+  repository: container.subshell.com/sophora/ugc-proxy
   pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
-  
+
 sophora:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>

@@ -66,7 +66,7 @@ applications:
     name: newsroom-document-creator
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-document-creator
+      repository: container.subshell.com/customers/newsroom-document-creator
       pullPolicy: IfNotPresent
       tag: ""
     service:
@@ -106,7 +106,7 @@ applications:
     name: newsroom-feed
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-feed
+      repository: container.subshell.com/customers/newsroom-feed
       pullPolicy: IfNotPresent
       tag: ""
     service:
@@ -148,7 +148,7 @@ applications:
     name: newsroom-widget
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-widget
+      repository: container.subshell.com/customers/newsroom-widget
       pullPolicy: IfNotPresent
       tag: ""
     service:

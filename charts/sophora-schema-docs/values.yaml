@@ -2,7 +2,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: docker.subshell.com/sophora/schemadoc
+  repository: container.subshell.com/sophora/schemadoc
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "5.0.0"

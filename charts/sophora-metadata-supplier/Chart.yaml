@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.4.1
+version: 1.5.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "Alert for job queue ignores low priority queue."
+      description: "Changed docker.subshell.com to container.subshell.com."
 
 appVersion: '4.14.0'
 sources:
