@@ -1,5 +1,5 @@
 image:
-  repository: container.subshell.com/metadata-supplier/metadata-supplier
+  repository: container.subshell.com/sophora/metadata-supplier
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
