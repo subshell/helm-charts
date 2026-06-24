@@ -610,6 +610,23 @@ entries:
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-06-24T15:09:12.261744622Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 3cbb212a674b8e18f12c81eeffb440fc8f498c56d1e9faeb2b9f9f632e0fb9c0
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.1.0/planr-tools-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: Initial release of the planr-tools chart.
     apiVersion: v2
@@ -626,6 +643,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    created: "2026-06-24T15:09:12.474105094Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: a0ab7ead27faf6467d208a827e41590be58dd8b80e07ce7aec28580d9bebce07
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.7.0/sophora-admin-dashboard-1.7.0.tgz
+    version: 1.7.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -779,6 +816,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
   sophora-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 1.7.0
+    created: "2026-06-24T15:09:12.697213329Z"
+    description: Sophora AI
+    digest: b8d585325c4180a4b434dc4bdfd00f3756793869126a5867bd9bb7dee1f8755b
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.4.0/sophora-ai-2.4.0.tgz
+    version: 2.4.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -1167,6 +1222,22 @@ entries:
   sophora-contentapi:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-06-24T15:09:12.914153919Z"
+    description: Sophora Content API
+    digest: 705200e7a670e6e92acf6f83ab737cc826128641b611cbdaa2dd49ce77056b3a
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.2.0/sophora-contentapi-1.2.0.tgz
+    version: 1.2.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -1208,6 +1279,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.0.0/sophora-contentapi-1.0.0.tgz
     version: 1.0.0
   sophora-courier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.0.2
+    created: "2026-06-24T15:09:13.085794466Z"
+    description: A Helm chart for Sophora Courier
+    digest: 0c24e2502846908f2b944b3c6b0fe450874640ce926a43419218fa16abb7acf3
+    name: sophora-courier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-courier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-courier-1.2.0/sophora-courier-1.2.0.tgz
+    version: 1.2.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -1255,6 +1342,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-courier-1.0.1/sophora-courier-1.0.1.tgz
     version: 1.0.1
   sophora-export-job:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-06-24T15:09:13.2468328Z"
+    description: A Helm chart for a generic one-time export job
+    digest: 42add5f0f7ec5e32569ad7f43c0f43ab8f2306c6d10f5c25ab4f33b831766854
+    name: sophora-export-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-export-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-export-job-2.3.0/sophora-export-job-2.3.0.tgz
+    version: 2.3.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1414,6 +1517,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-06-24T15:09:13.440379041Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: b6bb4f0cd7480d98c7f3a732c2f698bba309ebecce564df9f0250dd7abf66013
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.7.0/sophora-image-access-service-1.7.0.tgz
+    version: 1.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added affinity"
     apiVersion: v2
@@ -1547,6 +1668,24 @@ entries:
   sophora-image-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-06-24T15:09:13.59708339Z"
+    description: Sophora Image AI
+    digest: c40cca8aba21350bb9fc71b2548b69bc7aaee901bede9f1bc16a1197000b394c
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.3.0/sophora-image-ai-2.3.0.tgz
+    version: 2.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -1664,6 +1803,24 @@ entries:
   sophora-image-update-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.4.8
+    created: "2026-06-24T15:09:13.78306305Z"
+    description: A Helm chart for the Sophora Image Update Service
+    digest: 9f24765d45860f27aa1418f6f8b9cfdbedfb52d8ca08f50099092cb0c1cee454
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-update-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-update-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.1.0/sophora-image-update-service-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
@@ -1721,6 +1878,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.0.0/sophora-image-update-service-1.0.0.tgz
     version: 1.0.0
   sophora-import-job:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.4.0
+    created: "2026-06-24T15:09:13.988333639Z"
+    description: A Helm chart for the repository import
+    digest: 5e06b4803559a7a63a276fc5cfa9df56f3dbf373b4f565343658229ba175ce88
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.8.0/sophora-import-job-1.8.0.tgz
+    version: 1.8.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1930,6 +2105,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.0/sophora-import-job-1.0.0.tgz
     version: 1.0.0
   sophora-importer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-06-24T15:09:14.170002895Z"
+    description: A Helm chart for the Sophora importer
+    digest: 0ff8690533fa319e5dbca1133ab974604d3208163733b2daef164335b6a31a8b
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.7.0/sophora-importer-2.7.0.tgz
+    version: 2.7.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2260,6 +2453,22 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.2.2
+    created: "2026-06-24T15:09:14.372879702Z"
+    description: A Helm chart for Kubernetes
+    digest: 38e0446acedc5b57013f455ffd2bb065030c1f6fcd885ad81e73f2ddee049559
+    name: sophora-indexer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.2.0/sophora-indexer-1.2.0.tgz
+    version: 1.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "bump alpine-toolkit image version to 0.2.0 to update curl"
     apiVersion: v2
     appVersion: 4.2.2
@@ -2314,6 +2523,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-06-24T15:09:14.535635899Z"
+    description: Sophora Indexing Service (SISI)
+    digest: f48f86959c67af4243152a676a6e5e8252a7cee90ac31e36c693fce270c2cc63
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.7.0/sophora-indexing-service-1.7.0.tgz
+    version: 1.7.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2479,6 +2706,24 @@ entries:
   sophora-linkchecker:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-06-24T15:09:14.696867289Z"
+    description: Sophora Link Checker
+    digest: 4b31791fdfcc683dffc3767cca506b5b445167afd2ba186ec9ed56b0dabce62d
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.3.0/sophora-linkchecker-0.3.0.tgz
+    version: 0.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -2544,6 +2789,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-06-24T15:09:14.880520987Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: 209567b26004e8221672315a1dedc817d10f75946df61f4af6b60be9b661ef05
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.4.0/sophora-media-finder-0.4.0.tgz
+    version: 0.4.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2671,6 +2934,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-06-24T15:09:15.102964162Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 51a34fab3341ca62c48098ca5ca2be228d9a7d065818bc816a27fe5a02f5973b
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.5.0/sophora-metadata-supplier-1.5.0.tgz
+    version: 1.5.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -2846,6 +3127,24 @@ entries:
   sophora-schema-docs:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-06-24T15:09:15.321532645Z"
+    description: Sophora Schema Docs
+    digest: f7ce2a4acc10d6c74bad3fd6f6b76f20bfc2404a383b74bbb653afdd9e6383e1
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.3.0/sophora-schema-docs-2.3.0.tgz
+    version: 2.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -2973,6 +3272,24 @@ entries:
   sophora-seo-check:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-06-24T15:09:15.570443683Z"
+    description: Sophora SEO Check
+    digest: b6e4d5bffe662bd851302ce9c08524552a87722de7cbd56d7c0354d10633174a
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.2.0/sophora-seo-check-1.2.0.tgz
+    version: 1.2.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HTTPRoute support for Gateway API."
     apiVersion: v2
@@ -3028,6 +3345,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-06-24T15:09:15.782045722Z"
+    description: A Helm chart for the Sophora Server
+    digest: 6baf73f859f285f2e6e7bc21d501398cb93349bafe73acb1b89fd31372a6f9d7
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.4.0/sophora-server-3.4.0.tgz
+    version: 3.4.0
   - annotations:
       artifacthub.io/changes: |
         - kind: "added"
@@ -3628,6 +3963,20 @@ entries:
   sophora-tablestar-controller:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.6.10
+    created: "2026-06-24T15:09:16.015536847Z"
+    description: A Helm chart for the Sophora TableStar Controller
+    digest: cba50a09ef50c5ecc4a906c2be06905383e3e385b512862b183d7fa36e4923ab
+    name: sophora-tablestar-controller
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.1.0/sophora-tablestar-controller-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added Artifacthub changelog annotation"
     apiVersion: v2
@@ -3661,6 +4010,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.0.0/sophora-tablestar-controller-1.0.0.tgz
     version: 1.0.0
   sophora-ugc:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-06-24T15:09:16.286470123Z"
+    description: A Helm chart for Kubernetes
+    digest: cc482e1d899d49fe0ecb2ba22b583c83f76b6ebc7c52528c8ef5c15961c64716
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.4.0/sophora-ugc-2.4.0.tgz
+    version: 2.4.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4042,6 +4412,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-06-24T15:09:16.507304739Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 770734db159ef687cf0cf39ab39b5e0d2f74af7bc4fe942340ec978b45b7301b
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.1.0/sophora-ugc-proxy-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed volumes mounts of application.yml and logback.xml"
     apiVersion: v2
@@ -4099,6 +4488,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-06-24T15:09:16.723341882Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: baf0e653dfc6370d4d505f1d5e2527505516337aa37810f68a4ac7851851651b
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.6.0/sophora-webclient-1.6.0.tgz
+    version: 1.6.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -4332,6 +4742,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed docker.subshell.com to container.subshell.com."
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-06-24T15:09:16.925431036Z"
+    description: A Helm chart for Kubernetes
+    digest: 1f59f690385435939760c3ac8025391a0df048d84ccb2101ca507ccdff749ef8
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.5.0/sophora-youtube-connector-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraInitContainers variable."
       artifacthub.io/links: |
@@ -4463,4 +4894,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-19T11:32:14.17085128Z"
+generated: "2026-06-24T15:09:16.9271836Z"
