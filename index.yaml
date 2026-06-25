@@ -161,6 +161,22 @@ entries:
   gateway:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "add optional GCPGatewayPolicy resource for GKE"
+    apiVersion: v2
+    created: "2026-06-25T15:48:52.173021836Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: 5e0cf3a83ac0cee35c9a6ec38681e3c95826744b89c1656c76383ab6edebf8b6
+    name: gateway
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.1.0/gateway-1.1.0.tgz
+    version: 1.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "chart formatting"
     apiVersion: v2
@@ -4894,4 +4910,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-24T15:09:16.9271836Z"
+generated: "2026-06-25T15:48:52.173685055Z"
