@@ -1,21 +1,16 @@
-{{- if .Values.gcp.gatewayPolicy -}}
+{{- $gp := .Values.gcp.gatewayPolicy -}}
+{{- if $gp -}}
 apiVersion: networking.gke.io/v1
 kind: GCPGatewayPolicy
 metadata:
-  name: {{ .Values.gcp.gatewayPolicy.name }}
+  name: {{ required "gcp.gatewayPolicy.name is required" $gp.name | quote }}
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
 spec:
+  {{- with $gp.default }}
   default:
-    {{- with .Values.gcp.gatewayPolicy.default.sslPolicy }}
-    sslPolicy: "{{ . }}"
-    {{- end }}
-    {{- with .Values.gcp.gatewayPolicy.default.allowGlobalAccess }}
-    allowGlobalAccess: {{ . }}
-    {{- end }}
-    {{- with .Values.gcp.gatewayPolicy.default.customFeatures }}
-    {{- end }}
-    {{- with .Values.gcp.gatewayPolicy.default.region }}
-    region: "{{ . }}"
-    {{- end }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
