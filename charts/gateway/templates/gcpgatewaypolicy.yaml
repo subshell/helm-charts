@@ -6,10 +6,10 @@ metadata:
 spec:
   default:
     {{- with .Values.gcp.gatewayPolicy.default.sslPolicy }}
-    sslPolicy: {{ . }}
+    sslPolicy: "{{ . }}"
     {{- end }}
     {{- with .Values.gcp.gatewayPolicy.default.allowGlobalAccess }}
-    allowGlobalAccess: {{ . }}
+    allowGlobalAccess: "{{ . }}"
     {{- end }}
     {{- with .Values.gcp.gatewayPolicy.default.region }}
     region: "{{ . }}"
