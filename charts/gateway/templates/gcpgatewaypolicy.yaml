@@ -9,7 +9,9 @@ spec:
     sslPolicy: "{{ . }}"
     {{- end }}
     {{- with .Values.gcp.gatewayPolicy.default.allowGlobalAccess }}
-    allowGlobalAccess: "{{ . }}"
+    allowGlobalAccess: {{ . }}
+    {{- end }}
+    {{- with .Values.gcp.gatewayPolicy.default.customFeatures }}
     {{- end }}
     {{- with .Values.gcp.gatewayPolicy.default.region }}
     region: "{{ . }}"
