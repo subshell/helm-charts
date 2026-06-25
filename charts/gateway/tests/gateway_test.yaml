@@ -136,4 +136,18 @@ tests:
                 group: settings.example.com
                 kind: ExampleSettings
                 name: example-settings
+      - containsDocument:
+          kind: GCPGatewayPolicy
+          apiVersion: networking.gke.io/v1
+          name: gcp-gateway-policy
+      - equal:
+          path: spec
+          value:
+            name: gcp-gateway-policy
+            default:
+              sslPolicy: ELBSecurityPolicy-2016-08
+            targetRef:
+              group: gateway.networking.k8s.io
+              kind: Gateway
+              name: full-test-release-testgateway
       - notFailedTemplate: {}

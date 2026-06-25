@@ -1,0 +1,13 @@
+{{- if .Values.gcp.enabled -}}
+apiVersion: networking.gke.io/v1
+kind: GCPGatewayPolicy
+metadata:
+  name: {{ .Values.gcp.gatewayPolicy.name }}
+spec:
+  default:
+    sslPolicy: {{ .Values.gcp.gatewayPolicy.default.sslPolicy }}
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: {{ include "gateway.fullname" . }}
+{{- end -}}

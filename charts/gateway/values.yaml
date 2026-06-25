@@ -34,3 +34,10 @@ gateway:
 certManager:
 #  cluster-issuer: acme-issuer
 #  issuer: acme-issuer
+
+gcp:
+  enabled: false
+#  gatewayPolicy:
+#    name: gcp-gateway-policy
+#    default:
+#      sslPolicy: "ELBSecurityPolicy-2016-08"
