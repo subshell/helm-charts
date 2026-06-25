@@ -36,7 +36,6 @@ certManager:
 #  issuer: acme-issuer
 
 gcp:
-  enabled: false
 #  gatewayPolicy:
 #    name: gcp-gateway-policy
 #    default:
