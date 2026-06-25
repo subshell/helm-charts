@@ -5,7 +5,9 @@ metadata:
   name: {{ .Values.gcp.gatewayPolicy.name }}
 spec:
   default:
-    sslPolicy: {{ .Values.gcp.gatewayPolicy.default.sslPolicy }}
+    {{- with .Values.gcp.gatewayPolicy.default.sslPolicy }}
+    sslPolicy: {{ . }}
+    {{- end }}
     {{- with .Values.gcp.gatewayPolicy.default.allowGlobalAccess }}
     allowGlobalAccess: {{ . }}
     {{- end }}
