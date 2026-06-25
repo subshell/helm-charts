@@ -6,6 +6,10 @@ metadata:
 spec:
   default:
     sslPolicy: {{ .Values.gcp.gatewayPolicy.default.sslPolicy }}
+    allowGlobalAccess: {{ .Values.gcp.gatewayPolicy.default.allowGlobalAccess }}
+    {{- with .Values.gcp.gatewayPolicy.default.region }}
+    region: "{{ . }}"
+    {{- end }}
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
