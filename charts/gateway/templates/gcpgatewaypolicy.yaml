@@ -1,13 +1,13 @@
-{{- $gp := .Values.gcp.gatewayPolicy -}}
-{{- if $gp -}}
+{{- $gatewayPolicy := .Values.gcp.gatewayPolicy -}}
+{{- if $gatewayPolicy -}}
 apiVersion: networking.gke.io/v1
 kind: GCPGatewayPolicy
 metadata:
-  name: {{ required "gcp.gatewayPolicy.name is required" $gp.name | quote }}
+  name: {{ required "gcp.gatewayPolicy.name is required" $gatewayPolicy.name | quote }}
   labels:
     {{- include "gateway.labels" . | nindent 4 }}
 spec:
-  {{- with $gp.default }}
+  {{- with $gatewayPolicy.default }}
   default:
     {{- toYaml . | nindent 4 }}
   {{- end }}
