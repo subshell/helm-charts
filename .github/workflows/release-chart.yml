@@ -45,7 +45,7 @@ jobs:
           echo "${MY_TOKEN}" | helm registry login ghcr.io/subshell --username subshell --password-stdin
           for chart in .cr-release-packages/*.tgz; do
             echo "pushing ${chart} to OCI registry"
-            helm push "$chart" oci://ghcr.io/subshell/helm
+            helm push "$chart" oci://ghcr.io/subshell/helm-charts
           done
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
