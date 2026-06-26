@@ -1,7 +1,7 @@
 name: Release Charts
 
 on:
-  workflow_dispatch:
+  # TODO push will be removed before merge
   push:
     branches:
       - SUDO-610_oci_helmcharts
@@ -30,10 +30,12 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      # TODO step will be uncommented before merge
       #- name: Run chart-releaser
       #  uses: helm/chart-releaser-action@v1.7.0
       #  env:
       #    CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      # TODO step will be removed before merge
       - name: Fake release
         run: |
           mkdir -p .cr-release-packages
