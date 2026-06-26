@@ -2,6 +2,9 @@ name: Release Charts
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - SUDO-610_oci_helmcharts
   workflow_run:
     workflows:
       - Test Charts
