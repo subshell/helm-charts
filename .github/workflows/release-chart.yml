@@ -38,12 +38,14 @@ jobs:
         run: |
           mkdir -p .cr-release-packages
           helm package charts/sophora-indexing-service --dependency-update --destination .cr-release-packages --debug
-          touch .cr-release-packages/foo-1.2.3.tgz
 
       - name: Push charts to OCI registry
         if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
         run: |
-          helm registry login ghcr.io/subshell --username subshell --password ${{ secrets.GITHUB_TOKEN }}
+          echo "${MY_TOKEN}" | helm registry login ghcr.io/subshell --username subshell --password-stdin
           for chart in .cr-release-packages/*.tgz; do
+            echo "pushing ${chart} to OCI registry"
             helm push "$chart" oci://ghcr.io/subshell/helm
           done
+        env:
+          MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
