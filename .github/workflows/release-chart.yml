@@ -34,16 +34,15 @@ jobs:
       #  uses: helm/chart-releaser-action@v1.7.0
       #  env:
       #    CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-      - name: Run OCI charts releaser
-        uses: bitdeps/helm-oci-charts-releaser@v0.1.5
-        with:
-            oci_registry: ghcr.io/subshell
-            oci_username: subshell
-            oci_password: ${{ secrets.GITHUB_TOKEN }}
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            version: 'v4.2.2' # of helm
-            tag_name_pattern: 'helm/{chartName}'
-            skip_gh_release: true
-            skip_helm_install: true
-        env:
-          DRY_RUN: true
+      - name: Fake release
+        run: |
+          mkdir -p .cr-release-packages
+          touch .cr-release-packages/foo-1.2.3.tgz
+
+      - name: Push charts to OCI registry
+        if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
+        run: |
+          helm registry login ghcr.io/subshell --username subshell --password ${{ secrets.GITHUB_TOKEN }}
+          for chart in .cr-release-packages/*.tgz; do
+            helm push "$chart" oci://ghcr.io/subshell/helm
+          done
