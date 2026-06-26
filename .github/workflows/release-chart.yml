@@ -44,7 +44,7 @@ jobs:
       - name: Push charts to OCI registry
         if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
         run: |
-          echo "${MY_TOKEN}" | helm registry login ghcr.io/subshell --username subshell --password-stdin
+          echo "${MY_TOKEN}" | helm registry login ghcr.io --username "${{ github.actor }}" --password-stdin
           for chart in .cr-release-packages/*.tgz; do
             echo "pushing ${chart} to OCI registry"
             helm push "$chart" oci://ghcr.io/subshell/helm-charts
