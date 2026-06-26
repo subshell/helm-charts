@@ -42,6 +42,7 @@ jobs:
             oci_password: ${{ secrets.GITHUB_TOKEN }}
             github_token: ${{ secrets.GITHUB_TOKEN }}
             version: 'v4.2.2' # of helm
+            tag_name_pattern: 'helm/{chartName}'
             skip_gh_release: true
             skip_helm_install: true
         env:
