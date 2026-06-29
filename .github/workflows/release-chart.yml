@@ -75,8 +75,6 @@ jobs:
 
             if [ -z "$RELEASES_URL" ]; then
               echo "no next page, stopping"
-              # TODO remove debug
-              cat "${HEADERS_FILE}"
               break
             fi
             
@@ -87,6 +85,8 @@ jobs:
             echo "downloading $chartUrl"
             curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --output-dir .cr-release-packages --remote-header-name -O
           done
-          echo "downloaded: "; ls -lh .cr-release-packages/
+          RELEASE_PACKAGES=( $(ls .cr-release-packages/) )
+          echo "found ${#RELEASE_PACKAGES[@]} files:"
+          echo "${RELEASE_PACKAGES[*]}"
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
