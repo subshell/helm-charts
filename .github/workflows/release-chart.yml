@@ -64,7 +64,7 @@ jobs:
           while true; do
             OUTPUT_FILE="artifacts_page_${PAGE}.json"
             
-            curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}"
+            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}"
             
             COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
             echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
@@ -83,9 +83,10 @@ jobs:
           done
           for chartUrl in $(jq -r '.artifacts[].archive_download_url' artifacts_page_*.json); do
             # download artifact
-            curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" -O
+            echo "downloading $(jq -r ".artifacts[] | select(.archive_download_url == \"${chartUrl}\") | .name" artifacts_page_*.json)"
+            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --remote-header-name -O
           done
-          echo "downloaded: "; ls
+          echo "downloaded: "; ls -lh
           cd -
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
