@@ -55,40 +55,40 @@ jobs:
       - name: Download previous chart releases
         run: |
           mkdir -p .cr-release-packages && cd .cr-release-packages
-          # list artifacts of repository
-          PER_PAGE=25
+          # list releases and download assets
+          PER_PAGE=30
           PAGE=1
-          ARTIFACTS_URL="https://api.github.com/repos/subshell/helm-charts/actions/artifacts"
+          RELEASES_URL="https://api.github.com/repos/subshell/helm-charts/releases"
           CUTOFF_DATE="2025-01-01"
 
           while true; do
-            OUTPUT_FILE="artifacts_page_${PAGE}.json"
+            OUTPUT_FILE="releases_page_${PAGE}.json"
             HEADERS_FILE="headers_${PAGE}.txt"
             
-            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
+            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${RELEASES_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
             # TODO remove debug
             cat "${HEADERS_FILE}"
             echo
             cat "${OUTPUT_FILE}"
             
-            COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
-            echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
+            COUNT=$(jq 'length' "$OUTPUT_FILE")
+            echo "Page ${PAGE}: ${COUNT} releases in ${OUTPUT_FILE}"
             
             if [ "$COUNT" -lt "$PER_PAGE" ]; then
               break
             fi
             # check date of last entry
-            LAST_UPDATED=$(jq -r '.artifacts[-1].updated_at' "${OUTPUT_FILE}")
-            if [[ "$LAST_UPDATED" < "$CUTOFF_DATE" ]]; then
-              echo "stopping because we got old artifacts updated $LAST_UPDATED"
+            CREATED_AT=$(jq -r '.[-1].created_at' "${OUTPUT_FILE}")
+            if [[ "$CREATED_AT" < "$CUTOFF_DATE" ]]; then
+              echo "stopping because we got old release created $CREATED_AT"
               break
             fi
             
             PAGE=$((PAGE + 1))
           done
-          # download newest of each artifacts
-          for chartUrl in $(jq -r '.artifacts | group_by(.name)[] | first | .archive_download_url' artifacts_page_*.json); do
-            echo "downloading $(jq -r ".artifacts[] | select(.archive_download_url == \"${chartUrl}\") | .name" artifacts_page_*.json)"
+          # download release assets
+          for chartUrl in $(jq -r '.[].assets[].browser_download_url' releases_page_*.json); do
+            echo "downloading $chartUrl"
             curl --fail --no-progress-meter --skip-existing -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --remote-header-name -O
           done
           echo "downloaded: "; ls -lh
