@@ -73,8 +73,10 @@ jobs:
             # note: 'grep -oP' uses Perl-compatible regex, '(?<=<)' Lookbehind '<', '[\S]*' Match zero or more non-whitespace characters, '(?=>; rel="next")' Lookahead: must be followed by '>; rel="next"'
             RELEASES_URL=$(grep 'link:' "${HEADERS_FILE}" | grep -oP '(?<=<)[\S]*(?=>; rel="next")')
 
-            if [ -z "$NEXT_URL" ]; then
+            if [ -z "$RELEASES_URL" ]; then
               echo "no next page, stopping"
+              # TODO remove debug
+              cat "${HEADERS_FILE}"
               break
             fi
             # check date of last entry
