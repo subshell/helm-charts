@@ -58,26 +58,23 @@ jobs:
           # list releases and download assets
           PER_PAGE=50
           PAGE=1
-          RELEASES_URL="https://api.github.com/repos/subshell/helm-charts/releases"
+          RELEASES_URL="https://api.github.com/repos/subshell/helm-charts/releases?per_page=${PER_PAGE}&page=${PAGE}"
           CUTOFF_DATE="2025-01-01"
 
           while true; do
             OUTPUT_FILE="releases_page_${PAGE}.json"
             HEADERS_FILE="headers_${PAGE}.txt"
             
-            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${RELEASES_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
-            # TODO remove debug
-            cat "${HEADERS_FILE}"
-            echo
-            cat "${OUTPUT_FILE}"
+            echo "getting page with relases ${RELEASES_URL}"
+            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${RELEASES_URL}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
             
             COUNT=$(jq 'length' "$OUTPUT_FILE")
-            echo "Page ${PAGE}: ${COUNT} releases in ${OUTPUT_FILE}"
+            echo "Page ${PAGE} has ${COUNT} releases"
             # note: 'grep -oP' uses Perl-compatible regex, '(?<=<)' Lookbehind '<', '[\S]*' Match zero or more non-whitespace characters, '(?=>; rel="next")' Lookahead: must be followed by '>; rel="next"'
-            NEXT_URL=$(grep 'link:' "${HEADERS_FILE}" | grep -oP '(?<=<)[\S]*(?=>; rel="next"))
-            echo "next page URL is ${NEXT_URL}"
-            
-            if [ "$COUNT" -lt "$PER_PAGE" ]; then
+            RELEASES_URL=$(grep 'link:' "${HEADERS_FILE}" | grep -oP '(?<=<)[\S]*(?=>; rel="next")')
+
+            if [ -z "$NEXT_URL" ]; then
+              echo "no next page, stopping"
               break
             fi
             # check date of last entry
@@ -87,7 +84,6 @@ jobs:
               break
             fi
             
-            PAGE=$((PAGE + 1))
           done
           # download release assets
           for chartUrl in $(jq -r '.[].assets[].browser_download_url' releases_page_*.json); do
