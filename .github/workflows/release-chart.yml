@@ -56,7 +56,7 @@ jobs:
         run: |
           mkdir -p .cr-release-packages && cd .cr-release-packages
           # list artifacts of repository
-          PER_PAGE=30
+          PER_PAGE=25
           PAGE=1
           ARTIFACTS_URL="https://api.github.com/repos/subshell/helm-charts/actions/artifacts"
           CUTOFF_DATE="2025-01-01"
@@ -71,7 +71,7 @@ jobs:
             echo
             cat "${OUTPUT_FILE}"
             
-            COUNT=$(jq -r '.total_count' "$OUTPUT_FILE")
+            COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
             echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
             
             if [ "$COUNT" -lt "$PER_PAGE" ]; then
