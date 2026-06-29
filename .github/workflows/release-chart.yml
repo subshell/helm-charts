@@ -36,21 +36,6 @@ jobs:
       #  env:
       #    CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       # TODO step will be removed before merge
-      - name: Fake release
-        run: |
-          mkdir -p .cr-release-packages
-          helm package charts/sophora-indexing-service --dependency-update --destination .cr-release-packages --debug
-
-      - name: Push charts to OCI registry
-        if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
-        run: |
-          echo "${MY_TOKEN}" | helm registry login ghcr.io --username "${{ github.actor }}" --password-stdin
-          for chart in .cr-release-packages/*.tgz; do
-            echo "pushing ${chart} to OCI registry"
-            helm push "$chart" oci://ghcr.io/subshell/helm-charts
-          done
-        env:
-          MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Download previous chart releases
         run: |
@@ -88,5 +73,16 @@ jobs:
           RELEASE_PACKAGES=( $(ls .cr-release-packages/) )
           echo "found ${#RELEASE_PACKAGES[@]} files:"
           echo "${RELEASE_PACKAGES[*]}"
+        env:
+          MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Push charts to OCI registry
+        if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
+        run: |
+          echo "${MY_TOKEN}" | helm registry login ghcr.io --username "${{ github.actor }}" --password-stdin
+          for chart in .cr-release-packages/*.tgz; do
+            echo "pushing ${chart} to OCI registry"
+            helm push "$chart" oci://ghcr.io/subshell/helm-charts
+          done
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
