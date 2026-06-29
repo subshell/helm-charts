@@ -63,13 +63,18 @@ jobs:
 
           while true; do
             OUTPUT_FILE="artifacts_page_${PAGE}.json"
+            HEADERS_FILE="headers_${PAGE}.txt"
             
-            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}"
+            curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
             # TODO remove debug
             cat "${OUTPUT_FILE}"
             
             COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
             echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
+            
+            # note: 'grep -oP' uses Perl-compatible regex, '<\K' match < but exclude it from the result, '[^>]+' capture everything up to the closing >, '(?=>; rel="next")' lookahead to ensure it's followed by `; rel="next"`
+            NEXT_URL=$(grep "link:" "${HEADERS_FILE}" | grep -oP '<\K[^>]+(?=>; rel="next")')
+            echo "next url: $NEXT_URL"
             
             if [ "$COUNT" -lt "$PER_PAGE" ]; then
               break
