@@ -268,7 +268,7 @@ env: {}
 # gcp.healthCheck.path HTTP path GCP should use to check the application's health
 gcp:
   healthCheck:
-    enabled: true
+    enabled: false
     # port:
     portName: http
     path: "/"

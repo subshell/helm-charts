@@ -103,6 +103,6 @@ pvcAnnotations: {}
 # gcp.healthCheck.path HTTP path GCP should use to check the application's health
 gcp:
   healthCheck:
-    enabled: true
+    enabled: false
     portName: http
     path: "/actuator/health"
