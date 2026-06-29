@@ -74,10 +74,6 @@ jobs:
             COUNT=$(jq -r '.total_count' "$OUTPUT_FILE")
             echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
             
-            # note: 'grep -oP' uses Perl-compatible regex, '<\K' match < but exclude it from the result, '[^>]+' capture everything up to the closing >, '(?=>; rel="next")' lookahead to ensure it's followed by `; rel="next"`
-            NEXT_URL=$(grep "link:" "${HEADERS_FILE}" | grep -oP '<\K[^>]+(?=>; rel="next")')
-            echo "next url: $NEXT_URL"
-            
             if [ "$COUNT" -lt "$PER_PAGE" ]; then
               break
             fi
