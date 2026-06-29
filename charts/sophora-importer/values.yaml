@@ -4,11 +4,6 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "master"
 
-downloadViaHttpImage:
-  repository: "container.subshell.com/misc/alpine-toolkit"
-  tag: "0.2.0"
-  pullPolicy: IfNotPresent
-
 downloadViaS3Image:
   repository: "container.subshell.com/misc/aws-cli-tools"
   tag: "0.0.2"
@@ -73,12 +68,6 @@ transformation:
   enabled: false
   xslTransformerFactory:
   data:
-    use: s3
-    zipViaHttp:
-      secretName:
-      zipUrls:
-      usernameKey: "username"
-      passwordKey: "password"
     zipViaS3:
       secretName:
       s3Endpoint: "https://storage.googleapis.com"
