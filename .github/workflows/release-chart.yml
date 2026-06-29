@@ -66,7 +66,13 @@ jobs:
             PAGE=$((PAGE + 1))
           done
           # download release assets
+          REMAINING=( "sophora-server-2.9.1.tgz sophora-server-3.0.0.tgz sophora-server-3.0.1.tgz sophora-server-3.1.0.tgz sophora-server-3.1.1.tgz sophora-server-3.1.2.tgz sophora-server-3.2.0.tgz sophora-server-3.3.0.tgz sophora-server-3.4.0.tgz sophora-tablestar-controller-1.0.0.tgz sophora-tablestar-controller-1.0.1.tgz sophora-tablestar-controller-1.0.2.tgz sophora-tablestar-controller-1.1.0.tgz sophora-ugc-1.0.0.tgz sophora-ugc-1.0.1.tgz sophora-ugc-1.0.2.tgz sophora-ugc-1.0.3.tgz sophora-ugc-2.0.0.tgz sophora-ugc-2.0.1.tgz sophora-ugc-2.0.10.tgz sophora-ugc-2.0.11.tgz sophora-ugc-2.0.12.tgz sophora-ugc-2.0.13.tgz sophora-ugc-2.0.14.tgz sophora-ugc-2.0.15.tgz sophora-ugc-2.0.2.tgz sophora-ugc-2.0.3.tgz sophora-ugc-2.0.4.tgz sophora-ugc-2.0.5.tgz sophora-ugc-2.0.6.tgz sophora-ugc-2.0.7.tgz sophora-ugc-2.0.8.tgz sophora-ugc-2.0.9.tgz sophora-ugc-2.1.0.tgz sophora-ugc-2.2.0.tgz sophora-ugc-2.2.1.tgz sophora-ugc-2.3.0.tgz sophora-ugc-2.4.0.tgz sophora-ugc-proxy-1.0.0.tgz sophora-ugc-proxy-1.0.1.tgz sophora-ugc-proxy-1.0.2.tgz sophora-ugc-proxy-1.1.0.tgz sophora-webclient-1.0.0.tgz sophora-webclient-1.0.1.tgz sophora-webclient-1.1.0.tgz sophora-webclient-1.2.0.tgz sophora-webclient-1.2.1.tgz sophora-webclient-1.2.2.tgz sophora-webclient-1.3.0.tgz sophora-webclient-1.4.0.tgz sophora-webclient-1.4.2.tgz sophora-webclient-1.4.3.tgz sophora-webclient-1.4.4.tgz sophora-webclient-1.4.5.tgz sophora-webclient-1.5.0.tgz sophora-webclient-1.5.1.tgz sophora-webclient-1.6.0.tgz sophora-youtube-connector-1.0.0.tgz sophora-youtube-connector-1.1.0.tgz sophora-youtube-connector-1.2.0.tgz sophora-youtube-connector-1.2.1.tgz sophora-youtube-connector-1.2.3.tgz sophora-youtube-connector-1.2.4.tgz sophora-youtube-connector-1.3.0.tgz sophora-youtube-connector-1.4.0.tgz sophora-youtube-connector-1.5.0.tgz youtube-connector-1.0.0.tgz" )
           for chartUrl in $(jq -r '.[].assets[].browser_download_url' releases_page_*.json); do
+            FILENAME="${chartUrl##*/}"
+            if [[ ! " ${REMAINING[*]} " =~ " ${FILENAME} " ]]; then
+              echo "skipping $FILENAME (not in remaining list)"
+              continue
+            fi
             echo "downloading $chartUrl"
             curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --output-dir .cr-release-packages --remote-header-name -O
           done
