@@ -1,4 +1,4 @@
-{{- if .Values.gcp.healthCheck.enabled }}
+{{- if and .Values.clusterServerLb.enabled .Values.gcp.healthCheck.enabled }}
 ---
 {{- $fullName := include "sophora-cluster-common.fullname" . -}}
 {{- $labels := include "sophora-cluster-common.labels" . -}}
@@ -22,8 +22,8 @@ spec:
         requestPath: {{ .Values.gcp.healthCheck.path | quote }}
       logConfig:
         enable: true
-    targetRef:
-      group: networking.k8s.io
-      kind: Service
-      name: {{ $fullName }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ .Values.clusterServerLb.name }}
 {{- end }}

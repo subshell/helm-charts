@@ -330,6 +330,5 @@ languageTool:
 gcp:
   healthCheck:
     enabled: false
-    # port:
-    portName: ai
+    port: 8080
     path: "/actuator/health/readiness"

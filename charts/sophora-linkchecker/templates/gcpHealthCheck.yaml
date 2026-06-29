@@ -22,8 +22,8 @@ spec:
         requestPath: {{ .Values.gcp.healthCheck.path | quote }}
       logConfig:
         enable: true
-    targetRef:
-      group: networking.k8s.io
-      kind: Service
-      name: {{ $fullName }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ $fullName }}
 {{- end }}

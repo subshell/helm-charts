@@ -1,7 +1,7 @@
 {{- if .Values.gcp.healthCheck.enabled }}
 ---
-{{- $fullName := include "sophora-image-access-service.fullname" . -}}
-{{- $labels := include "sophora-image-access-service.labels" . -}}
+{{- $fullName := include "access-service.fullname" . -}}
+{{- $labels := include "access-service.labels" . -}}
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
@@ -22,8 +22,8 @@ spec:
         requestPath: {{ .Values.gcp.healthCheck.path | quote }}
       logConfig:
         enable: true
-    targetRef:
-      group: networking.k8s.io
-      kind: Service
-      name: {{ $fullName }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ $fullName }}
 {{- end }}

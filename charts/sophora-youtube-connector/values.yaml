@@ -213,5 +213,5 @@ extraVolumeMounts: []
 gcp:
   healthCheck:
     enabled: false
-    port: http
+    portName: http-service
     path: "/health"

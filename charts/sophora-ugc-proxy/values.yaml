@@ -189,5 +189,5 @@ tolerations: []
 gcp:
   healthCheck:
     enabled: false
-    portName: proxy
+    port: 80
     path: "/actuator/health/readiness"

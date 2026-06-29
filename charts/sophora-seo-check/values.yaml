@@ -104,5 +104,5 @@ pvcAnnotations: {}
 gcp:
   healthCheck:
     enabled: false
-    portName: http
+    port: 8080
     path: "/actuator/health"

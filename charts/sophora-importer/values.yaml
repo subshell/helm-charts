@@ -193,5 +193,5 @@ httpRoute:
 gcp:
   healthCheck:
     enabled: false
-    portName: metrics
+    portName: main
     path: "/actuator/health/readiness"
