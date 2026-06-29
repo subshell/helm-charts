@@ -1,0 +1,29 @@
+{{- if .Values.gcp.healthCheck.enabled }}
+---
+{{- $fullName := include "sophora-image-ai.fullname" . -}}
+{{- $labels := include "sophora-image-ai.labels" . -}}
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  default:
+    config:
+      type: HTTP
+      healthCheck:
+        {{- with .Values.gcp.healthCheck.port }}
+        port: {{ . }}
+        {{- end }}
+        {{- with .Values.gcp.healthCheck.portName }}
+        portName: {{ . | quote }}
+        {{- end }}
+        requestPath: {{ .Values.gcp.healthCheck.path | quote }}
+      logConfig:
+        enable: true
+    targetRef:
+      group: networking.k8s.io
+      kind: Service
+      name: {{ $fullName }}
+{{- end }}
