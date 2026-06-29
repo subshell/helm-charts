@@ -67,9 +67,11 @@ jobs:
             
             curl --fail --no-progress-meter -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}" --dump-header "${HEADERS_FILE}"
             # TODO remove debug
+            cat "${HEADERS_FILE}"
+            echo
             cat "${OUTPUT_FILE}"
             
-            COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
+            COUNT=$(jq -r '.total_count' "$OUTPUT_FILE")
             echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
             
             # note: 'grep -oP' uses Perl-compatible regex, '<\K' match < but exclude it from the result, '[^>]+' capture everything up to the closing >, '(?=>; rel="next")' lookahead to ensure it's followed by `; rel="next"`
@@ -88,8 +90,8 @@ jobs:
             
             PAGE=$((PAGE + 1))
           done
-          for chartUrl in $(jq -r '.artifacts[].archive_download_url' artifacts_page_*.json); do
-            # download artifact
+          # download newest of each artifacts
+          for chartUrl in $(jq -r '.artifacts | group_by(.name)[] | first | .archive_download_url' artifacts_page_*.json); do
             echo "downloading $(jq -r ".artifacts[] | select(.archive_download_url == \"${chartUrl}\") | .name" artifacts_page_*.json)"
             curl --fail --no-progress-meter --skip-existing -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --remote-header-name -O
           done
