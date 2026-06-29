@@ -51,3 +51,41 @@ jobs:
           done
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Download previous chart releases
+        run: |
+          mkdir -p .cr-release-packages && cd .cr-release-packages
+          # list artifacts of repository
+          PER_PAGE=30
+          PAGE=1
+          ARTIFACTS_URL="https://api.github.com/repos/subshell/helm-charts/actions/artifacts"
+          CUTOFF_DATE="2025-01-01"
+
+          while true; do
+            OUTPUT_FILE="artifacts_page_${PAGE}.json"
+            
+            curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${ARTIFACTS_URL}?per_page=${PER_PAGE}&page=${PAGE}" -o "${OUTPUT_FILE}"
+            
+            COUNT=$(jq -r '.artifacts | length' "$OUTPUT_FILE")
+            echo "Page ${PAGE}: ${COUNT} artifacts in ${OUTPUT_FILE}"
+            
+            if [ "$COUNT" -lt "$PER_PAGE" ]; then
+              break
+            fi
+            # check date of last entry
+            LAST_UPDATED=$(jq -r '.artifacts[-1].updated_at' "${OUTPUT_FILE}")
+            if [[ "$LAST_UPDATED" < "$CUTOFF_DATE" ]]; then
+              echo "stopping because we got old artifacts updated $LAST_UPDATED"
+              break
+            fi
+            
+            PAGE=$((PAGE + 1))
+          done
+          for chartUrl in $(jq -r '.artifacts[].archive_download_url' artifacts_page_*.json); do
+            # download artifact
+            curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" -O
+          done
+          echo "downloaded: "; ls
+          cd -
+        env:
+          MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
