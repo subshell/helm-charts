@@ -1897,6 +1897,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "Changed start importer call after update importer to spring 4"
+    apiVersion: v2
+    appVersion: 6.4.0
+    created: "2026-06-29T06:58:14.901674839Z"
+    description: A Helm chart for the repository import
+    digest: ce35b1f8c69d125c1c1c2b82a1f21f95df05db555b80f293667cc0c7c8871bd1
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.9.0/sophora-import-job-1.9.0.tgz
+    version: 1.9.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "Changed docker.subshell.com to container.subshell.com."
     apiVersion: v2
     appVersion: 5.4.0
@@ -4910,4 +4928,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-25T15:48:52.173685055Z"
+generated: "2026-06-29T06:58:14.902225507Z"
