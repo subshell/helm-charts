@@ -56,9 +56,9 @@ jobs:
         run: |
           mkdir -p .cr-release-packages
           # list releases and download assets
-          PER_PAGE=50
+          PER_PAGE=100
           PAGE=1
-          RELEASES_URL="https://api.github.com/repos/subshell/helm-charts/releases?per_page=${PER_PAGE}&page=${PAGE}"
+          RELEASES_URL="https://api.github.com/repos/subshell/helm-charts/releases?per_page=${PER_PAGE}"
           CUTOFF_DATE="2025-01-01"
 
           while true; do
@@ -79,13 +79,8 @@ jobs:
               cat "${HEADERS_FILE}"
               break
             fi
-            # check date of last entry
-            CREATED_AT=$(jq -r '.[-1].created_at' "${OUTPUT_FILE}")
-            if [[ "$CREATED_AT" < "$CUTOFF_DATE" ]]; then
-              echo "stopping because we got old release created $CREATED_AT"
-              break
-            fi
             
+            PAGE=$((PAGE + 1))
           done
           # download release assets
           for chartUrl in $(jq -r '.[].assets[].browser_download_url' releases_page_*.json); do
