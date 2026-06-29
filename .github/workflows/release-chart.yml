@@ -54,7 +54,7 @@ jobs:
 
       - name: Download previous chart releases
         run: |
-          mkdir -p .cr-release-packages && cd .cr-release-packages
+          mkdir -p .cr-release-packages
           # list releases and download assets
           PER_PAGE=30
           PAGE=1
@@ -89,9 +89,8 @@ jobs:
           # download release assets
           for chartUrl in $(jq -r '.[].assets[].browser_download_url' releases_page_*.json); do
             echo "downloading $chartUrl"
-            curl --fail --no-progress-meter --skip-existing -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --remote-header-name -O
+            curl --fail --no-progress-meter --skip-existing -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${MY_TOKEN}" -H "X-GitHub-Api-Version: 2026-03-10" "${chartUrl}" --output-dir .cr-release-packages --remote-header-name -O
           done
-          echo "downloaded: "; ls -lh
-          cd -
+          echo "downloaded: "; ls -lh .cr-release-packages/
         env:
           MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
