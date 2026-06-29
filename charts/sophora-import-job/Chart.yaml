@@ -15,16 +15,16 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.8.0
+version: 1.9.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed
-      description: "Changed docker.subshell.com to container.subshell.com."
+      description: "Changed start importer call after update importer to spring 4"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
-appVersion: '5.4.0'
+appVersion: '6.4.0'
 
 # A list of URLs to source code for this project
 sources:
