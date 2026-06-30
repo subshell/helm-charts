@@ -162,5 +162,6 @@ affinity: {}
 gcp:
   healthCheck:
     enabled: false
+    logging: false
     portName: http
     path: "/health"

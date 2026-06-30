@@ -181,6 +181,7 @@ prometheusRule:
 gcp:
   healthCheck:
     enabled: false
+    logging: false
     # port:
     portName: http
     path: "/actuator/health"

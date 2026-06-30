@@ -538,5 +538,6 @@ podDisruptionBudget:
 gcp:
   healthCheck:
     enabled: false
+    logging: false
     portName: http
     path: "/status/ready"

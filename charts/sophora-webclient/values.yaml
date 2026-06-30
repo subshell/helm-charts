@@ -119,5 +119,6 @@ webclient:
 gcp:
   healthCheck:
     enabled: false
+    logging: false
     port: 8080
     path: "/health"

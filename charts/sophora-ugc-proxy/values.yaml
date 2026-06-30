@@ -189,5 +189,6 @@ tolerations: []
 gcp:
   healthCheck:
     enabled: false
+    logging: false
     port: 80
     path: "/actuator/health/readiness"
