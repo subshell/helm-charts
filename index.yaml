@@ -2578,6 +2578,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "Readme added valkey and solr-operator besides Bitnami"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-06-30T08:52:38.607552053Z"
+    description: Sophora Indexing Service (SISI)
+    digest: f7f35772c10032668b3f265c2d81cf03e4ec8abfd518908cbd1f4132c84141bc
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.7.1/sophora-indexing-service-1.7.1.tgz
+    version: 1.7.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "Changed docker.subshell.com to container.subshell.com."
     apiVersion: v2
     appVersion: 5.4.1
@@ -4946,4 +4964,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-29T09:24:53.729603042Z"
+generated: "2026-06-30T08:52:38.608244966Z"
