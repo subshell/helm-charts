@@ -29,6 +29,5 @@ spec:
     group: ""
     kind: Service
     name: {{ $fullName }}
-{{ end }}
 {{- end }}
 {{- end }}
