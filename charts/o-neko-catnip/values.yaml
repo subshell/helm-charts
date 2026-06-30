@@ -172,7 +172,7 @@ prometheusRule:
 
 ## @section GCP Health Check
 ##
-## Specific for the use with GCP Load Balancers
+## Specific for the use with GCP Load Balancers when using `httpRoute` for Gateway API.
 
 # gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
 # gcp.healthCheck.port Number of the port used for the GCP Health Check
