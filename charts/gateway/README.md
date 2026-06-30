@@ -35,6 +35,17 @@ gateway:
     - host: simple.example.com
 ```
 
+### Wildcard host
+
+For wildcard hosts the `name` field is required, because `*` is not a valid character in Kubernetes resource names.
+
+```yaml
+gateway:
+  https:
+    - host: "*.example.com"
+      name: wildcard-example-com
+```
+
 ### Basic with cert-manager certificate
 
 ```yaml
@@ -63,6 +74,8 @@ gateway:
     - value: 1.2.3.4
   https:
     - host: simple.example.com
+    - host: "*.example.com"
+      name: wildcard-example-com
     - host: chart-example.local
       allowedRoutes:
         namespaces:
