@@ -13,9 +13,12 @@ jobs:
   release:
     if: ${{ github.event.workflow_run.conclusion == 'success' && github.repository == 'subshell/helm-charts'}}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
@@ -23,10 +26,19 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Helm Deps
-        run: |
-          helm repo add bitnami https://charts.bitnami.com/bitnami
+
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: Push charts to OCI registry
+        if: ${{ hashFiles('.cr-release-packages/*.tgz') != '' }}
+        run: |
+          echo "${MY_TOKEN}" | helm registry login ghcr.io --username "${{ github.actor }}" --password-stdin
+          for chart in .cr-release-packages/*.tgz; do
+            echo "pushing ${chart} to OCI registry"
+            helm push "$chart" oci://ghcr.io/subshell/helm-charts
+          done
+        env:
+          MY_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
