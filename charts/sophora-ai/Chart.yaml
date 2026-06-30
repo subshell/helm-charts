@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.4.0
+version: 2.5.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Changed docker.subshell.com to container.subshell.com."
+    - kind: added
+      description: "Added HealthCheck for GCP needed for GCP Gateway support"
 appVersion: 1.7.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
