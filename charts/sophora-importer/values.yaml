@@ -181,3 +181,19 @@ httpRoute:
   rules: []
   # httpRoute.annotations annotations for the HTTPRoute
   annotations: {}
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    portName: main
+    path: "/actuator/health/readiness"

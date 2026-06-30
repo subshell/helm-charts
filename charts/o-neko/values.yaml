@@ -192,3 +192,20 @@ serviceMonitor:
   enabled: false
   interval: 10s
   path: "/actuator/prometheus"
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    # port:
+    portName: http
+    path: "/actuator/health"

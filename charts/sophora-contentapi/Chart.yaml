@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.2.0
+version: 1.3.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Changed docker.subshell.com to container.subshell.com."
+    - kind: added
+      description: "Added HealthCheck for GCP needed for GCP Gateway support"
 
 appVersion: 6.0.0
 sources:

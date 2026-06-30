@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.7.1
+version: 1.9.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Readme added valkey and solr-operator besides Bitnami"
+    - kind: added
+      description: "Added HealthCheck for GCP needed for GCP Gateway support"
 
 appVersion: '5.4.1'
 sources:
