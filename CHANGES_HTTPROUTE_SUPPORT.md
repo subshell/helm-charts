@@ -1,5 +1,7 @@
 # HTTPRoute Support Added to Helm Charts
 
+February 2026
+
 ## Summary
 
 All Helm charts in the `helm-charts` repository that contain Kubernetes Ingress resources have been extended to also provide optional HTTPRoute resources for the Gateway API. Chart versions have been incremented to new minor versions to reflect these changes.
