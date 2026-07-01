@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.4.0
+version: 2.6.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed

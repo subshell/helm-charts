@@ -14,7 +14,7 @@ This chart requires the following already present in the target namespace:
 
 ```yaml
 image:
-  repository: docker.subshell.com/sophora/avtool/youtube-connector
+  repository: container.subshell.com/sophora/avtool/youtube-connector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "3.0.1"
@@ -23,7 +23,7 @@ javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPre
 
 configGenerator:
   image:
-    repository: "docker.subshell.com/misc/alpine-toolkit"
+    repository: "container.subshell.com/misc/alpine-toolkit"
     tag: "0.2.0"
     pullPolicy: IfNotPresent
 
@@ -197,7 +197,7 @@ sophora:
       </property>
       </bean>
       </util:list>
-      
+
       <!-- YouTube settings for all channels -->
       <bean id="youtubeGlobalConfig" class="com.subshell.sophora.avtool.api.youtube.YoutubeConfiguration">
       <!-- After uploading a video to YouTube, the YouTube id is written back to the document into this property.
@@ -246,7 +246,7 @@ sophora:
       server:
         usernameKey: sophora-username
         passwordKey: sophora-password
-        
+
     extraEnvVarsSecret: mediaconfig-secrets
 
     jobstore:
@@ -265,7 +265,7 @@ sophora:
 
 # Examples for the required Secrets
 
-These are samples for secret files required by this chart. The keys in the MediaConfig secret need to be entered into the mediaconfig template 
+These are samples for secret files required by this chart. The keys in the MediaConfig secret need to be entered into the mediaconfig template
 of the provided values under `sophora.youtube-connector.mediaconfig`. For testing/developing this chart the manifest below may be copied to a separate file e.g. `secrets.yml` and applied
 via `kubectl apply -f secrets.yml`.
 

@@ -7,10 +7,10 @@ The Sophora Indexing Service reads all Sophora documents and indexes them in Sol
 The software requires these dependencies (not necessarily by Bitnami though).
 They are not included as Chart dependencies, and they need to be installed separately.
 
-* [bitnami/redis](https://bitnami.com/stack/redis/helm)
-* [bitnami/solr](https://bitnami.com/stack/solr/helm)
+* Redis: [valkey/valkey](https://github.com/valkey-io/valkey-helm) or [bitnami/redis](https://github.com/bitnami/charts/tree/main/bitnami/redis)
+* SolrCloud: [apache-solr/solr](https://github.com/apache/solr-operator/tree/main/helm/solr) or [bitnami/solr](https://github.com/bitnami/charts/tree/main/bitnami/solr)
 
-## Example 
+## Example
 
 ```yaml
 image:
@@ -18,7 +18,7 @@ image:
   tag: "latest"
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 solr:
   basicAuth:

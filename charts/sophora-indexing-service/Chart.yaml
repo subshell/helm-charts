@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.7.0
+version: 1.10.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed

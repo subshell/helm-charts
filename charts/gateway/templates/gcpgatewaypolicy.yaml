@@ -1,0 +1,18 @@
+{{- $gatewayPolicy := .Values.gcp.gatewayPolicy -}}
+{{- if $gatewayPolicy -}}
+apiVersion: networking.gke.io/v1
+kind: GCPGatewayPolicy
+metadata:
+  name: {{ required "gcp.gatewayPolicy.name is required" $gatewayPolicy.name | quote }}
+  labels:
+    {{- include "gateway.labels" . | nindent 4 }}
+spec:
+  {{- with $gatewayPolicy.default }}
+  default:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: {{ include "gateway.fullname" . }}
+{{- end -}}

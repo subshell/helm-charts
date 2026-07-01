@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: docker.subshell.com/sophora/sophora-indexing-service
+  repository: container.subshell.com/sophora/sophora-indexing-service
   pullPolicy: IfNotPresent
   tag: "latest"
 

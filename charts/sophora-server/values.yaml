@@ -5,20 +5,20 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: docker.subshell.com/sophora/sophora-server
+  repository: container.subshell.com/sophora/sophora-server
   pullPolicy: IfNotPresent
   tag: "latest"
 
 preStop:
   enabled: true
   image:
-    repository: docker.subshell.com/tools/sophora-prestop
+    repository: container.subshell.com/sophora/sophora-prestop
     pullPolicy: IfNotPresent
     tag: "2.1.0"
 
 serverModeLabeler:
   image:
-    repository: docker.subshell.com/tools/sophora-servermode-labeler
+    repository: container.subshell.com/sophora/sophora-servermode-labeler
     pullPolicy: IfNotPresent
     tag: "1.1.0"
   # not enabled per default and can only be enabled on cluster servers
@@ -32,7 +32,7 @@ serverModeLabeler:
 
 configGenerator:
   image:
-    repository: "docker.subshell.com/misc/alpine-toolkit"
+    repository: "container.subshell.com/misc/alpine-toolkit"
     tag: "0.2.0"
     pullPolicy: IfNotPresent
 
@@ -519,3 +519,19 @@ podDisruptionBudget:
   # podDisruptionBudget.maxUnavailable Max number of pods that can be unavailable after the eviction
   ##
   maxUnavailable: ""
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    portName: http
+    path: "/status/ready"

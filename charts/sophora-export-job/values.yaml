@@ -1,5 +1,5 @@
 image:
-  repository: docker.subshell.com/sophora/sophora-exporter
+  repository: container.subshell.com/sophora/sophora-exporter
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -22,7 +22,7 @@ sophora:
 
 configHelper:
   image:
-    repository: docker.subshell.com/misc/alpine-toolkit
+    repository: container.subshell.com/misc/alpine-toolkit
     pullPolicy: IfNotPresent
     tag: "0.2.0"
 
@@ -32,7 +32,7 @@ upload:
   # whether to upload as a zip file or as individual files
   useZip: true
   image:
-    repository: docker.subshell.com/misc/aws-cli-tools
+    repository: container.subshell.com/misc/aws-cli-tools
     pullPolicy: IfNotPresent
     tag: "0.0.2"
 

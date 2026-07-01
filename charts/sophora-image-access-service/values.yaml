@@ -1,5 +1,5 @@
 image:
-  repository: docker.subshell.com/sophora/sophora-image-access-service
+  repository: container.subshell.com/sophora/sophora-image-access-service
   tag: "latest"
   pullPolicy: IfNotPresent
 
@@ -148,3 +148,19 @@ autoscaling:
   maxReplicas: 5
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    portName: metrics
+    path: "/actuator/health"

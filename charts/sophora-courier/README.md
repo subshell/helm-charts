@@ -13,10 +13,10 @@ This chart requires the following already present in the target namespace:
 
 ```yaml
 image:
-  repository: docker.subshell.com/sophora-courier/base
+  repository: container.subshell.com/sophora-courier/base
   pullPolicy: Always
   tag: # Overrides the image tag whose default is the chart appVersion.
-  
+
 imagePullSecrets: []
 
 javaOptions: "-XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"

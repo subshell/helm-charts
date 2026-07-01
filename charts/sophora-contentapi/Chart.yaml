@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.2.0
+version: 1.4.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed

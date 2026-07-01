@@ -91,6 +91,15 @@ prometheusRules:
   enabled: false
   # prometheusRules.defaultRulesEnabled Whether the default rules should be installed
   defaultRulesEnabled: true
+  config:
+    NoPrimarySophoraServer:
+      for: 1m
+    SophoraReplicaServerNotInSync:
+      for: 2m
+    SophoraStagingServerNotInSync:
+      for: 10m
+    MultiplePrimarySophoraServers:
+      for: 1m
   # prometheusRules.rules allows to add custom rules
   rules: []
 
@@ -98,3 +107,19 @@ prometheusRules:
 ##
 # extraDeploy Allows to specify custom resources that should be deployed
 extraDeploy: []
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    portName: http
+    path: "/status/ready"

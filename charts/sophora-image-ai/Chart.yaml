@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-image-ai
 description: Sophora Image AI
 type: application
-version: 2.3.0
+version: 2.5.0
 annotations:
   artifacthub.io/changes: |
     - kind: changed

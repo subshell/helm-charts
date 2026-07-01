@@ -1,11 +1,11 @@
 image:
-  repository: docker.subshell.com/metadata-supplier/metadata-supplier
+  repository: container.subshell.com/sophora/metadata-supplier
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
 downloadViaS3Image:
-  repository: "docker.subshell.com/misc/aws-cli-tools"
+  repository: "container.subshell.com/misc/aws-cli-tools"
   tag: "0.0.2"
   pullPolicy: IfNotPresent
 
@@ -159,3 +159,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    portName: http
+    path: "/actuator/health/readiness"

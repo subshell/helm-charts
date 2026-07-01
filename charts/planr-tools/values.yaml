@@ -80,7 +80,7 @@ applications:
     name: newsroom-document-creator
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-document-creator
+      repository: container.subshell.com/customers/newsroom-document-creator
       pullPolicy: IfNotPresent
       tag: ""
     service:
@@ -120,7 +120,7 @@ applications:
     name: newsroom-feed
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-feed
+      repository: container.subshell.com/customers/newsroom-feed
       pullPolicy: IfNotPresent
       tag: ""
     service:
@@ -162,7 +162,7 @@ applications:
     name: newsroom-widget
     hostname: ""
     image:
-      repository: docker.subshell.com/planr-tools/newsroom-widget
+      repository: container.subshell.com/customers/newsroom-widget
       pullPolicy: IfNotPresent
       tag: ""
     service:
@@ -201,3 +201,20 @@ applications:
             urls: # e.g. https://cms.example.com/
             username: # in secret
             password: # in secret
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    # port:
+    portName: http
+    path: "/actuator/health/readiness"

@@ -7,7 +7,7 @@ image:
   pullPolicy: Always
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 podLabels:
   istio/inject: true

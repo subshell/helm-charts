@@ -6,14 +6,14 @@ This chart deploys Sophora UGC. Optionally, the UGC Multimedia Service addon is 
 
 This chart requires the following already present in the target namespace:
 
-* An ImagePullSecret for the subshell Docker Registry
-* A secret containing username and password for the sophora server and a username and password for the database.
+- An ImagePullSecret for the subshell Docker Registry
+- A secret containing username and password for the sophora server and a username and password for the database.
 
 ## Network configuration
 
 This chart contains a preconfigured ingress. It can be used to make the editorial UI available to editors.
 
-If using the UGC Multimedia Service, public access is needed to the `/public/` endpoints for users to upload multimedia objects directly to the microservice.  
+If using the UGC Multimedia Service, public access is needed to the `/public/` endpoints for users to upload multimedia objects directly to the microservice.
 Always ensure that access to all other endpoints is protected. Adjust your ingress and network configurations accordingly.
 
 For details, check the [UGC Multimedia Service documentation page](https://subshell.com/docs/ugc/4/ugc192.html).
@@ -55,7 +55,7 @@ authentication:
 
 ugc:
   image:
-    repository: docker.subshell.com/ugc/ugc
+    repository: container.subshell.com/sophora/ugc
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
@@ -116,18 +116,17 @@ ugc:
     # configure the port of the embedded jetty
     server:
       port: 9080
-      
+
     previewUrl: "https://localhost:8090/demosite/demosite/system/preview.jsp?sophoraid="
 
     # ratings, image uploads and comments can be enabled for a list of node types
     rating:
       primaryTypes: ["sophora-content-nt:story"]
 
-
 ugcMultimedia:
   enabled: false # enable to deploy UGC Multimedia Service
   image:
-    repository: docker.subshell.com/ugc/ugc-multimedia
+    repository: container.subshell.com/sophora/ugc-multimedia
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
