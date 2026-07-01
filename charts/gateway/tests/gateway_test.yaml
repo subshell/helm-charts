@@ -127,14 +127,14 @@ tests:
                   selector:
                     matchLabels:
                       example: use-gateway
-              - name: "https-wildcard-example.com"
+              - name: "https-wildcard.example.com"
                 hostname: "*.example.com"
                 port: 443
                 protocol: HTTPS
                 tls:
                   mode: Terminate
                   certificateRefs:
-                    - name: "gw-cert-wildcard-example.com"
+                    - name: "gw-cert-wildcard.example.com"
                 allowedRoutes:
                   namespaces:
                     from: All

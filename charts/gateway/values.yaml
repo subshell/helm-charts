@@ -17,8 +17,6 @@ gateway:
   # HTTPS hosts listening on default port 443
   https: []
 #    - host: chart-example.local
-#      # Optional: override the listener and certificate name. Required for wildcard hosts (e.g. *.example.com).
-#      # name: chart-example-local
 #      allowedRoutes:
 #        namespaces:
 #          from: Same

@@ -32,10 +32,7 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- range .Values.gateway.https }}
-    {{- if and (contains "*" .host) (not .name) }}
-      {{- fail (printf "gateway.https[].name is required when host contains a wildcard: %s" .host) }}
-    {{- end }}
-    {{- $effectiveName := default .host .name }}
+    {{- $effectiveName := .host | replace "*" "wildcard" }}
     - name: "https-{{ $effectiveName }}"
       hostname: "{{ .host }}"
       port: 443
