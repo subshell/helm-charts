@@ -58,8 +58,8 @@ httpRoutes:
     annotations:
       test: httpRoute
 
-extraHttpRoutes:
-  - parentRefs:
+  extraRoute:
+    parentRefs:
       - name: test-gateway-2
         namespace: gateway-system
     hostnames:
