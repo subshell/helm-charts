@@ -37,7 +37,7 @@ gateway:
 
 ### Wildcard host
 
-For wildcard hosts the `name` field is required, because `*` is not a valid character in Kubernetes resource names.
+For wildcard hosts the `name` field is required, because `*` of the hostname is not a valid character in Kubernetes resource names.
 
 ```yaml
 gateway:
