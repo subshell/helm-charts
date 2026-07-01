@@ -11,3 +11,8 @@ annotations:
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
 home: https://gitlab.com/subshell/kunden/planr-tools
+
+dependencies:
+  - name: common
+    version: "0.1.0"
+    repository: "file://../common"

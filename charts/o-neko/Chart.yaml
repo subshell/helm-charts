@@ -12,3 +12,8 @@ appVersion: "1.8.2"
 sources:
   - https://github.com/subshell/o-neko/
   - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+
+dependencies:
+  - name: common
+    version: "0.1.0"
+    repository: "file://../common"

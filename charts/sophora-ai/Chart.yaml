@@ -12,3 +12,8 @@ sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 home: https://subshell.com/sophora/modules/sophora-ai100.html
 icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+
+dependencies:
+  - name: common
+    version: "0.1.0"
+    repository: "file://../common"

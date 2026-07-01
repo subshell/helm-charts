@@ -18,3 +18,8 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
+
+dependencies:
+  - name: common
+    version: "0.1.0"
+    repository: "file://../common"
