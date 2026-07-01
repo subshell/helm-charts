@@ -48,15 +48,15 @@ extraIngress:
     hosts:
     tls: []
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "image-access.test.example.com"
-  annotations:
-    test: httpRoute
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "image-access.test.example.com"
+    annotations:
+      test: httpRoute
 
 extraHttpRoutes:
   - parentRefs:

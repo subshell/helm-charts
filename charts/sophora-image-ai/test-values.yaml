@@ -43,13 +43,13 @@ ingress:
   hosts:
   tls: []
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "image-ai.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "image-ai.test.example.com"
 
 serviceAccount:
   create: true
