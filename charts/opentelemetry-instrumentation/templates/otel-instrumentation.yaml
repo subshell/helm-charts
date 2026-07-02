@@ -1,18 +1,18 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
-  name: {{ default (include "opentelemetry-instrumentation.fullname" .) .Values.otelInstrumentation.name }}
+  name: {{ default (include "opentelemetry-instrumentation.fullname" .) .Values.name }}
   labels:
     {{ include "opentelemetry-instrumentation.labels" . | nindent 4 }}
 spec:
   exporter:
-    endpoint: {{ required "otelInstrumentation.exporter.endpoint is required" .Values.otelInstrumentation.exporter.endpoint }}
+    endpoint: {{ required "exporter.endpoint is required" .Values.exporter.endpoint }}
   propagators:
     - tracecontext
     - baggage
   sampler:
     type: parentbased_traceidratio
-    argument: "{{ .Values.otelInstrumentation.sampler.ratio }}"
+    argument: "{{ .Values.sampler.ratio }}"
   env:
     - name: OTEL_METRICS_EXPORTER
       value: "none"

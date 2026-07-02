@@ -1,10 +1,12 @@
-# -- OTEL Instrumentation configuration
-otelInstrumentation:
-  exporter:
-    # -- Endpoint URL with port to the OTEL collector. Example: http://my-collector:4137
-    endpoint:
-  # -- The name of the instrumentation resource. Default: fullname of this chart
-  name:
-  sampler:
-    # -- The "parentbased_traceidratio" value in range [0..1] e.g., 0.25. The value will be set in the OTEL_TRACES_SAMPLER_ARG env var.
-    ratio: "1"
+# OTEL Instrumentation configuration
+
+exporter:
+  # exporter.endpoint: Endpoint URL with port to the OTEL collector. Example: http://my-collector:4137
+  endpoint:
+
+# name: The name of the instrumentation resource. Default: fullname of this chart
+name:
+
+sampler:
+  # sampler.ratio: The "parentbased_traceidratio" value in range [0..1] e.g., 0.25. The value will be set in the OTEL_TRACES_SAMPLER_ARG env var.
+  ratio: "1"
