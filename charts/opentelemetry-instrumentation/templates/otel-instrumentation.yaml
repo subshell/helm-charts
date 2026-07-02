@@ -1,7 +1,7 @@
 apiVersion: opentelemetry.io/v1alpha1
 kind: Instrumentation
 metadata:
-  name: {{ default (include "opentelemetry-instrumentation.fullname" .) .Values.name }}
+  name: {{ default required "name is required" .Values.name }}
   labels:
     {{ include "opentelemetry-instrumentation.labels" . | nindent 4 }}
 spec:
