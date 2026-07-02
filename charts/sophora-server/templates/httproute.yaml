@@ -1,3 +1,3 @@
 {{- $labels := include "sophora-server.topLevelLabels" . -}}
 {{- $svcPort := .Values.sophora.server.ports.http -}}
-{{- template "common.httproutes" (list . (dict "labels" $labels "svcPort" $svcPort)) }}
+{{- template "common.httproutes" (dict "dot" . "labels" $labels "svcPort" $svcPort) }}

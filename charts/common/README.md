@@ -16,7 +16,7 @@ Afterwards you need to run `helm dependency build` to add the actual chart to yo
 You can use parts of this chart by using `include` or `template` and provide a scope.
 
 ```yaml
-{{- include "common.httproutes" (list . (dict "labels" $labels)) }}
+{{- include "common.httproutes" (dict "dot" . "labels" $labels) }}
 ```
 
 ## Development

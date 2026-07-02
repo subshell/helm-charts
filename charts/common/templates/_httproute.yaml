@@ -8,22 +8,21 @@ the context must contain a list. The first parameter provides the (global) conte
 If any of these keys are missing the default helpers will be used for the first two keys. The svcPort defaults to `.Values.service.port`. This template throws an error of neither the key 'svcPort' is provided nor the values contain that value.
 
 Simple Usage:
-  {{ template "common.httproute" (list . dict) }}
+  {{ template "common.httproute" dict "dot" . }}
 Full Usage:
   {{- $fullName := include "mychart.fullname" . -}}
   {{- $labels := include "mychart.labels" . -}}
   {{- $svcPort := .Values.service.port -}}
-  {{ template "common.httproute" (list . dict("fullName" $fullName "labels" $labels "svcPort" $svcPort)) }}
+  {{ template "common.httproute" (dict "dot" . "fullName" $fullName "labels" $labels "svcPort" $svcPort) }}
 */}}
 {{- define "common.httproutes" -}}
-{{- $top := index . 0 }}
-{{- $map := index . 1 }}
-{{- $fullName := default (include "common.fullname" $top) (get $map "fullName") -}}
-{{- $labels := default (include "common.labels" $top) (get $map "labels") -}}
-{{- $port := default $top.Values.service.port (get $map "svcPort") }}
+{{- $dot := required "the key 'dot' must be provide the scope to use" .dot }}
+{{- $fullName := default (include "common.fullname" .dot) .fullName -}}
+{{- $labels := default (include "common.labels" .dot) .labels -}}
+{{- $port := default .dot.Values.service.port .svcPort }}
 {{- $svcPort := required "A service port must be given in the values!" $port -}}
-{{- range $key := ($top.Values.httpRoutes | keys | sortAlpha) }}
-{{- $httpRoute := index $top.Values.httpRoutes $key }}
+{{- range $key := (.dot.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $dot.Values.httpRoutes $key }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
