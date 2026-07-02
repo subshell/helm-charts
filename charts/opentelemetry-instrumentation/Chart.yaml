@@ -2,7 +2,7 @@ apiVersion: v2
 name: opentelemetry-instrumentation
 description: Simple OpenTelemetry Auto Instrumentation
 type: application
-version: 0.1.0
+version: 1.0.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
