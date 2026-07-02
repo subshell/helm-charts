@@ -1,0 +1,62 @@
+{{/*
+Renders multiple `HTTPRoute` resources.
+The values need to have `httpRoutes` on the top level. Each entry of that map will be rendered to a `HTTPRoute` resource.
+the context must contain a list. The first parameter provides the (global) context. The second is a dictionary with optional keys:
+- fullName
+- labels
+- svcPort
+If any of these keys are missing the default helpers will be used for the first two keys. The svcPort defaults to `.Values.service.port`. This template throws an error of neither the key 'svcPort' is provided nor the values contain that value.
+
+Simple Usage:
+  {{ template "common.httproute" (list . dict) }}
+Full Usage:
+  {{- $fullName := include "mychart.fullname" . -}}
+  {{- $labels := include "mychart.labels" . -}}
+  {{- $svcPort := .Values.service.port -}}
+  {{ template "common.httproute" (list . dict("fullName" $fullName "labels" $labels "svcPort" $svcPort)) }}
+*/}}
+{{- define "common.httproutes" -}}
+{{- $top := index . 0 }}
+{{- $map := index . 1 }}
+{{- $fullName := default (include "common.fullname" $top) (get $map "fullName") -}}
+{{- $labels := default (include "common.labels" $top) (get $map "labels") -}}
+{{- $port := default $top.Values.service.port (get $map "svcPort") }}
+{{- $svcPort := required "A service port must be given in the values!" $port -}}
+{{- range $key := ($top.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $top.Values.httpRoutes $key }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ include "common.suffixName.name" (dict "fullName" $fullName "suffix" $key) }}
+  labels:
+    {{- $labels | nindent 4 }}
+  {{- with $httpRoute.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  {{- with $httpRoute.parentRefs }}
+  parentRefs:
+  {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- if $httpRoute.hostnames }}
+  hostnames:
+  {{- range $httpRoute.hostnames }}
+    - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ $fullName }}
+          port: {{ $svcPort }}
+      {{- with $httpRoute.matches }}
+      matches:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $httpRoute.filters }}
+      filters:
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+---
+{{- end }}
+{{- end }}

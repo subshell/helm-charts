@@ -1,0 +1,3 @@
+# ignore chart dependencies
+charts/
+Chart.lock
