@@ -1,1 +1,5 @@
-{{- template "common.httproutes" (dict "dot" . "svcPort" 80) }}
+{{- $fullName := include "sophora-ugc.fullname" . -}}
+{{- $serviceName := printf "%s-webapp" $fullName -}}
+{{- $labels := include "sophora-ugc.labels" . -}}
+{{- $svcPort := 80 -}}
+{{- template "common.httproutes" (dict "dot" . "fullName" $fullName "labels" $labels "svcPort" $svcPort "svcName" $serviceName) }}
