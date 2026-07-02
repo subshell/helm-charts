@@ -657,6 +657,21 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.0.0/o-neko-catnip-1.0.0.tgz
     version: 1.0.0
+  opentelemetry-instrumentation:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "This is the first release of this helm chart."
+    apiVersion: v2
+    appVersion: 1.16.0
+    created: "2026-07-02T15:31:47.055319405Z"
+    description: Simple OpenTelemetry Auto Instrumentation
+    digest: db1c8290f02b86486343a5b026f43875ff3fac8eb0fc7fcd1de4503fb534bb01
+    name: opentelemetry-instrumentation
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/opentelemetry-instrumentation-1.0.0/opentelemetry-instrumentation-1.0.0.tgz
+    version: 1.0.0
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
@@ -5349,4 +5364,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-06-30T08:58:31.632295111Z"
+generated: "2026-07-02T15:31:47.056089478Z"
