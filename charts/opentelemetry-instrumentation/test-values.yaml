@@ -1,0 +1,4 @@
+otelInstrumentation:
+  exporter:
+    endpoint: http://foo.bar:4137
+  name: my-custom-inst-config

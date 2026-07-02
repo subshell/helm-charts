@@ -1,0 +1,24 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: {{ default (include "opentelemetry-instrumentation.fullname" .) .Values.otelInstrumentation.name }}
+  labels:
+    {{ include "opentelemetry-instrumentation.labels" . | nindent 4 }}
+spec:
+  exporter:
+    endpoint: {{ required "otelInstrumentation.exporter.endpoint is required" .Values.otelInstrumentation.exporter.endpoint }}
+  propagators:
+    - tracecontext
+    - baggage
+  sampler:
+    type: parentbased_traceidratio
+    argument: "{{ .Values.otelInstrumentation.sampler.ratio }}"
+  env:
+    - name: OTEL_METRICS_EXPORTER
+      value: "none"
+    - name: OTEL_LOGS_EXPORTER
+      value: "none"
+    - name: OTEL_TRACES_EXPORTER
+      value: "otlp"
+    - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+      value: "grpc"
