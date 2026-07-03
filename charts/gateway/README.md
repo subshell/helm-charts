@@ -23,7 +23,7 @@ Only when certificates should be provided by cert-manager with [annotated Gatewa
 
 ## Notes
 
-- When using a regional load balancer then the IP address must be regional too. When using a global load balancer use a global IP address.
+- Google Cloud: When using a regional load balancer then the IP address must be regional too. When using a global load balancer use a global IP address.
 
 ## Example values.yaml
 
@@ -33,17 +33,6 @@ Only when certificates should be provided by cert-manager with [annotated Gatewa
 gateway:
   https:
     - host: simple.example.com
-```
-
-### Wildcard host
-
-For wildcard hosts the `name` field is required, because `*` of the hostname is not a valid character in Kubernetes resource names.
-
-```yaml
-gateway:
-  https:
-    - host: "*.example.com"
-      name: wildcard-example-com
 ```
 
 ### Basic with cert-manager certificate
