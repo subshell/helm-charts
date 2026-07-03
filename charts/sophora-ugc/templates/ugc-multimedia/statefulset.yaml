@@ -73,7 +73,7 @@ spec:
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
           ports:
-            - containerPort: {{ default 8080 (.Values.ugcMultimedia.config.server).port }}
+            - containerPort: {{ dig "server" "port" 9080 .Values.ugcMultimedia.config }}
               name: ugc-multimedia
           volumeMounts:
             - name: logback-xml

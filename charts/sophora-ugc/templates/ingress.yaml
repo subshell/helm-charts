@@ -32,7 +32,7 @@ spec:
               service:
                 name: {{ $ugcFullName }}-webapp
                 port:
-                  number: {{ default 8080 ($.Values.ugc.config.server).port }}
+                  name: webapp-http
           {{- if $.Values.ugcMultimedia.enabled }}
           - path: /public/binary
             pathType: {{ default "ImplementationSpecific" .pathType }}
@@ -40,35 +40,35 @@ spec:
               service:
                 name: {{ $ugcMultimediaFullName }}
                 port:
-                  number: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+                  name: ugc-multimedia
           - path: /public/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
                 name: {{ $ugcMultimediaFullName }}
                 port:
-                  number: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+                  name: ugc-multimedia
           - path: /secure/binary
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
                 name: {{ $ugcMultimediaFullName }}
                 port:
-                  number: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+                  name: ugc-multimedia
           - path: /secure/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
                 name: {{ $ugcMultimediaFullName }}
                 port:
-                  number: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+                  name: ugc-multimedia
           - path: /websocket/multimedia
             pathType: {{ default "ImplementationSpecific" .pathType }}
             backend:
               service:
                 name: {{ $ugcMultimediaFullName }}
                 port:
-                  number: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+                  name: ugc-multimedia
           {{- end }}
     {{- end }}
     {{- end }}
