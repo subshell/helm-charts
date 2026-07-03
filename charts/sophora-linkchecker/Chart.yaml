@@ -17,4 +17,4 @@ icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts/common"
+    repository: "file://../common"

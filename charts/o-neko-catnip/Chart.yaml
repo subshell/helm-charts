@@ -16,4 +16,4 @@ sources:
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts/common"
+    repository: "file://../common"
