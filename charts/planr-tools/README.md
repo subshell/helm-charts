@@ -42,9 +42,6 @@ ingress:
   hosts:
     - host: planr-tools.example.com
 
-httpRoute:
-  enabled: false
-
 applications:
   documentCreator:
     service:

@@ -14,13 +14,13 @@ authentication:
       accessKeyKey: s3bucket-access-key-2
       secretIdKey: s3bucket-secret-id-2
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "ugc-proxy.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "ugc-proxy.test.example.com"
 
 image:
   repository: container.subshell.com/sophora/ugc-proxy

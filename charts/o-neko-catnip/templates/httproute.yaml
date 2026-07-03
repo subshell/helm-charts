@@ -1,35 +1,40 @@
-{{- if .Values.httpRoute.enabled -}}
 {{- $fullName := include "o-neko-catnip.fullname" . -}}
+{{- $labels := include "o-neko-catnip.labels" . -}}
+{{- $svcPort := 8080 -}}
+{{- range $nameSuffix := (.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  labels: {{- include "o-neko-catnip.labels" . | nindent 4 }}
-  name: {{ $fullName }}
-  {{- with .Values.httpRoute.annotations }}
+  name: {{ printf "%s-%s" $fullName $nameSuffix | trunc 63 | trimSuffix "-" }}
+  labels:
+    {{- $labels | nindent 4 }}
+  {{- with $httpRoute.annotations }}
   annotations:
-  {{- toYaml . | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.httpRoute.parentRefs }}
+  {{- with $httpRoute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.httpRoute.hostnames }}
+  {{- if $httpRoute.hostnames }}
   hostnames:
-  {{- range .Values.httpRoute.hostnames }}
-    - {{ required "A hostname for the HTTPRoute must be provided in .Values.httpRoute.hostnames" . | quote }}
+  {{- range $httpRoute.hostnames }}
+    - {{ . | quote }}
   {{- end }}
   {{- end }}
   rules:
     - backendRefs:
         - name: {{ $fullName }}
-          port: 8080
-      {{- with .Values.httpRoute.matches }}
+          port: {{ $svcPort }}
+      {{- with $httpRoute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.httpRoute.filters }}
+      {{- with $httpRoute.filters }}
       filters:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+---
 {{- end }}
