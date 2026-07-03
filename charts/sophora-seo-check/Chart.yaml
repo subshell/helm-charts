@@ -13,8 +13,3 @@ sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
 home: https://subshell.com/sophora/modules/sophora-seo-check104.html
 icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
-
-dependencies:
-  - name: common
-    version: "0.1.0"
-    repository: "file://../common"

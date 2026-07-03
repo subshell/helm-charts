@@ -34,8 +34,3 @@ sources:
 home: https://subshell.com/sophora/modules/sophora-importer102.html
 # A URL to an SVG or PNG image to be used as an icon
 icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
-
-dependencies:
-  - name: common
-    version: "0.1.0"
-    repository: "file://../common"
