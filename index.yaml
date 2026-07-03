@@ -171,6 +171,22 @@ entries:
   gateway:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "wildcard hostnames no longer break the listener and certificate name"
+    apiVersion: v2
+    created: "2026-07-03T14:39:02.526936098Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: f31dfcf181d1c5d10173a09a8068a6cd734e3414aaa351117f3f1be01f507421
+    name: gateway
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.1.1/gateway-1.1.1.tgz
+    version: 1.1.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "add optional GCPGatewayPolicy resource for GKE"
     apiVersion: v2
@@ -5393,4 +5409,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-03T14:21:48.498661879Z"
+generated: "2026-07-03T14:39:02.527635744Z"
