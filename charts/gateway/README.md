@@ -64,7 +64,6 @@ gateway:
   https:
     - host: simple.example.com
     - host: "*.example.com"
-      name: wildcard-example-com
     - host: chart-example.local
       allowedRoutes:
         namespaces:
