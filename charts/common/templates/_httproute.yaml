@@ -1,14 +1,11 @@
 {{/*
 Renders multiple `HTTPRoute` resources.
 The values need to have `httpRoutes` on the top level. Each entry of that map will be rendered to a `HTTPRoute` resource.
-the context must contain a dictionary. The key 'dot' provides the (global) context and is required. The remaining are optional keys:
+the context must contain a list. The first parameter provides the (global) context. The second is a dictionary with optional keys:
 - fullName
 - labels
 - svcPort
-- svcName
-If any of these keys are missing the default helpers will be used for the first two keys.
-The svcPort defaults to `.Values.service.port`. This template throws an error of neither the key 'svcPort' is provided nor the values contain that value.
-The svcName defaults to fullName if not provided.
+If any of these keys are missing the default helpers will be used for the first two keys. The svcPort defaults to `.Values.service.port`. This template throws an error of neither the key 'svcPort' is provided nor the values contain that value.
 
 Simple Usage:
   {{ template "common.httproute" dict "dot" . }}
@@ -16,16 +13,14 @@ Full Usage:
   {{- $fullName := include "mychart.fullname" . -}}
   {{- $labels := include "mychart.labels" . -}}
   {{- $svcPort := .Values.service.port -}}
-  {{- $svcName := printf "%s-webapp" $fullName -}}
   {{ template "common.httproute" (dict "dot" . "fullName" $fullName "labels" $labels "svcPort" $svcPort) }}
 */}}
 {{- define "common.httproutes" -}}
 {{- $dot := required "the key 'dot' must be provide the scope to use" .dot }}
-{{- $fullName := default (include "common.fullname" .dot) .fullName }}
-{{- $labels := default (include "common.labels" .dot) .labels }}
+{{- $fullName := default (include "common.fullname" .dot) .fullName -}}
+{{- $labels := default (include "common.labels" .dot) .labels -}}
 {{- $port := default .dot.Values.service.port .svcPort }}
-{{- $svcPort := required "A service port must be given in the values!" $port }}
-{{- $svcName := default $fullName .svcName }}
+{{- $svcPort := required "A service port must be given in the values!" $port -}}
 {{- range $key := (.dot.Values.httpRoutes | keys | sortAlpha) }}
 {{- $httpRoute := index $dot.Values.httpRoutes $key }}
 apiVersion: gateway.networking.k8s.io/v1
@@ -51,7 +46,7 @@ spec:
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $svcName }}
+        - name: {{ $fullName }}
           port: {{ $svcPort }}
       {{- with $httpRoute.matches }}
       matches:
