@@ -53,12 +53,26 @@ ingress:
   hosts:
   annotations: {}
 
-httpRoute:
-  enabled: false
-  parentRefs: []
-  hostnames: []
-  filters: []
-  annotations: {}
+# httpRoutes Map of HTTPRoute resources (Gateway API) to create.
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
+httpRoutes: {}
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
+  #   hostnames:
+  #     - "my-service.example.com"
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   filters:
+  #     - type: RequestHeaderModifier
+  #       requestHeaderModifier:
+  #         set:
+  #           - name: X-Custom-Header
+  #             value: custom-value
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
+  #   annotations: {}
 
 applications:
   documentCreator:

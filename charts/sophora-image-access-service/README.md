@@ -18,3 +18,9 @@ This Helm Chart provides a general setup for Sophora Image **Access** Service.
 ## Configuration notes
 
 When configuring, be aware that Access- and Update Service *must* connect to the same S3 storage.
+
+## Upgrade Notes
+
+# since v1.9.0
+
+The value `extraHttpRoutes ` was removed in favor of  `httpRoutes`. See [CHANGES_HTTPROUTE_MULTI.md](../CHANGES_HTTPROUTE_MULTI.md) for details.

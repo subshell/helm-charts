@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.2.0
+version: 2.3.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HealthCheck for GCP needed for GCP Gateway support"
+    - kind: changed
+      description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
 
 appVersion: "1.8.2"
 sources:

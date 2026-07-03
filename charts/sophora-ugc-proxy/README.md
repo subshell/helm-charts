@@ -41,13 +41,13 @@ ingress:
       path: /
       pathType: Prefix
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: main-gateway
-      namespace: gateway-system
-  hostnames:
-    - "ugc-proxy.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: main-gateway
+        namespace: gateway-system
+    hostnames:
+      - "ugc-proxy.example.com"
 
 # Define the physical Kubernetes secrets that hold the S3 credentials
 authentication:

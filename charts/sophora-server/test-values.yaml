@@ -138,13 +138,13 @@ grpcIngress:
     - host: "sophora.domain.de"
       path: /sophora\.srpc.*
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "sophora-server.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "sophora-server.test.example.com"
 
 grpcHttproute:
   enabled: true
