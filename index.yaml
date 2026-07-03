@@ -91,6 +91,16 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/artifactory-cleanup-0.1.0/artifactory-cleanup-0.1.0.tgz
     version: 0.1.0
+  common:
+  - apiVersion: v2
+    created: "2026-07-03T09:36:09.273103955Z"
+    description: A Helm library chart providing shared helper templates
+    digest: b663f194da0b4a4c0bb3795d8eabfe75347e664fd3777d4d44d4585a14495ec5
+    name: common
+    type: library
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/common-0.1.0/common-0.1.0.tgz
+    version: 0.1.0
   external-secrets:
   - annotations:
       artifacthub.io/changes: |
@@ -5364,4 +5374,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-02T15:31:47.056089478Z"
+generated: "2026-07-03T09:36:09.273745966Z"
