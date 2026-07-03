@@ -1,1 +1,1 @@
-{{- template "common.httproutes" (dict "dot" . "svcPort" 80) }}
+{{- template "common.httproutes" (list . (dict "svcPort" 80)) }}

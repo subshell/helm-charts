@@ -1,1 +1,1 @@
-{{- template "common.httproutes" (dict "dot" .) }}
+{{- template "common.httproutes" (list . dict) }}
