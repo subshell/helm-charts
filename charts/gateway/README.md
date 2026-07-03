@@ -23,7 +23,7 @@ Only when certificates should be provided by cert-manager with [annotated Gatewa
 
 ## Notes
 
-- When using a regional load balancer then the IP address must be regional too. When using a global load balancer use a global IP address.
+- Google Cloud: When using a regional load balancer then the IP address must be regional too. When using a global load balancer use a global IP address.
 
 ## Example values.yaml
 
@@ -63,6 +63,7 @@ gateway:
     - value: 1.2.3.4
   https:
     - host: simple.example.com
+    - host: "*.example.com"
     - host: chart-example.local
       allowedRoutes:
         namespaces:

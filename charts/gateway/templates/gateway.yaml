@@ -32,7 +32,8 @@ spec:
     {{- toYaml . | nindent 4 }}
   {{- end }}
   {{- range .Values.gateway.https }}
-    - name: "https-{{ .host }}"
+    {{- $effectiveName := .host | replace "*" "wildcard" }}
+    - name: "https-{{ $effectiveName }}"
       hostname: "{{ .host }}"
       port: 443
       protocol: HTTPS
@@ -43,7 +44,7 @@ spec:
           - name: "{{ .tls.certRef }}"
       {{- else if or $certManager.clusterIssuer $certManager.issuer }}
         certificateRefs:
-          - name: "gw-cert-{{ .host }}"
+          - name: "gw-cert-{{ $effectiveName }}"
       {{- end }}
       allowedRoutes:
       {{- if .allowedRoutes }}
