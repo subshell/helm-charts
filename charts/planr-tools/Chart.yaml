@@ -15,4 +15,4 @@ home: https://gitlab.com/subshell/kunden/planr-tools
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts/common"
+    repository: "oci://ghcr.io/subshell/helm-charts"
