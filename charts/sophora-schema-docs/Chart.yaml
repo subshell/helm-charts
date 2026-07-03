@@ -17,4 +17,4 @@ icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.p
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "file://../common"
+    repository: "oci://ghcr.io/subshell/helm-charts/common"
