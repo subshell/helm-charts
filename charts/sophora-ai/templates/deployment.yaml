@@ -73,11 +73,11 @@ spec:
                   key: {{ .Values.sophora.postgresCredentials.secret.passwordKey | quote }}
             {{- end }}
             {{- if .Values.sophora.llmProviderCredentials }}
-            {{- range $nameSuffix, $value := .Values.sophora.llmProviderCredentials }}
-            - name: {{ print "SOPHORAAI_LLM_PROVIDERS_" ($nameSuffix | upper) "_APIKEY" | quote }}
+            {{- range $key, $value := .Values.sophora.llmProviderCredentials }}
+            - name: {{ print "SOPHORAAI_LLM_PROVIDERS_" ($key | upper) "_APIKEY" | quote }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ required (print "A valid secret name must be provided in .Values.sophora.llmProviderCredentials." $nameSuffix ".secret.name") $value.secret.name | quote }}
+                  name: {{ required (print "A valid secret name must be provided in .Values.sophora.llmProviderCredentials." $key ".secret.name") $value.secret.name | quote }}
                   key: {{ $value.secret.apiKeyKey | quote }}
             {{- end }}
             {{- end }}

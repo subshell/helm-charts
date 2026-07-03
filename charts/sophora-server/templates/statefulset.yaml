@@ -49,8 +49,8 @@ spec:
         checksum/sophora-repository-postgres-configmap: {{ get (include (print $.Template.BasePath "/sophora-repository-postgres-configmap.yaml") . | fromYaml) "data" | toYaml | sha256sum }}
         {{- end }}
         {{- end }}
-        {{- range $nameSuffix, $value := .Values.podAnnotations }}
-        {{ $nameSuffix }}: {{ $value | quote }}
+        {{- range $key, $value := .Values.podAnnotations }}
+        {{ $key }}: {{ $value | quote }}
         {{- end }}
       {{- end }}
       labels:
