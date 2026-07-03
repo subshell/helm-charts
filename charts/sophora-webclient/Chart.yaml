@@ -30,4 +30,4 @@ icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts"
+    repository: "oci://ghcr.io/subshell/helm-charts/common"

@@ -38,4 +38,4 @@ icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts"
+    repository: "oci://ghcr.io/subshell/helm-charts/common"

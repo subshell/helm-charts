@@ -8,7 +8,7 @@ To use this chart add it as dependency to your chart.
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts"
+    repository: "oci://ghcr.io/subshell/helm-charts/common"
 ```
 
 Afterwards you need to run `helm dependency build` to add the actual chart to your local chart.

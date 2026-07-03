@@ -16,4 +16,4 @@ icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
 dependencies:
   - name: common
     version: "0.1.0"
-    repository: "oci://ghcr.io/subshell/helm-charts"
+    repository: "oci://ghcr.io/subshell/helm-charts/common"
