@@ -2,4 +2,11 @@ apiVersion: v2
 name: common
 description: A Helm library chart providing shared helper templates
 type: library
-version: 0.1.0
+version: 0.1.1
+annotations:
+  artifacthub.io/changes: |
+    - kind: fixed
+      description: "Fixed repository URL in readMe example"
+
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/common
