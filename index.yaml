@@ -701,6 +701,23 @@ entries:
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed a missing 'end' in the gcpHealthCheck template that prevented the whole chart from rendering"
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-07-06T06:04:29.186017489Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 40003a486fbd3b96a50842a16874382badc3069d874c4288b03e9e9554c932cb
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.3.1/planr-tools-1.3.1.tgz
+    version: 1.3.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -5409,4 +5426,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-03T14:39:02.527635744Z"
+generated: "2026-07-06T06:04:29.186566887Z"
