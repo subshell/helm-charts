@@ -4,11 +4,11 @@ description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected 
 
 type: application
 
-version: 1.3.0
+version: 1.3.1
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
+    - kind: fixed
+      description: "new release to make chart version available"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

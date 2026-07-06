@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.6.0
+version: 0.6.1
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
+    - kind: fixed
+      description: "new release to make chart version available"
 
 appVersion: "5.x"
 sources:
