@@ -296,6 +296,23 @@ entries:
   o-neko:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-07-06T15:23:59.252354718Z"
+    description: A Helm chart for O-Neko
+    digest: 95d051d44a8823f62333041c71e5f904a0c382b4e34949d79dfbff05997ac66f
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.3.1/o-neko-2.3.1.tgz
+    version: 2.3.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -591,6 +608,23 @@ entries:
   o-neko-catnip:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 1.3.2
+    created: "2026-07-06T15:23:59.470750049Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 256e883366af37dee852353c917203fad0460943abc58334dcb8fd7a4d8a2f8d
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko-catnip
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.6.1/o-neko-catnip-1.6.1.tgz
+    version: 1.6.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -768,6 +802,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    created: "2026-07-06T15:23:59.709527046Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: e026ff4802eb1338c246275400b2f2d8e2245ac1487017870343fe1df834f955
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.9.1/sophora-admin-dashboard-1.9.1.tgz
+    version: 1.9.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -961,6 +1015,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
   sophora-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 1.7.0
+    created: "2026-07-06T15:23:59.991708962Z"
+    description: Sophora AI
+    digest: 96ac660a3e19c401645d02ffe5baacb8a619755b9cdbfdabf1bbfe242c7842bf
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.6.1/sophora-ai-2.6.1.tgz
+    version: 2.6.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -1403,6 +1475,22 @@ entries:
   sophora-contentapi:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-06T15:24:00.274113337Z"
+    description: Sophora Content API
+    digest: ea4eef71a598c56b758482ff090cada1b6319781c75f072a7955073b1bb35d9c
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.4.1/sophora-contentapi-1.4.1.tgz
+    version: 1.4.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -1714,6 +1802,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-06T15:24:00.507631694Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: f14fa6bec8b058f696290f90fa5c1814b9be48a712bfd1f3d520dc86bc549bd9
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.9.1/sophora-image-access-service-1.9.1.tgz
+    version: 1.9.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -1881,6 +1987,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-07-06T15:24:00.771756713Z"
+    description: Sophora Image AI
+    digest: 88694e5010ddfe777178c526e77c243754e3e330cb6b4c56aaf02bf45c142a1a
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.5.1/sophora-image-ai-2.5.1.tgz
+    version: 2.5.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2358,6 +2482,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-06T15:24:01.005848719Z"
+    description: A Helm chart for the Sophora importer
+    digest: eebe3c70f8c9c581eba0c6c741865b7a5e8480d3dbfbfa6eba9917364b2aeb6e
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.10.1/sophora-importer-2.10.1.tgz
+    version: 2.10.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -2812,6 +2954,24 @@ entries:
   sophora-indexing-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-06T15:24:01.228981807Z"
+    description: Sophora Indexing Service (SISI)
+    digest: aa92fa9fb653774291977e4d7ce13be20d806c2439ec19f26dddeedb17b8a102
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.10.1/sophora-indexing-service-1.10.1.tgz
+    version: 1.10.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -3029,6 +3189,24 @@ entries:
   sophora-linkchecker:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-06T15:24:01.501202459Z"
+    description: Sophora Link Checker
+    digest: c7115b7b589c0c4c489206156e8f4a2f8952a104c07f377d46998ba2bf913df3
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.5.1/sophora-linkchecker-0.5.1.tgz
+    version: 0.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -3130,6 +3308,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-07-06T15:24:01.709392144Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: 726f7fc8897e3282832a333a81ffc7503d0f0b04cb66d733d0cfa76ea3a63d3d
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.6.1/sophora-media-finder-0.6.1.tgz
+    version: 0.6.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3293,6 +3489,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-06T15:24:02.031098877Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 3b20fa176026164e02188838811003a1e840b4f678993beef88f3c07811daa3f
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.7.1/sophora-metadata-supplier-1.7.1.tgz
+    version: 1.7.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3504,6 +3718,24 @@ entries:
   sophora-schema-docs:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-06T15:24:02.305764322Z"
+    description: Sophora Schema Docs
+    digest: fed5278f905a7428273d6a08c707e9710e3d9df556178316312fda4deee6173e
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.5.1/sophora-schema-docs-2.5.1.tgz
+    version: 2.5.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
     apiVersion: v2
@@ -3665,6 +3897,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-1.0.0/sophora-schema-docs-1.0.0.tgz
     version: 1.0.0
   sophora-seo-check:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-07-06T15:24:02.599438853Z"
+    description: Sophora SEO Check
+    digest: 4bf669605475d64d51dc09a5c310ff7f14bedaf03ce55767de5e9832837c1fc6
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.4.1/sophora-seo-check-1.4.1.tgz
+    version: 1.4.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4461,6 +4711,27 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-06T15:24:02.903711753Z"
+    description: A Helm chart for Kubernetes
+    digest: 6ebd9f74317f284b39e829308ee8b7907c4cdbc317daf9e3f3c038c24b213060
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.6.1/sophora-ugc-2.6.1.tgz
+    version: 2.6.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
       artifacthub.io/links: |
@@ -4882,6 +5153,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-06T15:24:03.183641117Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 1b2b9995cfa5c273c32adf6f1a28d8df385318cf98129e44b5680d1c8d2ad005
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.3.1/sophora-ugc-proxy-1.3.1.tgz
+    version: 1.3.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "HTTPRoute configuration changed to a map of routes via httpRoutes{}. The previous httpRoute field has been removed (breaking change)!"
     apiVersion: v2
@@ -4996,6 +5286,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-06T15:24:03.47470383Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 809a91973e0061d6bcc5f62e1146389ade8c2eee5ebed8bcf42c8402da9aa446
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.8.1/sophora-webclient-1.8.1.tgz
+    version: 1.8.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -5271,6 +5582,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "new release to make chart version available"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-07-06T15:24:03.791730271Z"
+    description: A Helm chart for Kubernetes
+    digest: 00db6c73e26c64db8903146f9073932c99fb1481e2e3858fa959edcebeee7a6d
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.7.1/sophora-youtube-connector-1.7.1.tgz
+    version: 1.7.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added HealthCheck for GCP needed for GCP Gateway support"
       artifacthub.io/links: |
@@ -5444,4 +5776,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-06T14:42:23.135475273Z"
+generated: "2026-07-06T15:24:03.792994364Z"
