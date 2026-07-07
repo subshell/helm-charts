@@ -6,7 +6,7 @@ version: 1.6.2
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "Fix HealthCheckPolicy template"
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
 
 appVersion: "1.3.2"
 sources:
