@@ -5,8 +5,10 @@ type: application
 version: 1.6.2
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
+    - kind: changed
       description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
+    - kind: added
+      description: "Added ingress.enabled value to control whether an ingress resource should be created"
 
 appVersion: "1.3.2"
 sources:

@@ -99,6 +99,8 @@ service:
 
 
 ingress:
+  # ingress.enabled Whether an ingress resource should be created
+  enabled: false
   # ingress.ingressClassName name of the ingressClass used for the ingress
   ingressClassName:
   # ingress.hosts Array with hostnames used for the ingress
