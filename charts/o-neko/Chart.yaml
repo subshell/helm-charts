@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.3.1
+version: 2.3.2
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "new release to make chart version available"
+      description: "Fix HealthCheckPolicy template"
 
 appVersion: "1.8.2"
 sources:
