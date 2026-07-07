@@ -34,10 +34,10 @@ tests:
           name: values-test-release-planr-tools-newsroom-widget
           any: true
       - equal:
-          path: spec.default.config.healthCheck.portName
+          path: spec.default.config.httpHealthCheck.portName
           value: http
       - equal:
-          path: spec.default.config.healthCheck.requestPath
+          path: spec.default.config.httpHealthCheck.requestPath
           value: /actuator/health/readiness
       - equal:
           path: spec.targetRef.kind

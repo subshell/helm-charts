@@ -2,12 +2,12 @@ apiVersion: v2
 name: planr-tools
 description: A Helm chart for deploying the planr-tools applications
 type: application
-version: 1.3.1
+version: 1.3.2
 appVersion: "5.1.1"
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "Fixed a missing 'end' in the gcpHealthCheck template that prevented the whole chart from rendering"
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
 home: https://gitlab.com/subshell/kunden/planr-tools

@@ -13,8 +13,8 @@ icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.9.1
+version: 1.9.2
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "new release to make chart version available"
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"

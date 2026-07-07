@@ -15,7 +15,7 @@ spec:
   default:
     config:
       type: HTTP
-      healthCheck:
+      httpHealthCheck:
         {{- with $.Values.gcp.healthCheck.port }}
         port: {{ . }}
         {{- end }}
@@ -23,8 +23,8 @@ spec:
         portName: {{ . | quote }}
         {{- end }}
         requestPath: {{ $.Values.gcp.healthCheck.path | quote }}
-      logConfig:
-        enable: {{ $.Values.gcp.healthCheck.logging }}
+    logConfig:
+      enable: {{ $.Values.gcp.healthCheck.logging }}
   targetRef:
     group: ""
     kind: Service

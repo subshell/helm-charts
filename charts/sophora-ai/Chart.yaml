@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.6.1
+version: 2.6.2
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "new release to make chart version available"
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
 appVersion: 1.7.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
