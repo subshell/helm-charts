@@ -24,7 +24,7 @@ spec:
         {{- end }}
         requestPath: {{ $.Values.gcp.healthCheck.path | quote }}
     logConfig:
-      enable: {{ $.Values.gcp.healthCheck.logging }}
+      enabled: {{ $.Values.gcp.healthCheck.logging }}
   targetRef:
     group: ""
     kind: Service
