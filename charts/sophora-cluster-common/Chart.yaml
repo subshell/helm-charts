@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.6.0
+version: 1.6.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HealthCheck for GCP needed for GCP Gateway support"
+    - kind: fixed
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
 
 appVersion: "4"
 sources:

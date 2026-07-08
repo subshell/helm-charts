@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.10.1
+version: 1.10.2
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "new release to make chart version available"
+      description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
 
 appVersion: '5.4.1'
 sources:
