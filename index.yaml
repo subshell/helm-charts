@@ -910,6 +910,26 @@ entries:
   sophora-admin-dashboard:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Breaking change: The `ingress.enabled` value is now set to `false` by default. If you want to enable the ingress, set it to `true` in your values.yaml."
+    apiVersion: v2
+    created: "2026-07-08T18:49:28.620214147Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 92970ff72dea4b3b5cf91a3113c751058e5e12a02feff0e8bc1c17767daafc0e
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.10.0/sophora-admin-dashboard-1.10.0.tgz
+    version: 1.10.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -6571,4 +6591,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-08T18:41:25.584006791Z"
+generated: "2026-07-08T18:49:28.620979887Z"
