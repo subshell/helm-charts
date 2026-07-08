@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.6.3
+version: 3.7.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    - kind: added
+      description: "Added gRPC GCP HealthCheckFixed support"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

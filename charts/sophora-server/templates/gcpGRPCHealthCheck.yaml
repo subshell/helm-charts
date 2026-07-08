@@ -1,0 +1,23 @@
+{{- if and .Values.gcp.grpcHealthCheck.enabled .Values.sophora.grpcApi.enabled -}}
+---
+{{- $fullName := include "sophora-server.fullname" . -}}
+{{- $labels := include "sophora-server.labels" . -}}
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  default:
+    config:
+      type: GRPC
+      grpcHealthCheck:
+        port: {{ .Values.sophora.server.ports.grpc }}
+    logConfig:
+      enabled: {{ .Values.gcp.grpcHealthCheck.logging }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ $fullName }}
+{{- end }}

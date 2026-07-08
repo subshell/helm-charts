@@ -1,0 +1,23 @@
+{{- if and .Values.clusterServerLb.enabled .Values.gcp.grpcHealthCheck.enabled }}
+---
+{{- $fullName := include "sophora-cluster-common.fullname" . -}}
+{{- $labels := include "sophora-cluster-common.labels" . -}}
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  default:
+    config:
+      type: GRPC
+      grpcHealthCheck:
+        port: {{ .Values.clusterServerLb.service.grpcPort }}
+    logConfig:
+      enabled: {{ .Values.gcp.grpcHealthCheck.logging }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ .Values.clusterServerLb.name }}
+{{- end }}
