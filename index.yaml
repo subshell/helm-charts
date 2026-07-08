@@ -297,6 +297,23 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-07-08T18:29:33.671060298Z"
+    description: A Helm chart for O-Neko
+    digest: 74bdc5b985c33eb6627e97533295ec9078e232d7284641875d5a6a71bd86261e
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.3.3/o-neko-2.3.3.tgz
+    version: 2.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
         - kind: added
           description: "Added ingress.enabled value to control whether an ingress resource should be created"
@@ -627,6 +644,23 @@ entries:
   o-neko-catnip:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 1.3.2
+    created: "2026-07-08T18:29:33.859688567Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 8981b1261f25f92e75b04a197025eea2843b7793307138b6bb10a8eb64afbe73
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko-catnip
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.6.3/o-neko-catnip-1.6.3.tgz
+    version: 1.6.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
         - kind: added
@@ -774,6 +808,23 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-07-08T18:29:34.066964719Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 7cca11c43338b8feb9c6c001213de49fda43bc3da4ad788db50ede252e113d93
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.3.3/planr-tools-1.3.3.tgz
+    version: 1.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 5.1.1
@@ -857,6 +908,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    created: "2026-07-08T18:29:34.293575321Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: e62dc1fa4d02cf16ab708a8f4f8e2b10158d2f5aca3e67ce307ec25bb55e78d6
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.9.3/sophora-admin-dashboard-1.9.3.tgz
+    version: 1.9.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1090,6 +1161,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
   sophora-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 1.7.0
+    created: "2026-07-08T18:29:34.496894689Z"
+    description: Sophora AI
+    digest: b5a6c5b401ab8d071cc1891d7eed3a320bbd69c2451cb250a4f1c725161ffddb
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.6.3/sophora-ai-2.6.3.tgz
+    version: 2.6.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1335,6 +1424,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.0.0/sophora-ai-1.0.0.tgz
     version: 1.0.0
   sophora-cluster-common:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-07-08T18:29:34.684008472Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 0c321600fef82db8a47e61b74ce68bec0d67a49842b28607e9979ce088fababd
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.6.2/sophora-cluster-common-1.6.2.tgz
+    version: 1.6.2
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1584,6 +1691,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.0.0/sophora-cluster-common-1.0.0.tgz
     version: 1.0.0
   sophora-contentapi:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-08T18:29:34.911538477Z"
+    description: Sophora Content API
+    digest: 773a03d3d714333db7908e63adb0ce7810675423aeb70732c68cac7cf2cec772
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.4.3/sophora-contentapi-1.4.3.tgz
+    version: 1.4.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1930,6 +2053,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-08T18:29:35.096140832Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: ce150d37937b77c4fbb6e2eb0faa6af037160af80b870ca56ddfc95ef963f976
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.9.3/sophora-image-access-service-1.9.3.tgz
+    version: 1.9.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 4.13.0
@@ -2132,6 +2273,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-07-08T18:29:35.307030468Z"
+    description: Sophora Image AI
+    digest: 6cd232b1e5552e467018668d8f0ce5243dadbdeb2e4d6b71840eb03e8a6eadae
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.5.3/sophora-image-ai-2.5.3.tgz
+    version: 2.5.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2646,6 +2805,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-08T18:29:35.509505339Z"
+    description: A Helm chart for the Sophora importer
+    digest: 1028c65b5e24b336315b9ae958d3b953e313abc488744df1960890d3962ad4c8
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.10.3/sophora-importer-2.10.3.tgz
+    version: 2.10.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 5.0.0
@@ -3136,6 +3313,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-08T18:29:35.718524994Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 8f4b2e62db155ab8ca70dc75bf46fcfb956204b15db733258979016813006f00
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.10.3/sophora-indexing-service-1.10.3.tgz
+    version: 1.10.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 5.4.1
@@ -3389,6 +3584,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-08T18:29:35.909913698Z"
+    description: Sophora Link Checker
+    digest: 8aaa58c882f09f14804aeb39a97ef22b18aa49b6ad14a774826796df6036a73d
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.5.3/sophora-linkchecker-0.5.3.tgz
+    version: 0.5.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 6.0.0
@@ -3525,6 +3738,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-07-08T18:29:36.096832472Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: d25de202afc99004ee22789b2c079e26a8d61a219826bed6b78100e4162e017c
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.6.3/sophora-media-finder-0.6.3.tgz
+    version: 0.6.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -3724,6 +3955,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-08T18:29:36.282852532Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 21ae465cd95a0ad56090518b2f8ea596f229f01acf0fdeead04353c8df9b03a0
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.7.3/sophora-metadata-supplier-1.7.3.tgz
+    version: 1.7.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -3972,6 +4221,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-08T18:29:36.535088233Z"
+    description: Sophora Schema Docs
+    digest: bd9693afb2e3e311f5e9ead6a2966d818d572b60a716ab34718b196e60bac071
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.5.3/sophora-schema-docs-2.5.3.tgz
+    version: 2.5.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 5.0.0
@@ -4171,6 +4438,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-07-08T18:29:36.77483451Z"
+    description: Sophora SEO Check
+    digest: b29b1fc69c3ac70f6aada71029bc4c5d98ff79d6c8b4ab346806dd19ad85538e
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.4.3/sophora-seo-check-1.4.3.tgz
+    version: 1.4.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 4.12.0
@@ -4297,6 +4582,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-07-08T18:29:37.05435515Z"
+    description: A Helm chart for the Sophora Server
+    digest: df90b02fd0496114125db08a0d83affe8c798e1984138d7cc427231c19a6f703
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.6.3/sophora-server-3.6.3.tgz
+    version: 3.6.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -5019,6 +5322,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-08T18:29:37.352507844Z"
+    description: A Helm chart for Kubernetes
+    digest: b01e25596b76ed32c1faa15d20053fbc0533eeada14cdc429c7ab4fc63dc2010
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.6.3/sophora-ugc-2.6.3.tgz
+    version: 2.6.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
       artifacthub.io/links: |
         - name: Documentation for Sophora UGC
@@ -5482,6 +5806,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-08T18:29:37.607575724Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: c5c03682b35d8136223fa00c52f47fe762d29e13a4f2deb5ea6d9b942de099b0
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.3.3/sophora-ugc-proxy-1.3.3.tgz
+    version: 1.3.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
     apiVersion: v2
     appVersion: 5.9.0
@@ -5633,6 +5976,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-08T18:29:37.865908108Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: b500f2df34ffce5c913f29b7e1d9b103dfa4c0602d4f6cd36d579b6f38830e72
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.8.3/sophora-webclient-1.8.3.tgz
+    version: 1.8.3
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -5951,6 +6315,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-07-08T18:29:38.11073353Z"
+    description: A Helm chart for Kubernetes
+    digest: 61ca170cb45ce3a6c236c40bbfd3a371900751dabaf06b7fcda5d6694c1a9099
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.7.3/sophora-youtube-connector-1.7.3.tgz
+    version: 1.7.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed the GCP HealthCheckPolicy template to use the correct httpHealthCheck and logConfig fields"
       artifacthub.io/links: |
         - name: Documentation for the AV Tool
@@ -6165,4 +6550,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-08T08:25:12.782959025Z"
+generated: "2026-07-08T18:29:38.113550773Z"
