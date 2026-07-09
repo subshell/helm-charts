@@ -1,16 +1,19 @@
 suite: test grpcroute
 templates:
   - lb/grpcRoute.yaml
+  - lb/service.yaml
 chart:
   version: 0.9.8
   appVersion: 1.2.3
 tests:
   - it: should not create grpcroute by default
+    template: lb/grpcRoute.yaml
     asserts:
       - hasDocuments:
           count: 0
 
   - it: should create multiple grpcroutes with values
+    template: lb/grpcRoute.yaml
     release:
       name: values-test-release
     values:
@@ -61,4 +64,42 @@ tests:
                   - path:
                       type: PathPrefix
                       value: /
+      - notFailedTemplate: {}
+
+  - it: should not template the service with the grpc port by default
+    template: lb/service.yaml
+    set:
+      clusterServerLb.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+      - notContains:
+          path: spec.ports
+          content:
+            port: 2026
+            targetPort: grpc
+            protocol: TCP
+            name: grpc
+      - notFailedTemplate: {}
+
+  - it: should template the service with the grpc port when grpc routes are configured
+    template: lb/service.yaml
+    release:
+      name: values-test-release
+    values:
+      - ./values/grpcroute.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+      - contains:
+          path: spec.ports
+          content:
+            port: 2026
+            targetPort: grpc
+            protocol: TCP
+            name: grpc
       - notFailedTemplate: {}
