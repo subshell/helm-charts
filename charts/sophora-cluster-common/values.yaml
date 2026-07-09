@@ -90,19 +90,19 @@ clusterServerLb:
     #   # grpcHttproutes.grpc.hostnames Array with hostnames used for the HTTPRoute
     #   hostnames:
     #     - "my-service.example.com"
-    #   # httpRoutes.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+    #   # grpcHttproutes.grpc.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
     #   matches:
     #     - path:
     #         type: PathPrefix
     #         value: /sophora.srpc
-    #   # httpRoutes.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+    #   # grpcHttproutes.grpc.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
     #   filters:
     #     - type: RequestHeaderModifier
     #       requestHeaderModifier:
     #         set:
     #           - name: X-Custom-Header
     #             value: custom-value
-    #   # httpRoutes.annotations annotations for the HTTPRoute
+    #   # grpcHttproutes.grpc.annotations annotations for the HTTPRoute
     #   annotations: {}
 
   # This can be used to configure multiple GRPCRoute for the SRPC service. This must use another hostname than `httpRoutes`. For the same hostname use `grpcHttproutes`.
