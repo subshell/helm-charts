@@ -1,9 +1,9 @@
 {{- if and .Values.clusterServerLb.enabled .Values.clusterServerLb.httpRoutes -}}
-  {{- $fullName := include "sophora-cluster-common.fullname" . -}}
-  {{- $labels := include "sophora-cluster-common.labels" . -}}
-  {{- $svcPort := .Values.clusterServerLb.service.httpPort -}}
-  {{- range $nameSuffix := (.Values.clusterServerLb.httpRoutes | keys | sortAlpha) }}
-  {{- $httpRoute := index $.Values.clusterServerLb.httpRoutes $nameSuffix }}
+{{- $fullName := include "sophora-cluster-common.fullname" . -}}
+{{- $labels := include "sophora-cluster-common.labels" . -}}
+{{- $svcPort := .Values.clusterServerLb.service.httpPort -}}
+{{- range $nameSuffix := (.Values.clusterServerLb.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.clusterServerLb.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:

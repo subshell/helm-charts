@@ -22,12 +22,12 @@ tests:
         containsDocument:
           kind: GRPCRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-cluster-common
+          name: values-test-release-sophora-cluster-common-grpc
       - documentIndex: 0
         equal:
           path: metadata
           value:
-            name: values-test-release-sophora-cluster-common
+            name: values-test-release-sophora-cluster-common-grpc
             labels:
               helm.sh/chart: sophora-cluster-common-0.9.8
               app.kubernetes.io/name: sophora-cluster-common
