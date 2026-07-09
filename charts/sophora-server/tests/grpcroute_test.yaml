@@ -1,39 +1,34 @@
-suite: test httproute
+suite: test grpcroute
 templates:
-  - httproute.yaml
+  - grpcRoute.yaml
 chart:
   version: 0.9.8
 set:
   image.tag: 1.2.3
 tests:
-  - it: should not create httproute by default
+  - it: should not create grpcroute by default
     asserts:
       - hasDocuments:
           count: 0
 
-  - it: should create multiple httproutes with values
+  - it: should create multiple grpcroutes with values
     release:
       name: values-test-release
     values:
-      - ./values/httproute.yaml
+      - ./values/grpcroute.yaml
     asserts:
       - hasDocuments:
-          count: 2
+          count: 1
       - documentIndex: 0
         containsDocument:
-          kind: HTTPRoute
+          kind: GRPCRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-server-primary
-      - documentIndex: 1
-        containsDocument:
-          kind: HTTPRoute
-          apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-server-secondary
+          name: values-test-release-sophora-server-grpc
       - documentIndex: 0
         equal:
           path: metadata
           value:
-            name: values-test-release-sophora-server-primary
+            name: values-test-release-sophora-server-grpc
             labels:
               helm.sh/chart: sophora-server-0.9.8
               app.kubernetes.io/name: sophora-server
@@ -57,7 +52,7 @@ tests:
             rules:
               - backendRefs:
                   - name: values-test-release-sophora-server
-                    port: 1196
+                    port: 2026
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
@@ -65,32 +60,7 @@ tests:
                         - name: X-Custom-Header
                           value: custom-value
                 matches:
-                  - path:
-                      type: PathPrefix
-                      value: /
-      - documentIndex: 1
-        equal:
-          path: metadata
-          value:
-            name: values-test-release-sophora-server-secondary
-            labels:
-              helm.sh/chart: sophora-server-0.9.8
-              app.kubernetes.io/name: sophora-server
-              app.kubernetes.io/version: 1.2.3
-              app.kubernetes.io/instance: values-test-release
-              app.kubernetes.io/managed-by: Helm
-              top: label for all resources
-      - documentIndex: 1
-        equal:
-          path: spec
-          value:
-            parentRefs:
-              - name: my-gateway
-                namespace: gateway-namespace
-            hostnames:
-              - second.example.com
-            rules:
-              - backendRefs:
-                  - name: values-test-release-sophora-server
-                    port: 1196
+                  - method:
+                      type: RegularExpression
+                      service: sophora\.srpc.*
       - notFailedTemplate: {}

@@ -1,13 +1,15 @@
 sophora:
+  grpcApi:
+    enabled: true
   server:
     ports:
-      http: 2197 # different as service.httpPort
+      grpc: 3027 # different as service.grpcPort
 
 topLevelLabels:
   top: label for all resources
 
-httpRoutes:
-  primary:
+grpcRoutes:
+  grpc:
     parentRefs:
     - name: my-gateway
       namespace: gateway-namespace
@@ -15,9 +17,9 @@ httpRoutes:
     - my-service.example.com
     - other.example.com
     matches:
-    - path:
-        type: PathPrefix
-        value: /
+    - method:
+        type: RegularExpression
+        service: sophora\.srpc.*
     filters:
     - type: RequestHeaderModifier
       requestHeaderModifier:
@@ -27,9 +29,3 @@ httpRoutes:
     annotations:
       example.com/test: simple
       example.com/text: some text value
-  secondary:
-    parentRefs:
-    - name: my-gateway
-      namespace: gateway-namespace
-    hostnames:
-    - second.example.com
