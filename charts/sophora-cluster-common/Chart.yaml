@@ -6,7 +6,7 @@ version: 1.7.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added support for GRPCRoute and gRPC-HTTPRoute resources to the Sophora cluster common chart"
+      description: "Added support for GRPCRoute, gRPC HTTPRoute, and GCP gRPC HealthCheckPolicy resources"
 
 appVersion: "4"
 sources:
