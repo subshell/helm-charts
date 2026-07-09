@@ -1,4 +1,4 @@
-{{- if and .Values.clusterServerLb.enabled .Values.gcp.grpcHealthCheck.enabled }}
+{{- if and .Values.clusterServerLb.enabled .Values.gcp.grpcHealthCheck.enabled (or .Values.clusterServerLb.grpcIngress.enabled .Values.clusterServerLb.grpcRoute.enabled .Values.clusterServerLb.grpcHttproute.enabled) }}
 ---
 {{- $fullName := include "sophora-cluster-common.fullname" . -}}
 {{- $labels := include "sophora-cluster-common.labels" . -}}
