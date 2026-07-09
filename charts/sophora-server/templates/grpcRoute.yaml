@@ -1,10 +1,9 @@
-{{- if and .Values.grpcRoute.enabled .Values.sophora.grpcApi.enabled -}}
+{{- if .Values.sophora.grpcApi.enabled -}}
 {{- $fullName := include "sophora-server.fullname" . -}}
 {{- $labels := include "sophora-server.topLevelLabels" . -}}
 {{- $svcPort := .Values.service.grpcPort -}}
-{{- $nameSuffix := "grpc" }}
-{{- with .Values.grpcRoute }}
-{{- $httpRoute := . }}
+{{- range $nameSuffix := (.Values.grpcRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.grpcRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: GRPCRoute
 metadata:
