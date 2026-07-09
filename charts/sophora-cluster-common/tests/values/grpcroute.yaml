@@ -1,0 +1,23 @@
+clusterServerLb:
+  enabled: true
+  grpcRoutes:
+    grpc:
+      parentRefs:
+      - name: my-gateway
+        namespace: gateway-namespace
+      hostnames:
+      - my-service.example.com
+      - other.example.com
+      matches:
+      - method:
+          type: RegularExpression
+          service: sophora\.srpc.*
+      filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          set:
+          - name: X-Custom-Header
+            value: custom-value
+      annotations:
+        example.com/test: simple
+        example.com/text: some text value

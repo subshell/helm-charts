@@ -26,3 +26,5 @@ prometheusRules:
 
 extraDeploy:
   - apiVersion: subshell/v2
+    metadata:
+      name: my-extra

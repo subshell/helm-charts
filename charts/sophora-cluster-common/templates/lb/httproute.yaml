@@ -1,9 +1,9 @@
-{{- if .Values.sophora.grpcApi.enabled -}}
-{{- $fullName := include "sophora-server.fullname" . -}}
-{{- $labels := include "sophora-server.topLevelLabels" . -}}
-{{- $svcPort := .Values.service.grpcPort -}}
-{{- range $nameSuffix := (.Values.grpcHttproutes | keys | sortAlpha) }}
-{{- $httpRoute := index $.Values.grpcHttproutes $nameSuffix }}
+{{- if and .Values.clusterServerLb.enabled .Values.clusterServerLb.httpRoutes -}}
+{{- $fullName := include "sophora-cluster-common.fullname" . -}}
+{{- $labels := include "sophora-cluster-common.labels" . -}}
+{{- $svcPort := .Values.clusterServerLb.service.httpPort -}}
+{{- range $nameSuffix := (.Values.clusterServerLb.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.clusterServerLb.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
@@ -27,7 +27,7 @@ spec:
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $fullName }}
+        - name: {{ $.Values.clusterServerLb.name }}
           port: {{ $svcPort }}
       {{- with $httpRoute.matches }}
       matches:

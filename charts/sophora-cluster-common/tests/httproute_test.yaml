@@ -1,10 +1,9 @@
 suite: test httproute
 templates:
-  - httproute.yaml
+  - lb/httproute.yaml
 chart:
   version: 0.9.8
-set:
-  image.tag: 1.2.3
+  appVersion: 1.2.3
 tests:
   - it: should not create httproute by default
     asserts:
@@ -23,24 +22,23 @@ tests:
         containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-server-primary
+          name: values-test-release-sophora-cluster-common-primary
       - documentIndex: 1
         containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-server-secondary
+          name: values-test-release-sophora-cluster-common-secondary
       - documentIndex: 0
         equal:
           path: metadata
           value:
-            name: values-test-release-sophora-server-primary
+            name: values-test-release-sophora-cluster-common-primary
             labels:
-              helm.sh/chart: sophora-server-0.9.8
-              app.kubernetes.io/name: sophora-server
+              helm.sh/chart: sophora-cluster-common-0.9.8
+              app.kubernetes.io/name: sophora-cluster-common
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
-              top: label for all resources
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
@@ -56,7 +54,7 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-server
+                  - name: cluster-server-lb
                     port: 1196
                 filters:
                   - type: RequestHeaderModifier
@@ -72,14 +70,13 @@ tests:
         equal:
           path: metadata
           value:
-            name: values-test-release-sophora-server-secondary
+            name: values-test-release-sophora-cluster-common-secondary
             labels:
-              helm.sh/chart: sophora-server-0.9.8
-              app.kubernetes.io/name: sophora-server
+              helm.sh/chart: sophora-cluster-common-0.9.8
+              app.kubernetes.io/name: sophora-cluster-common
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
-              top: label for all resources
       - documentIndex: 1
         equal:
           path: spec
@@ -91,6 +88,6 @@ tests:
               - second.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-server
+                  - name: cluster-server-lb
                     port: 1196
       - notFailedTemplate: {}
