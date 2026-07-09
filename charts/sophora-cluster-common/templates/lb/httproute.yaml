@@ -27,7 +27,7 @@ spec:
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $fullName }}
+        - name: {{ $.Values.clusterServerLb.name }}
           port: {{ $svcPort }}
       {{- with $httpRoute.matches }}
       matches:

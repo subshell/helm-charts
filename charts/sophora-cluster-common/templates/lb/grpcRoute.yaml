@@ -1,4 +1,4 @@
-{{- if and .Values.clusterServerLb.grpcRoute.enabled -}}
+{{- if and .Values.clusterServerLb.enabled .Values.clusterServerLb.grpcRoute.enabled -}}
   {{- $fullName := include "sophora-cluster-common.fullname" . -}}
   {{- $labels := include "sophora-cluster-common.labels" . -}}
 apiVersion: gateway.networking.k8s.io/v1
@@ -6,7 +6,7 @@ kind: GRPCRoute
 metadata:
   name: {{ $fullName }}
   labels:
-  {{ $labels | nindent 4 }}
+  {{- $labels | nindent 4 }}
   {{- with .Values.clusterServerLb.grpcRoute.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
@@ -24,7 +24,7 @@ spec:
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $fullName }}
+        - name: {{ .Values.clusterServerLb.name }}
           port: {{ .Values.clusterServerLb.service.grpcPort }}
       {{- with .Values.clusterServerLb.grpcRoute.matches }}
       matches:
