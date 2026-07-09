@@ -110,26 +110,26 @@ clusterServerLb:
   # The service can be matched since all SRPC-calls have the sophora.srpc package
   grpcRoutes: {}
     # grpc:
-    #   # grpcRoutes.grpc.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+    #   # grpcRoutes.grpc.parentRefs References to the Gateway resources that the GRPCRoute should attach to
     #   parentRefs:
     #     - name: my-gateway
     #       namespace: gateway-namespace
-    #   # grpcRoutes.grpc.hostnames Array with hostnames used for the HTTPRoute
+    #   # grpcRoutes.grpc.hostnames Array with hostnames used for the GRPCRoute
     #   hostnames:
     #     - "my-service.example.com"
-    #   # grpcRoutes.grpc.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+    #   # grpcRoutes.grpc.matches Optional array of GRPCRouteMatch objects for matching gRPC requests
     #   matches:
-    #     - path:
-    #         type: PathPrefix
-    #         value: /sophora.srpc
-    #   # grpcRoutes.grpc.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+    #     - method:
+    #         type: RegularExpression
+    #         service: sophora\.srpc.*
+    #   # grpcRoutes.grpc.filters Optional array of GRPCRouteFilter objects for modifying requests/responses
     #   filters:
     #     - type: RequestHeaderModifier
     #       requestHeaderModifier:
     #         set:
     #           - name: X-Custom-Header
     #             value: custom-value
-    #   # grpcRoutes.grpc.annotations annotations for the HTTPRoute
+    #   # grpcRoutes.grpc.annotations annotations for the GRPCRoute
     #   annotations: {}
 
   service:
