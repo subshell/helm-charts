@@ -1446,6 +1446,24 @@ entries:
   sophora-cluster-common:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added support for GRPCRoute, gRPC HTTPRoute, and GCP gRPC HealthCheckPolicy resources"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-07-09T15:10:07.874402028Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 4ff89ee8eeb73ac6ad8335542cf576c6804f9ede1f985322c1245f463d2c90af
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.7.0/sophora-cluster-common-1.7.0.tgz
+    version: 1.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -4604,6 +4622,26 @@ entries:
   sophora-server:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCP HealthCheckPolicy support for gRPC, use topLevelLabels for routes"
+        - kind: changed
+          description: "breaking change: support multiple gRPC HTTPRoutes. Renamed `grpcHttproute/grpcRoute` to `grpcHttproutes/grpcRoutes`."
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-07-09T15:10:08.047694953Z"
+    description: A Helm chart for the Sophora Server
+    digest: 2f44891911f8841c9e3599b00110e12cb8ca19dd73d694bdfc24ff556a56b647
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.7.0/sophora-server-3.7.0.tgz
+    version: 3.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -6612,4 +6650,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-09T09:02:57.05558969Z"
+generated: "2026-07-09T15:10:08.048404635Z"
