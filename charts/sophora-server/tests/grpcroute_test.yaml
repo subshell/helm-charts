@@ -1,9 +1,10 @@
 suite: test grpcroute
 templates:
-  - lb/grpcRoute.yaml
+  - grpcRoute.yaml
 chart:
   version: 0.9.8
-  appVersion: 1.2.3
+set:
+  image.tag: 1.2.3
 tests:
   - it: should not create grpcroute by default
     asserts:
@@ -22,18 +23,19 @@ tests:
         containsDocument:
           kind: GRPCRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-cluster-common
+          name: values-test-release-sophora-server-grpc
       - documentIndex: 0
         equal:
           path: metadata
           value:
-            name: values-test-release-sophora-cluster-common
+            name: values-test-release-sophora-server-grpc
             labels:
-              helm.sh/chart: sophora-cluster-common-0.9.8
-              app.kubernetes.io/name: sophora-cluster-common
+              helm.sh/chart: sophora-server-0.9.8
+              app.kubernetes.io/name: sophora-server
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
+              top: label for all resources
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
@@ -49,7 +51,7 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: cluster-server-lb
+                  - name: values-test-release-sophora-server
                     port: 2026
                 filters:
                   - type: RequestHeaderModifier

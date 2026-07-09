@@ -40,6 +40,7 @@ tests:
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
+              top: label for all resources
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
@@ -78,6 +79,7 @@ tests:
               app.kubernetes.io/version: 1.2.3
               app.kubernetes.io/instance: values-test-release
               app.kubernetes.io/managed-by: Helm
+              top: label for all resources
       - documentIndex: 1
         equal:
           path: spec
