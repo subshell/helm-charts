@@ -1,4 +1,5 @@
 {{- $fullName := include "sophora-ugc.fullname" . -}}
+{{- $multimediaFullName := include "sophora-ugc-multimedia.fullname" . -}}
 {{- $labels := include "sophora-ugc.labels" . -}}
 {{- $svcPort := 80 -}}
 {{- range $nameSuffix := (.Values.httpRoutes | keys | sortAlpha) }}
@@ -36,5 +37,42 @@ spec:
       filters:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+    {{- if $.Values.ugcMultimedia.enabled }}
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /public/binary
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /public/multimedia
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /secure/binary
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /secure/multimedia
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /websocket/multimedia
+    {{- end }}
 ---
 {{- end }}
