@@ -1,4 +1,4 @@
-{{- if and .Values.clusterServerLb.enabled .Values.clusterServerLb.grpcHttproute.enabled -}}
+{{- if .Values.clusterServerLb.enabled -}}
 {{- $fullName := include "sophora-cluster-common.fullname" . -}}
 {{- $labels := include "sophora-cluster-common.labels" . -}}
 {{- $svcPort := .Values.clusterServerLb.service.grpcPort -}}
