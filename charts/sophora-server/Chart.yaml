@@ -19,7 +19,7 @@ version: 3.7.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added GCP HealthCheckPolicy support for gRPC"
+      description: "Added GCP HealthCheckPolicy support for gRPC, use topLevelLabels for routes"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
