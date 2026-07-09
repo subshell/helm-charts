@@ -412,7 +412,7 @@ httpRoutes: {}
   #   # httpRoutes.web.annotations annotations for the HTTPRoute
   #   annotations: {}
 
-# This can be used to configure a different HttpRoute for the SRPC service as it might require different settings. Can be used with the same hostname as httpRoute, see https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving.
+# This can be used to configure a different HTTPRoute for the SRPC service as it might require different settings. Can be used with the same hostname as httpRoutes, see https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving.
 # The SRPC-communication relies on gRPC as communication protocol and e.g. nginx needs to be explicitly informed that the backend protocol is gRPC
 # The paths can be regex-matched since all SRPC-calls have the root-path sophora.srpc
 grpcHttproutes: {}
@@ -456,14 +456,14 @@ grpcRoutes: {}
   #     - path:
   #         type: PathPrefix
   #         value: /
-  #   # grpcRoutes.grpc.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   # grpcRoutes.grpc.filters Optional array of GRPCRouteFilter objects for modifying requests/responses
   #   filters:
   #     - type: RequestHeaderModifier
   #       requestHeaderModifier:
   #         set:
   #           - name: X-Custom-Header
   #             value: custom-value
-  #   # grpcRoutes.grpc.annotations annotations for the HTTPRoute
+  #   # grpcRoutes.grpc.annotations annotations for the GRPCRoute
   #   annotations: {}
 
 service:

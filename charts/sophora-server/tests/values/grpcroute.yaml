@@ -17,9 +17,9 @@ grpcRoutes:
     - my-service.example.com
     - other.example.com
     matches:
-    - path:
-        type: PathPrefix
-        value: /
+    - method:
+        type: RegularExpression
+        service: sophora\.srpc.*
     filters:
     - type: RequestHeaderModifier
       requestHeaderModifier:

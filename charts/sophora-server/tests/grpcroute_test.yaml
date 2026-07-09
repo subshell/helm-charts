@@ -60,7 +60,7 @@ tests:
                         - name: X-Custom-Header
                           value: custom-value
                 matches:
-                  - path:
-                      type: PathPrefix
-                      value: /
+                  - method:
+                      type: RegularExpression
+                      service: sophora\.srpc.*
       - notFailedTemplate: {}
