@@ -428,7 +428,7 @@ grpcHttproutes: {}
   #   matches:
   #     - path:
   #         type: PathPrefix
-  #         value: /
+  #         value: /sophora.srpc
   #   # grpcHttproutes.grpc.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
   #   filters:
   #     - type: RequestHeaderModifier
@@ -453,9 +453,9 @@ grpcRoutes: {}
   #     - "my-service.example.com"
   #   # grpcRoutes.grpc.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
   #   matches:
-  #     - path:
-  #         type: PathPrefix
-  #         value: /
+  #     - method:
+  #         type: RegularExpression
+  #         service: sophora\.srpc.*
   #   # grpcRoutes.grpc.filters Optional array of GRPCRouteFilter objects for modifying requests/responses
   #   filters:
   #     - type: RequestHeaderModifier
