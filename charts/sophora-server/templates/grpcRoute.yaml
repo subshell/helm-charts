@@ -23,7 +23,7 @@ spec:
   rules:
     - backendRefs:
         - name: {{ $fullName }}
-          port: {{ .Values.sophora.server.ports.grpc }}
+          port: {{ .Values.service.grpcPort }}
       {{- with .Values.grpcRoute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}

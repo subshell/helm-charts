@@ -13,7 +13,7 @@ spec:
     config:
       type: GRPC
       grpcHealthCheck:
-        port: {{ .Values.sophora.server.ports.grpc }}
+        port: {{ .Values.service.grpcPort }}
     logConfig:
       enabled: {{ .Values.gcp.grpcHealthCheck.logging }}
   targetRef:
