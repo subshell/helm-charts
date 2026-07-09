@@ -91,3 +91,77 @@ tests:
                   - name: values-test-release-sophora-ugc-webapp
                     port: 80
       - notFailedTemplate: {}
+
+  - it: should include multimedia backends and paths when ugcMultimedia is enabled
+    release:
+      name: multimedia-test-release
+    values:
+      - ./values/httproute-multimedia.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - documentIndex: 0
+        equal:
+          path: spec.rules
+          value:
+            - backendRefs:
+                - name: multimedia-test-release-sophora-ugc-webapp
+                  port: 80
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /public/binary
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /public/multimedia
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /secure/binary
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /secure/multimedia
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /websocket/multimedia
+      - notFailedTemplate: {}
+
+  - it: should use custom multimedia port when configured
+    release:
+      name: multimedia-test-release
+    values:
+      - ./values/httproute-multimedia.yaml
+    set:
+      ugcMultimedia.config.server.port: 9090
+    asserts:
+      - documentIndex: 0
+        equal:
+          path: spec.rules[1].backendRefs[0].port
+          value: 9090
+      - documentIndex: 0
+        equal:
+          path: spec.rules[5].backendRefs[0].port
+          value: 9090
+      - notFailedTemplate: {}
