@@ -1,4 +1,4 @@
-{{- if and .Values.clusterServerLb.grpcRoute.enabled -}}
+{{- if and .Values.clusterServerLb.enabled .Values.clusterServerLb.httpRoutes -}}
   {{- $fullName := include "sophora-cluster-common.fullname" . -}}
   {{- $labels := include "sophora-cluster-common.labels" . -}}
   {{- $svcPort := .Values.clusterServerLb.service.httpPort -}}

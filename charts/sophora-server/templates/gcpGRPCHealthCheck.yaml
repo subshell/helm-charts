@@ -5,7 +5,7 @@
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
-  name: {{ $fullName }}
+  name: {{ printf "%s-grpc" ($fullName | trunc 58 | trimSuffix "-") }}
   labels:
     {{- $labels | nindent 4 }}
 spec:
