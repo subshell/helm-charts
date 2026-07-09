@@ -5341,6 +5341,27 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Extended httproute with multimedia backends"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-09T09:02:57.053226691Z"
+    description: A Helm chart for Kubernetes
+    digest: 8d3cf4fe6eb1a0f5e3eb8d4bec132b7d56248527e0d728ac4e6f58039067e434
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.7.0/sophora-ugc-2.7.0.tgz
+    version: 2.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
       artifacthub.io/links: |
@@ -6591,4 +6612,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-08T18:49:28.620979887Z"
+generated: "2026-07-09T09:02:57.05558969Z"
