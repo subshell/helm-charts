@@ -94,7 +94,7 @@ clusterServerLb:
     #   matches:
     #     - path:
     #         type: PathPrefix
-    #         value: /
+    #         value: /sophora.srpc
     #   # httpRoutes.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
     #   filters:
     #     - type: RequestHeaderModifier
@@ -121,7 +121,7 @@ clusterServerLb:
     #   matches:
     #     - path:
     #         type: PathPrefix
-    #         value: /
+    #         value: /sophora.srpc
     #   # grpcRoutes.grpc.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
     #   filters:
     #     - type: RequestHeaderModifier
