@@ -2,9 +2,9 @@
 {{- $fullName := include "sophora-server.fullname" . -}}
 {{- $labels := include "sophora-server.topLevelLabels" . -}}
 {{- $svcPort := .Values.service.grpcPort -}}
+{{- $nameSuffix := "grpc" }}
 {{- with .Values.grpcRoute }}
 {{- $httpRoute := . }}
-{{- $nameSuffix := "grpc" }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: GRPCRoute
 metadata:
