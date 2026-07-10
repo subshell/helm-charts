@@ -1,42 +1,36 @@
-{{- if .Values.sophora.grpcApi.enabled -}}
-{{- $fullName := include "sophora-server.fullname" . -}}
-{{- $labels := include "sophora-server.topLevelLabels" . -}}
-{{- $svcPort := .Values.service.grpcPort -}}
-{{- range $nameSuffix := (.Values.grpcHttproutes | keys | sortAlpha) }}
-{{- $httpRoute := index $.Values.grpcHttproutes $nameSuffix }}
+{{- if and .Values.grpcHttproute.enabled .Values.sophora.grpcApi.enabled -}}
+  {{- $fullName := include "sophora-server.fullname" . -}}
+  {{- $routeName := printf "%s-grpc" ($fullName | trunc 58 | trimSuffix "-") }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ printf "%s-%s" $fullName $nameSuffix | trunc 63 | trimSuffix "-" }}
-  labels:
-    {{- $labels | nindent 4 }}
-  {{- with $httpRoute.annotations }}
+  name: {{ $routeName }}
+  labels: {{ include "sophora-server.topLevelLabels" . | nindent 4 }}
+  {{- with .Values.grpcHttproute.annotations }}
   annotations:
-    {{- toYaml . | nindent 4 }}
+  {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with $httpRoute.parentRefs }}
+  {{- with .Values.grpcHttproute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if $httpRoute.hostnames }}
+  {{- if .Values.grpcHttproute.hostnames }}
   hostnames:
-  {{- range $httpRoute.hostnames }}
+  {{- range .Values.grpcHttproute.hostnames }}
     - {{ . | quote }}
   {{- end }}
   {{- end }}
   rules:
     - backendRefs:
         - name: {{ $fullName }}
-          port: {{ $svcPort }}
-      {{- with $httpRoute.matches }}
+          port: {{ .Values.sophora.server.ports.grpc }}
+      {{- with .Values.grpcHttproute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with $httpRoute.filters }}
+      {{- with .Values.grpcHttproute.filters }}
       filters:
       {{- toYaml . | nindent 8 }}
       {{- end }}
----
-{{- end }}
 {{- end }}

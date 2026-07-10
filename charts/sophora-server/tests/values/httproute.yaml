@@ -1,11 +1,3 @@
-sophora:
-  server:
-    ports:
-      http: 2197 # different as service.httpPort
-
-topLevelLabels:
-  top: label for all resources
-
 httpRoutes:
   primary:
     parentRefs:

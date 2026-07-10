@@ -1,7 +1,7 @@
 {{- if .Values.gcp.healthCheck.enabled }}
 ---
 {{- $fullName := include "sophora-server.fullname" . -}}
-{{- $labels := include "sophora-server.topLevelLabels" . -}}
+{{- $labels := include "sophora-server.labels" . -}}
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:

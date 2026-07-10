@@ -1,6 +1,6 @@
 {{- $fullName := include "sophora-server.fullname" . -}}
 {{- $labels := include "sophora-server.topLevelLabels" . -}}
-{{- $svcPort := .Values.service.httpPort -}}
+{{- $svcPort := .Values.sophora.server.ports.http -}}
 {{- range $nameSuffix := (.Values.httpRoutes | keys | sortAlpha) }}
 {{- $httpRoute := index $.Values.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
