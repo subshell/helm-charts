@@ -807,6 +807,23 @@ entries:
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-07-10T21:01:47.565363673Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: a91bd6cc420879eedd141cf3e71e9072f96613ed7b7f728c4a3cc3417a059d52
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.3.4/planr-tools-1.3.4.tgz
+    version: 1.3.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -908,6 +925,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    created: "2026-07-10T21:01:47.807464285Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 813dc9896bdf1a35bd751c49d7be684c19091142d05d9d18991eeb5fe424bbba
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.10.2/sophora-admin-dashboard-1.10.2.tgz
+    version: 1.10.2
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -1444,6 +1481,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.0.0/sophora-ai-1.0.0.tgz
     version: 1.0.0
   sophora-cluster-common:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-07-10T21:01:48.004610673Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 97573d5835768a65ea9563f53f36da68e401492e1e6d491f042504f395f7a7c7
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.7.2/sophora-cluster-common-1.7.2.tgz
+    version: 1.7.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2090,6 +2145,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-10T21:01:48.259297303Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 521e79b3b854a958ff0c1a7337dbdf79b31c2fcb89f0d890c8ff006da3f57edc
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.9.5/sophora-image-access-service-1.9.5.tgz
+    version: 1.9.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -2311,6 +2384,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-07-10T21:01:48.475800884Z"
+    description: Sophora Image AI
+    digest: 90c76a71d33901e24e26ace2d4b897db3355b02bc9277bf59fd5f2c62966b2b8
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.5.5/sophora-image-ai-2.5.5.tgz
+    version: 2.5.5
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2842,6 +2933,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-10T21:01:48.703355374Z"
+    description: A Helm chart for the Sophora importer
+    digest: a92cdad4f6061c4da6550fdab1285ebac8c205d03947c5d1a581dfa58e36f63e
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.10.5/sophora-importer-2.10.5.tgz
+    version: 2.10.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -3348,6 +3457,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-10T21:01:48.917784388Z"
+    description: Sophora Indexing Service (SISI)
+    digest: e23c75e5616ff943e5457232579070f716e50186aad6cea333e52ba480ba1198
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.10.5/sophora-indexing-service-1.10.5.tgz
+    version: 1.10.5
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -3995,6 +4122,24 @@ entries:
   sophora-metadata-supplier:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-10T21:01:49.125961447Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 20f36d8d30b07ab7ce47415993d0714696f774ce45863c67e2c441bb27946c9e
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.7.5/sophora-metadata-supplier-1.7.5.tgz
+    version: 1.7.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -4620,6 +4765,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-07-10T21:01:49.341305214Z"
+    description: A Helm chart for the Sophora Server
+    digest: dfe343dd8045d99ec2962e9deeb47dd101ff895313b44a3fe1942560a4fa5a24
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.7.2/sophora-server-3.7.2.tgz
+    version: 3.7.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -6414,6 +6577,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-07-10T21:01:49.55067067Z"
+    description: A Helm chart for Kubernetes
+    digest: 2ad8689953df2821e09f71236b547981ebf49b98c0783f3da3a46b99c204d388
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.7.5/sophora-youtube-connector-1.7.5.tgz
+    version: 1.7.5
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
       artifacthub.io/links: |
@@ -6650,4 +6834,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-09T15:10:08.048404635Z"
+generated: "2026-07-10T21:01:49.551956384Z"
