@@ -22,18 +22,17 @@ replication will happen to other running servers, if there are any.
 * Try to restart the server, if it is running but unresponsive
 * Restore the server from a working backup
 
-### SophoraServerNotInSync
+### SophoraReplicaServerNotInSync
 
 **Severity:** high
 
-**Summary:** The Sophora server is not in sync. This is concluded from comparing the server's *SourceTime* with the
-SourceTime of the primary server. The SourceTime is the timestamp of the latest event that occured on the primary
-server.
-Usually the SourceTimes of the servers should not diverge too much and stay equal when compared over a short time frame.
+**Summary:** A Sophora replica server is not in sync. This alert applies only to replica servers, not to staging servers. It is triggered by comparing the 
+replica server's *SourceTime* with the SourceTime of the primary server. The SourceTime is the timestamp of the latest event that occurred on the primary server.
+Usually, the SourceTimes of replica servers should not diverge too much from the primary server and should stay equal when compared over a short time frame.
 
 **Remediation steps:**
 
-* Check if the primary server logged a message containing "ReplicationMaster stopped" or "StagingMaster stopped". If
+* Check if the primary server logged a message containing "ReplicationMaster stopped". If
   yes: The primary server needs to be
   restarted. If "ReplicationMaster stopped" is logged, this needs to happen **without electing another server to the
   primary**. The last part is absolutely critical to preventing data loss. Depending on the version of the Server Helm
@@ -55,6 +54,22 @@ Usually the SourceTimes of the servers should not diverge too much and stay equa
 * Check whether network connection issues between the server and the primary server exist
 * Check the server's and the primary server's logs for errors or warnings
 * Restart the server
+
+### SophoraStagingServerNotInSync
+
+**Severity:** high
+
+**Summary:** A Sophora staging server is not in sync. This alert applies only to staging servers, not to replica servers.
+It is triggered when the servers' state is `SYNCHRONIZATION_DELAYED` or `QUEUE_TOO_LONG`.
+
+**Remediation steps:**
+
+* Check if the primary server logged a message containing "StagingMaster stopped". If yes: The primary server needs to be restarted.
+* Check if there is a large replication queue or a large amount of activity on the server, which could result in a short delay
+* Check whether the not-in-sync staging server is in an erroneous state and stopped receiving staging messages
+* Check whether network connection issues between the staging servers exist
+* Check the staging servers' logs for errors or warnings
+* Restart the affected staging server
 
 ### MultiplePrimarySophoraServers
 

@@ -8,7 +8,7 @@ This document is a reference to the alerts that the Sophora Metadata Supplier ca
 
 **Severity:** high
 
-**Summary:** The internal job queue of the Sophora Metadata Supplier exceeds a size of {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }} entries for more than {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueTime }}.
+**Summary:** The internal job queue (priority: normal/high) of the Sophora Metadata Supplier exceeds a size of {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueSize }} entries for more than {{ .Values.prometheusRule.defaultRules.jobQueue.maxQueueTime }}.
 
 **Remediation steps:**
 

@@ -1,0 +1,14 @@
+httpRoutes:
+  primary:
+    parentRefs:
+    - name: my-gateway
+      namespace: gateway-namespace
+    hostnames:
+    - my-service.example.com
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+
+ugcMultimedia:
+  enabled: true

@@ -39,7 +39,7 @@ spec:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           ports:
-            - name: http
+            - name: ai
               protocol: TCP
               containerPort: 8080
           env:
@@ -106,7 +106,7 @@ spec:
           {{- with .Values.startupProbe }}
           startupProbe:
             httpGet:
-              port: http
+              port: ai
               path: /actuator/health/liveness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -116,7 +116,7 @@ spec:
           {{- with .Values.livenessProbe }}
           livenessProbe:
             httpGet:
-              port: http
+              port: ai
               path: /actuator/health/liveness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -126,7 +126,7 @@ spec:
           {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
-              port: http
+              port: ai
               path: /actuator/health/readiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
@@ -135,6 +135,51 @@ spec:
           {{- end }}
 
           resources: {{- toYaml .Values.resources | nindent 12 }}
+
+        {{- if .Values.languageTool.enabled }}
+        - name: languagetool
+          image: "{{ .Values.languageTool.image.repository }}:{{ .Values.languageTool.image.tag }}"
+          imagePullPolicy: "{{ .Values.languageTool.image.pullPolicy }}"
+          ports:
+            - name: languagetool
+              protocol: TCP
+              containerPort: 8010
+          env:
+            - name: Java_Xmx
+              value: "2G"
+          {{- with .Values.languageTool.startupProbe }}
+          startupProbe:
+            httpGet:
+              port: languagetool
+              path: /v2/languages
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.languageTool.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              port: languagetool
+              path: /v2/languages
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.languageTool.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              port: languagetool
+              path: /v2/languages
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+
+          resources: {{- toYaml .Values.languageTool.resources | nindent 12 }}
+        {{- end }}
 
         {{- if .Values.extraContainers }}
         {{ include "common.tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 8 }}

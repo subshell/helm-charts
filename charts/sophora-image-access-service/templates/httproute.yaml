@@ -1,19 +1,17 @@
-{{ $allHTTPRoutes := .Values.extraHttpRoutes -}}
-{{ if .Values.httpRoute.enabled -}}
-  {{ $allHTTPRoutes = prepend $allHTTPRoutes .Values.httpRoute -}}
-{{ end -}}
 {{ $fullName := include "access-service.fullname" $ -}}
-{{ $svcPort := $.Values.service.httpPort -}}
-{{ range $index, $httpRoute := $allHTTPRoutes -}}
+{{- $labels := include "access-service.labels" . -}}
+{{- $svcPort := .Values.service.httpPort -}}
+{{- range $nameSuffix := (.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ $fullName }}{{ eq $index 0 | ternary "" (printf "-%d" $index) }}
+  name: {{ printf "%s-%s" $fullName $nameSuffix | trunc 63 | trimSuffix "-" }}
   labels:
-  {{- include "access-service.labels" $ | nindent 4 }}
+    {{- $labels | nindent 4 }}
   {{- with $httpRoute.annotations }}
   annotations:
-  {{- toYaml . | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   {{- with $httpRoute.parentRefs }}

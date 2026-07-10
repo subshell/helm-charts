@@ -10,13 +10,13 @@ ingress:
   hosts:
     - host: "my-site.com"
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "ugc.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "ugc.test.example.com"
 
 authentication:
   secret:
@@ -39,14 +39,14 @@ authentication:
 
 ugc:
   image:
-    repository: docker.subshell.com/ugc/ugc
+    repository: container.subshell.com/sophora/ugc
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
   binariesStorage:
     size: 1G
     storageClass: standard
-  
+
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true">
@@ -145,20 +145,20 @@ ugc:
 ugcMultimedia:
   enabled: true
   image:
-    repository: docker.subshell.com/ugc/ugc-multimedia
+    repository: container.subshell.com/sophora/ugc-multimedia
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
   hostname:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
-    
+
     <configuration scan="true" scanPeriod="60 seconds">
     <jmxConfigurator />
-    
+
     <!-- Propagate level settings to java.util.logging. -->
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
-    
+
     <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <File>logs/ugc-multimedia.log</File>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -182,16 +182,16 @@ ugcMultimedia:
     <pattern>[%d{ISO8601}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
     </encoder>
     </appender>
-    
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
     <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
     </encoder>
     </appender>
-    
+
     <logger name="com.subshell.sophora.ugc.services" level="DEBUG" />
     <logger name="org.springframework" level="INFO" />
-    
+
     <root level="INFO">
     <appender-ref ref="logfile" />
     <appender-ref ref="STDOUT" />

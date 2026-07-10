@@ -1,0 +1,56 @@
+suite: test gcp health check
+templates:
+  - gcpHealthCheck.yaml
+chart:
+  version: 1.0.0
+  appVersion: 5.1.1
+tests:
+  - it: should not create health check policies by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create a health check policy for every enabled application
+    release:
+      name: values-test-release
+    set:
+      gcp.healthCheck.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 3
+      - containsDocument:
+          kind: HealthCheckPolicy
+          apiVersion: networking.gke.io/v1
+          name: values-test-release-planr-tools-newsroom-document-creator
+          any: true
+      - containsDocument:
+          kind: HealthCheckPolicy
+          apiVersion: networking.gke.io/v1
+          name: values-test-release-planr-tools-newsroom-feed
+          any: true
+      - containsDocument:
+          kind: HealthCheckPolicy
+          apiVersion: networking.gke.io/v1
+          name: values-test-release-planr-tools-newsroom-widget
+          any: true
+      - equal:
+          path: spec.default.config.httpHealthCheck.portName
+          value: http
+      - equal:
+          path: spec.default.config.httpHealthCheck.requestPath
+          value: /actuator/health/readiness
+      - equal:
+          path: spec.targetRef.kind
+          value: Service
+      - notFailedTemplate: {}
+
+  - it: should not create a health check policy for disabled applications
+    release:
+      name: values-test-release
+    set:
+      gcp.healthCheck.enabled: true
+      applications.feed.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 2
+      - notFailedTemplate: {}

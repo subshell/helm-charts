@@ -6,11 +6,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.0.8
+version: 1.1.1
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "fixed typo in test-values"
+      description: "wildcard hostnames no longer break the listener and certificate name"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/gateway

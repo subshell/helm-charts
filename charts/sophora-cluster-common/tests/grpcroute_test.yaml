@@ -1,0 +1,105 @@
+suite: test grpcroute
+templates:
+  - lb/grpcRoute.yaml
+  - lb/service.yaml
+chart:
+  version: 0.9.8
+  appVersion: 1.2.3
+tests:
+  - it: should not create grpcroute by default
+    template: lb/grpcRoute.yaml
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create multiple grpcroutes with values
+    template: lb/grpcRoute.yaml
+    release:
+      name: values-test-release
+    values:
+      - ./values/grpcroute.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - documentIndex: 0
+        containsDocument:
+          kind: GRPCRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-cluster-common-grpc
+      - documentIndex: 0
+        equal:
+          path: metadata
+          value:
+            name: values-test-release-sophora-cluster-common-grpc
+            labels:
+              helm.sh/chart: sophora-cluster-common-0.9.8
+              app.kubernetes.io/name: sophora-cluster-common
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+            annotations:
+              example.com/test: "simple"
+              example.com/text: some text value
+      - documentIndex: 0
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - my-service.example.com
+              - other.example.com
+            rules:
+              - backendRefs:
+                  - name: cluster-server-lb
+                    port: 2026
+                filters:
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - method:
+                      type: RegularExpression
+                      service: sophora\.srpc.*
+      - notFailedTemplate: {}
+
+  - it: should not template the service with the grpc port by default
+    template: lb/service.yaml
+    set:
+      clusterServerLb.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+      - notContains:
+          path: spec.ports
+          content:
+            port: 2026
+            targetPort: grpc
+            protocol: TCP
+            name: grpc
+      - notFailedTemplate: {}
+
+  - it: should template the service with the grpc port when grpc routes are configured
+    template: lb/service.yaml
+    release:
+      name: values-test-release
+    values:
+      - ./values/grpcroute.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: Service
+      - contains:
+          path: spec.ports
+          content:
+            port: 2026
+            targetPort: grpc
+            protocol: TCP
+            name: grpc
+      - notFailedTemplate: {}

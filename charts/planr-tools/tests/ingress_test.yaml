@@ -1,0 +1,69 @@
+suite: test ingress
+templates:
+  - ingress.yaml
+chart:
+  version: 1.0.0
+  appVersion: 5.1.1
+tests:
+  - it: should not create ingress by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create ingress with nginx annotations and regex paths
+    release:
+      name: values-test-release
+    values:
+      - ./values/ingress.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - containsDocument:
+          kind: Ingress
+          apiVersion: networking.k8s.io/v1
+          name: values-test-release-planr-tools
+      - equal:
+          path: metadata.annotations["nginx.ingress.kubernetes.io/use-regex"]
+          value: "true"
+      - equal:
+          path: metadata.annotations["nginx.ingress.kubernetes.io/rewrite-target"]
+          value: /$2
+      - equal:
+          path: metadata.annotations["example.com/test"]
+          value: "true"
+      - equal:
+          path: spec.rules[0].http.paths[0].path
+          value: "/document-creator(/|$)(.*)"
+      - equal:
+          path: spec.rules[0].http.paths[1].path
+          value: "/feed(/|$)(.*)"
+      - equal:
+          path: spec.rules[0].http.paths[2].path
+          value: "/()(.*)"
+      - equal:
+          path: spec.rules[0].http.paths[0].backend.service.name
+          value: values-test-release-planr-tools-newsroom-document-creator
+      - equal:
+          path: spec.rules[0].http.paths[1].backend.service.name
+          value: values-test-release-planr-tools-newsroom-feed
+      - equal:
+          path: spec.rules[0].http.paths[2].backend.service.name
+          value: values-test-release-planr-tools-newsroom-widget
+      - equal:
+          path: spec.rules[0].http.paths[0].pathType
+          value: ImplementationSpecific
+      - notFailedTemplate: {}
+
+  - it: should not emit nginx annotations for non-nginx ingress class
+    release:
+      name: values-test-release
+    values:
+      - ./values/ingress.yaml
+    set:
+      ingress.ingressClassName: traefik
+    asserts:
+      - notExists:
+          path: metadata.annotations["nginx.ingress.kubernetes.io/use-regex"]
+      - notExists:
+          path: metadata.annotations["nginx.ingress.kubernetes.io/rewrite-target"]
+      - notFailedTemplate: {}

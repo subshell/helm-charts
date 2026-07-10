@@ -1,5 +1,5 @@
 image:
-  repository: docker.subshell.com/sophora/avtool/youtube-connector
+  repository: container.subshell.com/sophora/avtool/youtube-connector
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "3.0.10"
@@ -7,11 +7,11 @@ image:
 javaOptions: "-Davtool.groovy.dir=/youtube-connector/groovy -Djava.security.egd=file:/dev/./urandom -XX:MinRAMPercentage=50.0 -XX:MaxRAMPercentage=90.0 -XX:+AlwaysPreTouch"
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 configGenerator:
   image:
-    repository: "docker.subshell.com/misc/alpine-toolkit"
+    repository: "container.subshell.com/misc/alpine-toolkit"
     tag: "0.2.0"
     pullPolicy: IfNotPresent
   extraEnvVarsSecret: avtool-mediaconfig-credentials

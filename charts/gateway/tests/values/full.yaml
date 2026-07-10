@@ -25,6 +25,7 @@ gateway:
     tls:
       mode: Passthrough
       certRef: chart-example-tls
+  - host: "*.example.com"
   listeners:
   - name: other-port
     hostname: other.example.com

@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.1.0
+version: 1.4.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: fixed
+      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
 
 appVersion: 6.0.0
 sources:

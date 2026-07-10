@@ -54,6 +54,9 @@ spec:
               mountPath: /mediaconfig-configmap-template
             - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig
               mountPath: /youtube-connector
+        {{- if .Values.extraInitContainers }}
+        {{ include "common.tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
+        {{- end }}
       volumes:
         - name: {{ include "sophora-youtube-connector.fullname" . }}-mediaconfig-template
           configMap:

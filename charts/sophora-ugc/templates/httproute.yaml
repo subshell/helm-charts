@@ -1,37 +1,78 @@
-{{- if .Values.httpRoute.enabled -}}
-  {{- $fullName := include "sophora-ugc.fullname" . -}}
-  {{- $svcPort := default 8080 ($.Values.ugc.config.server).port -}}
+{{- $fullName := include "sophora-ugc.fullname" . -}}
+{{- $multimediaFullName := include "sophora-ugc-multimedia.fullname" . -}}
+{{- $labels := include "sophora-ugc.labels" . -}}
+{{- $svcPort := 80 -}}
+{{- range $nameSuffix := (.Values.httpRoutes | keys | sortAlpha) }}
+{{- $httpRoute := index $.Values.httpRoutes $nameSuffix }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: {{ $fullName }}
+  name: {{ printf "%s-%s" $fullName $nameSuffix | trunc 63 | trimSuffix "-" }}
   labels:
-  {{- include "sophora-ugc.labels" . | nindent 4 }}
-  {{- with .Values.httpRoute.annotations }}
+    {{- $labels | nindent 4 }}
+  {{- with $httpRoute.annotations }}
   annotations:
-  {{- toYaml . | nindent 4 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  {{- with .Values.httpRoute.parentRefs }}
+  {{- with $httpRoute.parentRefs }}
   parentRefs:
   {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- if .Values.httpRoute.hostnames }}
+  {{- if $httpRoute.hostnames }}
   hostnames:
-  {{- range .Values.httpRoute.hostnames }}
+  {{- range $httpRoute.hostnames }}
     - {{ . | quote }}
   {{- end }}
   {{- end }}
   rules:
     - backendRefs:
-        - name: {{ $fullName }}
+        - name: {{ $fullName }}-webapp
           port: {{ $svcPort }}
-      {{- with .Values.httpRoute.matches }}
+      {{- with $httpRoute.matches }}
       matches:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- with .Values.httpRoute.filters }}
+      {{- with $httpRoute.filters }}
       filters:
       {{- toYaml . | nindent 8 }}
       {{- end }}
+    {{- if $.Values.ugcMultimedia.enabled }}
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /public/binary
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /public/multimedia
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /secure/binary
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /secure/multimedia
+    - backendRefs:
+        - name: {{ $multimediaFullName }}
+          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+      matches:
+        - path:
+            type: PathPrefix
+            value: /websocket/multimedia
+    {{- end }}
+---
 {{- end }}

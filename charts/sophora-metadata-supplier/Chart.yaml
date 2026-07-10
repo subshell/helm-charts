@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.4.0
+version: 1.7.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: fixed
+      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
 
 appVersion: '4.14.0'
 sources:

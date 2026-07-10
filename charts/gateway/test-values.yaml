@@ -52,3 +52,9 @@ gateway:
 
 certManager:
   clusterIssuer: acme-issuer
+
+gcp:
+  gatewayPolicy:
+    name: gcp-gateway-policy
+    default:
+      sslPolicy: my-ssl-policy

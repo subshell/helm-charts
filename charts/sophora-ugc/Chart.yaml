@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.1.0
+version: 2.7.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: changed
+      description: "Extended httproute with multimedia backends"
   artifacthub.io/links: |
-    - name: Documentation for Sophora UGC 
+    - name: Documentation for Sophora UGC
       url: https://subshell.com/docs/ugc/
 
 # This is the version number of the application being deployed. This version number should be
@@ -32,7 +32,7 @@ appVersion: '4.8.0'
 
 # A list of URLs to source code for this project
 sources:
-  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
 
 # The URL of this projects home page
 home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html

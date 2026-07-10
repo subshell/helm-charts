@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-image-ai
 description: Sophora Image AI
 type: application
-version: 2.2.0
+version: 2.5.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added HTTPRoute support for Gateway API."
+    - kind: fixed
+      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
 
 appVersion: 5.1.0
 sources:

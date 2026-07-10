@@ -81,10 +81,42 @@ spec:
           {{ if .Values.sophora.importer.extraEnv -}}
           {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
           {{- end }}
+        {{- with .Values.livenessProbe }}
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end }}
+        {{- with .Values.readinessProbe }}
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end }}
+        {{- with .Values.startupProbe }}
+        startupProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: metrics
+          failureThreshold: {{ .failureThreshold }}
+          initialDelaySeconds: {{ .initialDelaySeconds }}
+          periodSeconds: {{ .periodSeconds }}
+          timeoutSeconds: {{ .timeoutSeconds }}
+        {{- end}}
         resources:
           {{- toYaml .Values.resources | nindent 12 }}
         ports:
-        - containerPort: 8082
+        - name: metrics
+          containerPort: 8082
+          protocol: TCP
         - containerPort: 1496
         volumeMounts:
         - name: importer-config
@@ -113,7 +145,6 @@ spec:
       initContainers:
       {{/* Transformations Download */}}
       {{- with .Values.transformation }}
-      {{- if and .enabled (eq .data.use "s3") }}
       - name: transformation-data-via-s3-downloader
         image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
         imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
@@ -144,34 +175,6 @@ spec:
           - name: libs
             mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
       {{- end }}
-      {{- if and .enabled (eq .data.use "http") }}
-      - name: transformation-data-via-http-downloader
-        image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
-        imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
-        env:
-          - name: REPO_ZIP_URLS
-            value: {{ include "sophora-importer.utils.joinListWithSpace" .data.zipViaHttp.zipUrls | quote }}
-          - name: HTTP_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: {{ .data.zipViaHttp.usernameKey | quote }}
-                name: {{ .data.zipViaHttp.secretName | quote }}
-          - name: HTTP_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: {{ .data.zipViaHttp.passwordKey }}
-                name: {{ .data.zipViaHttp.secretName | quote }}
-        command: ["/bin/sh"]
-        args:
-          - "-c"
-          - |- {{- include "sophora-importer.downloadTransformationsScript" $ | nindent 14 }}
-        volumeMounts:
-          - name: xsl
-            mountPath: {{ include "sophora-importer.transformationXslPath" . }}
-          - name: libs
-            mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
-        {{- end }}
-        {{- end }}
       volumes:
       - name: importer-config
         configMap:

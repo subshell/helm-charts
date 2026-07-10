@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: docker.subshell.com/sophora/sophora-indexing-service
+  repository: container.subshell.com/sophora/sophora-indexing-service
   pullPolicy: IfNotPresent
   tag: "latest"
 
@@ -48,13 +48,13 @@ ingress:
   hosts:
   tls: []
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "indexing-service.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "indexing-service.test.example.com"
 
 serviceMonitor:
   enabled: true

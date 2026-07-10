@@ -7,7 +7,7 @@ image:
   pullPolicy: Always
 
 imagePullSecrets:
-  - name: docker-subshell
+  - name: subshell-container-registry-credentials
 
 podLabels:
   istio/inject: true
@@ -52,6 +52,7 @@ sophora:
       </configuration>
     isClusterServer: true
     storage:
+      useSeparateVolumes: false
       storageClass: ssd
       resources:
         requests:
@@ -137,13 +138,13 @@ grpcIngress:
     - host: "sophora.domain.de"
       path: /sophora\.srpc.*
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "sophora-server.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "sophora-server.test.example.com"
 
 grpcHttproute:
   enabled: true

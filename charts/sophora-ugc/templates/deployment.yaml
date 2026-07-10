@@ -28,6 +28,9 @@ spec:
       {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.hostAliases }}
+      hostAliases: {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
         {{- if .Values.ugc.extraInitContainers }}
           {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraInitContainers "context" $) | nindent 8 }}

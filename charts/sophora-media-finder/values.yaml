@@ -1,13 +1,13 @@
 replicaCount: 1
 
 image:
-  repository: docker.subshell.com/sophora/media-finder
+  repository: container.subshell.com/sophora/media-finder
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "5.x"
 
 downloadViaS3Image:
-  repository: "docker.subshell.com/misc/aws-cli-tools"
+  repository: "container.subshell.com/misc/aws-cli-tools"
   tag: "0.0.2"
   pullPolicy: IfNotPresent
 
@@ -36,38 +36,31 @@ ingress:
   hosts:
   tls: []
 
-httpRoute:
-  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
-  enabled: false
-  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
-  # e.g.
-  # parentRefs:
-  #   - name: my-gateway
-  #     namespace: gateway-namespace
-  parentRefs: []
-  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
-  # e.g.
-  # hostnames:
-  #   - "my-service.example.com"
-  hostnames: []
-  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
-  # e.g.
-  # matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /sophora.srpc
-  matches: []
-  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
-  # e.g.
-  # filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #         - name: X-Custom-Header
-  #           value: custom-value
-  filters: []
-  # httpRoute.annotations annotations for the HTTPRoute
-  annotations: {}
+# httpRoutes Map of HTTPRoute resources (Gateway API) to create.
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
+httpRoutes: {}
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
+  #   hostnames:
+  #     - "my-service.example.com"
+  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #   matches:
+  #     - path:
+  #         type: PathPrefix
+  #         value: /
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   filters:
+  #     - type: RequestHeaderModifier
+  #       requestHeaderModifier:
+  #         set:
+  #           - name: X-Custom-Header
+  #             value: custom-value
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
+  #   annotations: {}
 
 startupProbe:
   path: /actuator/health
@@ -141,12 +134,12 @@ mediaFinder:
     <?xml version="1.0" encoding="UTF-8"?>
     <configuration scan="true" scanPeriod="60 seconds">
       <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-      
+
       <!-- Logger -->
       <logger name="com.subshell.sophora" level="INFO"/>
       <logger name="com.subshell.media.finder" level="INFO"/>
       <logger name="org.springframework.boot" level="INFO"/>
-      
+
       <!-- Default logging configuration -->
       <springProfile name="!json-logs">
         <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -165,13 +158,13 @@ mediaFinder:
             <pattern>[%d{ISO8601}, %-5p] [%-35t] [%-40logger{40}:%-3L] %m%n</pattern>
           </encoder>
         </appender>
-        
+
         <root level="WARN">
           <appender-ref ref="console"/>
           <appender-ref ref="logfile"/>
         </root>
       </springProfile>
-        
+
       <!-- JSON logging configuration -->
       <springProfile name="json-logs">
         <appender name="jsonConsole" class="ch.qos.logback.core.ConsoleAppender">
@@ -190,5 +183,21 @@ mediaFinder:
           <appender-ref ref="jsonLogfile"/>
         </root>
       </springProfile>
-  
+
     </configuration>
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    port: 8080
+    path: "/actuator/health"

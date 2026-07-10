@@ -1,5 +1,5 @@
 image:
-  repository: docker.subshell.com/sophora/sophora-metadata-supplier
+  repository: container.subshell.com/sophora/sophora-metadata-supplier
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -65,13 +65,13 @@ ingress:
   hosts:
   tls: []
 
-httpRoute:
-  enabled: true
-  parentRefs:
-    - name: test-gateway
-      namespace: gateway-system
-  hostnames:
-    - "metadata-supplier.test.example.com"
+httpRoutes:
+  route:
+    parentRefs:
+      - name: test-gateway
+        namespace: gateway-system
+    hostnames:
+      - "metadata-supplier.test.example.com"
 
 serviceMonitor:
   enabled: true

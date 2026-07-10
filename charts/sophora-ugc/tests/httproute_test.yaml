@@ -10,22 +10,29 @@ tests:
       - hasDocuments:
           count: 0
 
-  - it: should create httproute with values
+  - it: should create multiple httproutes with values
     release:
       name: values-test-release
     values:
       - ./values/httproute.yaml
     asserts:
       - hasDocuments:
-          count: 1
-      - containsDocument:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-ugc
-      - equal:
+          name: values-test-release-sophora-ugc-primary
+      - documentIndex: 1
+        containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-ugc-secondary
+      - documentIndex: 0
+        equal:
           path: metadata
           value:
-            name: values-test-release-sophora-ugc
+            name: values-test-release-sophora-ugc-primary
             labels:
               helm.sh/chart: sophora-ugc-0.9.8
               app.kubernetes.io/name: sophora-ugc
@@ -35,7 +42,8 @@ tests:
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
-      - equal:
+      - documentIndex: 0
+        equal:
           path: spec
           value:
             parentRefs:
@@ -46,8 +54,8 @@ tests:
               - other.example.com
             rules:
               - backendRefs:
-                  - name: values-test-release-sophora-ugc
-                    port: 8080
+                  - name: values-test-release-sophora-ugc-webapp
+                    port: 80
                 filters:
                   - type: RequestHeaderModifier
                     requestHeaderModifier:
@@ -58,4 +66,102 @@ tests:
                   - path:
                       type: PathPrefix
                       value: /
+      - documentIndex: 1
+        equal:
+          path: metadata
+          value:
+            name: values-test-release-sophora-ugc-secondary
+            labels:
+              helm.sh/chart: sophora-ugc-0.9.8
+              app.kubernetes.io/name: sophora-ugc
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+      - documentIndex: 1
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - second.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-ugc-webapp
+                    port: 80
+      - notFailedTemplate: {}
+
+  - it: should include multimedia backends and paths when ugcMultimedia is enabled
+    release:
+      name: multimedia-test-release
+    values:
+      - ./values/httproute-multimedia.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - documentIndex: 0
+        equal:
+          path: spec.rules
+          value:
+            - backendRefs:
+                - name: multimedia-test-release-sophora-ugc-webapp
+                  port: 80
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /public/binary
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /public/multimedia
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /secure/binary
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /secure/multimedia
+            - backendRefs:
+                - name: multimedia-test-release-ugc-multimedia
+                  port: 8080
+              matches:
+                - path:
+                    type: PathPrefix
+                    value: /websocket/multimedia
+      - notFailedTemplate: {}
+
+  - it: should use custom multimedia port when configured
+    release:
+      name: multimedia-test-release
+    values:
+      - ./values/httproute-multimedia.yaml
+    set:
+      ugcMultimedia.config.server.port: 9090
+    asserts:
+      - documentIndex: 0
+        equal:
+          path: spec.rules[1].backendRefs[0].port
+          value: 9090
+      - documentIndex: 0
+        equal:
+          path: spec.rules[5].backendRefs[0].port
+          value: 9090
       - notFailedTemplate: {}

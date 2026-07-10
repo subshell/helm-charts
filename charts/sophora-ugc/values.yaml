@@ -24,38 +24,34 @@ ingress:
   hosts:
   annotations: {}
 
-httpRoute:
-  # httpRoute.enabled Whether to create an HTTPRoute resource (Gateway API)
-  enabled: false
-  # httpRoute.parentRefs References to the Gateway resources that the HTTPRoute should attach to
-  # e.g.
-  # parentRefs:
-  #   - name: my-gateway
-  #     namespace: gateway-namespace
-  parentRefs: []
-  # httpRoute.hostnames Array with hostnames used for the HTTPRoute
-  # e.g.
-  # hostnames:
-  #   - "my-service.example.com"
-  hostnames: []
-  # matches Optional array of HTTPRouteMatch objects for matching HTTP requests
-  # e.g.
-  # matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /sophora.srpc
-  matches: []
-  # filters Optional array of HTTPRouteFilter objects for modifying requests/responses
-  # e.g.
-  # filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #         - name: X-Custom-Header
-  #           value: custom-value
-  filters: []
-  # httpRoute.annotations annotations for the HTTPRoute
-  annotations: {}
+# httpRoutes Map of HTTPRoute resources (Gateway API) to create.
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
+httpRoutes: {}
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
+  #   hostnames:
+  #     - "my-service.example.com"
+  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #   matches:
+  #     - path:
+  #         type: PathPrefix
+  #         value: /
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   filters:
+  #     - type: RequestHeaderModifier
+  #       requestHeaderModifier:
+  #         set:
+  #           - name: X-Custom-Header
+  #             value: custom-value
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
+  #   annotations: {}
+
+  # extraDeploy Additional Kubernetes resources to deploy with this release
+extraDeploy: []
 
 authentication:
   secret:
@@ -78,7 +74,7 @@ authentication:
 
 ugc:
   image:
-    repository: docker.subshell.com/ugc/ugc
+    repository: container.subshell.com/sophora/ugc
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -128,7 +124,7 @@ ugc:
     </configuration>
   config:
     sophora-server:
-      host: 
+      host:
     database:
       url:
 
@@ -149,7 +145,7 @@ ugc:
 ugcMultimedia:
   enabled: false
   image:
-    repository: docker.subshell.com/ugc/ugc-multimedia
+    repository: container.subshell.com/sophora/ugc-multimedia
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: ""
@@ -161,13 +157,13 @@ ugcMultimedia:
   hostname:
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
-    
+
     <configuration scan="true" scanPeriod="60 seconds">
     <jmxConfigurator />
-    
+
     <!-- Propagate level settings to java.util.logging. -->
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
-    
+
     <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <File>logs/ugc-multimedia.log</File>
     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -191,16 +187,16 @@ ugcMultimedia:
     <pattern>[%d{ISO8601}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
     </encoder>
     </appender>
-    
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
     <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
     </encoder>
     </appender>
-    
+
     <logger name="com.subshell.sophora.ugc.services" level="DEBUG" />
     <logger name="org.springframework" level="INFO" />
-    
+
     <root level="INFO">
     <appender-ref ref="logfile" />
     <appender-ref ref="STDOUT" />
@@ -229,3 +225,19 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    port: 80
+    path: "/"

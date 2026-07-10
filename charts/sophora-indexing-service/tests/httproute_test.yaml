@@ -10,22 +10,29 @@ tests:
       - hasDocuments:
           count: 0
 
-  - it: should create httproute with values
+  - it: should create multiple httproutes with values
     release:
       name: values-test-release
     values:
       - ./values/httproute.yaml
     asserts:
       - hasDocuments:
-          count: 1
-      - containsDocument:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
           kind: HTTPRoute
           apiVersion: gateway.networking.k8s.io/v1
-          name: values-test-release-sophora-indexing-service
-      - equal:
+          name: values-test-release-sophora-indexing-service-primary
+      - documentIndex: 1
+        containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-indexing-service-secondary
+      - documentIndex: 0
+        equal:
           path: metadata
           value:
-            name: values-test-release-sophora-indexing-service
+            name: values-test-release-sophora-indexing-service-primary
             labels:
               helm.sh/chart: sophora-indexing-service-0.9.8
               app.kubernetes.io/name: sophora-indexing-service
@@ -35,7 +42,8 @@ tests:
             annotations:
               example.com/test: "simple"
               example.com/text: some text value
-      - equal:
+      - documentIndex: 0
+        equal:
           path: spec
           value:
             parentRefs:
@@ -58,4 +66,28 @@ tests:
                   - path:
                       type: PathPrefix
                       value: /
+      - documentIndex: 1
+        equal:
+          path: metadata
+          value:
+            name: values-test-release-sophora-indexing-service-secondary
+            labels:
+              helm.sh/chart: sophora-indexing-service-0.9.8
+              app.kubernetes.io/name: sophora-indexing-service
+              app.kubernetes.io/version: 1.2.3
+              app.kubernetes.io/instance: values-test-release
+              app.kubernetes.io/managed-by: Helm
+      - documentIndex: 1
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - second.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-indexing-service
+                    port: 1837
       - notFailedTemplate: {}

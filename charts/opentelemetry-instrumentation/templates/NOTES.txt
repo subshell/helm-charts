@@ -1,0 +1,9 @@
+Successfully installed {{ .Chart.Name }} as a release with name {{ .Release.Name }}.
+
+You can now auto-instrument Java applications for tracing by annotating the corresponding pod with:
+	instrumentation.opentelemetry.io/inject-java: "true"
+or
+	instrumentation.opentelemetry.io/inject-java: "my-instrumentation-namespace/my-instrumentation"
+
+For detailed documentation how to use auto-instrumentation injection, see:
+https://opentelemetry.io/docs/platforms/kubernetes/operator/automatic/#configure-automatic-instrumentation

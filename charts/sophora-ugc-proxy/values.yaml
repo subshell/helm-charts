@@ -1,0 +1,188 @@
+replicaCount: 1
+
+imagePullSecrets: []
+
+javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+service:
+  annotations: {}
+  type: ClusterIP
+  port: 80
+
+authentication:
+  # Secrets containing credentials for accessing the submissions S3 bucket per tenant.
+  # Example:
+  # s3buckets:
+  #    example-tenant:
+  #      secretName: s3bucket-secret-example
+  #      accessKeyKey: access-key
+  #      secretIdKey: secret-id
+  s3buckets: {}
+
+image:
+    repository: container.subshell.com/sophora/ugc-proxy
+    pullPolicy: IfNotPresent
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
+
+hostname: ""
+nameOverride: ""
+fullnameOverride: ""
+
+sophora:
+  logback: |
+    <?xml version="1.0" encoding="UTF-8"?>
+    <configuration scan="true">
+        <jmxConfigurator />
+        <!-- Propagate level settings to java.util.logging. -->
+        <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+        <appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <File>/logs/ugc-proxy.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/ugc-proxy.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.30c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="errorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                <level>ERROR</level>
+            </filter>
+            <File>/logs/error.log</File>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>/logs/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>[%d{"yyyy-MM-dd HH:mm:ss.SSSX",UTC}, %-5p] [%t] [%X{ID}] %.40c:%L: %m%n</pattern>
+            </encoder>
+        </appender>
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level [%X{ID}] %logger{36} - %msg%n</pattern>
+            </encoder>
+        </appender>
+        <logger name="com.subshell.sophora.ugc.proxy" level="INFO" />
+        <root level="WARN">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="logfile" />
+            <appender-ref ref="errorLog" />
+        </root>
+    </configuration>
+  configuration:
+    management:
+      endpoints.web.exposure.include: info, health, prometheus
+
+      endpoint:
+        prometheus:
+          enabled: true
+        health:
+          show-details: always
+          show-components: always
+
+      metrics:
+        tags:
+          application: ${spring.application.name}
+
+    spring:
+      application:
+        name: UGC Proxy
+
+    ugc-proxy:
+      tenants: {}
+
+extraContainers: []
+extraInitContainers: []
+
+# Additional environment variables can be defined here
+env:
+
+hostAliases:
+
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
+resources:
+  requests:
+    cpu: "200m"
+    memory: "2.5G"
+  limits:
+    memory: "2.5G"
+
+ingress:
+  enabled: false
+  ingressClassName: nginx
+  annotations: {}
+  hosts:
+  tls: []
+
+# httpRoutes Map of HTTPRoute resources (Gateway API) to create.
+# The map key is used as a suffix for the resource name, e.g. "web" -> "<fullname>-web".
+httpRoutes: {}
+  # web:
+  #   # httpRoutes.web.parentRefs References to the Gateway resources that the HTTPRoute should attach to
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   # httpRoutes.web.hostnames Array with hostnames used for the HTTPRoute
+  #   hostnames:
+  #     - "my-service.example.com"
+  #   # httpRoutes.web.matches Optional array of HTTPRouteMatch objects for matching HTTP requests
+  #   matches:
+  #     - path:
+  #         type: PathPrefix
+  #         value: /
+  #   # httpRoutes.web.filters Optional array of HTTPRouteFilter objects for modifying requests/responses
+  #   filters:
+  #     - type: RequestHeaderModifier
+  #       requestHeaderModifier:
+  #         set:
+  #           - name: X-Custom-Header
+  #             value: custom-value
+  #   # httpRoutes.web.annotations annotations for the HTTPRoute
+  #   annotations: {}
+
+
+nodeSelector: {}
+
+affinity: {}
+
+tolerations: []
+
+## @section GCP Health Check
+##
+## Specific for the use with GCP Load Balancers
+
+# gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+# gcp.healthCheck.port Number of the port used for the GCP Health Check
+# gcp.healthCheck.portName Name of the port used for the GCP Health Check
+# gcp.healthCheck.path HTTP path GCP should use to check the application's health
+# gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+gcp:
+  healthCheck:
+    enabled: false
+    logging: false
+    port: 80
+    path: "/actuator/health/readiness"
