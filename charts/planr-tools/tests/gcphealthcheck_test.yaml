@@ -34,8 +34,8 @@ tests:
           name: values-test-release-planr-tools-newsroom-widget
           any: true
       - equal:
-          path: spec.default.config.httpHealthCheck.portName
-          value: http
+          path: spec.default.config.httpHealthCheck.port
+          value: 8080
       - equal:
           path: spec.default.config.httpHealthCheck.requestPath
           value: /actuator/health/readiness
