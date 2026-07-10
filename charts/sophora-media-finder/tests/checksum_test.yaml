@@ -1,0 +1,36 @@
+suite: test checksum annotation
+templates:
+  - deployment.yaml
+  - configmap.yaml
+tests:
+  - it: should set checksum/config annotation on pod template
+    asserts:
+      - template: deployment.yaml
+        exists:
+          path: spec.template.metadata.annotations["checksum/config"]
+  - it: checksum should remain the same when release name changes but data does not
+    release:
+      name: release-a
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "2ed5955bca0c3e22dfe1c63e944a71dd58753d8927ae373a0fd7f0181931d1b1"
+  - it: checksum should remain the same when release name changes to release-b
+    release:
+      name: release-b
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "2ed5955bca0c3e22dfe1c63e944a71dd58753d8927ae373a0fd7f0181931d1b1"
+  - it: checksum should change when config data changes
+    release:
+      name: release-a
+    set:
+      mediaFinder.configuration.ard-api.assetResearchServiceUrl: http://changed-url
+    asserts:
+      - template: deployment.yaml
+        equal:
+          path: spec.template.metadata.annotations["checksum/config"]
+          value: "019acc7f373ccd67ca4f7b95cff3b3ae7e0cb9d63121199fef3af80286feb66a"

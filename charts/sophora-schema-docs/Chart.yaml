@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
-version: 2.5.3
+version: 2.6.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    - kind: changed
+      description: "Added checksum annotation to pod template to trigger pod restarts on ConfigMap changes."
 
 appVersion: 5.0.0
 sources:
