@@ -180,5 +180,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    portName: main
+    port: 80
+    # note: Cannot use named port when using network endpoint group as backend.
+    # portName: main
     path: "/actuator/health/readiness"
