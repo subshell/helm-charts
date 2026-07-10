@@ -208,5 +208,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    portName: http-service
+    port: 8080
+    # note: Cannot use named port when using network endpoint group as backend.
+    # portName: http-service
     path: "/health"

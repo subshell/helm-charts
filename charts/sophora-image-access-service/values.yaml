@@ -162,5 +162,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    portName: metrics
+    port: 8081
+    # note: Cannot use named port when using network endpoint group as backend.
+    # portName: metrics
     path: "/actuator/health"
