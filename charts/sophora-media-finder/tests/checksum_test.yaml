@@ -15,7 +15,7 @@ tests:
       - template: deployment.yaml
         equal:
           path: spec.template.metadata.annotations["checksum/config"]
-          value: "a1c53f0240e0d2df333eeb4e5b2767cd314f098933ce69df990660f8e065f0f5"
+          value: "2ed5955bca0c3e22dfe1c63e944a71dd58753d8927ae373a0fd7f0181931d1b1"
   - it: checksum should remain the same when release name changes to release-b
     release:
       name: release-b
@@ -23,7 +23,7 @@ tests:
       - template: deployment.yaml
         equal:
           path: spec.template.metadata.annotations["checksum/config"]
-          value: "a1c53f0240e0d2df333eeb4e5b2767cd314f098933ce69df990660f8e065f0f5"
+          value: "2ed5955bca0c3e22dfe1c63e944a71dd58753d8927ae373a0fd7f0181931d1b1"
   - it: checksum should change when config data changes
     release:
       name: release-a
@@ -33,4 +33,4 @@ tests:
       - template: deployment.yaml
         equal:
           path: spec.template.metadata.annotations["checksum/config"]
-          value: "74d2c40066a009d4c3f9d95d939c702119bf437332602fc787301fbd802f68b6"
+          value: "019acc7f373ccd67ca4f7b95cff3b3ae7e0cb9d63121199fef3af80286feb66a"
