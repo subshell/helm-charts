@@ -105,7 +105,7 @@ podAnnotations: {}
 ## Specific for the use with GCP Kubernetes Clusters
 
 gcp:
-  # gcp.enabled Wether GCP resources should be enabled or not
+  # gcp.enabled Whether GCP resources should be enabled or not
   enabled: true
   # gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
   # gcp.healthCheck.port Number of the port used for the GCP Health Check
@@ -119,7 +119,7 @@ gcp:
     path: "/actuator/health/readiness"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging Whether to enable access logging for GCP Backend Policy requests
-  # gcp.backendPolicy.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
+  # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
   # gcp.backendPolicy.sessionAffinity Type of session affinity for GCP Backend Policy (NONE, GENERATED_COOKIE, HTTP_COOKIE)
   # gcp.backendPolicy.cookieTtlSec TTL for session affinity cookies in seconds (only applicable for GENERATED_COOKIE and HTTP_COOKIE)
   # gcp.backendPolicy.timeoutSec Timeout for GCP Backend Policy requests in seconds
