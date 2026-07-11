@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-seo-check
 description: Sophora SEO Check
 type: application
-version: 1.4.3
+version: 1.5.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    - kind: added
+      description: "Added GCPBackendPolicy with Unit Tests"
 
 appVersion: 4.12.0
 sources:

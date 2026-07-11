@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.3.5
+version: 2.4.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    - kind: added
+      description: "Added GCPBackendPolicy with Unit Tests"
 
 appVersion: "1.8.2"
 sources:

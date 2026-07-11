@@ -15,11 +15,12 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.7.5
+version: 1.8.0
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    - kind: added
+      description: "Added GCPBackendPolicy with Unit Tests"
+
   artifacthub.io/links: |
     - name: Documentation for the AV Tool
       url: https://subshell.com/docs/avtool/

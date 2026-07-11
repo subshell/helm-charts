@@ -514,9 +514,11 @@ podDisruptionBudget:
   ##
   maxUnavailable: ""
 
-## @section GCP Health Check
+## @section GCP
 ##
-## Specific for the use with GCP Load Balancers
+## Specific for the use with GCP Kubernetes Clusters
+
+# gcp.enabled Wether GCP resources should be enabled or not
 
 # gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
 # gcp.healthCheck.port Number of the port used for the GCP Health Check
@@ -526,6 +528,7 @@ podDisruptionBudget:
 # gcp.grpcHealthCheck.enabled Whether the GCP Health Check resource should be deployed for gRPC
 # gcp.grpcHealthCheck.logging Whether to enable access logging for GCP Health Check requests for gRPC
 gcp:
+  enabled: true
   healthCheck:
     enabled: false
     logging: false
@@ -536,3 +539,27 @@ gcp:
   grpcHealthCheck:
     enabled: false
     logging: false
+  # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
+  # gcp.backendPolicy.logging Whether to enable access logging for GCP Backend Policy requests
+  # gcp.backendPolicy.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
+  # gcp.backendPolicy.sessionAffinity Type of session affinity for GCP Backend Policy (NONE, GENERATED_COOKIE, HTTP_COOKIE)
+  # gcp.backendPolicy.cookieTtlSec TTL for session affinity cookies in seconds (only applicable for GENERATED_COOKIE and HTTP_COOKIE)
+  # gcp.backendPolicy.timeoutSec Timeout for GCP Backend Policy requests in seconds
+  # gcp.backendPolicy.securityPolicy Name of the GCP Cloud Armor Security Policy to apply to the Backend Policy
+  # gcp.backendPolicy.iap.enabled Whether to enable Identity-Aware Proxy (IAP) for the GCP Backend Policy
+  # gcp.backendPolicy.iap.oauth2ClientSecretName Name of the Kubernetes secret containing the OAuth2 client secret for IAP
+  # gcp.backendPolicy.iap.clientId OAuth2 client ID for IAP
+  backendPolicy:
+    enabled: false
+  #  logging:
+  #    enabled: false
+  #    sampleRate: 1000000
+  #  sessionAffinity:
+  #    type: NONE
+  #    cookieTtlSec: 0
+  #  timeoutSec: 30
+  #  securityPolicy: ""
+  #  iap:
+  #    enabled: false
+  #    oauth2ClientSecretName: ""
+  #    clientId: ""

@@ -1,4 +1,4 @@
-{{- if .Values.gcp.healthCheck.enabled }}
+{{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
 ---
 {{- $fullName := include "sophora-indexing-service.fullname" . -}}
 {{- $labels := include "sophora-indexing-service.labels" . -}}

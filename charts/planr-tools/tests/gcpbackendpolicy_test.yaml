@@ -1,0 +1,137 @@
+suite: gcp backend policy
+templates:
+  - gcpBackendPolicy.yaml
+tests:
+  - it: should not create by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render backend policy for enabled applications
+    release:
+      name: values-test-release
+    set:
+      gcp.enabled: true
+      gcp.backendPolicy.enabled: true
+      gcp.backendPolicy.logging.enabled: true
+      gcp.backendPolicy.logging.sampleRate: 123
+      gcp.backendPolicy.sessionAffinity.type: GENERATED_COOKIE
+      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
+      gcp.backendPolicy.iap.enabled: true
+      gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
+      gcp.backendPolicy.iap.clientId: test-client
+    asserts:
+      - hasDocuments:
+          count: 3
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: values-test-release-planr-tools-newsroom-document-creator
+      - documentIndex: 1
+        equal:
+          path: metadata.name
+          value: values-test-release-planr-tools-newsroom-feed
+      - documentIndex: 2
+        equal:
+          path: metadata.name
+          value: values-test-release-planr-tools-newsroom-widget
+      - documentIndex: 0
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: true
+              sampleRate: 123
+            sessionAffinity:
+              type: GENERATED_COOKIE
+              cookieTtlSec: 456
+            timeoutSec: 30
+            iap:
+              enabled: true
+              oauth2ClientSecret:
+                name: test-secret
+              clientId: test-client
+      - documentIndex: 1
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: true
+              sampleRate: 123
+            sessionAffinity:
+              type: GENERATED_COOKIE
+              cookieTtlSec: 456
+            timeoutSec: 30
+            iap:
+              enabled: true
+              oauth2ClientSecret:
+                name: test-secret
+              clientId: test-client
+      - documentIndex: 2
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: true
+              sampleRate: 123
+            sessionAffinity:
+              type: GENERATED_COOKIE
+              cookieTtlSec: 456
+            timeoutSec: 30
+            iap:
+              enabled: true
+              oauth2ClientSecret:
+                name: test-secret
+              clientId: test-client
+      - notFailedTemplate: {}
+
+  - it: should omit guarded fields when conditions are not met
+    release:
+      name: values-test-release
+    set:
+      gcp.enabled: true
+      gcp.backendPolicy.enabled: true
+      gcp.backendPolicy.logging.enabled: false
+      gcp.backendPolicy.logging.sampleRate: 999
+      gcp.backendPolicy.sessionAffinity.type: NONE
+      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
+      gcp.backendPolicy.iap.enabled: false
+      gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
+      gcp.backendPolicy.iap.clientId: ignored-client
+    asserts:
+      - hasDocuments:
+          count: 3
+      - documentIndex: 0
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: false
+            sessionAffinity:
+              type: NONE
+            timeoutSec: 30
+            iap:
+              enabled: false
+      - documentIndex: 1
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: false
+            sessionAffinity:
+              type: NONE
+            timeoutSec: 30
+            iap:
+              enabled: false
+      - documentIndex: 2
+        equal:
+          path: spec.default
+          value:
+            logging:
+              enable: false
+            sessionAffinity:
+              type: NONE
+            timeoutSec: 30
+            iap:
+              enabled: false
+      - notFailedTemplate: {}

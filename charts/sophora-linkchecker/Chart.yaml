@@ -2,9 +2,11 @@ apiVersion: v2
 name: sophora-linkchecker
 description: Sophora Link Checker
 type: application
-version: 0.5.3
+version: 0.6.0
 annotations:
   artifacthub.io/changes: |
+    - kind: added
+      description: "Added GCPBackendPolicy with Unit Tests"
     - kind: fixed
       description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
 

@@ -14,6 +14,7 @@ tests:
     release:
       name: values-test-release
     set:
+      gcp.enabled: true
       gcp.healthCheck.enabled: true
     asserts:
       - hasDocuments:
