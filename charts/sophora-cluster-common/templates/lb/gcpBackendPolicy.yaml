@@ -1,6 +1,7 @@
 {{- if and .Values.clusterServerLb.enabled .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
 ---
 {{- $fullName := include "sophora-cluster-common.fullname" . -}}
+{{- $serviceName := .Values.clusterServerLb.name -}}
 {{- $labels := include "sophora-cluster-common.labels" . -}}
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
@@ -40,5 +41,5 @@ spec:
   targetRef:
     group: ""
     kind: Service
-    name: {{ $fullName }}
+    name: {{ $serviceName }}
 {{- end }}

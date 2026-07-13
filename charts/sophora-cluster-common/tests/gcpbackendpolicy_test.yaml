@@ -12,6 +12,7 @@ tests:
       name: values-test-release
     set:
       clusterServerLb.enabled: true
+      clusterServerLb.name: test-cluster-server-service
       gcp.enabled: true
       gcp.backendPolicy.enabled: true
       gcp.backendPolicy.logging.enabled: true
@@ -46,7 +47,7 @@ tests:
           value:
             group: ""
             kind: Service
-            name: values-test-release-sophora-cluster-common
+            name: test-cluster-server-service
       - notFailedTemplate: {}
 
   - it: should omit guarded fields when conditions are not met

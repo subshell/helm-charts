@@ -1,6 +1,6 @@
 {{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
 ---
-{{- $fullName := include "sophora-ugc.fullname" . -}}
+{{- $fullName := printf "%s-webapp" (include "sophora-ugc.fullname" .) -}}
 {{- $labels := include "sophora-ugc.labels" . -}}
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy

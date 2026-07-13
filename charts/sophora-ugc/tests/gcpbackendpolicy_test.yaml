@@ -45,7 +45,7 @@ tests:
           value:
             group: ""
             kind: Service
-            name: values-test-release-sophora-ugc
+            name: values-test-release-sophora-ugc-webapp
       - notFailedTemplate: {}
 
   - it: should omit guarded fields when conditions are not met
