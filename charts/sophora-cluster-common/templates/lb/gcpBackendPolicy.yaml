@@ -12,7 +12,7 @@ spec:
   default:
     {{- with .Values.gcp.backendPolicy.logging }}
     logging:
-      enable: {{ .enabled | default false }}
+      enabled: {{ .enabled | default false }}
       {{- if .enabled }}
       sampleRate: {{ .sampleRate | default 1000000 }}
       {{- end }}
