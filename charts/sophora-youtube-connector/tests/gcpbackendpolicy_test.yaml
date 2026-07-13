@@ -29,7 +29,7 @@ tests:
           path: spec.default
           value:
             logging:
-              enable: true
+              enabled: true
               sampleRate: 123
             sessionAffinity:
               type: GENERATED_COOKIE
@@ -65,7 +65,7 @@ tests:
           path: spec.default
           value:
             logging:
-              enable: false
+              enabled: false
             sessionAffinity:
               type: NONE
             timeoutSec: 30
