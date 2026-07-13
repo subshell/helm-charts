@@ -40,9 +40,27 @@ tests:
       - equal:
           path: spec.default.config.httpHealthCheck.requestPath
           value: /actuator/health/readiness
-      - equal:
-          path: spec.targetRef.kind
-          value: Service
+      - documentIndex: 0
+        equal:
+          path: spec.targetRef
+          value:
+            group: ""
+            kind: Service
+            name: values-test-release-planr-tools-newsroom-document-creator
+      - documentIndex: 1
+        equal:
+          path: spec.targetRef
+          value:
+            group: ""
+            kind: Service
+            name: values-test-release-planr-tools-newsroom-feed
+      - documentIndex: 2
+        equal:
+          path: spec.targetRef
+          value:
+            group: ""
+            kind: Service
+            name: values-test-release-planr-tools-newsroom-widget
       - notFailedTemplate: {}
 
   - it: should not create a health check policy for disabled applications

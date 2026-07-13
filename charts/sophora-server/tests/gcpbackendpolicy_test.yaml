@@ -41,8 +41,11 @@ tests:
                 name: test-secret
               clientID: test-client
       - equal:
-          path: spec.targetRef.kind
-          value: Service
+          path: spec.targetRef
+          value:
+            group: ""
+            kind: Service
+            name: values-test-release-sophora-server
       - notFailedTemplate: {}
 
   - it: should omit guarded fields when conditions are not met
