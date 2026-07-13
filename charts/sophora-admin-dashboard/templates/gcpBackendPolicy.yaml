@@ -34,7 +34,7 @@ spec:
       {{- if .enabled }}
       oauth2ClientSecret:
         name: {{ .oauth2ClientSecretName | quote }}
-      clientID: {{ .clientId | quote }}
+      clientID: {{ .clientID | quote }}
       {{- end}}
     {{- end }}
   targetRef:

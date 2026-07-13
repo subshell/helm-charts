@@ -19,7 +19,7 @@ tests:
       gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
       gcp.backendPolicy.iap.enabled: true
       gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
-      gcp.backendPolicy.iap.clientId: test-client
+      gcp.backendPolicy.iap.clientID: test-client
     asserts:
       - hasDocuments:
           count: 1
@@ -39,7 +39,7 @@ tests:
               enabled: true
               oauth2ClientSecret:
                 name: test-secret
-              clientId: test-client
+              clientID: test-client
       - equal:
           path: spec.targetRef.kind
           value: Service
@@ -57,7 +57,7 @@ tests:
       gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
       gcp.backendPolicy.iap.enabled: false
       gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
-      gcp.backendPolicy.iap.clientId: ignored-client
+      gcp.backendPolicy.iap.clientID: ignored-client
     asserts:
       - hasDocuments:
           count: 1

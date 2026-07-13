@@ -197,7 +197,7 @@ gcp:
   # gcp.backendPolicy.securityPolicy Name of the GCP Cloud Armor Security Policy to apply to the Backend Policy
   # gcp.backendPolicy.iap.enabled Whether to enable Identity-Aware Proxy (IAP) for the GCP Backend Policy
   # gcp.backendPolicy.iap.oauth2ClientSecretName Name of the Kubernetes secret containing the OAuth2 client secret for IAP
-  # gcp.backendPolicy.iap.clientId OAuth2 client ID for IAP
+  # gcp.backendPolicy.iap.clientID OAuth2 client ID for IAP
   backendPolicy:
     enabled: false
   #  logging:
@@ -211,4 +211,4 @@ gcp:
   #  iap:
   #    enabled: false
   #    oauth2ClientSecretName: ""
-  #    clientId: ""
+  #    clientID: ""

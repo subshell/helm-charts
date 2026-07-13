@@ -53,4 +53,4 @@ gcp:
     iap:
       enabled: true
       oauth2ClientSecretName: test-oauth-client-secret
-      clientId: test-oauth-clientId
+      clientID: test-oauth-clientID

@@ -19,7 +19,7 @@ tests:
       gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
       gcp.backendPolicy.iap.enabled: true
       gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
-      gcp.backendPolicy.iap.clientId: test-client
+      gcp.backendPolicy.iap.clientID: test-client
     asserts:
       - hasDocuments:
           count: 3
@@ -50,7 +50,7 @@ tests:
               enabled: true
               oauth2ClientSecret:
                 name: test-secret
-              clientId: test-client
+              clientID: test-client
       - documentIndex: 1
         equal:
           path: spec.default
@@ -66,7 +66,7 @@ tests:
               enabled: true
               oauth2ClientSecret:
                 name: test-secret
-              clientId: test-client
+              clientID: test-client
       - documentIndex: 2
         equal:
           path: spec.default
@@ -82,7 +82,7 @@ tests:
               enabled: true
               oauth2ClientSecret:
                 name: test-secret
-              clientId: test-client
+              clientID: test-client
       - notFailedTemplate: {}
 
   - it: should omit guarded fields when conditions are not met
@@ -97,7 +97,7 @@ tests:
       gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
       gcp.backendPolicy.iap.enabled: false
       gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
-      gcp.backendPolicy.iap.clientId: ignored-client
+      gcp.backendPolicy.iap.clientID: ignored-client
     asserts:
       - hasDocuments:
           count: 3
