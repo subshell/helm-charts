@@ -60,3 +60,6 @@ data:
   #  apiGroup: snapshot.storage.k8s.io
   #  kind: VolumeSnapshot
   #  name: sophora-indexer
+
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
+extraDeploy: []

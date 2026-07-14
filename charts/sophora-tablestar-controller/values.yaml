@@ -60,3 +60,6 @@ livenessProbe:
   initialDelaySeconds: 1
   timeoutSeconds: 3
   periodSeconds: 60
+
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
+extraDeploy: []

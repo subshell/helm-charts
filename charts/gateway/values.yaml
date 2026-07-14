@@ -40,3 +40,6 @@ gcp:
 #    name: gcp-gateway-policy
 #    default:
 #      sslPolicy: "my-ssl-policy"
+
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
+extraDeploy: []

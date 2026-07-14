@@ -136,6 +136,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
 extraDeploy: []
 
 nodeSelector: {}

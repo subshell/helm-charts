@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.7.0
+version: 2.7.1
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added GCPBackendPolicy with Unit Tests"
+      description: "added comment to extraDeploy"
 appVersion: 1.7.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai

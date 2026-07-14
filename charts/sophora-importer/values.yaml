@@ -15,7 +15,6 @@ nameOverride: ""
 fullnameOverride: ""
 
 # extraDeploy Extra objects to deploy (value evaluated as a template)
-##
 extraDeploy: []
 
 javaOptions: "-XX:InitialRAMPercentage=50.0 -XX:MaxRAMPercentage=80.0 -XX:+ExitOnOutOfMemoryError -XX:+PerfDisableSharedMem"

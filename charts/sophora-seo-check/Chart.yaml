@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-seo-check
 description: Sophora SEO Check
 type: application
-version: 1.5.0
+version: 1.5.1
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Added GCPBackendPolicy with Unit Tests"
+      description: "added comment to extraDeploy"
 
 appVersion: 4.12.0
 sources:

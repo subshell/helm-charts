@@ -129,6 +129,7 @@ httpRoutes: {}
   #   # httpRoutes.web.annotations annotations for the HTTPRoute
   #   annotations: {}
 
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
 extraDeploy: []
 
 podAnnotations: {}

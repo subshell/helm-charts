@@ -102,3 +102,6 @@ secret:
       password:
 
 env: {}
+
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
+extraDeploy: []
