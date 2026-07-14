@@ -14,7 +14,7 @@ service:
   jolokia:
     clusterIP: None
   webapp:
-    type: LoadBalancer
+    type: ClusterIP
     loadBalancerIP:
 
 ingress:
@@ -241,7 +241,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    port: 80
+    port: 8080
     path: "/"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests

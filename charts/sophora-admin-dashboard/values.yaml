@@ -34,11 +34,11 @@ configGenerator:
 
 service:
   # -- (string) k8s service type
-  type:
+  type: "ClusterIP"
   # -- (object) k8s service annotations
   annotations:
   # -- (string) k8s service cluster ip
-  clusterIP:
+  clusterIP: ""
   # -- (string) k8s service load balancer
   loadBalancerIP:
   # -- (int) k8s service port that will be exposed by the service
@@ -266,7 +266,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    port: 80
+    port: 8090
     # note: Cannot use named port when using network endpoint group as backend.
     # portName: http
     path: "/"

@@ -112,7 +112,7 @@ livenessProbe:
 
 service:
   annotations: {}
-  clusterIP:
+  clusterIP: ""
   type: ClusterIP
   httpPort: 80
 
@@ -182,7 +182,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    port: 80
+    port: 8082
     # note: Cannot use named port when using network endpoint group as backend.
     # portName: main
     path: "/actuator/health/readiness"

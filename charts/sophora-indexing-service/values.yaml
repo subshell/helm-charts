@@ -162,7 +162,7 @@ gcp:
     port: 1837
     # note: Cannot use named port when using network endpoint group as backend.
     # portName: http
-    path: "/health"
+    path: "/actuator/health/readiness"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
   # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
@@ -190,3 +190,4 @@ gcp:
   #    enabled: false
   #    oauth2ClientSecretName: ""
   #    clientID: ""
+

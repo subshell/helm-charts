@@ -10,7 +10,9 @@ metadata:
   {{- end }}
 spec:
   type: {{ .Values.service.webapp.type }}
+  {{- if and (eq .Values.service.webapp.type "LoadBalancer") .Values.service.webapp.loadBalancerIP }}
   loadBalancerIP: {{ .Values.service.webapp.loadBalancerIP }}
+  {{- end }}
   ports:
     - port: 80
       targetPort: {{ default 8080 (.Values.ugc.config.server).port }}
