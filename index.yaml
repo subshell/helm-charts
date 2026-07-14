@@ -961,6 +961,26 @@ entries:
   sophora-admin-dashboard:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed port in GCP HealthCheckPolicy"
+    apiVersion: v2
+    created: "2026-07-14T11:01:09.735611478Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 6ffe7d76e18e873febc999bd514357bf6fad7e80a22ce36bf3433208b68df437
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.10.3/sophora-admin-dashboard-1.10.3.tgz
+    version: 1.10.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -2967,6 +2987,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed port in GCP HealthCheckPolicy"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-14T11:01:09.882449423Z"
+    description: A Helm chart for the Sophora importer
+    digest: b44fc2ae7f7292076235d5664f3d9e9f9a79ecb7ad0e0d2e39ecf926812ed7e1
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.10.6/sophora-importer-2.10.6.tgz
+    version: 2.10.6
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -3491,6 +3529,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed path in GCP HealthCheckPolicy"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-14T11:01:10.031813316Z"
+    description: Sophora Indexing Service (SISI)
+    digest: ea545de70123b511ca987dd6c1807644a65f339818172b002110f2b4ab01a6b2
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.10.6/sophora-indexing-service-1.10.6.tgz
+    version: 1.10.6
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -5576,6 +5632,29 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed port in GCP HealthCheckPolicy"
+        - kind: changed
+          description: "changed service type from LoadBalancer to ClusterIP"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-14T11:01:10.158024963Z"
+    description: A Helm chart for Kubernetes
+    digest: 2e87c31081f1ada9162b245f4ff33b4920d31da5468262215a794d46bfbe2cde
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.8.0/sophora-ugc-2.8.0.tgz
+    version: 2.8.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Extended httproute with multimedia backends"
       artifacthub.io/links: |
@@ -6079,6 +6158,25 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-1.0.0/sophora-ugc-1.0.0.tgz
     version: 1.0.0
   sophora-ugc-proxy:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
+          description: "fixed port in GCP HealthCheckPolicy"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-14T11:01:10.304253067Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: d428d7056b0b3f7eb7d9fb118a32f7ebabe77ee13bf186d38ec36b0287777284
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.3.4/sophora-ugc-proxy-1.3.4.tgz
+    version: 1.3.4
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -6868,4 +6966,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-10T21:11:04.906768561Z"
+generated: "2026-07-14T11:01:10.306642427Z"
