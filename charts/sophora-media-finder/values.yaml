@@ -206,6 +206,7 @@ gcp:
   # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
   # gcp.backendPolicy.sessionAffinity Type of session affinity for GCP Backend Policy (NONE, GENERATED_COOKIE, HTTP_COOKIE)
   # gcp.backendPolicy.cookieTtlSec TTL for session affinity cookies in seconds (only applicable for GENERATED_COOKIE and HTTP_COOKIE)
+  # gcp.backendPolicy.connectionDraining.drainingTimeoutSec Timeout for GCP Backend Policy connection draining in seconds
   # gcp.backendPolicy.timeoutSec Timeout for GCP Backend Policy requests in seconds
   # gcp.backendPolicy.securityPolicy Name of the GCP Cloud Armor Security Policy to apply to the Backend Policy
   # gcp.backendPolicy.iap.enabled Whether to enable Identity-Aware Proxy (IAP) for the GCP Backend Policy
@@ -219,6 +220,8 @@ gcp:
   #  sessionAffinity:
   #    type: NONE
   #    cookieTtlSec: 0
+  #  connectionDraining:
+  #    drainingTimeoutSec: 0
   #  timeoutSec: 30
   #  securityPolicy: ""
   #  iap:

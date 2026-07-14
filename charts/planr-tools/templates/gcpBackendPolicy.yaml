@@ -27,6 +27,8 @@ spec:
       cookieTtlSec: {{ .cookieTtlSec | default 0 }}
       {{- end }}
     {{- end }}
+    connectionDraining:
+      drainingTimeoutSec: {{ $.Values.gcp.backendPolicy.drainingTimeoutSec | default 0 }}
     timeoutSec: {{ $.Values.gcp.backendPolicy.timeoutSec | default 30 }}
     {{- with $.Values.gcp.backendPolicy.securityPolicy }}
     securityPolicy: {{ . | quote }}
