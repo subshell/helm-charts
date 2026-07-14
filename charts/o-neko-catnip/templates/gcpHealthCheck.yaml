@@ -1,4 +1,4 @@
-{{- if .Values.gcp.healthCheck.enabled }}
+{{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
 ---
 {{- $fullName := include "o-neko-catnip.fullname" . -}}
 {{- $labels := include "o-neko-catnip.labels" . -}}

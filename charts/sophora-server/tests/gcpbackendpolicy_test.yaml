@@ -1,0 +1,81 @@
+suite: gcp backend policy
+templates:
+  - gcpBackendPolicy.yaml
+tests:
+  - it: should not create by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should render backend policy and guarded fields when enabled
+    release:
+      name: values-test-release
+    set:
+      gcp.enabled: true
+      gcp.backendPolicy.enabled: true
+      gcp.backendPolicy.logging.enabled: true
+      gcp.backendPolicy.logging.sampleRate: 123
+      gcp.backendPolicy.sessionAffinity.type: GENERATED_COOKIE
+      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
+      gcp.backendPolicy.iap.enabled: true
+      gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
+      gcp.backendPolicy.iap.clientID: test-client
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: GCPBackendPolicy
+      - equal:
+          path: spec.default
+          value:
+            logging:
+              enabled: true
+              sampleRate: 123
+            sessionAffinity:
+              type: GENERATED_COOKIE
+              cookieTtlSec: 456
+            connectionDraining:
+              drainingTimeoutSec: 0
+            timeoutSec: 30
+            iap:
+              enabled: true
+              oauth2ClientSecret:
+                name: test-secret
+              clientID: test-client
+      - equal:
+          path: spec.targetRef
+          value:
+            group: ""
+            kind: Service
+            name: values-test-release-sophora-server
+      - notFailedTemplate: {}
+
+  - it: should omit guarded fields when conditions are not met
+    release:
+      name: values-test-release
+    set:
+      gcp.enabled: true
+      gcp.backendPolicy.enabled: true
+      gcp.backendPolicy.logging.enabled: false
+      gcp.backendPolicy.logging.sampleRate: 999
+      gcp.backendPolicy.sessionAffinity.type: NONE
+      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
+      gcp.backendPolicy.iap.enabled: false
+      gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
+      gcp.backendPolicy.iap.clientID: ignored-client
+    asserts:
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: spec.default
+          value:
+            logging:
+              enabled: false
+            sessionAffinity:
+              type: NONE
+            connectionDraining:
+              drainingTimeoutSec: 0
+            timeoutSec: 30
+            iap:
+              enabled: false
+      - notFailedTemplate: {}

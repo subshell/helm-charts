@@ -1,4 +1,4 @@
-{{- if and .Values.gcp.grpcHealthCheck.enabled .Values.sophora.grpcApi.enabled -}}
+{{- if and .Values.gcp.enabled .Values.gcp.grpcHealthCheck.enabled .Values.sophora.grpcApi.enabled -}}
 ---
 {{- $fullName := include "sophora-server.fullname" . -}}
 {{- $labels := include "sophora-server.topLevelLabels" . -}}

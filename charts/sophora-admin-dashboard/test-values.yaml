@@ -43,3 +43,14 @@ resources:
     cpu: "0.1"
   limits:
     memory: "2G"
+
+gcp:
+  enabled: true
+  backendPolicy:
+    enabled: true
+    logging:
+      enabled: true
+    iap:
+      enabled: true
+      oauth2ClientSecretName: test-oauth-client-secret
+      clientID: test-oauth-clientID

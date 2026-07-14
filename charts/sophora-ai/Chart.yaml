@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.6.3
+version: 2.7.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
+    - kind: added
+      description: "Added GCPBackendPolicy with Unit Tests"
 appVersion: 1.7.0
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai

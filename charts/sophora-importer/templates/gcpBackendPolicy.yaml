@@ -1,0 +1,46 @@
+{{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
+---
+{{- $fullName := include "sophora-importer.fullname" . -}}
+{{- $labels := include "sophora-importer.labels" . -}}
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  default:
+    {{- with .Values.gcp.backendPolicy.logging }}
+    logging:
+      enabled: {{ .enabled | default false }}
+      {{- if .enabled }}
+      sampleRate: {{ .sampleRate | default 1000000 }}
+      {{- end }}
+    {{- end }}
+    {{- with .Values.gcp.backendPolicy.sessionAffinity }}
+    sessionAffinity:
+      type: {{ .type | default "NONE" }}
+      {{- if or (eq .type "GENERATED_COOKIE") (eq .type "HTTP_COOKIE") }}
+      cookieTtlSec: {{ .cookieTtlSec | default 0 }}
+      {{- end }}
+    {{- end }}
+    connectionDraining:
+      drainingTimeoutSec: {{ dig "drainingTimeoutSec" 0 (.Values.gcp.backendPolicy.connectionDraining | default dict) }}
+    timeoutSec: {{ .Values.gcp.backendPolicy.timeoutSec | default 30 }}
+    {{- with .Values.gcp.backendPolicy.securityPolicy }}
+    securityPolicy: {{ . | quote }}
+    {{- end }}
+    {{- with .Values.gcp.backendPolicy.iap }}
+    iap:
+      enabled: {{ .enabled | default false }}
+      {{- if .enabled }}
+      oauth2ClientSecret:
+        name: {{ .oauth2ClientSecretName | quote }}
+      clientID: {{ .clientID | quote }}
+      {{- end}}
+    {{- end }}
+  targetRef:
+    group: ""
+    kind: Service
+    name: {{ $fullName }}
+{{- end }}
