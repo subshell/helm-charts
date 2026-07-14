@@ -296,6 +296,23 @@ entries:
   o-neko:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-07-14T12:28:43.077300056Z"
+    description: A Helm chart for O-Neko
+    digest: 528404a09d9544ff007f9efbae5e451c6dd667ee29cb096d180673e546275fe8
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.4.0/o-neko-2.4.0.tgz
+    version: 2.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -661,6 +678,23 @@ entries:
   o-neko-catnip:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 1.3.2
+    created: "2026-07-14T12:28:43.250323181Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: fdaaae7d4be479ef9ee435a07cb910ea81d64f29c4c7a0803bf5e6b87cd73843
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko-catnip
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.7.0/o-neko-catnip-1.7.0.tgz
+    version: 1.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -841,6 +875,23 @@ entries:
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-07-14T12:28:43.445601619Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 3dfde7e36b95b18d7f9e2b908b0661b53a1e0dfcf48996966572b33caf184507
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.4.0/planr-tools-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -959,6 +1010,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    created: "2026-07-14T12:28:43.62024227Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 4b0107151cb5fd315ab72789ddd4e84084f48d309e8bc77789f0f13990e9eb0d
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.11.0/sophora-admin-dashboard-1.11.0.tgz
+    version: 1.11.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1274,6 +1345,24 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 1.7.0
+    created: "2026-07-14T12:28:43.810535999Z"
+    description: Sophora AI
+    digest: 901712e8fc74fa31e2f03fd7a3a545fa3e333ed9731d8096e4b99f7a701bb864
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.7.0/sophora-ai-2.7.0.tgz
+    version: 2.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -1535,6 +1624,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ai-1.0.0/sophora-ai-1.0.0.tgz
     version: 1.0.0
   sophora-cluster-common:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-07-14T12:28:43.991681533Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: 2781d5c2219186a7a5224f0e4f6fe662a8d921b74630d9e0346cef9fd11e866c
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.8.0/sophora-cluster-common-1.8.0.tgz
+    version: 1.8.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -1838,6 +1945,22 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.0.0/sophora-cluster-common-1.0.0.tgz
     version: 1.0.0
   sophora-contentapi:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-14T12:28:44.183327651Z"
+    description: Sophora Content API
+    digest: 9abbede1d827d7f2d6e2f31f09492c6f5e4a1fb16261a9e0855ab12eeabb9672
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.5.0/sophora-contentapi-1.5.0.tgz
+    version: 1.5.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -2199,6 +2322,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-14T12:28:44.366121603Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 7e1ed4815a2b015f4ab9a5951402a65f91592f414908af1abf26227bcddaaa18
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.10.0/sophora-image-access-service-1.10.0.tgz
+    version: 1.10.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
     apiVersion: v2
@@ -2438,6 +2579,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.0.0/sophora-image-access-service-1.0.0.tgz
     version: 1.0.0
   sophora-image-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-07-14T12:28:44.532933081Z"
+    description: Sophora Image AI
+    digest: 91cf99652e00785ec454793101df6c2c5bdf9acec77558e1decc21f98495a38b
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.6.0/sophora-image-ai-2.6.0.tgz
+    version: 2.6.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -2987,6 +3146,24 @@ entries:
   sophora-importer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-14T12:28:44.706215102Z"
+    description: A Helm chart for the Sophora importer
+    digest: 12a81a156a6fb9621aea19d3017aaab443b47960566a68c13beb0124d34bb499
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.11.0/sophora-importer-2.11.0.tgz
+    version: 2.11.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fixed port in GCP HealthCheckPolicy"
     apiVersion: v2
@@ -3531,6 +3708,24 @@ entries:
   sophora-indexing-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-14T12:28:44.877860656Z"
+    description: Sophora Indexing Service (SISI)
+    digest: bbf78653a0522fd264f7911a65b99c89910b76ca08527ed5567c8030cb6fb0b5
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.11.0/sophora-indexing-service-1.11.0.tgz
+    version: 1.11.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fixed path in GCP HealthCheckPolicy"
     apiVersion: v2
@@ -3838,6 +4033,24 @@ entries:
   sophora-linkchecker:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-14T12:28:45.056120021Z"
+    description: Sophora Link Checker
+    digest: 56bfcf6cdb7ab867216a3ee4ded935396c3b6f447a8248880b48b9ff67ac495f
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.6.0/sophora-linkchecker-0.6.0.tgz
+    version: 0.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -3993,6 +4206,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-07-14T12:28:45.253000335Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: bae69a6a7e35a4a0e0a375bf258142923032cc03938bfa12d6b30d95857b8a58
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.7.0/sophora-media-finder-0.7.0.tgz
+    version: 0.7.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -4210,6 +4441,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-14T12:28:45.444001917Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 6ee4a85a07f023a2712a4ddaca0169798c18455b890e26965edc575c95c8fdaa
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.8.0/sophora-metadata-supplier-1.8.0.tgz
+    version: 1.8.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -4493,6 +4742,24 @@ entries:
   sophora-schema-docs:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-14T12:28:45.641386942Z"
+    description: Sophora Schema Docs
+    digest: f566c5c443684c9c914b5080947d2969d1728e82171855d90bd9fe55d353b635
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.6.0/sophora-schema-docs-2.6.0.tgz
+    version: 2.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -4710,6 +4977,24 @@ entries:
   sophora-seo-check:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-07-14T12:28:45.854236454Z"
+    description: Sophora SEO Check
+    digest: 52160cb7ac5b51fb403ca24ff1c8c71622306437a817ce715aac417262499ab4
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.5.0/sophora-seo-check-1.5.0.tgz
+    version: 1.5.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed GCP HealthCheckPolicy logConfig field name from `enable` to `enabled`"
     apiVersion: v2
@@ -4855,6 +5140,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-07-14T12:28:46.142779536Z"
+    description: A Helm chart for the Sophora Server
+    digest: 60b0159ab93febf1ab4180b54a4090cff9868425bbb0197601a774294a247f3c
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.8.0/sophora-server-3.8.0.tgz
+    version: 3.8.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -5632,6 +5935,27 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-14T12:28:46.358128458Z"
+    description: A Helm chart for Kubernetes
+    digest: 54d142c52929ab2d15bf644a056ef7f5bb14bb0060182bc4d986ae807caa3701
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.9.0/sophora-ugc-2.9.0.tgz
+    version: 2.9.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fixed port in GCP HealthCheckPolicy"
         - kind: changed
@@ -6160,6 +6484,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-14T12:28:46.602526478Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 91f07f838ee7b93d61246dc1aaaf34fcb13121998a6959e90eac13869f931fe3
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.4.0/sophora-ugc-proxy-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fixed port in GCP HealthCheckPolicy"
     apiVersion: v2
@@ -6350,6 +6693,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-14T12:28:46.834223306Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 48f66e81a496db4b39e700d047049000f6c086b9801c2c844ad463d6f1376c39
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.10.0/sophora-webclient-1.10.0.tgz
+    version: 1.10.0
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -6709,6 +7073,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-07-14T12:28:47.165728655Z"
+    description: A Helm chart for Kubernetes
+    digest: f94d0658996b678c9f988c91c25ce0947a154607fcf019098234cd668a58e3e9
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.8.0/sophora-youtube-connector-1.8.0.tgz
+    version: 1.8.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
       artifacthub.io/links: |
@@ -6966,4 +7351,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-14T11:01:10.306642427Z"
+generated: "2026-07-14T12:28:47.167259777Z"
