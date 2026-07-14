@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.10.5
+version: 1.10.6
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Changed GCP HealthCheckPolicy to use numeric port instead of named port by default"
+    - kind: fixed
+      description: "fixed path in GCP HealthCheckPolicy"
 
 appVersion: '5.4.1'
 sources:
