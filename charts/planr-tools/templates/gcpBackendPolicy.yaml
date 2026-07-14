@@ -28,7 +28,7 @@ spec:
       {{- end }}
     {{- end }}
     connectionDraining:
-      drainingTimeoutSec: {{ .Values.gcp.backendPolicy.connectionDraining.drainingTimeoutSec | default 0 }}
+      drainingTimeoutSec: {{ dig "drainingTimeoutSec" 0 ($.Values.gcp.backendPolicy.connectionDraining | default dict) }}
     timeoutSec: {{ $.Values.gcp.backendPolicy.timeoutSec | default 30 }}
     {{- with $.Values.gcp.backendPolicy.securityPolicy }}
     securityPolicy: {{ . | quote }}
