@@ -10,7 +10,7 @@ version: 1.2.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added extraDeploy do additonionally create custom resources"
+      description: "Added extraDeploy to additionally deploy custom resources"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/gateway

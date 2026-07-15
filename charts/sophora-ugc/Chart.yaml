@@ -19,7 +19,7 @@ version: 2.9.1
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "added extraDeploy do additonionally create custom resources"
+      description: "Added extraDeploy to additionally deploy custom resources"
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC
       url: https://subshell.com/docs/ugc/
