@@ -27,5 +27,6 @@ spec:
       targetPort: grpc
       protocol: TCP
       name: grpc
+      appProtocol: kubernetes.io/h2c
     {{- end }}
 {{- end }}
