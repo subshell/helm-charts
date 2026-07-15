@@ -1626,6 +1626,24 @@ entries:
   sophora-cluster-common:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "gRPC service port now has the correct appProtocol set to kubernetes.io/h2c"
+    apiVersion: v2
+    appVersion: "4"
+    created: "2026-07-15T14:41:00.785088783Z"
+    description: A Helm chart containing some common resources useful for Sophora
+      cloud setups
+    digest: e7c2fc0183a0cfe92a2b6e4b0b71a6719f4de5f15513714693b84b395d08c8df
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    name: sophora-cluster-common
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-cluster-common
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-cluster-common-1.8.2/sophora-cluster-common-1.8.2.tgz
+    version: 1.8.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
@@ -5142,6 +5160,24 @@ entries:
   sophora-server:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "gRPC service port now has the correct appProtocol set to kubernetes.io/h2c"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-07-15T14:41:00.950991548Z"
+    description: A Helm chart for the Sophora Server
+    digest: e6302d1932659d5e8a09569ffdce9444ffffa3fe3b3626f91ae0fc7bf873781e
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.8.1/sophora-server-3.8.1.tgz
+    version: 3.8.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
@@ -7351,4 +7387,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-14T12:28:47.167259777Z"
+generated: "2026-07-15T14:41:00.951698942Z"
