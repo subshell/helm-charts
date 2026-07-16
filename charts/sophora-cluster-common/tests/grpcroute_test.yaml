@@ -82,6 +82,7 @@ tests:
             targetPort: grpc
             protocol: TCP
             name: grpc
+            appProtocol: kubernetes.io/h2c
       - notFailedTemplate: {}
 
   - it: should template the service with the grpc port when grpc routes are configured
@@ -102,4 +103,5 @@ tests:
             targetPort: grpc
             protocol: TCP
             name: grpc
+            appProtocol: kubernetes.io/h2c
       - notFailedTemplate: {}
