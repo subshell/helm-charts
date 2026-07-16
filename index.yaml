@@ -5971,6 +5971,27 @@ entries:
   sophora-ugc:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed unit tests"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-16T19:03:06.306002668Z"
+    description: A Helm chart for Kubernetes
+    digest: 66bfc0b082e3bde49bac95a852085c325828e44ffa14d34cc87e341a58fdf1bd
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.9.2/sophora-ugc-2.9.2.tgz
+    version: 2.9.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
       artifacthub.io/links: |
@@ -7387,4 +7408,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-15T14:41:00.951698942Z"
+generated: "2026-07-16T19:03:06.30731346Z"
