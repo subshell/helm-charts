@@ -113,35 +113,35 @@ tests:
                     value: /
             - backendRefs:
                 - name: multimedia-test-release-ugc-multimedia
-                  port: 8080
+                  port: 80
               matches:
                 - path:
                     type: PathPrefix
                     value: /public/binary
             - backendRefs:
                 - name: multimedia-test-release-ugc-multimedia
-                  port: 8080
+                  port: 80
               matches:
                 - path:
                     type: PathPrefix
                     value: /public/multimedia
             - backendRefs:
                 - name: multimedia-test-release-ugc-multimedia
-                  port: 8080
+                  port: 80
               matches:
                 - path:
                     type: PathPrefix
                     value: /secure/binary
             - backendRefs:
                 - name: multimedia-test-release-ugc-multimedia
-                  port: 8080
+                  port: 80
               matches:
                 - path:
                     type: PathPrefix
                     value: /secure/multimedia
             - backendRefs:
                 - name: multimedia-test-release-ugc-multimedia
-                  port: 8080
+                  port: 80
               matches:
                 - path:
                     type: PathPrefix
