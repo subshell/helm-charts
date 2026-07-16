@@ -241,7 +241,7 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    port: 8080
+    port: 80
     path: "/"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
