@@ -32,7 +32,7 @@ gateway:
 #    parametersRef:
 
 certManager:
-#  cluster-issuer: acme-issuer
+#  clusterIssuer: acme-issuer
 #  issuer: acme-issuer
 
 gcp:
