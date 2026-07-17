@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.8.0
+version: 0.8.1
 annotations:
   artifacthub.io/changes: |
     - kind: added
