@@ -172,6 +172,22 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "fix example value 'cluster-issuer'"
+    apiVersion: v2
+    created: "2026-07-17T09:49:24.958217054Z"
+    description: A Helm chart to deploy a Gateway. Optionally use cert-manager to
+      fetch Let's Encrypt certificates.
+    digest: fe469110e4fffdc1d6bf129df033754709e98f7928bb142c8b557d6a39aec74d
+    name: gateway
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/gateway
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/gateway-1.1.2/gateway-1.1.2.tgz
+    version: 1.1.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "wildcard hostnames no longer break the listener and certificate name"
     apiVersion: v2
     created: "2026-07-03T14:39:02.526936098Z"
@@ -7429,4 +7445,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-17T07:21:11.954458114Z"
+generated: "2026-07-17T09:49:24.958888874Z"
