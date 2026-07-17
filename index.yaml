@@ -2360,6 +2360,24 @@ entries:
           description: "Added extraDeploy to additionally deploy custom resources"
     apiVersion: v2
     appVersion: 4.13.0
+    created: "2026-07-17T15:10:13.075968632Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 91b29d491c008e4067f61274042ec5d385e334c0c5ec9e537602b7db02c4b3af
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.11.1/sophora-image-access-service-1.11.1.tgz
+    version: 1.11.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 4.13.0
     created: "2026-07-17T13:34:43.486262786Z"
     description: A Helm chart for the Sophora Image Access Service
     digest: e3aa58b45e86a62d42f9b802ac69a1aed3c88d6fe86950dcbd9dace48a6a961d
@@ -2634,6 +2652,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-07-17T15:10:13.230413044Z"
+    description: Sophora Image AI
+    digest: 71c0b1654aa1d94b31cc64d5b41c2eea6d263ec2cc6460c52d1b482cc0dd2b16
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.6.2/sophora-image-ai-2.6.2.tgz
+    version: 2.6.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 5.1.0
@@ -2876,6 +2912,24 @@ entries:
   sophora-image-update-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 4.4.8
+    created: "2026-07-17T15:10:13.396366937Z"
+    description: A Helm chart for the Sophora Image Update Service
+    digest: 3d09830e61fcdc89daabdd6925af783a9f895462d8ea54c88439a2ee461e5d2c
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-update-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-update-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.2.1/sophora-image-update-service-1.2.1.tgz
+    version: 1.2.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed docker.subshell.com to container.subshell.com."
     apiVersion: v2
@@ -2951,6 +3005,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.0.0/sophora-image-update-service-1.0.0.tgz
     version: 1.0.0
   sophora-import-job:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "renamed extraDeploy template file"
+    apiVersion: v2
+    appVersion: 6.4.0
+    created: "2026-07-17T15:10:13.516056692Z"
+    description: A Helm chart for the repository import
+    digest: f43d949cf2387c0d2ce96f368263088ff796aec4482a37c4c37b1a3341f9418d
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-import-job
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-import-job
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.9.2/sophora-import-job-1.9.2.tgz
+    version: 1.9.2
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
@@ -3196,6 +3268,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.0/sophora-import-job-1.0.0.tgz
     version: 1.0.0
   sophora-importer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-17T15:10:13.671212077Z"
+    description: A Helm chart for the Sophora importer
+    digest: 1c4743d59c0874f926f5ea2b49e17cbc37368f593fc07965110f1f34573ca3cc
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.11.2/sophora-importer-2.11.2.tgz
+    version: 2.11.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3687,6 +3777,22 @@ entries:
   sophora-indexer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 4.2.2
+    created: "2026-07-17T15:10:13.821992043Z"
+    description: A Helm chart for Kubernetes
+    digest: a8900086ba3e662ee458cbeef985528b8a59b041b0339e3095b47c6ee4afad55
+    name: sophora-indexer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.3.1/sophora-indexer-1.3.1.tgz
+    version: 1.3.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed docker.subshell.com to container.subshell.com."
     apiVersion: v2
@@ -3758,6 +3864,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-07-17T15:10:13.945919933Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 2a56a0156f28a56ce0d6e564134813aa4864d7ce959558da1af291f6b55384e5
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.11.2/sophora-indexing-service-1.11.2.tgz
+    version: 1.11.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4086,6 +4210,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-07-17T15:10:14.119084536Z"
+    description: Sophora Link Checker
+    digest: 7d7ed3608df849eaa8250086b155cbc2f9de9f6b5a4ea4f4ed7b3a52350722d5
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.6.2/sophora-linkchecker-0.6.2.tgz
+    version: 0.6.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 6.0.0
@@ -4258,6 +4400,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-07-17T15:10:14.262639244Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: 9f5b68db97283631b69edbc27ba6b0755f02a3a15db73cac030d47d6914bd0c2
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.8.1/sophora-media-finder-0.8.1.tgz
+    version: 0.8.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4493,6 +4653,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added GCPBackendPolicy with Unit Tests"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-17T15:10:14.403203959Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: bba7b408d4e2209744efa3a662fd27677a47f25adaa4446533cc69c9e69fc9e8
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.8.1/sophora-metadata-supplier-1.8.1.tgz
+    version: 1.8.1
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -4795,6 +4973,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-07-17T15:10:14.553407907Z"
+    description: Sophora Schema Docs
+    digest: 0bd649cb1d00e115b8470cb80b6137cef2a63be3641b6fcf1d241cb6e508bc1d
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.6.2/sophora-schema-docs-2.6.2.tgz
+    version: 2.6.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 5.0.0
@@ -5027,6 +5223,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-1.0.0/sophora-schema-docs-1.0.0.tgz
     version: 1.0.0
   sophora-seo-check:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-07-17T15:10:14.698445448Z"
+    description: Sophora SEO Check
+    digest: 14e09812b02e3036c6be7633448378c2e96bc6fe2f266b9a3e272b5c5b0e98ad
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.5.2/sophora-seo-check-1.5.2.tgz
+    version: 1.5.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -5974,6 +6188,20 @@ entries:
   sophora-tablestar-controller:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 5.6.10
+    created: "2026-07-17T15:10:14.822055775Z"
+    description: A Helm chart for the Sophora TableStar Controller
+    digest: 2432d8ac15c252b2397e9bdb4978c099dab1cd6f48aeb1341fa6e06751cde79e
+    name: sophora-tablestar-controller
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.2.1/sophora-tablestar-controller-1.2.1.tgz
+    version: 1.2.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "Changed docker.subshell.com to container.subshell.com."
     apiVersion: v2
@@ -6021,6 +6249,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.0.0/sophora-tablestar-controller-1.0.0.tgz
     version: 1.0.0
   sophora-ugc:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-17T15:10:14.951469008Z"
+    description: A Helm chart for Kubernetes
+    digest: 0bb3c89b367f822d15dd3d1ebd6850688b80ded2d5813478238d794af87db367
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.10.2/sophora-ugc-2.10.2.tgz
+    version: 2.10.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -6636,6 +6885,25 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-17T15:10:15.088224307Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: c67a692a7b38b8a03ed5ab85044f5ab106e9f255ed8594199da7944efa8ecfd3
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.5.1/sophora-ugc-proxy-1.5.1.tgz
+    version: 1.5.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 5.9.0
@@ -6844,6 +7112,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "added comment to extraDeploy"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-07-17T15:10:15.28292817Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 67ffaf9c5566a744f58e524cc4117675cdf33efb468b84eabacaf7bb8db102b6
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.10.2/sophora-webclient-1.10.2.tgz
+    version: 1.10.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -7225,6 +7514,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-07-17T15:10:15.4335637Z"
+    description: A Helm chart for Kubernetes
+    digest: 60f2fbbaf01d58587452345cd320f06dad4c28957b8df2d359e398ae23d376bb
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.9.1/sophora-youtube-connector-1.9.1.tgz
+    version: 1.9.1
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
       artifacthub.io/links: |
         - name: Documentation for the AV Tool
@@ -7502,4 +7812,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-17T14:52:19.129165716Z"
+generated: "2026-07-17T15:10:15.435024014Z"
