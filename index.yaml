@@ -5972,6 +5972,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Fixed HealthCheck Port"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-07-17T07:21:11.953683739Z"
+    description: A Helm chart for Kubernetes
+    digest: bdd26ab8afd6daf298c3fb97f5a43aed7b4ba0f5d93e2df4e4eb8f266d503e06
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.9.3/sophora-ugc-2.9.3.tgz
+    version: 2.9.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "Fixed unit tests"
       artifacthub.io/links: |
         - name: Documentation for Sophora UGC
@@ -7408,4 +7429,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-16T19:03:06.30731346Z"
+generated: "2026-07-17T07:21:11.954458114Z"
