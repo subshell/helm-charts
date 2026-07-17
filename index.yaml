@@ -2357,6 +2357,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added extraDeploy to additionally deploy custom resources"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-17T13:34:43.486262786Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: e3aa58b45e86a62d42f9b802ac69a1aed3c88d6fe86950dcbd9dace48a6a961d
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.11.0/sophora-image-access-service-1.11.0.tgz
+    version: 1.11.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 4.13.0
@@ -7445,4 +7463,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-17T09:49:24.958888874Z"
+generated: "2026-07-17T13:34:43.487096478Z"
