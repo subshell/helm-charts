@@ -62,6 +62,31 @@ This is not enabled by default.
 To enable it, set `grpcIngress.enabled`, `grpcRoute.enabled` or `grpcHttproute` to `true` and configure it as needed.
 The example configuration contains the required settings for the Nginx Ingress Controller (all paths starting with `/sophora.srpc.` need to be forwarded as gRPC traffic). Use `grpcHttproute` instead of `grpcRoute` if the same hostname is used as for the `httpRoute` (see [Cross Serving](https://gateway-api.sigs.k8s.io/api-types/grpcroute/#cross-serving)).
 
+### Note on addressability
+
+As the Sophora Server now offers two services on different ports (1196 and 2026) different scenarios occur how this will be accessible:
+
+- Different hostnames
+
+  This is the simplest solution: Create an Ingress or HttpRoute for each target port with a distinct hostname. With this configuration it is clear what a client will reach when using that hostname.
+  But the ServerInfo only contains a single external hostname! So beware if utils use that to connect as only a single hostname can be configured.
+
+      https://server-http.example.com:443 -> server-headless.mycluster.local:1196
+      https://server-grpc.example.com:443 -> server-headless.mycluster.local:2026
+
+- Same hostname
+    - Different ports  
+      When using the same hostname for the Sophora Server clients can use a different port to distinguish which service they want to use. This requires the reverse proxy/Ingerss Controller/Gateway to provide that additional port. 
+
+          https://server.example.com:1196 -> server-headless.mycluster.local:1196
+          https://server.example.com:443 -> server-headless.mycluster.local:2026
+
+    - Same port  
+      This is difficult. The external URL uses the same hostname and port. But request should reach different backends dependent on the request. One possible solution is to match the request path. A regular expression match for `/sophora.srpc.*` can be used for all traffic going to port 2026 of the Sophora Server.
+
+          https://server.example.com:443/ -> server-headless.mycluster.local:1196
+          https://server.example.com:443/sophora.srpc.v1.ServerService/GetServerInfo -> server-headless.mycluster.local:2026
+
 ## Tips for productive installations
 
 ### Cluster servers
