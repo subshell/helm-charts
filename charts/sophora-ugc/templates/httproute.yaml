@@ -40,35 +40,35 @@ spec:
     {{- if $.Values.ugcMultimedia.enabled }}
     - backendRefs:
         - name: {{ $multimediaFullName }}
-          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+          port: {{ default 80 ($.Values.ugcMultimedia.config.server).port }}
       matches:
         - path:
             type: PathPrefix
             value: /public/binary
     - backendRefs:
         - name: {{ $multimediaFullName }}
-          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+          port: {{ default 80 ($.Values.ugcMultimedia.config.server).port }}
       matches:
         - path:
             type: PathPrefix
             value: /public/multimedia
     - backendRefs:
         - name: {{ $multimediaFullName }}
-          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+          port: {{ default 80 ($.Values.ugcMultimedia.config.server).port }}
       matches:
         - path:
             type: PathPrefix
             value: /secure/binary
     - backendRefs:
         - name: {{ $multimediaFullName }}
-          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+          port: {{ default 80 ($.Values.ugcMultimedia.config.server).port }}
       matches:
         - path:
             type: PathPrefix
             value: /secure/multimedia
     - backendRefs:
         - name: {{ $multimediaFullName }}
-          port: {{ default 8080 ($.Values.ugcMultimedia.config.server).port }}
+          port: {{ default 80 ($.Values.ugcMultimedia.config.server).port }}
       matches:
         - path:
             type: PathPrefix
