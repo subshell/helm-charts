@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.8.2
+version: 1.8.3
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "gRPC service port now has the correct appProtocol set to kubernetes.io/h2c"
+    - kind: added
+      description: "Added unit test for extraDeploy"
 
 
 appVersion: "4"

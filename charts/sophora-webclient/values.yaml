@@ -80,6 +80,7 @@ service:
   type: ClusterIP
   port: 8080
 
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
 extraDeploy: []
 
 extraEnv:

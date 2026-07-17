@@ -6,11 +6,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.1.2
+version: 1.2.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix example value 'cluster-issuer'"
+    - kind: added
+      description: "Added extraDeploy to additionally deploy custom resources"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/gateway

@@ -1,0 +1,31 @@
+suite: test extraDeploy
+templates:
+  - extra-deploy.yaml
+chart:
+  version: 0.9.8
+  appVersion: 1.2.3
+tests:
+  - it: should not create extraDeploy by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create multiple httproutes with values
+    release:
+      name: values-test-release
+    values:
+      - ./values/extra.yaml
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: emptyConfig
+      - documentIndex: 1
+        containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: otherConfig
+      - notFailedTemplate: {}

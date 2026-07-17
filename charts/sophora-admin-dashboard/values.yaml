@@ -297,3 +297,6 @@ gcp:
   #    enabled: false
   #    oauth2ClientSecretName: ""
   #    clientID: ""
+
+# extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
+extraDeploy: []
