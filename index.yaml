@@ -6884,6 +6884,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Fixed linter errors"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-07-21T09:43:15.026752524Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: b09981a326e8e2beb09ffc11225aa586ba935a1eb0ae5522676e9363a9c243c6
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.5.2/sophora-ugc-proxy-1.5.2.tgz
+    version: 1.5.2
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraDeploy to additionally deploy custom resources"
     apiVersion: v2
@@ -7812,4 +7831,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-17T15:10:15.435024014Z"
+generated: "2026-07-21T09:43:15.027529286Z"
