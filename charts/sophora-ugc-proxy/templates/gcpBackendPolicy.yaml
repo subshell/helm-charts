@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
----
 {{- $fullName := include "sophora-ugc-proxy.fullname" . -}}
 {{- $labels := include "sophora-ugc-proxy.labels" . -}}
 apiVersion: networking.gke.io/v1
