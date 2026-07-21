@@ -4,11 +4,11 @@ description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected 
 
 type: application
 
-version: 1.5.1
+version: 1.5.2
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraDeploy to additionally deploy custom resources"
+    - kind: fixed
+      description: "Fixed linter errors"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
