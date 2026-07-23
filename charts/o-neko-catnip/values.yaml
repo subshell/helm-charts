@@ -181,10 +181,10 @@ gcp:
   healthCheck:
     enabled: false
     logging: false
-    port: 8080
+    port: 8081
     # note: Cannot use named port when using network endpoint group as backend.
     # portName: http
-    path: "/actuator/health"
+    path: "/up"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
   # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
