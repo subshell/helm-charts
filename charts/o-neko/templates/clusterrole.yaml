@@ -1,8 +1,8 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: { { include "o-neko.fullname" . } }
-  labels: { { - include "o-neko.labels" . | nindent 4 } }
+  name: {{ include "o-neko.fullname" . }}
+  labels: {{- include "o-neko.labels" . | nindent 4 }}
 rules:
   - apiGroups:
       - ""
