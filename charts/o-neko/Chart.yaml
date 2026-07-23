@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.5.2
+version: 2.5.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Extend O-Neko service account capabilities to manage GKE Gateway resources."
+    - kind: fixed
+      description: "Don't use API versions in ClusterRole rules"
 
 appVersion: "1.8.2"
 sources:
