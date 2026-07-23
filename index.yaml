@@ -313,6 +313,23 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Extend O-Neko service account capabilities to manage GKE Gateway resources."
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-07-23T08:13:40.99616131Z"
+    description: A Helm chart for O-Neko
+    digest: a912e276ebe06b57e350c6a15dee8717cdc62558e3845ba446c424a7eea27fd6
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.5.2/o-neko-2.5.2.tgz
+    version: 2.5.2
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "Added GCPBackendPolicy with Unit Tests"
     apiVersion: v2
     appVersion: 1.8.2
@@ -7831,4 +7848,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-21T09:43:15.027529286Z"
+generated: "2026-07-23T08:13:40.996903414Z"
