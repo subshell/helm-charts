@@ -312,6 +312,23 @@ entries:
   o-neko:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Don't use API versions in ClusterRole rules"
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-07-23T08:47:23.144462469Z"
+    description: A Helm chart for O-Neko
+    digest: db5a11efc259441caa8dedca93f988445b232db198487dccff9a0bb95ec6ab3e
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.5.4/o-neko-2.5.4.tgz
+    version: 2.5.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Extend O-Neko service account capabilities to manage GKE Gateway resources."
     apiVersion: v2
@@ -7848,4 +7865,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-23T08:13:40.996903414Z"
+generated: "2026-07-23T08:47:23.146171973Z"
