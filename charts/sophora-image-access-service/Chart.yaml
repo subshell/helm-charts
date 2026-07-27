@@ -18,8 +18,8 @@ type: application
 version: 1.11.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraDeploy to additionally deploy custom resources"
+    - kind: changed
+      description: "Removed '-XX:GCLockerRetryAllocationCount=20' from the default javaOptions for compatibility with Java 25 (Sophora 6)"
 
 
 # This is the version number of the application being deployed. This version number should be
