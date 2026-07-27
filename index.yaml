@@ -2407,6 +2407,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "Removed '-XX:GCLockerRetryAllocationCount=20' from the default javaOptions for compatibility with Java 25 (Sophora 6)"
+    apiVersion: v2
+    appVersion: 4.13.0
+    created: "2026-07-27T09:07:59.720420265Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 029a6379a8e2b55191803b14d049aea27fff0140506464faac59df4b8ec56e8d
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.12.0/sophora-image-access-service-1.12.0.tgz
+    version: 1.12.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraDeploy to additionally deploy custom resources"
     apiVersion: v2
@@ -7882,4 +7900,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-07-23T10:12:51.285459538Z"
+generated: "2026-07-27T09:07:59.721120897Z"
