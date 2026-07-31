@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
----
 {{- $fullName := include "sophora-media-finder.fullname" . -}}
 {{- $labels := include "sophora-media-finder.labels" . -}}
 apiVersion: networking.gke.io/v1

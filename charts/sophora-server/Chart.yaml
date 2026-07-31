@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.8.3
+version: 3.8.4
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "added note in readme about gateway/httproute/ingress for grpc and http port"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 
 # This is the version number of the application being deployed. This version number should be

@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
----
 {{- $fullName := include "o-neko-catnip.fullname" . -}}
 {{- $labels := include "o-neko-catnip.labels" . -}}
 apiVersion: networking.gke.io/v1

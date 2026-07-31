@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.8.1
+version: 0.8.2
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraDeploy to additionally deploy custom resources"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 appVersion: "5.x"
 sources:

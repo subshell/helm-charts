@@ -1,5 +1,4 @@
 {{- if and .Values.clusterServerLb.enabled .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
----
 {{- $fullName := include "sophora-cluster-common.fullname" . -}}
 {{- $serviceName := .Values.clusterServerLb.name -}}
 {{- $labels := include "sophora-cluster-common.labels" . -}}

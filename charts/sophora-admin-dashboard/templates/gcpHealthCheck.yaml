@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "sophora-admin-dashboard.fullname" . -}}
 {{- $labels := include "sophora-admin-dashboard.labels" . -}}
 apiVersion: networking.gke.io/v1

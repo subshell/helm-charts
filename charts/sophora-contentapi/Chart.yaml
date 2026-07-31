@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.5.1
+version: 1.5.2
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "added comment to extraDeploy"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 appVersion: 6.0.0
 sources:

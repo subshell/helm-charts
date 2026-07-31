@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "sophora-metadata-supplier.fullname" . -}}
 {{- $labels := include "sophora-metadata-supplier.labels" . -}}
 apiVersion: networking.gke.io/v1

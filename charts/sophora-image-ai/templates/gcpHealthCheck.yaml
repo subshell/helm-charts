@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "sophora-image-ai.fullname" . -}}
 {{- $labels := include "sophora-image-ai.labels" . -}}
 apiVersion: networking.gke.io/v1

@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.12.0
+version: 1.12.1
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "Removed '-XX:GCLockerRetryAllocationCount=20' from the default javaOptions for compatibility with Java 25 (Sophora 6)"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 
 # This is the version number of the application being deployed. This version number should be

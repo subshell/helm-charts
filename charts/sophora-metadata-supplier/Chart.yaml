@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.8.1
+version: 1.8.2
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added GCPBackendPolicy with Unit Tests"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 
 appVersion: '4.14.0'

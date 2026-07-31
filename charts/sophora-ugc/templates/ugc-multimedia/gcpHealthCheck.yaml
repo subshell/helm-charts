@@ -1,5 +1,4 @@
 {{- if and .Values.ugcMultimedia.enabled .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "sophora-ugc-multimedia.fullname" . -}}
 {{- $labels := include "sophora-ugc-multimedia.labels" . -}}
 apiVersion: networking.gke.io/v1

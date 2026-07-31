@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-cluster-common
 description: A Helm chart containing some common resources useful for Sophora cloud setups
 type: application
-version: 1.8.3
+version: 1.8.4
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added unit test for extraDeploy"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 
 appVersion: "4"

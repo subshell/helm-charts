@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-linkchecker
 description: Sophora Link Checker
 type: application
-version: 0.6.2
+version: 0.6.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "added comment to extraDeploy"
+    - kind: fixed
+      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
 
 appVersion: 6.0.0
 sources:
