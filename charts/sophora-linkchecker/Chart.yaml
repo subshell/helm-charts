@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-linkchecker
 description: Sophora Link Checker
 type: application
-version: 0.6.3
+version: 0.6.4
 annotations:
   artifacthub.io/changes: |
     - kind: fixed

@@ -2,7 +2,7 @@ apiVersion: v2
 name: sophora-seo-check
 description: Sophora SEO Check
 type: application
-version: 1.5.3
+version: 1.5.4
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
