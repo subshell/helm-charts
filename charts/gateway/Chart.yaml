@@ -6,11 +6,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.2.0
+version: 1.2.1
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraDeploy to additionally deploy custom resources"
+    - kind: fixed
+      description: "NOTES.txt correctly outputs custom listener hostnames"
 
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/gateway
