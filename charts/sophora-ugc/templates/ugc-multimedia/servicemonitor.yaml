@@ -1,4 +1,4 @@
-{{- if .Values.serviceMonitor.enabled -}}
+{{- if .Values.ugcMultimedia.serviceMonitor.enabled -}}
 {{- $fullName := include "sophora-ugc-multimedia.fullname" . -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
@@ -9,7 +9,7 @@ spec:
     selector:
         matchLabels: {{- include "sophora-ugc-multimedia.selectorLabels" . | nindent 12 }}
     endpoints:
-        - interval: {{ .Values.serviceMonitor.interval }}
+        - interval: {{ .Values.ugcMultimedia.serviceMonitor.interval }}
           port: http
-          path: {{ .Values.serviceMonitor.path }}
+          path: {{ .Values.ugcMultimedia.serviceMonitor.path }}
 {{- end }}

@@ -141,6 +141,13 @@ ugc:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: ""
+  # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # serviceMonitor.interval Prometheus scrape interval
+  # serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  serviceMonitor:
+    enabled: false
+    interval: 10s
+    path: "/actuator/prometheus"
 
 ugcMultimedia:
   enabled: false
@@ -209,6 +216,15 @@ ugcMultimedia:
       fs:
         baseDir: /binaries/
 
+  # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # serviceMonitor.interval Prometheus scrape interval
+  # serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  serviceMonitor:
+    enabled: false
+    interval: 10s
+    path: "/actuator/prometheus"
+
+
 # Additional environment variables can be defined here
 env:
 
@@ -270,16 +286,3 @@ gcp:
   #    enabled: false
   #    oauth2ClientSecretName: ""
   #    clientID: ""
-
-# serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
-# serviceMonitor.interval Prometheus scrape interval
-# serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
-serviceMonitor:
-  enabled: false
-  interval: 10s
-  path: "/actuator/prometheus"
-  port: management
-
-management:
-  enabled: false
-  port: 1694

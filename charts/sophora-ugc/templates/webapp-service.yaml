@@ -18,13 +18,5 @@ spec:
       port: 80
       targetPort: {{ default 8080 (.Values.ugc.config.server).port }}
       protocol: TCP
-    {{- with .Values.management }}
-    {{- if .enabled }}
-    - name: management
-      protocol: TCP
-      port: {{ .port }}
-      targetPort: {{ .port }}
-    {{- end }}
-    {{- end }}
   selector:
     {{- include "sophora-ugc.selectorLabels" . | nindent 4 }}
