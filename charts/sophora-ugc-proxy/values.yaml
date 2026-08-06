@@ -218,3 +218,12 @@ gcp:
 
 # extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
 extraDeploy: []
+
+
+# serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+# serviceMonitor.interval Prometheus scrape interval
+# serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: "/actuator/prometheus"
