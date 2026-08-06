@@ -94,7 +94,7 @@ spec:
             - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
               name: webapp
             - containerPort: 1694
-              name: jolokia
+              name: management
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback

@@ -270,3 +270,16 @@ gcp:
   #    enabled: false
   #    oauth2ClientSecretName: ""
   #    clientID: ""
+
+# serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+# serviceMonitor.interval Prometheus scrape interval
+# serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: "/actuator/prometheus"
+  port: management
+
+management:
+  enabled: false
+  port: 1694

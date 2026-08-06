@@ -13,7 +13,8 @@ spec:
   type: {{ .Values.service.webapp.type }}
   loadBalancerIP: {{ .Values.service.webapp.loadBalancerIP }}
   ports:
-    - port: 80
+    - name: http
+      port: 80
       targetPort: {{ default 8080 (.Values.ugcMultimedia.config.server).port }}
       protocol: TCP
   selector:
