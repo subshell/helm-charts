@@ -4,12 +4,13 @@ metadata:
   name: {{ include "sophora-ugc.fullname" . }}-management
   labels:
     {{- include "sophora-ugc.labels" . | nindent 4 }}
+    sophora-ugc.service-type: management
 spec:
   clusterIP: {{ .Values.service.management.clusterIP }}
   ports:
-    - port: 1694
+    - name: management
+      port: 1694
       targetPort: 1694
       protocol: TCP
-      name: management
   selector:
     {{- include "sophora-ugc.selectorLabels" . | nindent 4 }}

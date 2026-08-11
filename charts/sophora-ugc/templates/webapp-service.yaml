@@ -4,6 +4,7 @@ metadata:
   name: {{ include "sophora-ugc.fullname" . }}-webapp
   labels:
     {{- include "sophora-ugc.labels" . | nindent 4 }}
+    sophora-ugc.service-type: webapp
   {{- with .Values.service.annotations }}
   annotations:
   {{- toYaml . | nindent 4 }}
@@ -14,7 +15,7 @@ spec:
   loadBalancerIP: {{ .Values.service.webapp.loadBalancerIP }}
   {{- end }}
   ports:
-    - name: http
+    - name: webapp
       port: 80
       targetPort: {{ default 8080 (.Values.ugc.config.server).port }}
       protocol: TCP

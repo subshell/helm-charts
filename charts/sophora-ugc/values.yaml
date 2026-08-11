@@ -142,10 +142,12 @@ ugc:
     # If not set and create is true, a name is generated using the fullname template
     name: ""
   # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # serviceMonitor.targetService: Choose which service the ServiceMonitor should select, "webapp" or "management"
   # serviceMonitor.interval Prometheus scrape interval
   # serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
   serviceMonitor:
     enabled: false
+    targetService: webapp
     interval: 10s
     path: "/actuator/prometheus"
 
