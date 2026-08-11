@@ -1,4 +1,4 @@
-{{- if .Values.ugcMultimedia.serviceMonitor.enabled -}}
+{{- if and .Values.ugcMultimedia.enabled .Values.ugcMultimedia.serviceMonitor.enabled -}}
 {{- $fullName := include "sophora-ugc-multimedia.fullname" . -}}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
