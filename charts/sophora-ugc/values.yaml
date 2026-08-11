@@ -11,7 +11,7 @@ podSecurityContext: {}
 
 service:
   annotations: {}
-  jolokia:
+  management:
     clusterIP: None
   webapp:
     type: ClusterIP

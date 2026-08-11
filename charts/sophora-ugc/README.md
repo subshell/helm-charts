@@ -22,7 +22,7 @@ For details, check the [UGC Multimedia Service documentation page](https://subsh
 
 ```yaml
 service:
-  jolokia:
+  management:
     clusterIP: None
   webapp:
     type: LoadBalancer
