@@ -53,6 +53,24 @@ httpRoutes: {}
 # extraDeploy Additional Kubernetes resources to deploy with this release
 extraDeploy: []
 
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
+
 authentication:
   secret:
     server:
@@ -127,6 +145,15 @@ ugc:
       host:
     database:
       url:
+    management:
+      endpoints.web.exposure.include: info, health, prometheus
+
+      endpoint:
+        prometheus:
+          enabled: true
+        health:
+          show-details: always
+          show-components: always
 
   extraContainers: []
   extraInitContainers: []
@@ -141,6 +168,12 @@ ugc:
     # The name of the service account to use.
     # If not set and create is true, a name is generated using the fullname template
     name: ""
+
+  healthCheck:
+    # Which port to use for Kubernetes liveness/readiness probes
+    # Options: "webapp" or "management"
+    port: webapp
+
   # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
   # serviceMonitor.targetService: Choose which service the ServiceMonitor should select, "webapp" or "management"
   # serviceMonitor.interval Prometheus scrape interval
@@ -217,6 +250,15 @@ ugcMultimedia:
       type: fs
       fs:
         baseDir: /binaries/
+    management:
+      endpoints.web.exposure.include: info, health, prometheus
+
+      endpoint:
+        prometheus:
+          enabled: true
+        health:
+          show-details: always
+          show-components: always
 
   # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
   # serviceMonitor.interval Prometheus scrape interval
@@ -260,7 +302,7 @@ gcp:
     enabled: false
     logging: false
     port: 8080
-    path: "/"
+    path: "/actuator/health/readiness"
   # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
   # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
   # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
