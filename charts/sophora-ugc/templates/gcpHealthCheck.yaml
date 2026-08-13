@@ -1,4 +1,4 @@
-{{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
+{{- if and .Values.ugc.gcp.enabled .Values.ugc.gcp.healthCheck.enabled }}
 {{- $fullName := include "sophora-ugc.fullname" . -}}
 {{- $labels := include "sophora-ugc.labels" . -}}
 apiVersion: networking.gke.io/v1
@@ -12,17 +12,17 @@ spec:
     config:
       type: HTTP
       httpHealthCheck:
-        {{- with .Values.gcp.healthCheck.port }}
+        {{- with .Values.ugc.gcp.healthCheck.port }}
         port: {{ . }}
         {{- end }}
-        {{- with .Values.gcp.healthCheck.portName }}
+        {{- with .Values.ugc.gcp.healthCheck.portName }}
         portName: {{ . | quote }}
         {{- end }}
-        requestPath: {{ .Values.gcp.healthCheck.path | quote }}
+        requestPath: {{ .Values.ugc.gcp.healthCheck.path | quote }}
     logConfig:
-      enabled: {{ .Values.gcp.healthCheck.logging }}
+      enabled: {{ .Values.ugc.gcp.healthCheck.logging }}
   targetRef:
     group: ""
     kind: Service
-    name: {{ printf "%s-webapp" $fullName }}
+    name: {{ printf "%s-management" $fullName }}
 {{- end }}

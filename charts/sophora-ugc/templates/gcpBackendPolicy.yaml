@@ -1,4 +1,4 @@
-{{- if and .Values.gcp.enabled .Values.gcp.backendPolicy.enabled }}
+{{- if and .Values.ugc.gcp.enabled .Values.ugc.gcp.backendPolicy.enabled }}
 {{- $fullName := printf "%s-webapp" (include "sophora-ugc.fullname" .) -}}
 {{- $labels := include "sophora-ugc.labels" . -}}
 apiVersion: networking.gke.io/v1
@@ -9,14 +9,14 @@ metadata:
     {{- $labels | nindent 4 }}
 spec:
   default:
-    {{- with .Values.gcp.backendPolicy.logging }}
+    {{- with .Values.ugc.gcp.backendPolicy.logging }}
     logging:
       enabled: {{ .enabled | default false }}
       {{- if .enabled }}
       sampleRate: {{ .sampleRate | default 1000000 }}
       {{- end }}
     {{- end }}
-    {{- with .Values.gcp.backendPolicy.sessionAffinity }}
+    {{- with .Values.ugc.gcp.backendPolicy.sessionAffinity }}
     sessionAffinity:
       type: {{ .type | default "NONE" }}
       {{- if or (eq .type "GENERATED_COOKIE") (eq .type "HTTP_COOKIE") }}
@@ -24,12 +24,12 @@ spec:
       {{- end }}
     {{- end }}
     connectionDraining:
-      drainingTimeoutSec: {{ dig "drainingTimeoutSec" 0 (.Values.gcp.backendPolicy.connectionDraining | default dict) }}
-    timeoutSec: {{ .Values.gcp.backendPolicy.timeoutSec | default 30 }}
-    {{- with .Values.gcp.backendPolicy.securityPolicy }}
+      drainingTimeoutSec: {{ dig "drainingTimeoutSec" 0 (.Values.ugc.gcp.backendPolicy.connectionDraining | default dict) }}
+    timeoutSec: {{ .Values.ugc.gcp.backendPolicy.timeoutSec | default 30 }}
+    {{- with .Values.ugc.gcp.backendPolicy.securityPolicy }}
     securityPolicy: {{ . | quote }}
     {{- end }}
-    {{- with .Values.gcp.backendPolicy.iap }}
+    {{- with .Values.ugc.gcp.backendPolicy.iap }}
     iap:
       enabled: {{ .enabled | default false }}
       {{- if .enabled }}
