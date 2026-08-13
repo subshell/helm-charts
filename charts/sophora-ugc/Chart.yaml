@@ -20,6 +20,12 @@ annotations:
   artifacthub.io/changes: |
     - kind: added
       description: "ServiceMonitor objects for UGC and UGC multimedia"
+    - kind: changed
+      description: "The parameter `service.jolokia.clusterIP` is now `service.management.clusterIP`. The deployed service and the corresponding container port are now named `management` instead of `jolokia`."
+    - kind: changed
+      description: "The `gcp` parameters can now be configured for UGC and UGC multimedia independently at `ugc.gcp` and `ugcMultimedia.gcp`."
+    
+
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC
       url: https://subshell.com/docs/ugc/
