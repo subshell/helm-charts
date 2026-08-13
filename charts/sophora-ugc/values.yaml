@@ -182,7 +182,7 @@ ugc:
   # ugc.serviceMonitor.interval Prometheus scrape interval
   # ugc.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
   serviceMonitor:
-    enabled: true
+    enabled: false
     target: webapp # or management
     interval: 10s
     path: "/actuator/prometheus"
