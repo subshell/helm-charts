@@ -1,3 +1,4 @@
+{{- if .Values.ugc.managementService.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -9,8 +10,9 @@ spec:
   clusterIP: {{ .Values.service.management.clusterIP }}
   ports:
     - name: management
-      port: 1694
-      targetPort: 1694
+      port: {{ .Values.ugc.managementService.port }}
+      targetPort: {{ .Values.ugc.managementService.port }}
       protocol: TCP
   selector:
     {{- include "sophora-ugc.selectorLabels" . | nindent 4 }}
+{{- end }}

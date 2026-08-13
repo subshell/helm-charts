@@ -174,6 +174,9 @@ ugc:
     # Options: "webapp" or "management"
     port: webapp
 
+  managementService:
+    enabled: true # deploy a management service
+    port: 1694 # must match Spring's management.server.port property
   # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
   # serviceMonitor.targetService: Choose which service the ServiceMonitor should select, "webapp" or "management"
   # serviceMonitor.interval Prometheus scrape interval
