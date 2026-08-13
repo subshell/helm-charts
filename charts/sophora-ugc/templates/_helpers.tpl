@@ -62,18 +62,6 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
-ServiceMonitor target service
-Returns the service type (webapp or management) based on targetService configuration
-*/}}
-{{- define "sophora-ugc.serviceMonitorTarget" -}}
-{{- if eq .Values.ugc.serviceMonitor.targetService "management" -}}
-management
-{{- else -}}
-webapp
-{{- end -}}
-{{- end }}
-
-{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "sophora-ugc-multimedia.chart" -}}

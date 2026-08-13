@@ -177,13 +177,13 @@ ugc:
   managementService:
     enabled: true # deploy a management service
     port: 1694 # must match Spring's management.server.port property
-  # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
-  # serviceMonitor.targetService: Choose which service the ServiceMonitor should select, "webapp" or "management"
-  # serviceMonitor.interval Prometheus scrape interval
-  # serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # ugc.serviceMonitor.target: Choose which service the ServiceMonitor should select, "webapp" or "management"
+  # ugc.serviceMonitor.interval Prometheus scrape interval
+  # ugc.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
   serviceMonitor:
-    enabled: false
-    targetService: webapp
+    enabled: true
+    target: webapp # or management
     interval: 10s
     path: "/actuator/prometheus"
   gcp:
@@ -340,8 +340,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
-## @section GCP
-##
-## Specific for the use with GCP Kubernetes Clusters
 
