@@ -10,12 +10,20 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 service:
+  # service.annotations annotations for the services for UGC and UGC Multimedia apps
   annotations: {}
-  management:
-    clusterIP: None
+  # service.webapp Options for the services exposing UGC Webapp and UGC Multimedia
   webapp:
     type: ClusterIP
     loadBalancerIP:
+  # service.management Options for the service exposing the UGC management port
+  management:
+    # service.management.enabled Whether to deploy a management service
+    enabled: true
+    # service.management.port Port on which the management service should listen. Must match Spring's management.server.port property in ugc.config.
+    port: 1694
+    # service.management.clusterIP ClusterIP for the management service
+    clusterIP: None
 
 ingress:
   enabled: false
@@ -174,9 +182,6 @@ ugc:
     # Options: "webapp" or "management"
     port: webapp
 
-  managementService:
-    enabled: true # deploy a management service
-    port: 1694 # must match Spring's management.server.port property
   # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
   # ugc.serviceMonitor.target: Choose which service the ServiceMonitor should select, "webapp" or "management"
   # ugc.serviceMonitor.interval Prometheus scrape interval

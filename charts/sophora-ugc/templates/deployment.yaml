@@ -93,8 +93,10 @@ spec:
           ports:
             - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
               name: webapp
-            - containerPort: {{ .Values.ugc.managementService.port }}
+            {{- with .Values.service.management.port }}
+            - containerPort: {{ . }}
               name: management
+            {{- end }}
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback
