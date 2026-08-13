@@ -61,18 +61,30 @@ httpRoutes: {}
 # extraDeploy Additional Kubernetes resources to deploy with this release
 extraDeploy: []
 
+# startupProbe.failureThreshold Failure threshold for startupProbe
+# startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+# startupProbe.timeoutSeconds Timeout seconds for startupProbe
+# startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
   failureThreshold: 15
   initialDelaySeconds: 5
   timeoutSeconds: 30
   periodSeconds: 1
 
+# readinessProbe.failureThreshold Failure threshold for readinessProbe
+# readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+# readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+# readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   failureThreshold: 5
   initialDelaySeconds: 5
   timeoutSeconds: 5
   periodSeconds: 5
 
+# livenessProbe.failureThreshold Failure threshold for livenessProbe
+# livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+# livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+# livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
   failureThreshold: 3
   initialDelaySeconds: 15
@@ -153,15 +165,6 @@ ugc:
       host:
     database:
       url:
-    management:
-      endpoints.web.exposure.include: info, health, prometheus
-
-      endpoint:
-        prometheus:
-          enabled: true
-        health:
-          show-details: always
-          show-components: always
 
   extraContainers: []
   extraInitContainers: []
@@ -178,8 +181,7 @@ ugc:
     name: ""
 
   healthCheck:
-    # Which port to use for Kubernetes liveness/readiness probes
-    # Options: "webapp" or "management"
+    # ugc.healthCheck.enabled Which port to use for Kubernetes liveness/readiness probes at the ugc container, "webapp" or "management"
     port: webapp
 
   # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
@@ -298,23 +300,15 @@ ugcMultimedia:
       type: fs
       fs:
         baseDir: /binaries/
-    management:
-      endpoints.web.exposure.include: info, health, prometheus
 
-      endpoint:
-        prometheus:
-          enabled: true
-        health:
-          show-details: always
-          show-components: always
-
-  # serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
-  # serviceMonitor.interval Prometheus scrape interval
-  # serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  # ugc.Multimedia.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # ugc.Multimedia.serviceMonitor.interval Prometheus scrape interval
+  # ugc.Multimedia.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
   serviceMonitor:
     enabled: false
     interval: 10s
     path: "/actuator/prometheus"
+
   gcp:
     # ugcMultimedia.gcp.enabled Whether GCP resources should be enabled or not
     enabled: true
