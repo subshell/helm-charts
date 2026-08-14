@@ -8,7 +8,7 @@ version: 1.5.4
 annotations:
   artifacthub.io/changes: |
     - kind: added
-      description: "Fill basic auth API credentials from secret"
+      description: "Add support for supplying API basic-auth credentials from a Kubernetes Secret"
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
