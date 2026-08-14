@@ -23,6 +23,15 @@ authentication:
   #      accessKeyKey: access-key
   #      secretIdKey: secret-id
   s3buckets: {}
+  # authentication.apiBasicAuth.enabled enable basic auth for UGC Proxy API
+  # authentication.apiBasicAuth.secretName name of the secret containing the credentials
+  # authentication.apiBasicAuth.usernameKey key of the username in the secret. Will be available as environment variable '$AUTH_USERNAME'.
+  # authentication.apiBasicAuth.passwordKey key of the password in the secret. Will be available as environment variable '$AUTH_PASSWORD'.
+  apiBasicAuth:
+    enabled: false
+    secretName: ""
+    usernameKey: ""
+    passwordKey: ""
 
 image:
     repository: container.subshell.com/sophora/ugc-proxy
