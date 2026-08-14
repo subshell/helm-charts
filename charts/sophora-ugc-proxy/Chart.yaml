@@ -4,7 +4,7 @@ description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected 
 
 type: application
 
-version: 1.5.4
+version: 1.6.0
 annotations:
   artifacthub.io/changes: |
     - kind: added
