@@ -57,6 +57,24 @@ spec:
                   optional: false
 
             {{- end }}
+            {{- with .Values.authentication.apiBasicAuth }}
+              {{- if .enabled }}
+                {{- if .usernameKey }}
+            - name: AUTH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretName }}
+                  key: {{ .usernameKey }}
+               {{- end }}
+               {{- if .passwordKey }}
+            - name: AUTH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secretName }}
+                  key: {{ .passwordKey }}
+               {{- end }}
+              {{- end }}
+            {{- end }}
             {{ if .Values.env -}}
             {{- toYaml .Values.env | nindent 12 }}
             {{- end }}
