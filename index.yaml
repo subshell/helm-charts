@@ -7293,6 +7293,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Add support for supplying API basic-auth credentials from a Kubernetes Secret"
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-08-14T13:33:31.838700052Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: bea638e6f054c2360c2f6728a5ef2589de0bd80eafebf3ea36eb2d3434e8a9a3
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.6.0/sophora-ugc-proxy-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Fixed linter errors"
     apiVersion: v2
@@ -8301,4 +8320,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-08-04T11:55:01.88169264Z"
+generated: "2026-08-14T13:33:31.839445399Z"
