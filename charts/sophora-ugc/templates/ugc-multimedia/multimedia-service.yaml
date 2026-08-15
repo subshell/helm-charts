@@ -13,8 +13,9 @@ spec:
   type: {{ .Values.service.webapp.type }}
   loadBalancerIP: {{ .Values.service.webapp.loadBalancerIP }}
   ports:
-    - port: 80
-      targetPort: {{ default 8080 (.Values.ugcMultimedia.config.server).port }}
+    - name: ugc-multimedia
+      port: 80
+      targetPort: ugc-multimedia
       protocol: TCP
   selector:
     {{- include "sophora-ugc-multimedia.selectorLabels" . | nindent 4 }}
