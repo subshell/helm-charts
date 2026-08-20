@@ -301,7 +301,7 @@ ugcMultimedia:
       fs:
         baseDir: /binaries/
 
-  # ugc.Multimedia.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # ugc.Multimedia.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed. Requires Prometheus Operator (ServiceMonitor CRD)
   # ugc.Multimedia.serviceMonitor.interval Prometheus scrape interval
   # ugc.Multimedia.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
   serviceMonitor:
