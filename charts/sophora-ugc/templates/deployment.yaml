@@ -93,8 +93,10 @@ spec:
           ports:
             - containerPort: {{ default 8080 (.Values.ugc.config.server).port }}
               name: webapp
-            - containerPort: 1694
-              name: jolokia
+            {{- with .Values.service.management.port }}
+            - containerPort: {{ . }}
+              name: management
+            {{- end }}
           volumeMounts:
             - name: logback-xml
               mountPath: /config/logback
@@ -102,6 +104,36 @@ spec:
               mountPath: /config/application
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            httpGet:
+              port: {{ $.Values.ugc.healthCheck.port }}
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+          {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            httpGet:
+              port: {{ $.Values.ugc.healthCheck.port }}
+              path: /actuator/health/liveness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+           {{- end }}
+           {{- with .Values.readinessProbe }}
+          readinessProbe:
+            httpGet:
+              port: {{ $.Values.ugc.healthCheck.port }}
+              path: /actuator/health/readiness
+            failureThreshold: {{ .failureThreshold }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            periodSeconds: {{ .periodSeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- end }}
         {{- if .Values.ugc.extraContainers }}
           {{ include "common.tplvalues.render" (dict "value" .Values.ugc.extraContainers "context" $) | nindent 8 }}
         {{- end }}

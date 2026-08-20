@@ -22,10 +22,18 @@ For details, check the [UGC Multimedia Service documentation page](https://subsh
 
 ```yaml
 service:
-  jolokia:
-    clusterIP: None
+ # Options for the services exposing UGC Webapp and UGC Multimedia
   webapp:
     type: LoadBalancer
+  # Options for the service exposing the UGC management port
+  management:
+    # Whether to deploy a management service
+    enabled: true
+    #  Port on which the management service should listen
+    # Must match Spring's management.server.port property in ugc.config.
+    port: 1694
+    # ClusterIP for the management service
+    clusterIP: None
 
 ingress:
   enabled: false
@@ -59,9 +67,6 @@ ugc:
     pullPolicy: IfNotPresent
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
-  binariesStorage:
-    size: 1G
-    storageClass: standard
 
   logback: |
     <?xml version="1.0" encoding="UTF-8"?>
@@ -122,6 +127,10 @@ ugc:
     # ratings, image uploads and comments can be enabled for a list of node types
     rating:
       primaryTypes: ["sophora-content-nt:story"]
+
+  healthCheck:
+    # Which port to use for Kubernetes liveness/readiness probes at the ugc container, "webapp" or "management"
+    port: webapp
 
 ugcMultimedia:
   enabled: false # enable to deploy UGC Multimedia Service

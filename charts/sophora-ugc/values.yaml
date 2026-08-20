@@ -10,12 +10,20 @@ podSecurityContext: {}
   # fsGroup: 2000
 
 service:
+  # service.annotations annotations for the services for UGC and UGC Multimedia apps
   annotations: {}
-  jolokia:
-    clusterIP: None
+  # service.webapp Options for the services exposing UGC Webapp and UGC Multimedia
   webapp:
     type: ClusterIP
     loadBalancerIP:
+  # service.management Options for the service exposing the UGC management port
+  management:
+    # service.management.enabled Whether to deploy a management service
+    enabled: true
+    # service.management.port Port on which the management service should listen. Must match Spring's management.server.port property in ugc.config.
+    port: 1694
+    # service.management.clusterIP ClusterIP for the management service
+    clusterIP: None
 
 ingress:
   enabled: false
@@ -52,6 +60,36 @@ httpRoutes: {}
 
 # extraDeploy Additional Kubernetes resources to deploy with this release
 extraDeploy: []
+
+# startupProbe.failureThreshold Failure threshold for startupProbe
+# startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
+# startupProbe.timeoutSeconds Timeout seconds for startupProbe
+# startupProbe.periodSeconds Period seconds for startupProbe
+startupProbe:
+  failureThreshold: 15
+  initialDelaySeconds: 5
+  timeoutSeconds: 30
+  periodSeconds: 1
+
+# readinessProbe.failureThreshold Failure threshold for readinessProbe
+# readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+# readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+# readinessProbe.periodSeconds Period seconds for readinessProbe
+readinessProbe:
+  failureThreshold: 5
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  periodSeconds: 5
+
+# livenessProbe.failureThreshold Failure threshold for livenessProbe
+# livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+# livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+# livenessProbe.periodSeconds Period seconds for livenessProbe
+livenessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 15
+  timeoutSeconds: 10
+  periodSeconds: 60
 
 authentication:
   secret:
@@ -142,6 +180,60 @@ ugc:
     # If not set and create is true, a name is generated using the fullname template
     name: ""
 
+  healthCheck:
+    # ugc.healthCheck.enabled Which port to use for Kubernetes liveness/readiness probes at the ugc container, "webapp" or "management"
+    port: webapp
+
+  # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed. Requires Prometheus Operator (ServiceMonitor CRD)
+  # ugc.serviceMonitor.target: Choose which service the ServiceMonitor should select, "webapp" or "management"
+  # ugc.serviceMonitor.interval Prometheus scrape interval
+  # ugc.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  serviceMonitor:
+    enabled: false
+    target: webapp # or management
+    interval: 10s
+    path: "/actuator/prometheus"
+  gcp:
+    # ugc.gcp.enabled Whether GCP specific resources like Google LoadBalancer HealthChecks should be deployed or not
+    enabled: true
+    # ugc.gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+    # ugc.gcp.healthCheck.port Number of the port used for the GCP Health Check
+    # ugc.gcp.healthCheck.portName Name of the port used for the GCP Health Check
+    # ugc.gcp.healthCheck.path HTTP path GCP should use to check the application's health
+    # ugc.gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+    healthCheck:
+      enabled: false
+      logging: false
+      port: 8080
+      path: "/actuator/health/readiness"
+    # ugc.gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
+    # ugc.gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
+    # ugc.gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
+    # ugc.gcp.backendPolicy.sessionAffinity Type of session affinity for GCP Backend Policy (NONE, GENERATED_COOKIE, HTTP_COOKIE)
+    # ugc.gcp.backendPolicy.cookieTtlSec TTL for session affinity cookies in seconds (only applicable for GENERATED_COOKIE and HTTP_COOKIE)
+    # ugc.gcp.backendPolicy.connectionDraining.drainingTimeoutSec Timeout for GCP Backend Policy connection draining in seconds
+    # ugc.gcp.backendPolicy.timeoutSec Timeout for GCP Backend Policy requests in seconds
+    # ugc.gcp.backendPolicy.securityPolicy Name of the GCP Cloud Armor Security Policy to apply to the Backend Policy
+    # ugc.gcp.backendPolicy.iap.enabled Whether to enable Identity-Aware Proxy (IAP) for the GCP Backend Policy
+    # ugc.gcp.backendPolicy.iap.oauth2ClientSecretName Name of the Kubernetes secret containing the OAuth2 client secret for IAP
+    # ugc.gcp.backendPolicy.iap.clientID OAuth2 client ID for IAP
+    backendPolicy:
+      enabled: false
+    #  logging:
+    #    enabled: false
+    #    sampleRate: 1000000
+    #  sessionAffinity:
+    #    type: NONE
+    #    cookieTtlSec: 0
+    #  connectionDraining:
+    #    drainingTimeoutSec: 0
+    #  timeoutSec: 30
+    #  securityPolicy: ""
+    #  iap:
+    #    enabled: false
+    #    oauth2ClientSecretName: ""
+    #    clientID: ""
+
 ugcMultimedia:
   enabled: false
   image:
@@ -209,6 +301,28 @@ ugcMultimedia:
       fs:
         baseDir: /binaries/
 
+  # ugc.Multimedia.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed. Requires Prometheus Operator (ServiceMonitor CRD)
+  # ugc.Multimedia.serviceMonitor.interval Prometheus scrape interval
+  # ugc.Multimedia.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
+  serviceMonitor:
+    enabled: false
+    interval: 10s
+    path: "/actuator/prometheus"
+
+  gcp:
+    # ugcMultimedia.gcp.enabled Whether GCP specific resources like Google LoadBalancer HealthChecks should be deployed or not
+    enabled: true
+    # ugcMultimedia.gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
+    # ugcMultimedia.gcp.healthCheck.port Number of the port used for the GCP Health Check
+    # ugcMultimedia.gcp.healthCheck.portName Name of the port used for the GCP Health Check
+    # ugcMultimedia.gcp.healthCheck.path HTTP path GCP should use to check the application's health
+    # ugcMultimedia.gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
+    healthCheck:
+      enabled: false
+      logging: false
+      port: 8080
+      path: "/actuator/health/readiness"
+
 # Additional environment variables can be defined here
 env:
 
@@ -226,47 +340,3 @@ tolerations: []
 
 affinity: {}
 
-## @section GCP
-##
-## Specific for the use with GCP Kubernetes Clusters
-
-gcp:
-  # gcp.enabled Whether GCP resources should be enabled or not
-  enabled: true
-  # gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
-  # gcp.healthCheck.port Number of the port used for the GCP Health Check
-  # gcp.healthCheck.portName Name of the port used for the GCP Health Check
-  # gcp.healthCheck.path HTTP path GCP should use to check the application's health
-  # gcp.healthCheck.logging Whether to enable access logging for GCP Health Check requests
-  healthCheck:
-    enabled: false
-    logging: false
-    port: 8080
-    path: "/"
-  # gcp.backendPolicy.enabled Whether the GCP Backend Policy resource should be deployed
-  # gcp.backendPolicy.logging.enabled Whether to enable access logging for GCP Backend Policy requests
-  # gcp.backendPolicy.logging.sampleRate Sample rate for GCP Backend Policy logging (1-1000000)
-  # gcp.backendPolicy.sessionAffinity Type of session affinity for GCP Backend Policy (NONE, GENERATED_COOKIE, HTTP_COOKIE)
-  # gcp.backendPolicy.cookieTtlSec TTL for session affinity cookies in seconds (only applicable for GENERATED_COOKIE and HTTP_COOKIE)
-  # gcp.backendPolicy.connectionDraining.drainingTimeoutSec Timeout for GCP Backend Policy connection draining in seconds
-  # gcp.backendPolicy.timeoutSec Timeout for GCP Backend Policy requests in seconds
-  # gcp.backendPolicy.securityPolicy Name of the GCP Cloud Armor Security Policy to apply to the Backend Policy
-  # gcp.backendPolicy.iap.enabled Whether to enable Identity-Aware Proxy (IAP) for the GCP Backend Policy
-  # gcp.backendPolicy.iap.oauth2ClientSecretName Name of the Kubernetes secret containing the OAuth2 client secret for IAP
-  # gcp.backendPolicy.iap.clientID OAuth2 client ID for IAP
-  backendPolicy:
-    enabled: false
-  #  logging:
-  #    enabled: false
-  #    sampleRate: 1000000
-  #  sessionAffinity:
-  #    type: NONE
-  #    cookieTtlSec: 0
-  #  connectionDraining:
-  #    drainingTimeoutSec: 0
-  #  timeoutSec: 30
-  #  securityPolicy: ""
-  #  iap:
-  #    enabled: false
-  #    oauth2ClientSecretName: ""
-  #    clientID: ""

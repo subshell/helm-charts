@@ -1,5 +1,5 @@
 service:
-  jolokia:
+  management:
     clusterIP: None
   webapp:
     type: LoadBalancer

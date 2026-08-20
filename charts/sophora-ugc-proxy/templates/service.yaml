@@ -13,6 +13,7 @@ spec:
     {{- include "sophora-ugc-proxy.selectorLabels" . | nindent 4 }}
   type: {{ .Values.service.type }}
   ports:
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       targetPort: proxy
       port: {{ .Values.service.port }}

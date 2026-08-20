@@ -11,15 +11,15 @@ tests:
     release:
       name: values-test-release
     set:
-      gcp.enabled: true
-      gcp.backendPolicy.enabled: true
-      gcp.backendPolicy.logging.enabled: true
-      gcp.backendPolicy.logging.sampleRate: 123
-      gcp.backendPolicy.sessionAffinity.type: GENERATED_COOKIE
-      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
-      gcp.backendPolicy.iap.enabled: true
-      gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
-      gcp.backendPolicy.iap.clientID: test-client
+      ugc.gcp.enabled: true
+      ugc.gcp.backendPolicy.enabled: true
+      ugc.gcp.backendPolicy.logging.enabled: true
+      ugc.gcp.backendPolicy.logging.sampleRate: 123
+      ugc.gcp.backendPolicy.sessionAffinity.type: GENERATED_COOKIE
+      ugc.gcp.backendPolicy.sessionAffinity.cookieTtlSec: 456
+      ugc.gcp.backendPolicy.iap.enabled: true
+      ugc.gcp.backendPolicy.iap.oauth2ClientSecretName: test-secret
+      ugc.gcp.backendPolicy.iap.clientID: test-client
     asserts:
       - hasDocuments:
           count: 1
@@ -54,15 +54,15 @@ tests:
     release:
       name: values-test-release
     set:
-      gcp.enabled: true
-      gcp.backendPolicy.enabled: true
-      gcp.backendPolicy.logging.enabled: false
-      gcp.backendPolicy.logging.sampleRate: 999
-      gcp.backendPolicy.sessionAffinity.type: NONE
-      gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
-      gcp.backendPolicy.iap.enabled: false
-      gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
-      gcp.backendPolicy.iap.clientID: ignored-client
+      ugc.gcp.enabled: true
+      ugc.gcp.backendPolicy.enabled: true
+      ugc.gcp.backendPolicy.logging.enabled: false
+      ugc.gcp.backendPolicy.logging.sampleRate: 999
+      ugc.gcp.backendPolicy.sessionAffinity.type: NONE
+      ugc.gcp.backendPolicy.sessionAffinity.cookieTtlSec: 888
+      ugc.gcp.backendPolicy.iap.enabled: false
+      ugc.gcp.backendPolicy.iap.oauth2ClientSecretName: ignored-secret
+      ugc.gcp.backendPolicy.iap.clientID: ignored-client
     asserts:
       - hasDocuments:
           count: 1
