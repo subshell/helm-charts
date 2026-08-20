@@ -194,7 +194,7 @@ ugc:
     interval: 10s
     path: "/actuator/prometheus"
   gcp:
-    # ugc.gcp.enabled Whether GCP resources should be enabled or not
+    # ugc.gcp.enabled Whether GCP specific resources like Google LoadBalancer HealthChecks should be deployed or not
     enabled: true
     # ugc.gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
     # ugc.gcp.healthCheck.port Number of the port used for the GCP Health Check
