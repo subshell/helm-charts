@@ -184,7 +184,7 @@ ugc:
     # ugc.healthCheck.enabled Which port to use for Kubernetes liveness/readiness probes at the ugc container, "webapp" or "management"
     port: webapp
 
-  # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed
+  # ugc.serviceMonitor.enabled Whether the serviceMonitor resource should be deployed. Requires Prometheus Operator (ServiceMonitor CRD)
   # ugc.serviceMonitor.target: Choose which service the ServiceMonitor should select, "webapp" or "management"
   # ugc.serviceMonitor.interval Prometheus scrape interval
   # ugc.serviceMonitor.path HTTP path prometheus should use to scrape the application's metrics
