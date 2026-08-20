@@ -310,7 +310,7 @@ ugcMultimedia:
     path: "/actuator/prometheus"
 
   gcp:
-    # ugcMultimedia.gcp.enabled Whether GCP resources should be enabled or not
+    # ugcMultimedia.gcp.enabled Whether GCP specific resources like Google LoadBalancer HealthChecks should be deployed or not
     enabled: true
     # ugcMultimedia.gcp.healthCheck.enabled Whether the GCP Health Check resource should be deployed
     # ugcMultimedia.gcp.healthCheck.port Number of the port used for the GCP Health Check
