@@ -240,6 +240,10 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
+### 3.4.0
+
+Removes an invalid document separator when using `gcp.backendPolicy.enabled`:true
+
 ### 3.3.0
 
 Added `sophora.server.storage.useSeparateVolumes` (default: `true`) to control the number of volumes. When enabled, `/sophora/data` uses a separate PVC.
