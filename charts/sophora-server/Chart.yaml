@@ -19,7 +19,7 @@ version: 3.8.6
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+      description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
 
 
 # This is the version number of the application being deployed. This version number should be

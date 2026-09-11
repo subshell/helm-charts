@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "sophora-youtube-connector.fullname" . -}}
 {{- $labels := include "sophora-youtube-connector.labels" . -}}
 apiVersion: networking.gke.io/v1
