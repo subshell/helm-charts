@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.9.2
+version: 1.9.3
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "Added extraDeploy to additionally deploy custom resources"
+    - kind: fixed
+      description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
 
   artifacthub.io/links: |
     - name: Documentation for the AV Tool

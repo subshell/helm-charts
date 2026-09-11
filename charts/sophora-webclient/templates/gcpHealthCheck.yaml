@@ -1,5 +1,4 @@
 {{- if and .Values.gcp.enabled .Values.gcp.healthCheck.enabled }}
----
 {{- $fullName := include "webclient.fullname" . -}}
 {{- $labels := include "webclient.labels" . -}}
 apiVersion: networking.gke.io/v1
