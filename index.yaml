@@ -5779,6 +5779,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-09-11T08:30:40.449780177Z"
+    description: A Helm chart for the Sophora Server
+    digest: 37f8283b68080d0853934c3bdffe0e8bdb85443c65f01271c39df649186f48af
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.8.6/sophora-server-3.8.6.tgz
+    version: 3.8.6
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
     appVersion: 5.12.0
@@ -7624,6 +7642,27 @@ entries:
   sophora-webclient:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
+    apiVersion: v2
+    appVersion: 4.14.0
+    created: "2026-09-11T08:30:40.591337943Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: a072a311c1348b7ba7ce3c99c94ecf8fc22f1c6817b944010e2fed5dd3c610ce
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.10.4/sophora-webclient-1.10.4.tgz
+    version: 1.10.4
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "added comment to extraDeploy"
     apiVersion: v2
@@ -8044,6 +8083,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-09-11T08:30:40.736960512Z"
+    description: A Helm chart for Kubernetes
+    digest: b85d10816f5d36c8084a69649a8b065b1d3bd02f51e43c02efa179144c8f7a73
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.9.3/sophora-youtube-connector-1.9.3.tgz
+    version: 1.9.3
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraDeploy to additionally deploy custom resources"
       artifacthub.io/links: |
@@ -8364,4 +8424,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-08-20T08:56:06.659415149Z"
+generated: "2026-09-11T08:30:40.738353684Z"
