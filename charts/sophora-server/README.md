@@ -240,7 +240,7 @@ sophora.persistence.postgres.port=5432
 
 ## Notable Changes
 
-### 3.4.0
+### 3.8.6
 
 Removes an invalid document separator when using `gcp.backendPolicy.enabled`:true
 
