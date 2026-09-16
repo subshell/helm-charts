@@ -128,7 +128,7 @@ spec:
           readinessProbe:
             httpGet:
               port: {{ $.Values.ugc.healthCheck.port }}
-              path: /actuator/health/readiness
+              path: /actuator/health/sophoraReadiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}

@@ -83,7 +83,7 @@ spec:
           readinessProbe:
             httpGet:
               port: http
-              path: /actuator/health
+              path: /actuator/health/sophoraReadiness
       volumes:
         - name: config
           configMap:

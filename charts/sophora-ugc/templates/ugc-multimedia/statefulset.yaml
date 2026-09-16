@@ -110,7 +110,7 @@ spec:
           readinessProbe:
             httpGet:
               port: ugc-multimedia
-              path: /actuator/health/readiness
+              path: /actuator/health/sophoraReadiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}

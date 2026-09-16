@@ -65,7 +65,7 @@ tests:
           value: /actuator/health/liveness
       - equal:
           path: spec.template.spec.containers[0].readinessProbe.httpGet.path
-          value: /actuator/health/readiness
+          value: /actuator/health/sophoraReadiness
       - equal:
           path: spec.template.spec.containers[0].startupProbe.httpGet.path
           value: /actuator/health/liveness

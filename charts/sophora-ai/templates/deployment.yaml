@@ -127,7 +127,7 @@ spec:
           readinessProbe:
             httpGet:
               port: ai
-              path: /actuator/health/readiness
+              path: /actuator/health/sophoraReadiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}

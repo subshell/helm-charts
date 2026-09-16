@@ -63,7 +63,7 @@ startupProbe:
   periodSeconds: 2
 
 readinessProbe:
-  httpPath: '/health'
+  httpPath: '/actuator/health/sophoraReadiness'
   failureThreshold: 5
   initialDelaySeconds: 5
   timeoutSeconds: 1
