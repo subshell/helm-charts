@@ -35,6 +35,8 @@ spec:
           image: "{{ .Values.ugcMultimedia.image.repository }}:{{ .Values.ugcMultimedia.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.ugcMultimedia.image.pullPolicy }}
           env:
+            - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+              value: "sophora"
             - name: JAVA_TOOL_OPTIONS
               value: {{ .Values.javaOptions }}
             - name: SOPHORA_CLIENT_SERVER-CONNECTION_USERNAME
@@ -110,7 +112,7 @@ spec:
           readinessProbe:
             httpGet:
               port: ugc-multimedia
-              path: /actuator/health/sophoraReadiness
+              path: /actuator/health/readiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}

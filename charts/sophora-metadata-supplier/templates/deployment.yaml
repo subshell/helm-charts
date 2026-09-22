@@ -111,6 +111,8 @@ spec:
               containerPort: 8080
               protocol: TCP
           env:
+            - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+              value: "sophora"
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
             - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME

@@ -108,6 +108,11 @@ applications:
             base-path: /actuator
             exposure:
               include: health,info
+        endpoint:
+          health:
+            group:
+              readiness:
+                include: sophora
       sophora:
         client:
           server-connection:
@@ -150,6 +155,11 @@ applications:
             base-path: /actuator
             exposure:
               include: health,info
+        endpoint:
+          health:
+            group:
+              readiness:
+                include: sophora
       sophora:
         client:
           server-connection:
@@ -195,6 +205,11 @@ applications:
             base-path: /actuator
             exposure:
               include: health,info
+        endpoint:
+          health:
+            group:
+              readiness:
+                include: sophora
       sophora:
         client:
           server-connection:

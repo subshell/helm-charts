@@ -86,7 +86,7 @@ spec:
           readinessProbe:
             httpGet:
               port: http
-              path: /actuator/health/sophoraReadiness
+              path: /actuator/health/readiness
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}
             periodSeconds: {{ .periodSeconds }}

@@ -40,6 +40,8 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
+          - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+            value: "sophora"
           - name: JDK_JAVA_OPTIONS
             value: {{ .Values.javaOptions }}
           - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
@@ -94,7 +96,7 @@ spec:
         {{- with .Values.readinessProbe }}
         readinessProbe:
           httpGet:
-            path: /actuator/health/sophoraReadiness
+            path: /actuator/health/readiness
             port: metrics
           failureThreshold: {{ .failureThreshold }}
           initialDelaySeconds: {{ .initialDelaySeconds }}
