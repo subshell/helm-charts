@@ -91,7 +91,9 @@ applications:
       loadBalancerIP:
     exposure:
       path: /document-creator
-    env: []
+    env:
+      - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+        value: "sophora"
     envFrom: []
     resources: {}
     config:
@@ -131,7 +133,9 @@ applications:
       loadBalancerIP:
     exposure:
       path: /feed
-    env: []
+    env:
+      - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+        value: "sophora"
     envFrom: []
     resources: {}
     config:
@@ -173,7 +177,9 @@ applications:
       loadBalancerIP:
     exposure:
       path: /
-    env: []
+    env:
+      - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+        value: "sophora"
     envFrom: []
     resources: {}
     config:

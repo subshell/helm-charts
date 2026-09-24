@@ -40,6 +40,8 @@ spec:
               containerPort: {{ .Values.service.metricsPort }}
               protocol: TCP
           env:
+            - name: MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE
+              value: "sophora"
             - name: JDK_JAVA_OPTIONS
               value: {{ .Values.javaOptions }}
             {{- if .Values.sophora.authentication.accessToken }}
@@ -87,7 +89,7 @@ spec:
           {{- with .Values.readinessProbe }}
           readinessProbe:
             httpGet:
-              path: /actuator/health
+              path: /actuator/health/readiness
               port: metrics
             failureThreshold: {{ .failureThreshold }}
             initialDelaySeconds: {{ .initialDelaySeconds }}

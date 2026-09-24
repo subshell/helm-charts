@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-contentapi
 description: Sophora Content API
 type: application
-version: 1.5.3
+version: 1.5.4
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+    - kind: added
+      description: "add env MANAGEMENT_ENDPOINT_HEALTH_GROUP_READINESS_INCLUDE=sophora to add the sophora health indicator to the readiness group"
 
 appVersion: 6.0.0
 sources:
