@@ -18,8 +18,6 @@ type: application
 version: 1.9.4
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
     - kind: added
       description: "ServiceMonitor objects for the AVTool"
 
