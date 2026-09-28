@@ -1,0 +1,15 @@
+{{- if .Values.serviceMonitor.enabled -}}
+{{- $fullName := include "sophora-youtube-connector.fullname" . -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+    name: {{ $fullName }}
+    labels: {{- include "sophora-youtube-connector.labels" . | nindent 8 }}
+spec:
+    selector:
+        matchLabels: {{- include "sophora-youtube-connector.selectorLabels" . | nindent 12 }}
+    endpoints:
+        - interval: {{ .Values.serviceMonitor.interval }}
+          port: http
+          path: {{ .Values.serviceMonitor.path }}
+{{- end }}

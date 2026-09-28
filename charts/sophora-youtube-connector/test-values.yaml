@@ -315,3 +315,7 @@ sophora:
     env:
       - name: MY_SAMPLE_ENV_VAR
         value: "hello, I'm an env variable"
+
+serviceMonitor:
+  enabled: true
+  path: /prometheus

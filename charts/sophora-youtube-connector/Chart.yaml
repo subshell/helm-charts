@@ -15,11 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 1.9.3
+version: 1.9.4
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
       description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
+    - kind: added
+      description: "ServiceMonitor objects for the AVTool"
 
   artifacthub.io/links: |
     - name: Documentation for the AV Tool
