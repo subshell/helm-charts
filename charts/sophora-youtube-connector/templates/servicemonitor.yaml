@@ -10,6 +10,6 @@ spec:
         matchLabels: {{- include "sophora-youtube-connector.selectorLabels" . | nindent 12 }}
     endpoints:
         - interval: {{ .Values.serviceMonitor.interval }}
-          port: http
+          port: http-service
           path: {{ .Values.serviceMonitor.path }}
 {{- end }}
