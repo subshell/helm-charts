@@ -244,3 +244,8 @@ gcp:
 
 # extraDeploy is a list of full Kubernetes manifests that will be rendered additionally by this chart
 extraDeploy: []
+
+serviceMonitor:
+  enabled: false
+  interval: 10s
+  path: /prometheus
