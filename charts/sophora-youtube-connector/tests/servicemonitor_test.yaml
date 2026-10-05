@@ -1,0 +1,30 @@
+suite: test servicemonitor
+templates:
+  - servicemonitor.yaml
+chart:
+  version: 0.9.8
+  appVersion: 1.2.3
+tests:
+  - it: should not create servicemonitor by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: should create servicemonitor with custom configuration
+    release:
+      name: enabled-test-release
+    values:
+      - ./values/servicemonitor.yaml
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isKind:
+          of: ServiceMonitor
+      - isAPIVersion:
+          of: monitoring.coreos.com/v1
+      - contains:
+          path: spec.endpoints
+          content:
+            interval: "12s"
+            port: http-service
+            path: /custom/path

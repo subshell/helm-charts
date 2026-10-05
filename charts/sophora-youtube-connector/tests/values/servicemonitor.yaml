@@ -1,0 +1,4 @@
+serviceMonitor:
+  enabled: true
+  path: /custom/path
+  interval: "12s"
