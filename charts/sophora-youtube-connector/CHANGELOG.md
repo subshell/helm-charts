@@ -16,6 +16,6 @@ Added HTTPRoute support for Gateway API.
 
 This version adds the "extraInitContainers" variable, that can be used to create custom init containers.
 
-### 1.10.0
+### 2.0.0
 
 ExtraEnvVarsSecret replaced with envFrom.
