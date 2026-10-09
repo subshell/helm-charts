@@ -6,9 +6,9 @@ This chart deploys the Sophora YouTube Connector
 
 This chart requires the following already present in the target namespace:
 
-* An ImagePullSecret for the subshell Docker Registry
-* A secret containing username and password for the sophora server.
-* A secret containing keys to be replaced in the mediaconfig.xml in an init container upon pod startup.
+- An ImagePullSecret for the subshell Docker Registry
+- A secret containing username and password for the sophora server.
+- A secret containing keys to be replaced in the mediaconfig.xml in an init container upon pod startup.
 
 ## Example values.yaml
 
@@ -247,7 +247,9 @@ sophora:
         usernameKey: sophora-username
         passwordKey: sophora-password
 
-    extraEnvVarsSecret: mediaconfig-secrets
+	envFrom:
+	  - secretRef:
+          name: mediaconfig-secrets
 
     jobstore:
       storage:

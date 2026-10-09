@@ -15,7 +15,7 @@ configGenerator:
     repository: "container.subshell.com/misc/alpine-toolkit"
     tag: "0.2.0"
     pullPolicy: IfNotPresent
-  extraEnvVarsSecret:
+  envFrom: []
   # Additional environment variables can be defined here
   env:
 
@@ -187,7 +187,7 @@ sophora:
       storage:
         storageClass:
         resources: {}
-    extraEnvVarsSecret:
+    envFrom: []
     # Additional environment variables can be defined here
     env:
 
