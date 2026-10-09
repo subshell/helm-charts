@@ -34,12 +34,10 @@ spec:
         - name: envsubst-config-generator
           image: "{{ .Values.configGenerator.image.repository }}:{{ .Values.configGenerator.image.tag }}"
           imagePullPolicy: {{ .Values.configGenerator.image.pullPolicy }}
-          {{- if .Values.configGenerator.extraEnvVarsSecret }}
+          {{- with .Values.configGenerator.envFrom }}
           envFrom:
-            - secretRef:
-                name: {{ .Values.configGenerator.extraEnvVarsSecret }}
-                optional: true
-          {{- end }}
+            {{- toYaml . | nindent 12 }}
+      	  {{- end }}
           {{ if .Values.configGenerator.env -}}
           env: {{- toYaml .Values.configGenerator.env | nindent 10 }}
           {{- end }}
@@ -99,11 +97,9 @@ spec:
           {{ if .Values.sophora.youtubeconnector.env -}}
           {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10 }}
           {{- end }}
-          {{- if .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
+          {{- with .Values.sophora.youtubeconnector.envFrom }}
           envFrom:
-            - secretRef:
-                name: {{ .Values.sophora.youtubeconnector.extraEnvVarsSecret }}
-                optional: true
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           ports:
             - name: http

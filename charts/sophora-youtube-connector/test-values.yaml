@@ -14,7 +14,9 @@ configGenerator:
     repository: "container.subshell.com/misc/alpine-toolkit"
     tag: "0.2.0"
     pullPolicy: IfNotPresent
-  extraEnvVarsSecret: avtool-mediaconfig-credentials
+  envFrom:
+    - name: avtool-mediaconfig-credentials
+      optional: true
   env:
     - name: SAMPLE_ENV_VAR
       value: "Such a sweet sorrow"
@@ -238,7 +240,7 @@ sophora:
 
       </beans>
     # can be either 'properties' or 'yml'
-    configFormat: 'properties'
+    configFormat: "properties"
     config: |
       # Connection to the Sophora Primary (Master) Server.
       sophoraServer.host = http://localhost:1196
@@ -311,7 +313,9 @@ sophora:
           requests:
             storage: 50M
 
-    extraEnvVarsSecret: youtube-connector-envs
+    envFrom:
+      - name: youtube-connector-envs
+        optional: true
     env:
       - name: MY_SAMPLE_ENV_VAR
         value: "hello, I'm an env variable"
