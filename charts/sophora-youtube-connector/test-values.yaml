@@ -15,8 +15,9 @@ configGenerator:
     tag: "0.2.0"
     pullPolicy: IfNotPresent
   envFrom:
-    - name: avtool-mediaconfig-credentials
-      optional: true
+    - secretRef:
+        name: avtool-mediaconfig-credentials
+        optional: true
   env:
     - name: SAMPLE_ENV_VAR
       value: "Such a sweet sorrow"
@@ -314,8 +315,9 @@ sophora:
             storage: 50M
 
     envFrom:
-      - name: youtube-connector-envs
-        optional: true
+      - secretRef:
+          name: youtube-connector-envs
+          optional: true
     env:
       - name: MY_SAMPLE_ENV_VAR
         value: "hello, I'm an env variable"
