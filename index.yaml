@@ -8083,6 +8083,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "extraEnvVarsSecret replaced with envFrom"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-10-09T08:01:29.196578023Z"
+    description: A Helm chart for Kubernetes
+    digest: d0fcd71fb05a54fd423b7e7711b53eda6aba78f06bdd6d9e0c1f2355e6f95d74
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-2.0.0/sophora-youtube-connector-2.0.0.tgz
+    version: 2.0.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
       artifacthub.io/links: |
@@ -8424,4 +8445,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-09-11T08:30:40.738353684Z"
+generated: "2026-10-09T08:01:29.197393388Z"
