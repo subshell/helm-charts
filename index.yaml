@@ -1499,6 +1499,24 @@ entries:
   sophora-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "added configuration for the upcoming Target Audience feature"
+    apiVersion: v2
+    appVersion: 1.8.1
+    created: "2026-10-15T14:51:46.07547452Z"
+    description: Sophora AI
+    digest: 9b2e28218896562214c94edb5331bc79554f04d4e17def3896365dd5a29bb1a1
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.8.0/sophora-ai-2.8.0.tgz
+    version: 2.8.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -8445,4 +8463,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-09T08:01:29.197393388Z"
+generated: "2026-10-15T14:51:46.076119486Z"
