@@ -163,6 +163,9 @@ sophora:
     # contents of application-summarize.yaml
     summarize:
 
+    # contents of application-target-audience.yaml
+    targetAudience:
+
     # contents of application-teaser.yaml
     teaser:
 

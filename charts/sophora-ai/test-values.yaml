@@ -114,6 +114,8 @@ sophora:
       testing: spellCheck
     summarize:
       testing: summarize
+    targetAudience:
+      testing: targetAudience
     teaser:
       testing: teaser
     title:
