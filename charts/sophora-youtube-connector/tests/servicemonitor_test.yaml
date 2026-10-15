@@ -28,3 +28,8 @@ tests:
             interval: "12s"
             port: http-service
             path: /custom/path
+      - equal:
+          path: spec.selector.matchLabels
+          value:
+            app.kubernetes.io/instance: enabled-test-release
+            app.kubernetes.io/name: sophora-youtube-connector
