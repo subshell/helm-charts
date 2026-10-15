@@ -41,6 +41,9 @@ data:
   application-spell-check.yaml: |- {{ toYaml .Values.sophora.configuration.spellCheck | nindent 4 }}
   {{- end }}
   application-summarize.yaml: |- {{ toYaml (required "sophora.configuration.summarize is required in values" .Values.sophora.configuration.summarize) | nindent 4 }}
+  {{- if .Values.sophora.configuration.targetAudience }}
+  application-target-audience.yaml: |- {{ toYaml .Values.sophora.configuration.targetAudience | nindent 4 }}
+  {{- end }}
   application-teaser.yaml: |- {{ toYaml (required "sophora.configuration.teaser is required in values" .Values.sophora.configuration.teaser) | nindent 4 }}
   application-title.yaml: |- {{ toYaml (required "sophora.configuration.title is required in values" .Values.sophora.configuration.title) | nindent 4 }}
   application-translate.yaml: |- {{ toYaml (required "sophora.configuration.translate is required in values" .Values.sophora.configuration.translate) | nindent 4 }}
