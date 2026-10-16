@@ -22,9 +22,9 @@ tests:
           of: ServiceMonitor
       - isAPIVersion:
           of: monitoring.coreos.com/v1
-      - contains:
+      - equal:
           path: spec.endpoints
-          content:
+          value:
             interval: "12s"
             port: http-service
             path: /custom/path
