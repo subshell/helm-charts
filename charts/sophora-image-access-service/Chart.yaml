@@ -19,7 +19,7 @@ version: 1.12.3
 annotations:
   artifacthub.io/changes: |
     - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+      description: "Update health check configuration"
 
 
 # This is the version number of the application being deployed. This version number should be
