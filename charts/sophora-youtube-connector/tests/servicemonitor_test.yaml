@@ -25,9 +25,9 @@ tests:
       - equal:
           path: spec.endpoints
           value:
-            interval: "12s"
-            port: http-service
-            path: /custom/path
+            - interval: "12s"
+              port: http-service
+              path: /custom/path
       - equal:
           path: spec.selector.matchLabels
           value:
