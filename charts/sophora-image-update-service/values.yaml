@@ -69,7 +69,7 @@ startupProbe:
   periodSeconds: 2
 
 livenessProbe:
-  failureThreshold: 1
+  failureThreshold: 2
   initialDelaySeconds: 1
   timeoutSeconds: 3
   periodSeconds: 60
