@@ -8101,6 +8101,27 @@ entries:
   sophora-youtube-connector:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "ServiceMonitor objects for the AVTool"
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-10-19T09:59:54.353011796Z"
+    description: A Helm chart for Kubernetes
+    digest: 4a35eaea24ae08106e90a977479da028047b3665f43ce64d76c1715d95d2ef75
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-2.1.0/sophora-youtube-connector-2.1.0.tgz
+    version: 2.1.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "extraEnvVarsSecret replaced with envFrom"
       artifacthub.io/links: |
@@ -8463,4 +8484,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-15T14:51:46.076119486Z"
+generated: "2026-10-19T09:59:54.353874246Z"
