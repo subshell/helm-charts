@@ -2,12 +2,12 @@ apiVersion: v2
 name: sophora-ai
 description: Sophora AI
 type: application
-version: 2.7.3
+version: 2.8.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
-appVersion: 1.7.0
+    - kind: added
+      description: "added configuration for the upcoming Target Audience feature"
+appVersion: 1.8.1
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
 home: https://subshell.com/sophora/modules/sophora-ai100.html
