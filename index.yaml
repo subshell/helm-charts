@@ -2565,6 +2565,24 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
+          description: "Update health check configuration"
+    apiVersion: v2
+    appVersion: 4.16.3
+    created: "2026-10-19T11:55:52.144823749Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 59103c12248c9ba22babdd2e20da77060fce9c1e4fc3452c737bfebc424cc1d0
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.12.3/sophora-image-access-service-1.12.3.tgz
+    version: 1.12.3
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
     appVersion: 4.13.0
@@ -3172,6 +3190,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-1.0.0/sophora-image-ai-1.0.0.tgz
     version: 1.0.0
   sophora-image-update-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
+          description: "Update health check configuration"
+    apiVersion: v2
+    appVersion: 4.16.3
+    created: "2026-10-19T11:55:52.443704267Z"
+    description: A Helm chart for the Sophora Image Update Service
+    digest: 155d2f26f143e591f5179ad285d1bb28e14f73961f2b3c4d672aa04a930443d9
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-update-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-update-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.2.2/sophora-image-update-service-1.2.2.tgz
+    version: 1.2.2
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -8484,4 +8520,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-19T09:59:54.353874246Z"
+generated: "2026-10-19T11:55:52.445379551Z"
