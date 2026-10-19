@@ -19,3 +19,7 @@ This version adds the "extraInitContainers" variable, that can be used to create
 ### 2.0.0
 
 ExtraEnvVarsSecret replaced with envFrom.
+
+### 2.1.0
+
+This version adds the service monitor configuration.
