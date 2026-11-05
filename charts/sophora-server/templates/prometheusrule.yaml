@@ -1,5 +1,7 @@
 {{- if .Values.prometheusRule.enabled }}
 {{- $defaultRulesEnabled := .Values.prometheusRule.defaultRulesEnabled }}
+{{- $highSeverity := .Values.prometheusRule.severityMapping.high }}
+{{- $mediumSeverity := .Values.prometheusRule.severityMapping.medium }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
@@ -14,7 +16,7 @@ spec:
           for: 10m
           expr: 'up{container="sophora-server", job="{{ include "sophora-server.fullname" . }}"} != 1'
           labels:
-            severity: high
+            severity: {{ $highSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server offline.
@@ -24,7 +26,7 @@ spec:
           for: 15m
           expr: 'histogram_quantile(0.95, sum(rate(sophora_server_contentmanager_call_duration_seconds_bucket{job="{{ include "sophora-server.fullname" . }}"}[1m])) by (pod, le)) > 0.5'
           labels:
-            severity: high
+            severity: {{ $highSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server API is slow
@@ -34,7 +36,7 @@ spec:
           for: 10m
           expr: 'sophora_server_events_number_of_asyc_events_waiting_to_be_processed{job="{{ include "sophora-server.fullname" . }}"} > 10000'
           labels:
-            severity: high
+            severity: {{ $highSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora Server event processing is slow or blocked
@@ -45,7 +47,7 @@ spec:
           for: 5m
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == -1'
           labels:
-            severity: medium
+            severity: {{ $mediumSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: State of Sophora server is unknown
@@ -55,7 +57,7 @@ spec:
           for: 10m
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 3'
           labels:
-            severity: medium
+            severity: {{ $mediumSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server's synchronization is delayed
@@ -65,7 +67,7 @@ spec:
           for: 10m
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 4'
           labels:
-            severity: medium
+            severity: {{ $mediumSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server's queue is too long
@@ -75,7 +77,7 @@ spec:
           for: 10m
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 5'
           labels:
-            severity: high
+            severity: {{ $highSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server unavailable
@@ -85,7 +87,7 @@ spec:
           for: 10m
           expr: 'sophora_server_state{job="{{ include "sophora-server.fullname" . }}"} == 6'
           labels:
-            severity: high
+            severity: {{ $highSeverity }}
             namespace: "{{ .Release.Namespace }}"
           annotations:
             summary: Sophora server lost connection to primary
