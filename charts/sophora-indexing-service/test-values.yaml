@@ -61,21 +61,24 @@ serviceMonitor:
   path: /test/prometheus
 
 startupProbe:
-  httpPath: '/test/health'
+  httpGet:
+    path: '/test/health'
   failureThreshold: 15
   initialDelaySeconds: 10
   timeoutSeconds: 1
   periodSeconds: 2
 
 readinessProbe:
-  httpPath: '/test/health'
+  httpGet:
+    path: '/test/health'
   failureThreshold: 5
   initialDelaySeconds: 5
   timeoutSeconds: 1
   periodSeconds: 5
 
 livenessProbe:
-  httpPath: '/test/health'
+  httpGet:
+    path: '/test/health'
   failureThreshold: 5
   initialDelaySeconds: 5
   timeoutSeconds: 1

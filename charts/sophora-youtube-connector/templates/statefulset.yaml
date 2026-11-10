@@ -72,7 +72,7 @@ spec:
           configMap:
             name: {{ include "sophora-youtube-connector.fullname" . }}-preprocessor
         {{- end }}
-        {{- with .Values.extraVolumes}}
+        {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
       containers:
@@ -87,13 +87,13 @@ spec:
           - name: SOPHORASERVER_USERNAME
             valueFrom:
               secretKeyRef:
-                key: {{.Values.sophora.youtubeconnector.secret.server.usernameKey}}
+                key: {{ .Values.sophora.youtubeconnector.secret.server.usernameKey }}
                 name: {{.Values.sophora.youtubeconnector.secret.name}}
           - name: SOPHORASERVER_PASSWORD
             valueFrom:
               secretKeyRef:
-                key: {{.Values.sophora.youtubeconnector.secret.server.passwordKey}}
-                name: {{.Values.sophora.youtubeconnector.secret.name}}
+                key: {{ .Values.sophora.youtubeconnector.secret.server.passwordKey }}
+                name: {{ .Values.sophora.youtubeconnector.secret.name }}
           {{ if .Values.sophora.youtubeconnector.env -}}
           {{- toYaml .Values.sophora.youtubeconnector.env | nindent 10 }}
           {{- end }}
@@ -124,11 +124,23 @@ spec:
               mountPath: /app/groovy/{{ .Values.sophora.youtubeconnector.preprocessor.filename }}
               subPath: {{ .Values.sophora.youtubeconnector.preprocessor.filename }}
             {{- end }}
-            {{- with .Values.extraVolumeMounts}}
+            {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
             {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

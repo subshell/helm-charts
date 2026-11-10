@@ -2,14 +2,16 @@ apiVersion: v2
 name: sophora-metadata-supplier
 description: Sophora Metadata Supplier (SMS)
 type: application
-version: 1.8.3
+version: 1.9.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+    - kind: changed
+      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    - kind: changed
+      description: "Renamed value `*Probe.httpPath` to `*Probe.httpGet.path`"
 
 
-appVersion: '4.14.0'
+appVersion: '6.3.0'
 sources:
   - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
 home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html

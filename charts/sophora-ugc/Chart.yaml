@@ -15,16 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.11.0
+version: 2.12.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "ServiceMonitor objects for UGC and UGC multimedia"
     - kind: changed
-      description: "The parameter `service.jolokia.clusterIP` is now `service.management.clusterIP`. The deployed service and the corresponding container port are now named `management` instead of `jolokia`."
+      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
     - kind: changed
-      description: "The `gcp` parameters can now be configured for UGC and UGC multimedia independently at `ugc.gcp` and `ugcMultimedia.gcp`."
-    
+      description: "Replaced value ugc.healthcheck.port by livenessProbe.httpGet.port, readinessProbe.httpGet.port, startupProbe.httpGet.port"
 
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC
