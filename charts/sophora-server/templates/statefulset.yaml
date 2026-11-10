@@ -282,7 +282,6 @@ spec:
             - containerPort: {{ .Values.sophora.server.ports.rmiRegistry }}
               name: rmi-registry
           {{- end }}
-          {{- if .Values.livenessProbe.enabled }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
             {{- toYaml . | nindent 12 }}
