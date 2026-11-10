@@ -64,33 +64,15 @@ spec:
               protocol: TCP
           {{- with $root.Values.startupProbe }}
           startupProbe:
-            httpGet:
-              port: http
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with $root.Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              port: http
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with $root.Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              port: http
-              path: /actuator/health/readiness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: application-config

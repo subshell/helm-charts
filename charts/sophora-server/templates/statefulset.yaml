@@ -283,34 +283,17 @@ spec:
               name: rmi-registry
           {{- end }}
           {{- if .Values.livenessProbe.enabled }}
+          {{- with .Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              path: /status/liveness
-              port: http
-            failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
-            initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.readinessProbe.enabled }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              path: /status/ready
-              port: http
-            failureThreshold: {{ .Values.readinessProbe.failureThreshold }}
-            initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{- if .Values.startupProbe.enabled }}
+          {{- with .Values.startupProbe }}
           startupProbe:
-            httpGet:
-              path: /status/started
-              port: http
-            failureThreshold: {{ .Values.startupProbe.failureThreshold }}
-            initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.startupProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{ if and .Values.sophora.server.isClusterServer .Values.preStop.enabled -}}
           lifecycle:
