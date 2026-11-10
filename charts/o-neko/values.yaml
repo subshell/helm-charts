@@ -88,6 +88,9 @@ oneko:
 # startupProbe.timeoutSeconds Timeout seconds for startupProbe
 # startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: http
   failureThreshold: 10
   initialDelaySeconds: 10
   timeoutSeconds: 1
@@ -98,6 +101,9 @@ startupProbe:
 # readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
 # readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: http
   failureThreshold: 3
   initialDelaySeconds: 5
   timeoutSeconds: 5
@@ -108,6 +114,9 @@ readinessProbe:
 # livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
 # livenessProbe.periodSeconds Period seconds for livenessProbe
 livenessProbe:
+  httpGet:
+    path: /actuator/health/liveness
+    port: http
   failureThreshold: 3
   initialDelaySeconds: 15
   timeoutSeconds: 10
