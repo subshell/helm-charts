@@ -56,25 +56,25 @@ serviceMonitor:
   path: /prometheus
 
 startupProbe:
-  httpPath: '/health'
+  httpGet:
+    path: '/health'
+    port: http
   failureThreshold: 15
   initialDelaySeconds: 10
-  timeoutSeconds: 1
   periodSeconds: 2
 
 readinessProbe:
-  httpPath: '/health'
+  httpGet:
+    path: '/health'
+    port: http
   failureThreshold: 5
-  initialDelaySeconds: 5
-  timeoutSeconds: 1
   periodSeconds: 5
 
 livenessProbe:
-  httpPath: '/health'
-  failureThreshold: 5
-  initialDelaySeconds: 5
-  timeoutSeconds: 1
-  periodSeconds: 10
+  httpGet:
+    path: '/health'
+    port: http
+  failureThreshold: 12
 
 podAnnotations: {}
 

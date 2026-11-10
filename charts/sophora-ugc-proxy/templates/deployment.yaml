@@ -82,36 +82,18 @@ spec:
             - containerPort: 8080
               protocol: TCP
               name: proxy
-          {{- with .Values.startupProbe }}
-          startupProbe:
-            httpGet:
-              port: proxy
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
-          {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              port: proxy
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
-           {{- end }}
-           {{- with .Values.readinessProbe }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              port: proxy
-              path: /actuator/health/readiness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
-            {{- end }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
 
           volumeMounts:
             - name: proxy-config

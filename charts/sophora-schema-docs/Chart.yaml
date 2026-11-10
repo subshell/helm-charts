@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-schema-docs
 description: Sophora Schema Docs
 type: application
-version: 2.6.4
+version: 2.7.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+    - kind: changed
+      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
 
 appVersion: 5.0.0
 sources:

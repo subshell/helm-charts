@@ -2,11 +2,11 @@ apiVersion: v2
 name: o-neko
 description: A Helm chart for O-Neko
 type: application
-version: 2.5.6
+version: 2.5.7
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+    - kind: changed
+      description: "The probes (startup, readiness, liveness) are now fully configurable."
 
 appVersion: "1.8.2"
 sources:
