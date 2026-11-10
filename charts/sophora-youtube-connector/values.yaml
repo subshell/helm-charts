@@ -92,7 +92,7 @@ startupProbe:
     # startupProbe.httpGet.path Path to access on the HTTP server.
     path: /health/liveness
     # startupProbe.httpGet.port Name or number of the port to access on the container.
-    port: metrics
+    port: http
   # startupProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded.
   failureThreshold: 60 # * 2s period = 2 minutes
   # startupProbe.periodSeconds How often (in seconds) to perform the probe.
@@ -106,7 +106,7 @@ livenessProbe:
     # livenessProbe.httpGet.path Path to access on the HTTP server.
     path: /health/liveness
     # livenessProbe.httpGet.port Name or number of the port to access on the container.
-    port: metrics
+    port: http
   # livenessProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded.
   failureThreshold: 12 # * 10s period = 2 minutes
 
@@ -118,7 +118,7 @@ readinessProbe:
     # readinessProbe.httpGet.path Path to access on the HTTP server.
     path: /health/readiness
     # readinessProbe.httpGet.port Name or number of the port to access on the container.
-    port: metrics
+    port: http
 
 nodeSelector: {}
 
