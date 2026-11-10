@@ -102,7 +102,7 @@ startupProbe:
 # readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
   httpGet:
-    path: /actuator/health/liveness
+    path: /actuator/health/readiness
     port: http
   failureThreshold: 3
   initialDelaySeconds: 5
