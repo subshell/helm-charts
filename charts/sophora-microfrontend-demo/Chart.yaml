@@ -1,0 +1,14 @@
+apiVersion: v2
+name: sophora-microfrontend-demo
+description: A lightweight nginx chart for the Sophora Microfrontend Demo
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+annotations:
+  artifacthub.io/changes: |
+    - kind: added
+      description: "Added support for configuring Gateway API HTTPRoutes"
+    - kind: changed
+      description: "Cleaned up the nginx demo chart defaults and templates"
+sources:
+  - https://github.com/subshell/helm-charts/tree/main/charts/sophora-microfrontend-demo

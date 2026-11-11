@@ -1,0 +1,35 @@
+suite: test ingress
+templates:
+  - ingress.yaml
+tests:
+  - it: does not create an Ingress by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: renders configured host and TLS settings
+    set:
+      ingress.enabled: true
+      ingress.ingressClassName: nginx
+      ingress.hosts:
+        - host: demo.example.com
+          paths:
+            - path: /
+      ingress.tls:
+        - hosts:
+            - demo.example.com
+          secretName: demo-tls
+    asserts:
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
+      - equal:
+          path: spec.rules[0].host
+          value: demo.example.com
+      - equal:
+          path: spec.rules[0].http.paths[0].pathType
+          value: ImplementationSpecific
+      - equal:
+          path: spec.tls[0].secretName
+          value: demo-tls
+      - notFailedTemplate: {}
