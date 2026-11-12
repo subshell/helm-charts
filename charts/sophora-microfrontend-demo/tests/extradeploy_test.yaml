@@ -1,0 +1,28 @@
+suite: test extraDeploy
+templates:
+  - extra-deploy.yaml
+tests:
+  - it: does not create extraDeploy by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: creates multiple manifests with values
+    release:
+      name: values-test-release
+    values:
+      - ./values/extra.yaml
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: emptyConfig
+      - documentIndex: 1
+        containsDocument:
+          kind: ConfigMap
+          apiVersion: v1
+          name: otherConfig
+      - notFailedTemplate: {}

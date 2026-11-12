@@ -53,6 +53,9 @@ httpRoutes: {}
   #   filters: []
   #   annotations: {}
 
+# extraDeploy contains additional Kubernetes resources to deploy with the chart.
+extraDeploy: []
+
 # targetOrigin is the required origin URL used by the demo frontend.
 targetOrigin: ""
 
