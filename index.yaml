@@ -5357,6 +5357,19 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.0.0/sophora-metadata-supplier-1.0.0.tgz
     version: 1.0.0
+  sophora-microfrontend-demo:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-11-13T13:15:45.631515959Z"
+    description: A lightweight nginx chart for the Sophora Microfrontend Demo
+    digest: bbc45fbbea1616fd2daddbe52978f3605cd6864c0611bc590816bc08de507fb0
+    name: sophora-microfrontend-demo
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-microfrontend-demo
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-microfrontend-demo-1.0.0/sophora-microfrontend-demo-1.0.0.tgz
+    version: 1.0.0
   sophora-schema-docs:
   - annotations:
       artifacthub.io/changes: |
@@ -8520,4 +8533,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-19T11:55:52.445379551Z"
+generated: "2026-11-13T13:15:45.631836827Z"
