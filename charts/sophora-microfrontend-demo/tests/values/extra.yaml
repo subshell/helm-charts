@@ -1,0 +1,9 @@
+extraDeploy:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: emptyConfig
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: otherConfig

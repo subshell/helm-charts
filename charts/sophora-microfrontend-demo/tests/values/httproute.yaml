@@ -1,0 +1,26 @@
+httpRoutes:
+  primary:
+    parentRefs:
+      - name: my-gateway
+        namespace: gateway-namespace
+    hostnames:
+      - demo.example.com
+      - other.example.com
+    matches:
+      - path:
+          type: PathPrefix
+          value: /
+    filters:
+      - type: RequestHeaderModifier
+        requestHeaderModifier:
+          set:
+            - name: X-Custom-Header
+              value: custom-value
+    annotations:
+      example.com/test: simple
+  secondary:
+    parentRefs:
+      - name: my-gateway
+        namespace: gateway-namespace
+    hostnames:
+      - secondary.example.com
