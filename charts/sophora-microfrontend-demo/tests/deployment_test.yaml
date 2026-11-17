@@ -1,0 +1,25 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+tests:
+  - it: renders the required target origin and resource requests
+    set:
+      targetOrigin: https://example.com
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].env[0].name
+          value: TARGET_ORIGIN
+      - equal:
+          path: spec.template.spec.containers[0].env[0].value
+          value: https://example.com
+      - equal:
+          path: spec.template.spec.containers[0].resources.requests.memory
+          value: 32Mi
+      - notFailedTemplate: {}
+
+  - it: fails when targetOrigin is empty
+    set:
+      targetOrigin: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: targetOrigin must be set

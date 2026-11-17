@@ -1,0 +1,68 @@
+# replicaCount is the number of nginx replicas to run.
+replicaCount: 1
+
+# nameOverride replaces the chart name in generated resource names.
+nameOverride: ""
+# fullnameOverride replaces the generated resource name.
+fullnameOverride: ""
+
+image:
+  # image.repository is the nginx image repository.
+  repository: container.subshell.com/sophora/sophora-microfrontend-demo
+  # image.tag is the nginx image tag.
+  tag: 1.0.0
+  # image.pullPolicy controls when Kubernetes pulls the image.
+  pullPolicy: IfNotPresent
+
+# imagePullSecrets is a list of image pull secret names for private registries.
+imagePullSecrets: []
+
+# podAnnotations are annotations added to the nginx pod template.
+podAnnotations: {}
+
+service:
+  # service.type is the Kubernetes Service type.
+  type: ClusterIP
+  # service.port is the port exposed by the Service.
+  port: 80
+
+ingress:
+  # ingress.enabled controls whether an Ingress is created.
+  enabled: false
+  # ingress.ingressClassName selects the Ingress controller.
+  ingressClassName: nginx
+  # ingress.annotations are added to the Ingress resource.
+  annotations: {}
+  # ingress.hosts configures hostnames and HTTP paths for the Ingress.
+  hosts: []
+  # ingress.tls configures TLS hosts and their Kubernetes secrets.
+  tls: []
+
+# httpRoutes configures Gateway API HTTPRoute resources; map keys become name suffixes.
+httpRoutes: {}
+  # primary:
+  #   parentRefs:
+  #     - name: my-gateway
+  #       namespace: gateway-namespace
+  #   hostnames:
+  #     - "demo.example.com"
+  #   matches:
+  #     - path:
+  #         type: PathPrefix
+  #         value: /
+  #   filters: []
+  #   annotations: {}
+
+# extraDeploy contains additional Kubernetes resources to deploy with the chart.
+extraDeploy: []
+
+# targetOrigin is the required origin URL used by the demo frontend.
+targetOrigin: ""
+
+# resources configures the nginx container's CPU and memory requests and limits.
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    memory: 64Mi
