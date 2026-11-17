@@ -2,6 +2,9 @@
 
 This document is a reference to the alerts this Helm chart can fire.
 
+The severity labels shown below are the defaults. They can be overridden globally per severity class with
+`prometheusRule.severityMapping` in the chart's `values.yaml`.
+
 ## Sophora Server: General
 
 ### SophoraServerOffline

@@ -15,11 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 3.8.6
+version: 3.9.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
+    - kind: added
+      description: "Added prometheusRule.severityMapping to globally override the severity of the default alerts per severity class"
 
 
 # This is the version number of the application being deployed. This version number should be

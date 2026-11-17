@@ -494,6 +494,9 @@ serviceMonitor:
 prometheusRule:
   enabled: false
   defaultRulesEnabled: true
+  severityMapping:
+    high: high
+    medium: medium
   rules: []
 
 resources:
