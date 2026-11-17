@@ -5845,6 +5845,24 @@ entries:
   sophora-server:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "Added prometheusRule.severityMapping to globally override the severity of the default alerts per severity class"
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-11-17T08:36:33.265788164Z"
+    description: A Helm chart for the Sophora Server
+    digest: 2576451a551172961a9a702b19d23dfa7b2e68170796ccb92301a574c4b48dbf
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.9.0/sophora-server-3.9.0.tgz
+    version: 3.9.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Removed an invalid document separator when using gcp.backendPolicy.enabled:true"
     apiVersion: v2
@@ -8533,4 +8551,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-13T13:15:45.631836827Z"
+generated: "2026-11-17T08:36:33.266315038Z"
