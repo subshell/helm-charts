@@ -328,6 +328,23 @@ entries:
   o-neko:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable."
+    apiVersion: v2
+    appVersion: 1.8.2
+    created: "2026-11-18T14:57:26.414825185Z"
+    description: A Helm chart for O-Neko
+    digest: 860029d74c76962bcc2fc4dc70d9151f2d87ed2c770b38e811e9319f3102364b
+    name: o-neko
+    sources:
+    - https://github.com/subshell/o-neko/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-2.5.7/o-neko-2.5.7.tgz
+    version: 2.5.7
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -761,6 +778,25 @@ entries:
   o-neko-catnip:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+        - kind: changed
+          description: "If oneko.useSeparateMetricsPort is set to false you must set `*Probe.httpGet.port` to 'http'"
+    apiVersion: v2
+    appVersion: 1.3.2
+    created: "2026-11-18T14:57:26.709696855Z"
+    description: A Helm chart for the O-Neko URL trigger
+    digest: 9b5075d8fad6146f437a30ea2db5b78f89bc81396e7a6c98d4ca37c9a35fb877
+    name: o-neko-catnip
+    sources:
+    - https://github.com/subshell/o-neko-catnip/
+    - https://github.com/subshell/helm-charts/tree/main/charts/o-neko-catnip
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/o-neko-catnip-1.9.0/o-neko-catnip-1.9.0.tgz
+    version: 1.9.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -992,6 +1028,23 @@ entries:
   planr-tools:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.1.1
+    created: "2026-11-18T14:57:27.014730357Z"
+    description: A Helm chart for deploying the planr-tools applications
+    digest: 1852e1d360ef61484a144c6222ab861b780b373d4f04fa20407b9c1a83735692
+    home: https://gitlab.com/subshell/kunden/planr-tools
+    name: planr-tools
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/planr-tools
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.6.0/planr-tools-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -1144,6 +1197,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/planr-tools-1.0.0/planr-tools-1.0.0.tgz
     version: 1.0.0
   sophora-admin-dashboard:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    created: "2026-11-18T14:57:27.303089938Z"
+    description: A Helm chart for the Sophora dashboard
+    digest: 92a2997bf677ee3e5b06d293772f0710c1e17613e98f6b4b050de8a543ed474d
+    home: https://subshell.com/sophora/modules/sophora-admin-dashboard-monitoring-repair100.html
+    icon: https://subshell.com/logos/admindashboard104~1x1.1683631966185.png
+    maintainers:
+    - email: weasel@subshell.com
+      name: Team Weasel
+    name: sophora-admin-dashboard
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-admin-dashboard
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.13.0/sophora-admin-dashboard-1.13.0.tgz
+    version: 1.13.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -1497,6 +1570,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-admin-dashboard-1.0.1/sophora-admin-dashboard-1.0.1.tgz
     version: 1.0.1
   sophora-ai:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 1.8.1
+    created: "2026-11-18T14:57:27.534678109Z"
+    description: Sophora AI
+    digest: 49a7ad7662ca7ff46d37957998b792e6aa0ceadf569b0e1806b1e704c6269707
+    home: https://subshell.com/sophora/modules/sophora-ai100.html
+    icon: https://subshell.com/logos/sophora-ai106~1x1.1728311176867.png
+    name: sophora-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ai-2.9.0/sophora-ai-2.9.0.tgz
+    version: 2.9.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -2173,6 +2264,22 @@ entries:
   sophora-contentapi:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-11-18T14:57:27.800791225Z"
+    description: Sophora Content API
+    digest: 94fe36ef0eca61051082b2508279a0c24e6c6541a8b0bc791b70aa7a9e644cc4
+    name: sophora-contentapi
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-contentapi
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-contentapi-1.6.0/sophora-contentapi-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -2564,6 +2671,24 @@ entries:
   sophora-image-access-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 4.16.3
+    created: "2026-11-18T14:57:28.057145371Z"
+    description: A Helm chart for the Sophora Image Access Service
+    digest: 194ad58fc833690c105cf0bf8848d6ad111e745c95dc6081e3137a62c623bd56
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-access-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-access-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-access-service-1.13.0/sophora-image-access-service-1.13.0.tgz
+    version: 1.13.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "Update health check configuration"
     apiVersion: v2
@@ -2913,6 +3038,24 @@ entries:
   sophora-image-ai:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.1.0
+    created: "2026-11-18T14:57:28.318845653Z"
+    description: Sophora Image AI
+    digest: 5175f372807d01f110e0b3090c12e1222f4d71cb0244ead74341ec2e98bd2b2d
+    home: https://subshell.com/sophora/modules/sophora-image-ai100.html
+    icon: https://subshell.com/logos/sophora-image-ai104~1x1.1692715050244.png
+    name: sophora-image-ai
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-ai
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-2.7.0/sophora-image-ai-2.7.0.tgz
+    version: 2.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -3190,6 +3333,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-image-ai-1.0.0/sophora-image-ai-1.0.0.tgz
     version: 1.0.0
   sophora-image-update-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 4.16.3
+    created: "2026-11-18T14:57:28.560569826Z"
+    description: A Helm chart for the Sophora Image Update Service
+    digest: 8b73172537a14af3a5675457bb7644000d245f896a1340fbab10f41cd7ba42c5
+    home: https://subshell.com/sophora/modules/sophora-image-service102.html
+    icon: https://subshell.com/logos/sophora-image-service100~1x1.1683557899986.png
+    name: sophora-image-update-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-image-update-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-image-update-service-1.3.0/sophora-image-update-service-1.3.0.tgz
+    version: 1.3.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -3566,6 +3727,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-import-job-1.0.0/sophora-import-job-1.0.0.tgz
     version: 1.0.0
   sophora-importer:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-11-18T14:57:28.864875402Z"
+    description: A Helm chart for the Sophora importer
+    digest: 56ca68ee7a7a464f2f527880f003dbd136f916d09c38dbf588c37a147c9ea747
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.12.0/sophora-importer-2.12.0.tgz
+    version: 2.12.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -4093,6 +4272,22 @@ entries:
   sophora-indexer:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable but empty by default."
+    apiVersion: v2
+    appVersion: 4.2.2
+    created: "2026-11-18T14:57:29.173553593Z"
+    description: A Helm chart for Kubernetes
+    digest: 277e4af087e22412ec787a8e309b1b0f7e4581e36550dbcc5259d27851ffb0e6
+    name: sophora-indexer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.4.0/sophora-indexer-1.4.0.tgz
+    version: 1.4.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraDeploy to additionally deploy custom resources"
     apiVersion: v2
@@ -4180,6 +4375,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-indexer-1.0.0/sophora-indexer-1.0.0.tgz
     version: 1.0.0
   sophora-indexing-service:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+        - kind: changed
+          description: "Renamed value `*Probe.httpPath` to `*Probe.httpGet.path`"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-11-18T14:57:29.433369422Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 8bc04b9c507f55ef6cd4c8c8d6f72888ab45eeb076510a4b42ffd5089b48b782
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.12.0/sophora-indexing-service-1.12.0.tgz
+    version: 1.12.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -4543,6 +4758,24 @@ entries:
   sophora-linkchecker:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 6.0.0
+    created: "2026-11-18T14:57:29.662959018Z"
+    description: Sophora Link Checker
+    digest: 1688cc7d91115795cc4bd94b2275270b0f70d36a0f171fce223141854e4e3c23
+    home: https://subshell.com/sophora/modules/sophora-linkchecker102.html
+    icon: https://subshell.com/logos/linkchecker108~1x1.1683632258069.png
+    name: sophora-linkchecker
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-linkchecker
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.7.0/sophora-linkchecker-0.7.0.tgz
+    version: 0.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -4752,6 +4985,24 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-linkchecker-0.1.0/sophora-linkchecker-0.1.0.tgz
     version: 0.1.0
   sophora-media-finder:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-11-18T14:57:29.929869866Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: f0936f97bac754b4e2c6f0db1ba4b8515fd8ae775dbc31b61b4e4acb24372918
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.9.0/sophora-media-finder-0.9.0.tgz
+    version: 0.9.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -5023,6 +5274,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.1.0/sophora-media-finder-0.1.0.tgz
     version: 0.1.0
   sophora-metadata-supplier:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+        - kind: changed
+          description: "Renamed value `*Probe.httpPath` to `*Probe.httpGet.path`"
+    apiVersion: v2
+    appVersion: 6.3.0
+    created: "2026-11-18T14:57:30.242816292Z"
+    description: Sophora Metadata Supplier (SMS)
+    digest: 9cfed49fb99d080e8c69a0dbda60739cd6f1ddfc0808e696c75facca4d13ea7a
+    home: https://subshell.com/sophora/modules/sophora-metadata-supplier100.html
+    icon: https://subshell.com/logos/sophora-metadata-supplier104~1x1.1683631937857.png
+    name: sophora-metadata-supplier
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-metadata-supplier
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-metadata-supplier-1.9.0/sophora-metadata-supplier-1.9.0.tgz
+    version: 1.9.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -5373,6 +5644,24 @@ entries:
   sophora-schema-docs:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-11-18T14:57:30.535504584Z"
+    description: Sophora Schema Docs
+    digest: 246e173fbdbc6953affa8fe96fa193b1f21b12d8f08688449628e639300a6d44
+    home: https://subshell.com/sophora/modules/sophora-schema-docs100.html
+    icon: https://subshell.com/logos/sophora-schema-docs-logo100~1x1.1683632420967.png
+    name: sophora-schema-docs
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-schema-docs
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-schema-docs-2.7.0/sophora-schema-docs-2.7.0.tgz
+    version: 2.7.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -5644,6 +5933,24 @@ entries:
   sophora-seo-check:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 4.12.0
+    created: "2026-11-18T14:57:30.770164389Z"
+    description: Sophora SEO Check
+    digest: 9ded40c00aad5756f2e8d6b8f1822fe15819c43a82e0d1b2a003fe73e4ea5317
+    home: https://subshell.com/sophora/modules/sophora-seo-check104.html
+    icon: https://subshell.com/logos/sophora-seo-check100~1x1.1683631781182.png
+    name: sophora-seo-check
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-seo-check
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.6.0/sophora-seo-check-1.6.0.tgz
+    version: 1.6.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: fixed
           description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
     apiVersion: v2
@@ -5843,6 +6150,26 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-seo-check-1.0.0/sophora-seo-check-1.0.0.tgz
     version: 1.0.0
   sophora-server:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable."
+        - kind: removed
+          description: "Removed values startupProbe.enabled, readinessProbe.enabled, livenessProbe.enabled. To disable a probe set the value to null, i.e 'startupProbe: null'."
+    apiVersion: v2
+    appVersion: 5.12.0
+    created: "2026-11-18T14:57:31.00926588Z"
+    description: A Helm chart for the Sophora Server
+    digest: ce38da7ee81bdaba05a7a1b6af51918e971eca8181a4b8ec63e6623d26519fde
+    home: https://subshell.com/sophora/modules/sophora-server102.html
+    icon: https://subshell.com/logos/server104~1x1.1683631950254.png
+    name: sophora-server
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-server-3.10.0/sophora-server-3.10.0.tgz
+    version: 3.10.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -6679,6 +7006,20 @@ entries:
   sophora-tablestar-controller:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.6.10
+    created: "2026-11-18T14:57:31.418172388Z"
+    description: A Helm chart for the Sophora TableStar Controller
+    digest: dcb2b75267acfad5f8ab3d657a7b171e8b6989b085eaa4a203600a0cab8ae408
+    name: sophora-tablestar-controller
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.3.0/sophora-tablestar-controller-1.3.0.tgz
+    version: 1.3.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "Added extraDeploy to additionally deploy custom resources"
     apiVersion: v2
@@ -6740,6 +7081,29 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-tablestar-controller-1.0.0/sophora-tablestar-controller-1.0.0.tgz
     version: 1.0.0
   sophora-ugc:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+        - kind: changed
+          description: "Replaced value ugc.healthcheck.port by livenessProbe.httpGet.port, readinessProbe.httpGet.port, startupProbe.httpGet.port"
+      artifacthub.io/links: |
+        - name: Documentation for Sophora UGC
+          url: https://subshell.com/docs/ugc/
+    apiVersion: v2
+    appVersion: 4.8.0
+    created: "2026-11-18T14:57:31.668710916Z"
+    description: A Helm chart for Kubernetes
+    digest: 4e2dcf35a730f2d7c867b3300fe62323a00863b72dedcc33555d4db6de6dd5f1
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-2.12.0/sophora-ugc-2.12.0.tgz
+    version: 2.12.0
   - annotations:
       artifacthub.io/changes: |
         - kind: added
@@ -7421,6 +7785,25 @@ entries:
   sophora-ugc-proxy:
   - annotations:
       artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 5.9.0
+    created: "2026-11-18T14:57:31.90841952Z"
+    description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected
+      to several Sophora UGC instances.
+    digest: 9e94df1316f5fc36298a6b8ee5a4d723f9be39e5fd2d0a5b36573cb2d9ce9725
+    home: https://subshell.com/sophora/modules/sophora-ugc-comments-quizzes-votings-polls-forms100.html
+    icon: https://subshell.com/logos/ugc104~1x1.1683631915261.png
+    name: sophora-ugc-proxy
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-ugc-proxy
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.8.0/sophora-ugc-proxy-1.8.0.tgz
+    version: 1.8.0
+  - annotations:
+      artifacthub.io/changes: |
         - kind: added
           description: "ServiceMonitor object for UGC proxy"
     apiVersion: v2
@@ -7725,6 +8108,27 @@ entries:
     - https://github.com/subshell/helm-charts/releases/download/sophora-ugc-proxy-1.0.0/sophora-ugc-proxy-1.0.0.tgz
     version: 1.0.0
   sophora-webclient:
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
+          description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    apiVersion: v2
+    appVersion: 6.9.0
+    created: "2026-11-18T14:57:32.173543507Z"
+    description: A Helm chart for the Sophora Webclient
+    digest: 49284a5c4fe7ed8d1718730b0dbfca5e83cd1d1d8a82cd84a7fcb1676f7df2c3
+    home: https://subshell.com/sophora/modules/sophora-mobileclient-editor-webclient102.html
+    icon: https://subshell.com/logos/mclogo100~1x1.1683632554832.png
+    maintainers:
+    - email: team-weasel@subshell.com
+      name: Team Weasel
+    name: sophora-webclient
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-webclient
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-webclient-1.11.0/sophora-webclient-1.11.0.tgz
+    version: 1.11.0
   - annotations:
       artifacthub.io/changes: |
         - kind: fixed
@@ -8169,6 +8573,27 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: added
+          description: "Added probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+      artifacthub.io/links: |
+        - name: Documentation for the AV Tool
+          url: https://subshell.com/docs/avtool/
+    apiVersion: v2
+    appVersion: 4.6.5
+    created: "2026-11-18T14:57:32.40389705Z"
+    description: A Helm chart for Kubernetes
+    digest: d4bdd9a212b004a545093f6c81b851ae7fd8be37a7a6a52b8a2ebe6493e5c544
+    home: https://subshell.com/sophora/modules/sophora-youtube-connector-video-publishing100.html
+    icon: https://subshell.com/logos/ytc100~1x1.1683632527983.png
+    name: sophora-youtube-connector
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-youtube-connector
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-2.2.0/sophora-youtube-connector-2.2.0.tgz
+    version: 2.2.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: added
           description: "ServiceMonitor objects for the AVTool"
       artifacthub.io/links: |
         - name: Documentation for the AV Tool
@@ -8551,4 +8976,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-17T08:36:33.266315038Z"
+generated: "2026-11-18T14:57:32.405868149Z"
