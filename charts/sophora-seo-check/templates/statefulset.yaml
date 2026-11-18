@@ -70,20 +70,18 @@ spec:
             {{- if .Values.seoCheck.extraEnv }}
             {{- toYaml .Values.seoCheck.extraEnv | nindent 12 }}
             {{- end }}
-          startupProbe:
-            httpGet:
-              port: http
-              path: /actuator/health
-            periodSeconds: 1
-            failureThreshold: 30
+          {{- with .Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              port: http
-              path: /actuator/health
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              port: http
-              path: /actuator/health
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
       volumes:
         - name: config
           configMap:

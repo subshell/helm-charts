@@ -49,35 +49,46 @@ oneko:
 ## @section Probes
 ##
 
+# startupProbe.httpGet.path Path for startupProbe
+# startupProbe.httpGet.port Port for startupProbe defaults to 'metrics'. If `useSeparateMetricsPort` is false use 'http'
 # startupProbe.failureThreshold Failure threshold for startupProbe
 # startupProbe.initialDelaySeconds Initial delay seconds for startupProbe
 # startupProbe.timeoutSeconds Timeout seconds for startupProbe
 # startupProbe.periodSeconds Period seconds for startupProbe
 startupProbe:
+  httpGet:
+    path: /up
+    port: metrics
   failureThreshold: 10
-  initialDelaySeconds: 0
   timeoutSeconds: 1
   periodSeconds: 2
 
+# readinessProbe.httpGet.path Path for startupProbe
+# readinessProbe.httpGet.port Port for startupProbe defaults to 'metrics'. If `useSeparateMetricsPort` is false use 'http'
 # readinessProbe.failureThreshold Failure threshold for readinessProbe
 # readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
 # readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
 # readinessProbe.periodSeconds Period seconds for readinessProbe
 readinessProbe:
+  httpGet:
+    path: /up
+    port: metrics
   failureThreshold: 3
-  initialDelaySeconds: 0
   timeoutSeconds: 5
   periodSeconds: 1
 
+# livenessProbe.httpGet.path Path for startupProbe
+# livenessProbe.httpGet.port Port for startupProbe defaults to 'metrics'. If `useSeparateMetricsPort` is false use 'http'
 # livenessProbe.failureThreshold Failure threshold for livenessProbe
 # livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
 # livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
-# livenessProbe.periodSeconds Period seconds for livenessProbe
+# livenessProbe.periodSeconds Period seconds for livenessProbe, default 10 seconds
 livenessProbe:
+  httpGet:
+    path: /up
+    port: metrics
   failureThreshold: 3
-  initialDelaySeconds: 0
   timeoutSeconds: 5
-  periodSeconds: 10
 
 ## @section Traffic Exposure parameters
 ##

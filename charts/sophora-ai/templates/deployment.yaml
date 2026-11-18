@@ -103,35 +103,17 @@ spec:
             {{- if .Values.ai.extraEnv }}
             {{- toYaml .Values.ai.extraEnv | nindent 12 }}
             {{- end }}
-          {{- with .Values.startupProbe }}
-          startupProbe:
-            httpGet:
-              port: ai
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
-          {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
-            httpGet:
-              port: ai
-              path: /actuator/health/liveness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
           {{- end }}
           {{- with .Values.readinessProbe }}
           readinessProbe:
-            httpGet:
-              port: ai
-              path: /actuator/health/readiness
-            failureThreshold: {{ .failureThreshold }}
-            initialDelaySeconds: {{ .initialDelaySeconds }}
-            periodSeconds: {{ .periodSeconds }}
-            timeoutSeconds: {{ .timeoutSeconds }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
 
           resources: {{- toYaml .Values.resources | nindent 12 }}

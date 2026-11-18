@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.12.0
+- Replaced value `ugc.healthcheck.port` by `livenessProbe.httpGet.port`, `readinessProbe.httpGet.port`, `startupProbe.httpGet.port`
+
 ## 2.3.0
 - Added support for deploying extra resources
 

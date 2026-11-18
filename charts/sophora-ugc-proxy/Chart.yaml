@@ -4,11 +4,11 @@ description: A Helm chart for Kubernetes to install Sophora UGC Proxy connected 
 
 type: application
 
-version: 1.7.0
+version: 1.8.0
 annotations:
   artifacthub.io/changes: |
-    - kind: added
-      description: "ServiceMonitor object for UGC proxy"
+    - kind: changed
+      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to

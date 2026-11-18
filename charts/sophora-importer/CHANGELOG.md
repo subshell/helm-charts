@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.12.0
+
+- The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults.
+
 ## 2.5.0
 
 - Updated HTTPRoute configuration for consistency with `httpRoute.matches` and `httpRoute.filters`. Deprecated `httpRoute.rules` in favor of new properties. Breaking: only first rule of `httpRoute.rules` is used!

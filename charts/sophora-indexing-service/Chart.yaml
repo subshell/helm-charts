@@ -2,11 +2,13 @@ apiVersion: v2
 name: sophora-indexing-service
 description: Sophora Indexing Service (SISI)
 type: application
-version: 1.11.4
+version: 1.12.0
 annotations:
   artifacthub.io/changes: |
-    - kind: fixed
-      description: "fix linting issue on enabled GCPHealthChecks and GCPBackendPolicies"
+    - kind: changed
+      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    - kind: changed
+      description: "Renamed value `*Probe.httpPath` to `*Probe.httpGet.path`"
 
 
 appVersion: '5.4.1'

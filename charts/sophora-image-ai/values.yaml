@@ -51,6 +51,44 @@ resources:
   limits:
     memory: 2Gi
 
+## @section Probes
+##
+
+# startupProbe.timeoutSeconds Number of seconds after which the probe times out. Defaults to 1 second.
+startupProbe:
+  httpGet:
+    # startupProbe.httpGet.path Path to access on the HTTP server.
+    path: /actuator/health/liveness
+    # startupProbe.httpGet.port Name or number of the port to access on the container.
+    port: http
+  # startupProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded.
+  failureThreshold: 60 # * 2s period = 2 minutes
+  # startupProbe.periodSeconds How often (in seconds) to perform the probe.
+  periodSeconds: 2
+
+# livenessProbe.initialDelaySeconds Number of seconds after the container has started before liveness probes are initiated.
+# livenessProbe.periodSeconds How often (in seconds) to perform the probe. Default to 10 seconds.
+# livenessProbe.timeoutSeconds Number of seconds after which the probe times out. Defaults to 1 second.
+livenessProbe:
+  httpGet:
+    # livenessProbe.httpGet.path Path to access on the HTTP server.
+    path: /actuator/health/liveness
+    # livenessProbe.httpGet.port Name or number of the port to access on the container.
+    port: http
+  # livenessProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded.
+  failureThreshold: 12 # * 10s period = 2 minutes
+
+# readinessProbe.failureThreshold Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3.
+# readinessProbe.periodSeconds How often (in seconds) to perform the probe. Default to 10 seconds.
+# readinessProbe.timeoutSeconds Number of seconds after which the probe times out. Defaults to 1 second.
+readinessProbe:
+  httpGet:
+    # readinessProbe.httpGet.path Path to access on the HTTP server.
+    path: /actuator/health/readiness
+    # readinessProbe.httpGet.port Name or number of the port to access on the container.
+    port: http
+
+
 service:
   type: ClusterIP
   port: 8080
