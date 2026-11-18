@@ -1,0 +1,82 @@
+suite: test httproute
+templates:
+  - httproute.yaml
+chart:
+  version: 0.1.0
+  appVersion: 1.0.0
+tests:
+  - it: does not create HTTPRoutes by default
+    asserts:
+      - hasDocuments:
+          count: 0
+
+  - it: creates multiple HTTPRoutes with configured values
+    release:
+      name: values-test-release
+    values:
+      - ./values/httproute.yaml
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-microfrontend-demo-primary
+      - documentIndex: 1
+        containsDocument:
+          kind: HTTPRoute
+          apiVersion: gateway.networking.k8s.io/v1
+          name: values-test-release-sophora-microfrontend-demo-secondary
+      - documentIndex: 0
+        equal:
+          path: metadata.labels
+          value:
+            helm.sh/chart: sophora-microfrontend-demo-0.1.0
+            app.kubernetes.io/name: sophora-microfrontend-demo
+            app.kubernetes.io/version: 1.0.0
+            app.kubernetes.io/instance: values-test-release
+            app.kubernetes.io/managed-by: Helm
+      - documentIndex: 0
+        equal:
+          path: metadata.annotations
+          value:
+            example.com/test: simple
+      - documentIndex: 0
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - demo.example.com
+              - other.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-microfrontend-demo
+                    port: 80
+                filters:
+                  - type: RequestHeaderModifier
+                    requestHeaderModifier:
+                      set:
+                        - name: X-Custom-Header
+                          value: custom-value
+                matches:
+                  - path:
+                      type: PathPrefix
+                      value: /
+      - documentIndex: 1
+        equal:
+          path: spec
+          value:
+            parentRefs:
+              - name: my-gateway
+                namespace: gateway-namespace
+            hostnames:
+              - secondary.example.com
+            rules:
+              - backendRefs:
+                  - name: values-test-release-sophora-microfrontend-demo
+                    port: 80
+      - notFailedTemplate: {}
