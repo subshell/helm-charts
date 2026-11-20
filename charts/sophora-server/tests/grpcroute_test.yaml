@@ -3,6 +3,7 @@ templates:
   - grpcRoute.yaml
 chart:
   version: 0.9.8
+  appVersion: 1.2.3
 set:
   image.tag: 1.2.3
 tests:
