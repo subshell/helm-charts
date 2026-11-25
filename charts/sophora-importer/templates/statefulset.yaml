@@ -132,16 +132,18 @@ spec:
           image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
           imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
           env:
+            {{- if .data.zipViaS3.secretName }}
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
                   key: {{ .data.zipViaS3.accessKeyIdKey }}
-                  name: {{ required "A secret for the transformation S3 bucket is required in transformation.data.zipViaS3.secretName." .data.zipViaS3.secretName }}
+                  name: {{ .data.zipViaS3.secretName }}
             - name: AWS_SECRET_ACCESS_KEY
               valueFrom:
                 secretKeyRef:
                   key: {{ .data.zipViaS3.secretAccessKeyKey }}
-                  name: {{ required "A secret for the transformation S3 bucket is required in transformation.data.zipViaS3.secretName." .data.zipViaS3.secretName }}
+                  name: {{ .data.zipViaS3.secretName }}
+            {{- end }}
             - name: S3_ENDPOINT
               value: {{ .data.zipViaS3.s3Endpoint }}
             - name: S3_NAME
