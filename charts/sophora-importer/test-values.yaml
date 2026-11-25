@@ -95,7 +95,7 @@ transformation:
   enabled: true
   data:
     zipViaS3:
-      secretName:
+      secretName: my-s3-credentials
       s3Endpoint: "https://storage.googleapis.com"
       bucketName: "my-bucket"
       zipPaths: ["a", "b"]
@@ -104,6 +104,14 @@ transformation:
     useSaxon: false
     saxonLicenceSecretName: "saxon-license"
     saxonLicenceSecretKey: "saxon-license.lic"
+
+additionalVolumes:
+  - name: test-add-volume
+    emptyDir: {}
+
+additionalVolumeMounts:
+  - name: test-add-valume
+    mountPath: /test-data
 
 resources:
   requests:

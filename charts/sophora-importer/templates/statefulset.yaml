@@ -15,9 +15,9 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
-        {{if .Values.podAnnotations}}
+        {{ if .Values.podAnnotations }}
         {{- toYaml .Values.podAnnotations | nindent 8 -}}
-        {{end}}
+        {{ end }}
       labels:
         {{- include "sophora-importer.selectorLabels" . | nindent 8 }}
         {{- with .Values.podLabels }}
@@ -36,150 +36,154 @@ spec:
       hostAliases: {{- toYaml . | nindent 8 }}
       {{- end }}
       containers:
-      - name: importer
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        env:
-          - name: JDK_JAVA_OPTIONS
-            value: {{ .Values.javaOptions }}
-          - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
-            valueFrom:
-              secretKeyRef:
-                key: {{.Values.sophora.authentication.secret.usernameKey}}
-                name: {{.Values.sophora.authentication.secret.name}}
-          - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: {{.Values.sophora.authentication.secret.passwordKey}}
-                name: {{.Values.sophora.authentication.secret.name}}
-          - name: LOADER_PATH
-            {{- if .Values.sophora.importer.loaderPath }}
-            value: {{ .Values.sophora.importer.loaderPath }}
-            {{- else }}
-            value: {{ include "sophora-importer.transformationLibsPath" . }}
+        - name: importer
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: JDK_JAVA_OPTIONS
+              value: {{ .Values.javaOptions }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.usernameKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.authentication.secret.passwordKey }}
+                  name: {{ .Values.sophora.authentication.secret.name }}
+            - name: LOADER_PATH
+              {{- if .Values.sophora.importer.loaderPath }}
+              value: {{ .Values.sophora.importer.loaderPath }}
+              {{- else }}
+              value: {{ include "sophora-importer.transformationLibsPath" . }}
+              {{- end }}
+            {{- if .Values.sophora.importer.s3Bucket.name }}
+            - name: IMPORTER_S3_SECRETACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.importer.s3Bucket.secret.secretAccessKeyKey }}
+                  name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                  optional: false
+            - name: IMPORTER_S3_ACCESSKEYID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
+                  name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
+                  optional: false
+            - name: IMPORTER_S3_BUCKETNAME
+              value: {{ .Values.sophora.importer.s3Bucket.name }}
+            - name: IMPORTER_S3_HOST
+              value: {{ .Values.sophora.importer.s3Bucket.url }}
+            - name: IMPORTER_S3_REGION
+              value: {{ .Values.sophora.importer.s3Bucket.region }}
             {{- end }}
-          {{- if .Values.sophora.importer.s3Bucket.name }}
-          - name: IMPORTER_S3_SECRETACCESSKEY
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.sophora.importer.s3Bucket.secret.secretAccessKeyKey }}
-                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
-                optional: false
-          - name: IMPORTER_S3_ACCESSKEYID
-            valueFrom:
-              secretKeyRef:
-                key: {{ .Values.sophora.importer.s3Bucket.secret.accessKeyIdKey }}
-                name: {{ .Values.sophora.importer.s3Bucket.secret.name }}
-                optional: false
-          - name: IMPORTER_S3_BUCKETNAME
-            value: {{ .Values.sophora.importer.s3Bucket.name }}
-          - name: IMPORTER_S3_HOST
-            value: {{ .Values.sophora.importer.s3Bucket.url }}
-          - name: IMPORTER_S3_REGION
-            value: {{ .Values.sophora.importer.s3Bucket.region }}
+            {{ if .Values.sophora.importer.extraEnv -}}
+            {{- toYaml .Values.sophora.importer.extraEnv | nindent 12 }}
+            {{- end }}
+          {{- with .Values.livenessProbe }}
+          livenessProbe:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-          {{ if .Values.sophora.importer.extraEnv -}}
-          {{- toYaml .Values.sophora.importer.extraEnv | nindent 10 }}
+          {{- with .Values.readinessProbe }}
+          readinessProbe:
+            {{- toYaml . | nindent 12 }}
           {{- end }}
-        {{- with .Values.livenessProbe }}
-        livenessProbe:
-          {{- toYaml . | nindent 12 }}
+          {{- with .Values.startupProbe }}
+          startupProbe:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          ports:
+            - name: metrics
+              containerPort: 8082
+              protocol: TCP
+            - containerPort: 1496
+          volumeMounts:
+            - name: importer-config
+              mountPath: /sophora/application.yml
+              subPath: application.yml
+            - name: importer-config
+              mountPath: /sophora/logback-spring.xml
+              subPath: logback-spring.xml
+            - name: local-import-folders
+              mountPath: /import-local/
+            {{- if .Values.transformation.data.useSaxon }}
+            - name: saxon-licence
+              subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
+              mountPath: "{{ include "sophora-importer.transformationLibsPath" . }}/saxon-license.lic"
+              readOnly: true
+            {{- end }}
+            - name: xsl
+              mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
+            {{- with .Values.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          securityContext:
+            privileged: true
+      initContainers:
+        {{/* Transformations Download */}}
+        {{- with .Values.transformation }}
+        {{- if .enabled }}
+        - name: transformation-data-via-s3-downloader
+          image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
+          imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
+          env:
+            {{- if .data.zipViaS3.secretName }}
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaS3.accessKeyIdKey }}
+                  name: {{ .data.zipViaS3.secretName }}
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .data.zipViaS3.secretAccessKeyKey }}
+                  name: {{ .data.zipViaS3.secretName }}
+            {{- end }}
+            - name: S3_ENDPOINT
+              value: {{ .data.zipViaS3.s3Endpoint }}
+            - name: S3_NAME
+              value: {{ required "A name for the transformation S3 bucket is required in transformation.data.zipViaS3.bucketName." .data.zipViaS3.bucketName }}
+            - name: S3_FILE_PATHS
+              value: {{ include "sophora-importer.utils.joinListWithSpace" .data.zipViaS3.zipPaths | quote }}
+          command: ["/bin/sh"]
+          args:
+            - "-c"
+            - |- {{- include "sophora-importer.downloadTransformationsScript" $ | nindent 14 }}
+          volumeMounts:
+            - name: xsl
+              mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+            - name: libs
+              mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
         {{- end }}
-        {{- with .Values.readinessProbe }}
-        readinessProbe:
-          {{- toYaml . | nindent 12 }}
         {{- end }}
-        {{- with .Values.startupProbe }}
-        startupProbe:
-          {{- toYaml . | nindent 12 }}
-        {{- end }}
-        resources:
-          {{- toYaml .Values.resources | nindent 12 }}
-        ports:
-        - name: metrics
-          containerPort: 8082
-          protocol: TCP
-        - containerPort: 1496
-        volumeMounts:
+      volumes:
         - name: importer-config
-          mountPath: /sophora/application.yml
-          subPath: application.yml
-        - name: importer-config
-          mountPath: /sophora/logback-spring.xml
-          subPath: logback-spring.xml
+          configMap:
+            name: {{ include "sophora-importer.fullname" . }}
         - name: local-import-folders
-          mountPath: /import-local/
-        {{- if .Values.transformation.data.useSaxon }}
-        - name: saxon-licence
-          subPath: {{ .Values.transformation.data.saxonLicenceSecretKey }}
-          mountPath: "{{ include "sophora-importer.transformationLibsPath" . }}/saxon-license.lic"
-          readOnly: true
+        {{- if not .Values.importPvcSpec }}
+          emptyDir: {}
+        {{- else }}
+          persistentVolumeClaim:
+            claimName: local-import-folders
         {{- end }}
         - name: xsl
-          mountPath: {{ include "sophora-importer.transformationXslPath" . }}
+          emptyDir: {}
         - name: libs
-          mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
-        {{- with .Values.additionalVolumeMounts }}
+          emptyDir: {}
+        {{- with .Values.additionalVolumes }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
-        securityContext:
-          privileged: true
-      initContainers:
-      {{/* Transformations Download */}}
-      {{- with .Values.transformation }}
-      - name: transformation-data-via-s3-downloader
-        image: "{{ $.Values.downloadViaS3Image.repository }}:{{ $.Values.downloadViaS3Image.tag }}"
-        imagePullPolicy: {{ $.Values.downloadViaS3Image.pullPolicy }}
-        env:
-          - name: AWS_ACCESS_KEY_ID
-            valueFrom:
-              secretKeyRef:
-                key: {{ .data.zipViaS3.accessKeyIdKey }}
-                name: {{ .data.zipViaS3.secretName }}
-          - name: AWS_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                key: {{ .data.zipViaS3.secretAccessKeyKey }}
-                name: {{ .data.zipViaS3.secretName }}
-          - name: S3_ENDPOINT
-            value: {{ .data.zipViaS3.s3Endpoint }}
-          - name: S3_NAME
-            value: {{ .data.zipViaS3.bucketName }}
-          - name: S3_FILE_PATHS
-            value: {{ include "sophora-importer.utils.joinListWithSpace" .data.zipViaS3.zipPaths | quote }}
-        command: ["/bin/sh"]
-        args:
-          - "-c"
-          - |- {{- include "sophora-importer.downloadTransformationsScript" $ | nindent 14 }}
-        volumeMounts:
-          - name: xsl
-            mountPath: {{ include "sophora-importer.transformationXslPath" . }}
-          - name: libs
-            mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
-      {{- end }}
-      volumes:
-      - name: importer-config
-        configMap:
-          name: {{ include "sophora-importer.fullname" . }}
-      - name: local-import-folders
-      {{- if not .Values.importPvcSpec }}
-        emptyDir: {}
-      {{- else }}
-        persistentVolumeClaim:
-          claimName: local-import-folders
-      {{- end }}
-      - name: xsl
-        emptyDir: {}
-      - name: libs
-        emptyDir: {}
-      {{- with .Values.additionalVolumes }}
-      {{- toYaml . | nindent 6 }}
-      {{- end }}
-      {{- if .Values.transformation.data.useSaxon }}
-      - name: saxon-licence
-        secret:
-          secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
-      {{- end }}
+        {{- if .Values.transformation.data.useSaxon }}
+        - name: saxon-licence
+          secret:
+            secretName: {{ .Values.transformation.data.saxonLicenceSecretName }}
+        {{- end }}
   {{ if .Values.importPvcSpec }}
   volumeClaimTemplates:
     - metadata:
