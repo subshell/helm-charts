@@ -57,7 +57,7 @@ serviceMonitor:
 
 startupProbe:
   httpGet:
-    path: '/health'
+    path: '/actuator/health/liveness'
     port: http
   failureThreshold: 15
   initialDelaySeconds: 10
@@ -65,14 +65,14 @@ startupProbe:
 
 readinessProbe:
   httpGet:
-    path: '/health'
+    path: '/actuator/health/readiness'
     port: http
   failureThreshold: 5
   periodSeconds: 5
 
 livenessProbe:
   httpGet:
-    path: '/health'
+    path: '/actuator/health/liveness'
     port: http
   failureThreshold: 12
 
