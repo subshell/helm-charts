@@ -119,9 +119,9 @@ spec:
               mountPath: {{ include "sophora-importer.transformationXslPath" . }}
             - name: libs
               mountPath: {{ include "sophora-importer.transformationLibsPath" . }}
-          {{- with .Values.additionalVolumeMounts }}
-          {{- toYaml . | nindent 10 }}
-          {{- end }}
+            {{- with .Values.additionalVolumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
           securityContext:
             privileged: true
       initContainers:

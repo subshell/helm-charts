@@ -109,6 +109,10 @@ additionalVolumes:
   - name: test-add-volume
     emptyDir: {}
 
+additionalVolumeMounts:
+  - name: test-add-valume
+    mountPath: /test-data
+
 resources:
   requests:
     memory: "2G"
