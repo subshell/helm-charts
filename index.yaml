@@ -3730,6 +3730,26 @@ entries:
   - annotations:
       artifacthub.io/changes: |
         - kind: changed
+          description: "The initContainer transformation-data-via-s3-downloader is only created if transformation.enabled is true."
+        - kind: changed
+          description: "Updated image aws-cli-tools to 0.1.0"
+    apiVersion: v2
+    appVersion: 5.0.0
+    created: "2026-11-25T13:43:42.093641318Z"
+    description: A Helm chart for the Sophora importer
+    digest: 36f6c674a34ac8a9d94d4c4a62c6c9950ef6aaa31811bc386eace5ac38f60cdc
+    home: https://subshell.com/sophora/modules/sophora-importer102.html
+    icon: https://subshell.com/logos/importer114~1x1.1683632365796.png
+    name: sophora-importer
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-importer
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-importer-2.13.0/sophora-importer-2.13.0.tgz
+    version: 2.13.0
+  - annotations:
+      artifacthub.io/changes: |
+        - kind: changed
           description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
     apiVersion: v2
     appVersion: 5.0.0
@@ -8994,4 +9014,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-25T09:59:59.080380961Z"
+generated: "2026-11-25T13:43:42.094734234Z"
