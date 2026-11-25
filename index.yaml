@@ -4377,6 +4377,24 @@ entries:
   sophora-indexing-service:
   - annotations:
       artifacthub.io/changes: |
+        - kind: fixed
+          description: "Probes use correct path /actuator/health/*ness"
+    apiVersion: v2
+    appVersion: 5.4.1
+    created: "2026-11-25T09:59:59.079854659Z"
+    description: Sophora Indexing Service (SISI)
+    digest: 8f3f24c2b18f45042c5503acd07457043d237ae7a26aa53a14fb929a9aa61b36
+    home: https://subshell.com/sophora/modules/sophora-indexing-service100.html
+    icon: https://subshell.com/logos/sophora-indexing-service104~1x1.1683632384186.png
+    name: sophora-indexing-service
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-indexing-service
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-indexing-service-1.12.1/sophora-indexing-service-1.12.1.tgz
+    version: 1.12.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
         - kind: changed
@@ -8976,4 +8994,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-18T14:57:32.405868149Z"
+generated: "2026-11-25T09:59:59.080380961Z"
