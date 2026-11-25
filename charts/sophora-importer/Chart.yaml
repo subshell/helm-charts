@@ -20,6 +20,8 @@ annotations:
   artifacthub.io/changes: |
     - kind: changed
       description: "The initContainer transformation-data-via-s3-downloader is only created if transformation.enabled is true."
+    - kind: changed
+      description: "Updated image aws-cli-tools to 0.1.0"
 
 
 # This is the version number of the application being deployed. This version number should be
