@@ -49,6 +49,11 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.usernameKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.server.usernameKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.authentication.secret.server.name" .Values.authentication.secret.server.name | quote }}
             {{- end }}
             {{- if .Values.authentication.secret.server.passwordKey }}
             - name: SOPHORA-SERVER_PASSWORD
@@ -56,6 +61,11 @@ spec:
                 secretKeyRef:
                   key: {{ .Values.authentication.secret.server.passwordKey }}
                   name: {{ .Values.authentication.secret.server.name }}
+            - name: SOPHORA_CLIENT_SERVERCONNECTION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.authentication.secret.server.passwordKey | quote }}
+                  name: {{ required "A valid secret name must be provided in .Values.authentication.secret.server.name" .Values.authentication.secret.server.name | quote }}
             {{- end }}
             {{- if .Values.authentication.secret.database.usernameKey }}
             - name: DATABASE_USER

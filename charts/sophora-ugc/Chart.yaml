@@ -15,13 +15,11 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 2.12.0
+version: 2.12.1
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
-    - kind: changed
-      description: "Replaced value ugc.healthcheck.port by livenessProbe.httpGet.port, readinessProbe.httpGet.port, startupProbe.httpGet.port"
+    - kind: added
+      description: "Environment variables for Sophora Client Server Connection username and password"
 
   artifacthub.io/links: |
     - name: Documentation for Sophora UGC
