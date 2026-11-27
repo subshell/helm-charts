@@ -2,11 +2,11 @@ apiVersion: v2
 name: sophora-media-finder
 description: A Helm chart for Sophora Media Finder
 type: application
-version: 0.9.0
+version: 0.9.1
 annotations:
   artifacthub.io/changes: |
-    - kind: changed
-      description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
+    - kind: added
+      description: "The deployment contains a hash of the config, so the pod is restarted at config changes."
 
 appVersion: "5.x"
 sources:
