@@ -5025,6 +5025,24 @@ entries:
   sophora-media-finder:
   - annotations:
       artifacthub.io/changes: |
+        - kind: added
+          description: "The deployment contains a hash of the config, so the pod is restarted at config changes."
+    apiVersion: v2
+    appVersion: 5.x
+    created: "2026-11-27T12:37:07.583476335Z"
+    description: A Helm chart for Sophora Media Finder
+    digest: dbaa0be7c6a7725eb2e3640eb2e0d9abe623178470bbe0d9737bea8ce08c3a70
+    home: https://subshell.com/sophora/modules/sophora-smf100.html
+    icon: https://subshell.com/logos/sophora-media-finder100~1x1.1728311057357.png
+    name: sophora-media-finder
+    sources:
+    - https://github.com/subshell/helm-charts/tree/main/charts/sophora-media-finder
+    type: application
+    urls:
+    - https://github.com/subshell/helm-charts/releases/download/sophora-media-finder-0.9.1/sophora-media-finder-0.9.1.tgz
+    version: 0.9.1
+  - annotations:
+      artifacthub.io/changes: |
         - kind: changed
           description: "The probes (startup, readiness, liveness) are now fully configurable and use subshell best practice defaults."
     apiVersion: v2
@@ -9035,4 +9053,4 @@ entries:
     urls:
     - https://github.com/subshell/helm-charts/releases/download/sophora-youtube-connector-1.0.0/sophora-youtube-connector-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-26T15:17:38.902105186Z"
+generated: "2026-11-27T12:37:07.584058105Z"
